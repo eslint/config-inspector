@@ -12,7 +12,10 @@
     "url": "git+https://github.com/eslint/config-inspector.git"
   },
   "bugs": "https://github.com/eslint/config-inspector/issues",
-  "bin": "./bin.mjs",
+  "bin": {
+    "@eslint/config-inspector": "./bin.mjs",
+    "eslint-config-inspector": "./bin.mjs"
+  },
   "files": [
     "*.mjs",
     "dist"
