@@ -26,6 +26,31 @@ Or play it right in your browser now:
 
 [![](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/eslint/config-inspector)
 
+## Contributing
+
+We operate under the [ESLint Contributor Guidelines](http://eslint.org/docs/developer-guide/contributing), so please be sure to read them before contributing. If you're not sure where to dig in, check out the [issues](https://github.com/eslint/config-inspector/issues).
+
+### Development
+
+This project uses the following stack:
+
+- [pnpm](https://pnpm.io/) for package management
+- [Nuxt](https://nuxt.com/) & [Vue](https://vuejs.org) for the app
+  - APIs are served under `server/api` powered by [Nitro](https://nitro.unjs.io/)
+- [UnoCSS](https://unocss.dev/) for styling
+  - With [attributify mode](https://unocss.dev/presets/attributify) enabled
+- Use [ESLint](https://eslint.org/) for linting and formatting
+
+To start the development server:
+
+- Install dependencies via `pnpm install` (we highly recommend you to [enable `corepack enable`](https://nodejs.org/api/corepack.html) first)
+- Run `pnpm dev` to start the development server at http://localhost:3000
+
+To test the production build:
+
+- Run `pnpm build` to build the app
+- Run `pnpm start` to start the production server at http://localhost:7777
+
 ## License
 
 [Apache-2.0](./LICENSE) License
