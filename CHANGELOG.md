@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2](https://github.com/eslint/config-inspector/compare/v0.0.1...v0.0.2) (2024-03-29)
+
+
+### Chores
+
+* use pnpm in ci ([6d78bed](https://github.com/eslint/config-inspector/commit/6d78bede86e8ab9714bc482027612461c76cee06))
+
 ## 0.0.1 (2024-03-29)
 
 
