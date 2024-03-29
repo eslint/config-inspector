@@ -32,7 +32,7 @@ Or play it in your browser:
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/eslint-flat-config-viewer?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmjs.com/package/eslint-flat-config-viewer
-[npm-downloads-src]: https://img.shields.io/npm/dm/eslint-flat-config-viewer?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmjs.com/package/eslint-flat-config-viewer
+[npm-version-src]: https://img.shields.io/npm/v/@eslint/config-inspector?style=flat&colorA=080f12&colorB=1fa669
+[npm-version-href]: https://npmjs.com/package/@eslint/config-inspector
+[npm-downloads-src]: https://img.shields.io/npm/dm/@eslint/config-inspector?style=flat&colorA=080f12&colorB=1fa669
+[npm-downloads-href]: https://npmjs.com/package/@eslint/config-inspector
