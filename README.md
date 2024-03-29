@@ -5,24 +5,24 @@
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 
-A visual tool to help you view and understand your [ESLint Flat configs](https://eslint.org/docs/latest/use/configure/configuration-files-new).
+A visual tool for inspecting and understanding your [ESLint flat configs](https://eslint.org/docs/latest/use/configure/configuration-files-new).
 
-<img width="1199" alt="Screenshot" src="https://github.com/antfu/eslint-flat-config-viewer/assets/11247099/f386563a-c655-458e-a2c3-0af19ebec958">
-<img width="1199" alt="Screenshot" src="https://github.com/antfu/eslint-flat-config-viewer/assets/11247099/44edeb05-02b3-4bca-8da6-768984e8d829">
+<img width="1230" alt="Screenshot 1" src="https://github.com/eslint/config-inspector/assets/11247099/b3cbdd57-9374-4905-bfdc-cdd40646b747">
+<img width="1458" alt="Screenshot 2" src="https://github.com/eslint/config-inspector/assets/11247099/d008bf61-3685-4bf5-843f-524beb108305">
 
 ## Usage
 
-Change the directory to your project root that contains `eslint.config.js` and run:
+Go to the project root that contains `eslint.config.js` and run:
 
 ```bash
 npx @eslint/config-inspector
 ```
 
-Goto http://localhost:7777/ to view your ESLint config. Whenever you update your ESLint config, the page will be updated automatically.
+Visit http://localhost:7777/ to view and play with your ESLint config. Changes to the config file will be updated automatically.
 
----
+### Online Preview
 
-Or play it in your browser:
+Or play it right in your browser now:
 
 [![](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/eslint/config-inspector)
 

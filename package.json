@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.2",
   "packageManager": "pnpm@8.15.5",
-  "description": "A visual tool to help you view and understand your ESLint Flat config",
+  "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
   "funding": "https://opencollective.com/eslint",
   "homepage": "https://github.com/eslint/config-inspector#readme",
