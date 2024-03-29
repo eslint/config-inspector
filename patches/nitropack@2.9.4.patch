@@ -1,0 +1,13 @@
+diff --git a/dist/nitro.mjs b/dist/nitro.mjs
+index 08c4200200397e51bceffbabce5ac39cc2c441bb..2e29d65ac97bedc17f88a75ab73c231ae9260a14 100644
+--- a/dist/nitro.mjs
++++ b/dist/nitro.mjs
+@@ -454,7 +454,7 @@ function externals$1(opts) {
+       if (opts.trace === false) {
+         return {
+           ...resolved,
+-          id: isAbsolute(resolved.id) ? normalizeid(resolved.id) : resolved.id,
++          id: originalId,
+           external: true
+         };
+       }

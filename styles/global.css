@@ -1,0 +1,46 @@
+html, body , #__nuxt{
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+html.dark {
+  background: #111;
+  color: white;
+  color-scheme: dark;
+}
+
+.shiki {
+  font-size: 15px;
+}
+
+.shiki span {
+  color: var(--shiki-light);
+}
+
+html.dark .shiki span {
+  color: var(--shiki-dark);
+}
+
+/* Overrides Floating Vue */
+.v-popper--theme-dropdown .v-popper__inner,
+.v-popper--theme-tooltip .v-popper__inner {
+  --at-apply: bg-base text-black dark:text-white rounded border border-base shadow;
+  box-shadow: 0 6px 30px #0000001a;
+}
+
+.v-popper--theme-tooltip .v-popper__arrow-inner,
+.v-popper--theme-dropdown .v-popper__arrow-inner {
+  visibility: visible;
+  --at-apply: border-white dark:border-hex-121212;
+}
+
+.v-popper--theme-tooltip .v-popper__arrow-outer,
+.v-popper--theme-dropdown .v-popper__arrow-outer {
+  --at-apply: border-base;
+}
+
+.v-popper--theme-tooltip.v-popper--shown,
+.v-popper--theme-tooltip.v-popper--shown * {
+  transition: none !important;
+}
