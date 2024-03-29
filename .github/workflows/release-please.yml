@@ -36,9 +36,11 @@ jobs:
           node-version: lts/*
           registry-url: https://registry.npmjs.org
         if: ${{ steps.release.outputs.release_created }}
-      - run: npm install
+      - uses: pnpm/action-setup@v2
         if: ${{ steps.release.outputs.release_created }}
-      - run: npm publish --provenance --access public
+      - run: pnpm install
+        if: ${{ steps.release.outputs.release_created }}
+      - run: pnpm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         if: ${{ steps.release.outputs.release_created }}
