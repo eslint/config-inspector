@@ -100,10 +100,9 @@ function capitalize(str?: string) {
 
   <div :class="props.class" flex="~ gap-2 items-center">
     <div
-      of-hidden text-ellipsis
       :class="[
         rule.deprecated ? 'line-through' : '',
-        gridView ? 'op50 text-sm' : 'op75',
+        gridView ? 'op50 text-sm' : 'op75 ws-nowrap of-hidden text-ellipsis line-clamp-1',
       ]"
     >
       {{ capitalize(rule.docs?.description) }}

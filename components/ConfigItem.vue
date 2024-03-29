@@ -113,9 +113,9 @@ const extraConfigs = computed(() => {
           <div flex="~ gap-2 items-center wrap">
             <button
               v-for="name, idx of Object.keys(config.plugins)"
-              :key="idx" border="~ base rounded" bg-gray:5 px2
-              :style="{ color: getPluginColor(name) }"
-              font-mono op75
+              :key="idx" border="~ base rounded-full" px3
+              :style="{ color: getPluginColor(name), backgroundColor: getPluginColor(name, 0.1) }"
+              font-mono
               @click="gotoPlugin(name)"
             >
               {{ name }}
@@ -190,7 +190,10 @@ const extraConfigs = computed(() => {
               <div p2 px3 op50 of-auto>
                 {{ k }}
               </div>
-              <Shiki lang="ts" :code="stringifyUnquoted(v)" max-h-100 max-w-full w-full of-scroll rounded bg-hover p2 text-sm />
+              <Shiki
+                lang="ts" :code="stringifyUnquoted(v)"
+                max-h-100 max-w-full w-full of-scroll rounded bg-code p2 text-sm
+              />
             </div>
           </template>
         </div>

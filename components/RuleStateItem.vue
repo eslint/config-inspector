@@ -75,7 +75,13 @@ function goto() {
           Rule options
         </div>
       </div>
-      <Shiki lang="ts" :code="stringifyUnquoted(state.options)" rounded bg-hover p2 text-sm />
+      <Shiki
+        v-for="options, idx of state.options"
+        :key="idx"
+        lang="ts"
+        :code="stringifyUnquoted(options)"
+        rounded bg-code p2 text-sm
+      />
     </template>
   </div>
 </template>
