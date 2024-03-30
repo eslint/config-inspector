@@ -73,10 +73,10 @@ function capitalize(str?: string) {
             <NuxtLink
               action-button
               :to="rule.docs?.url" target="_blank" rel="noopener noreferrer"
-              title="Documentations"
+              title="Docs"
             >
               <div i-ph-book-duotone />
-              Documentations
+              Docs
             </NuxtLink>
             <button
               action-button
