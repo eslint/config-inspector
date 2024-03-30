@@ -2,7 +2,7 @@
 import { $fetch } from 'ofetch'
 import type { ErrorInfo, Payload, ResolvedPayload } from '~/composables/types'
 
-const LOG_NAME = '[ESLint Config Viewer]'
+const LOG_NAME = '[ESLint Config Inspector]'
 
 const data = ref<Payload>({
   rules: {},
