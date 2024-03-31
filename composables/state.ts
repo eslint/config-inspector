@@ -7,7 +7,7 @@ export const filtersRules = reactive({
   plugin: '',
   search: '',
   state: 'using' as 'using' | 'unused' | 'overloads' | '',
-  status: 'active' as 'deprecated' | 'active' | '',
+  status: 'active' as 'deprecated' | 'active' | 'recommended' | '',
   fixable: null as boolean | null,
 })
 

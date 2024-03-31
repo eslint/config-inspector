@@ -37,6 +37,9 @@ const conditionalFiltered = computed(() => {
     case 'active':
       conditional = conditional.filter(rule => !rule.deprecated)
       break
+    case 'recommended':
+      conditional = conditional.filter(rule => rule.docs?.recommended)
+      break
     case 'deprecated':
       conditional = conditional.filter(rule => rule.deprecated)
       break
@@ -114,8 +117,8 @@ function resetFilters() {
         </div>
         <OptionSelectGroup
           v-model="filters.status"
-          :options="['', 'active', 'deprecated']"
-          :titles="['All', 'Active', 'Deprecated']"
+          :options="['', 'active', 'recommended', 'deprecated']"
+          :titles="['All', 'Active', 'Recommended', 'Deprecated']"
         />
       </div>
     </div>
