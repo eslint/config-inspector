@@ -67,6 +67,7 @@
     "nuxt-eslint-auto-explicit-import": "^0.0.2",
     "nuxt-shiki": "^0.2.1",
     "typescript": "^5.4.3",
+    "unbuild": "^2.0.0",
     "vue-tsc": "^2.0.7"
   },
   "pnpm": {

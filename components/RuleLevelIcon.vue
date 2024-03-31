@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { RuleLevel } from '../composables/types'
+import type { RuleLevel } from '~/composables/types'
 import { nth } from '~/composables/strings'
 
 const props = defineProps<{

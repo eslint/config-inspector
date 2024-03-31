@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { stringifyUnquoted } from '../composables/strings'
-import { filtersConfigs } from '../composables/state'
-import { payload } from '../composables/payload'
+import { nth, stringifyUnquoted } from '~/composables/strings'
+import { filtersConfigs } from '~/composables/state'
+import { payload } from '~/composables/payload'
 import { useRouter } from '#app/composables/router'
-import { nth } from '~/composables/strings'
 import type { RuleConfigState } from '~/composables/types'
 
 const props = defineProps<{

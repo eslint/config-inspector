@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Fragment, computed, defineComponent, h } from 'vue'
 import type { Linter } from 'eslint'
-import { getRuleFromName, payload } from '../composables/payload'
-import { stateStorage } from '../composables/state'
-import type { RuleInfo } from '../composables/types'
+import { getRuleFromName, payload } from '~/composables/payload'
+import { stateStorage } from '~/composables/state'
+import type { RuleInfo } from '~/composables/types'
 
 const props = defineProps<{
   rules: RuleInfo[] | Record<string, Linter.RuleEntry>

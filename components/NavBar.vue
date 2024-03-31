@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useTimeAgo } from '@vueuse/core'
-import { stateStorage } from '../composables/state'
-import { version } from '../package.json'
+import { version } from '~/package.json'
+import { filtersRules as filters, stateStorage } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
 import { payload } from '~/composables/payload'
-import { filtersRules as filters } from '~/composables/state'
 
 const lastUpdate = useTimeAgo(() => payload.value.meta.lastUpdate)
 
