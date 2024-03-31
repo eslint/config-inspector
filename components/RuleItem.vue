@@ -93,8 +93,11 @@ function capitalize(str?: string) {
     </VDropdown>
   </div>
 
-  <div v-if="!gridView">
-    <div v-if="rule.fixable" title="Fixable" i-ph-wrench-duotone mx2 op25 />
+  <div v-if="!gridView" grid="~ cols-2 items-center gap2" mx1>
+    <div v-if="rule.fixable" title="Fixable" i-ph-hammer-duotone op35 />
+    <div v-else />
+
+    <div v-if="rule.docs?.recommended" title="Recommended" i-ph-thumbs-up-duotone op35 />
   </div>
 
   <div :class="props.class" flex="~ gap-2 items-center">
@@ -111,9 +114,16 @@ function capitalize(str?: string) {
     </div>
   </div>
 
-  <div v-if="gridView && rule.deprecated" flex-auto justify-end flex flex-col items-start>
-    <div border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
-      DEPRECATED
+  <div
+    v-if="gridView && (rule.deprecated || rule.fixable || rule.docs?.recommended)"
+    flex-auto justify-end flex flex-col items-start
+  >
+    <div flex="~ gap-2" mt1>
+      <div v-if="rule.deprecated" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
+        DEPRECATED
+      </div>
+      <div v-if="rule.fixable" title="Fixable" i-ph-hammer-duotone op35 />
+      <div v-if="rule.docs?.recommended" title="Recommended" i-ph-thumbs-up-duotone op35 />
     </div>
   </div>
 </template>
