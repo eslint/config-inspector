@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
+import { vTooltip } from 'floating-vue'
 import { getRuleLevel } from '~/composables/rules'
 import type { RuleConfigStates, RuleInfo, RuleLevel } from '~/composables/types'
 
@@ -94,10 +95,18 @@ function capitalize(str?: string) {
   </div>
 
   <div v-if="!gridView" grid="~ cols-2 items-center gap1" mx2>
-    <div v-if="rule.docs?.recommended" title="Recommended" i-ph-check-square-duotone op50 />
+    <div
+      v-if="rule.docs?.recommended"
+      v-tooltip="'✅ Recommended'"
+      i-ph-check-square-duotone op50
+    />
     <div v-else />
 
-    <div v-if="rule.fixable" title="Fixable" i-ph-wrench-duotone op50 />
+    <div
+      v-if="rule.fixable"
+      v-tooltip="'🔧 Fixable'"
+      i-ph-wrench-duotone op50
+    />
     <div v-else />
   </div>
 
@@ -123,8 +132,16 @@ function capitalize(str?: string) {
       <div v-if="rule.deprecated" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
         DEPRECATED
       </div>
-      <div v-if="rule.docs?.recommended" title="Recommended" i-ph-check-square-duotone op50 />
-      <div v-if="rule.fixable" title="Fixable" i-ph-wrench-duotone op50 />
+      <div
+        v-if="rule.docs?.recommended"
+        v-tooltip="'✅ Recommended'"
+        i-ph-check-square-duotone op50
+      />
+      <div
+        v-if="rule.fixable"
+        v-tooltip="'🔧 Fixable'"
+        i-ph-wrench-duotone op50
+      />
     </div>
   </div>
 </template>
