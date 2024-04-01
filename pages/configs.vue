@@ -167,7 +167,8 @@ debouncedWatch(
           v-model="input"
           placeholder="Test matching with filepath..."
           border="~ base rounded-full"
-          w-full bg-transparent px3 py2 pl10 font-mono outline-none
+          :class="input ? 'font-mono' : ''"
+          w-full bg-transparent px3 py2 pl10 outline-none
           @focus="autoCompleteOpen = true"
           @click="autoCompleteOpen = true"
           @blur="autoCompleteBlur"

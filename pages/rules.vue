@@ -80,9 +80,10 @@ function resetFilters() {
       <div relative flex>
         <input
           v-model="filters.search"
+          :class="filters.search ? 'font-mono' : ''"
           placeholder="Search rules..."
           border="~ base rounded-full"
-          w-full bg-transparent px3 py2 pl10 font-mono outline-none
+          w-full bg-transparent px3 py2 pl10 outline-none
         >
         <div absolute bottom-0 left-0 top-0 flex="~ items-center justify-center" p4 op50>
           <div i-ph-magnifying-glass-duotone />
