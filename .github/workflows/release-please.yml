@@ -1,15 +1,18 @@
+name: release-please
+
 on:
   push:
     branches:
       - main
-name: release-please
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
