@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/eslint/config-inspector/compare/v0.2.0...v0.2.1) (2024-04-01)
+
+
+### Chores
+
+* fix ci permissions ([fab2ecc](https://github.com/eslint/config-inspector/commit/fab2ecc45531e7dbe0888ca8c56234b9a2484ce3))
+
 ## [0.2.0](https://github.com/eslint/config-inspector/compare/v0.1.0...v0.2.0) (2024-04-01)
 
 
