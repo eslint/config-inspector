@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.2.0](https://github.com/eslint/config-inspector/compare/v0.1.0...v0.2.0) (2024-04-01)
+
+
+### Features
+
+* allow filter recommended rules, close [#6](https://github.com/eslint/config-inspector/issues/6) ([92748ef](https://github.com/eslint/config-inspector/commit/92748ef3955ed705a2f067bca03ade08cd5ba759))
+* show recommanded marker ([4164306](https://github.com/eslint/config-inspector/commit/4164306a97f59a798149a1fd39c36c20dfef5f15))
+* use `bundle-require` instead of `jiti`, support top-level-await, fix [#11](https://github.com/eslint/config-inspector/issues/11) ([89534ef](https://github.com/eslint/config-inspector/commit/89534ef0ae9f2d04d784fa4309e935b16f3c86d7))
+
+
+### Build Related
+
+* reusing workflows in release-please workflow ✨ ([#10](https://github.com/eslint/config-inspector/issues/10)) ([778c406](https://github.com/eslint/config-inspector/commit/778c406005c38747c3593ee04f1cd5ebe696651b))
+
+
+### Chores
+
+* consistent imports path ([2408335](https://github.com/eslint/config-inspector/commit/2408335588f3c98633c46087b92c55db2deb8cee))
+* fix typo, close [#7](https://github.com/eslint/config-inspector/issues/7) ([6b0fb0b](https://github.com/eslint/config-inspector/commit/6b0fb0b285aef1bbe8f5b6993c0b3aa4ca8ec089))
+* update wording ([#8](https://github.com/eslint/config-inspector/issues/8)) ([e81adf2](https://github.com/eslint/config-inspector/commit/e81adf217356cea9a58d51f7220dcf11a9a027f9))
+
 ## [0.1.0](https://github.com/eslint/config-inspector/compare/v0.0.2...v0.1.0) (2024-03-29)
 
 
