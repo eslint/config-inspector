@@ -1,6 +1,6 @@
 import process from 'node:process'
 import fs from 'node:fs'
-import JITI from 'jiti'
+import { bundleRequire } from 'bundle-require'
 import { relative, resolve } from 'pathe'
 import type { Linter } from 'eslint'
 import chokidar from 'chokidar'
@@ -39,11 +39,6 @@ export default lazyEventHandler(async () => {
   const cwd = process.cwd()
   const configPath = resolve(cwd, process.env.ESLINT_CONFIG || configs.find(i => fs.existsSync(resolve(cwd, i))) || configs[0])
 
-  const jiti = JITI(cwd, {
-    cache: false,
-    interopDefault: true,
-  })
-
   const eslintRules = await import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.default.builtinRules)
 
   let invalidated = true
@@ -68,12 +63,12 @@ export default lazyEventHandler(async () => {
   })
 
   async function readConfig() {
-    Object.keys(jiti.cache).forEach(i => delete jiti.cache[i])
-    const configExports = await jiti(configPath)
-    rawConfigs = (configExports.default ?? configExports) as Linter.FlatConfig[]
+    const { mod, dependencies } = await bundleRequire({
+      filepath: configPath,
+    })
+    rawConfigs = await (mod.default ?? mod) as Linter.FlatConfig[]
     payload = await processConfig(rawConfigs)
-    const deps = Object.keys(jiti.cache).map(i => i.replace(/\\/g, '/')).filter(i => !i.includes('/node_modules/'))
-    watcher.add(deps)
+    watcher.add(dependencies)
     invalidated = false
 
     consola.success(`Read ESLint config from \`${relative(cwd, configPath)}\` with`, rawConfigs.length, 'configs and', Object.keys(payload.rules).length, 'rules')
