@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.1](https://github.com/eslint/config-inspector/compare/v0.3.0...v0.3.1) (2024-04-02)
+
+
+### Bug Fixes
+
+* build script ([079e5d4](https://github.com/eslint/config-inspector/commit/079e5d415707ffe5501ec26c1a2e0c978e8533b9))
+
+
+### Documentation
+
+* update icon url ([470cc3e](https://github.com/eslint/config-inspector/commit/470cc3e58940255548612b3b6870a7cadf9797eb))
+
+
+### Chores
+
+* register api endpoint before static host ([0b1360c](https://github.com/eslint/config-inspector/commit/0b1360ce5cbac0d3e26d23bda61c3ada5c944226))
+
 ## [0.3.0](https://github.com/eslint/config-inspector/compare/v0.2.1...v0.3.0) (2024-04-02)
 
 
