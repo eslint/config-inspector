@@ -7,13 +7,6 @@ import { distDir } from './dirs'
 export async function createHostServer() {
   const app = connect()
 
-  console.log()
-
-  app.use(sirv(distDir, {
-    dev: true,
-    single: true,
-  }))
-
   const ws = await createWsServer()
 
   app.use('/api/payload.json', async (_req, res) => {
@@ -21,7 +14,10 @@ export async function createHostServer() {
     res.end(JSON.stringify(await ws.getData()))
   })
 
-  const server = createServer(app)
+  app.use(sirv(distDir, {
+    dev: true,
+    single: true,
+  }))
 
-  return server
+  return createServer(app)
 }

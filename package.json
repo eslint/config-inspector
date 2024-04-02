@@ -25,7 +25,7 @@
     "dev": "nuxi dev",
     "prepare": "nuxi prepare",
     "start": "node bin.mjs",
-    "prepublishOnly": "pnpm build",
+    "prepack": "pnpm build",
     "lint": "nuxi prepare && eslint .",
     "typecheck": "vue-tsc --noEmit"
   },
