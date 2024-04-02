@@ -25,7 +25,7 @@ export interface ResolvedPayload extends Payload {
 }
 
 export interface PayloadMeta {
-  wsPort: number
+  wsPort?: number
   lastUpdate: number
   configPath: string
 }

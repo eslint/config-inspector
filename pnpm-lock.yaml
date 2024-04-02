@@ -19,12 +19,12 @@ dependencies:
   bundle-require:
     specifier: ^4.0.2
     version: 4.0.2(esbuild@0.20.2)
+  cac:
+    specifier: ^6.7.14
+    version: 6.7.14
   chokidar:
     specifier: ^3.6.0
     version: 3.6.0
-  consola:
-    specifier: ^3.2.3
-    version: 3.2.3
   devalue:
     specifier: ^4.3.2
     version: 4.3.2
@@ -63,6 +63,9 @@ devDependencies:
   '@antfu/eslint-config':
     specifier: ^2.11.5
     version: 2.11.5(@vue/compiler-sfc@3.4.21)(eslint@9.0.0-rc.0)(typescript@5.4.3)
+  '@eslint/js':
+    specifier: ^8.57.0
+    version: 8.57.0
   '@iconify-json/carbon':
     specifier: ^1.1.31
     version: 1.1.31
@@ -3888,7 +3891,6 @@ packages:
   /cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
-    dev: true
 
   /cacache@17.1.3:
     resolution: {integrity: sha512-jAdjGxmPxZh0IipMdR7fK/4sDSrHMLUV0+GvVUsjwyGNKHsh79kW/otg+GkbXwl6Uzvy9wsvHOX4nUoWldeZMg==}
@@ -4143,6 +4145,7 @@ packages:
   /consola@3.2.3:
     resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
     engines: {node: ^14.18.0 || >=16.10.0}
+    dev: true
 
   /console-control-strings@1.1.0:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}
