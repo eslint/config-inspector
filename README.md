@@ -1,4 +1,4 @@
-<img src="./public/favicon.svg" width="100" height="100"><br>
+<img src="./app/public/favicon.svg" width="100" height="100"><br>
 
 # ESLint Config Inspector
 
