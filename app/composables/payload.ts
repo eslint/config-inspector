@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { $fetch } from 'ofetch'
-import type { ErrorInfo, Payload, ResolvedPayload } from '~/composables/types'
+import type { ErrorInfo, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/types'
 
 const LOG_NAME = '[ESLint Config Inspector]'
 

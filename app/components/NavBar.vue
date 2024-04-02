@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useTimeAgo } from '@vueuse/core'
-import { version } from '~/package.json'
+import { version } from '../../package.json'
 import { filtersRules as filters, stateStorage } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
 import { payload } from '~/composables/payload'
@@ -99,3 +99,4 @@ function toggleRuleView() {
     </template>
   </div>
 </template>
+~/app/composables/state~/app/composables/payload

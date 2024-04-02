@@ -3,7 +3,7 @@ import { computed, defineModel } from 'vue'
 import { stringifyUnquoted } from '~/composables/strings'
 import { filtersRules, stateStorage } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
-import type { FiltersConfigsPage, FlatESLintConfigItem } from '~/composables/types'
+import type { FiltersConfigsPage, FlatESLintConfigItem } from '~~/types'
 
 const props = defineProps<{
   config: FlatESLintConfigItem
@@ -40,7 +40,7 @@ const extraConfigs = computed(() => {
     class="flat-config-item"
     :open="open"
     border="~ rounded-lg" relative
-    :class="active ? 'border-accent:50' : 'border-base'"
+    :class="active ? 'border-yellow:70' : 'border-base'"
     @toggle="open = $event.target.open"
   >
     <summary block>

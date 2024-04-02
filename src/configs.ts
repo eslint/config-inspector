@@ -4,7 +4,7 @@ import { resolve } from 'node:path'
 import { bundleRequire } from 'bundle-require'
 import type { Linter } from 'eslint'
 import fg from 'fast-glob'
-import type { Payload, RuleInfo } from '~/composables/types'
+import type { Payload, RuleInfo } from '../types'
 
 const configFilenames = [
   'eslint.config.js',

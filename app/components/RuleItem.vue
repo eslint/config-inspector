@@ -2,7 +2,7 @@
 import { useClipboard } from '@vueuse/core'
 import { vTooltip } from 'floating-vue'
 import { getRuleLevel } from '~/composables/rules'
-import type { RuleConfigStates, RuleInfo, RuleLevel } from '~/composables/types'
+import type { RuleConfigStates, RuleInfo, RuleLevel } from '~~/types'
 
 const props = defineProps<{
   rule: RuleInfo
@@ -145,3 +145,5 @@ function capitalize(str?: string) {
     </div>
   </div>
 </template>
+~/app/composables/rules~/app/composables/types
+~~/types
