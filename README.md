@@ -26,6 +26,16 @@ Or play it right in your browser now:
 
 [![](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/eslint/config-inspector)
 
+### Static Build
+
+It is also possible to build a static web app for your ESLint config:
+
+```bash
+npx @eslint/config-inspector build
+```
+
+This will generate a Single-Page Application (SPA) under `.eslint-config-inspector`, with the snapshot of the current ESLint config. You can deploy it somewhere, or use it for comparison etc.
+
 ## Contributing
 
 We operate under the [ESLint Contributor Guidelines](http://eslint.org/docs/developer-guide/contributing), so please be sure to read them before contributing. If you're not sure where to dig in, check out the [issues](https://github.com/eslint/config-inspector/issues).
