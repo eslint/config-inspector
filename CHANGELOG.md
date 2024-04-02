@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.0](https://github.com/eslint/config-inspector/compare/v0.2.1...v0.3.0) (2024-04-02)
+
+
+### Features
+
+* align better with ESLint's design system ([#16](https://github.com/eslint/config-inspector/issues/16)) ([f0f8392](https://github.com/eslint/config-inspector/commit/f0f839222339850afb8b8b6fe4fc153ce49785f6))
+* improve ui and colors ([258c2b5](https://github.com/eslint/config-inspector/commit/258c2b50a2c1e1d28cc0378315a36231fb53df35))
+* support `build` command for static hosting ([#17](https://github.com/eslint/config-inspector/issues/17)) ([6a3aaed](https://github.com/eslint/config-inspector/commit/6a3aaedc25ec1ddd6fe292aa4629b965a6a81856))
+* use custom server host, reduce deps ([#20](https://github.com/eslint/config-inspector/issues/20)) ([ad59019](https://github.com/eslint/config-inspector/commit/ad590194311e6df8546c7bd1d158a3ada4e4ae4c))
+
 ## [0.2.1](https://github.com/eslint/config-inspector/compare/v0.2.0...v0.2.1) (2024-04-01)
 
 
