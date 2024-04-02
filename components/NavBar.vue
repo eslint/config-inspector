@@ -40,7 +40,7 @@ function toggleRuleView() {
       v{{ version }}
     </div>
   </div>
-  <div flex="~ gap-1 items-center" text-sm my1>
+  <div v-if="payload.meta.configPath" flex="~ gap-1 items-center" text-sm my1>
     <span font-mono op35>{{ payload.meta.configPath }}</span>
   </div>
   <div flex="~ gap-1 items-center wrap" text-sm>

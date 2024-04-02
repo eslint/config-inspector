@@ -36,8 +36,8 @@
     "@unhead/shared": "^1.9.3",
     "@unhead/ssr": "^1.9.3",
     "bundle-require": "^4.0.2",
+    "cac": "^6.7.14",
     "chokidar": "^3.6.0",
-    "consola": "^3.2.3",
     "devalue": "^4.3.2",
     "esbuild": "^0.20.2",
     "fast-glob": "^3.3.2",
@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.11.5",
+    "@eslint/js": "^8.57.0",
     "@iconify-json/carbon": "^1.1.31",
     "@iconify-json/ph": "^1.1.11",
     "@iconify-json/twemoji": "^1.1.15",

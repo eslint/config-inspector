@@ -9,7 +9,6 @@ const data = ref<Payload>({
   configs: [],
   meta: {} as any,
   files: [],
-  cwd: '',
 })
 
 export const errorInfo = ref<ErrorInfo>()
@@ -19,7 +18,7 @@ function isErrorInfo(payload: Payload | ErrorInfo): payload is ErrorInfo {
 }
 
 async function get() {
-  const payload = await $fetch<Payload | ErrorInfo>('/api/get')
+  const payload = await $fetch<Payload | ErrorInfo>('/api/payload.json')
   if (isErrorInfo(payload)) {
     errorInfo.value = payload
     return
@@ -34,23 +33,26 @@ const _promises = get()
   .then((payload) => {
     if (!payload)
       return
-    // Connect to WebSocket, listen for config changes
-    const ws = new WebSocket(`ws://${location.hostname}:${payload.meta.wsPort}`)
-    ws.addEventListener('message', async (event) => {
-      console.log(LOG_NAME, 'WebSocket message', event.data)
-      const payload = JSON.parse(event.data)
-      if (payload.type === 'config-change')
-        get()
-    })
-    ws.addEventListener('open', () => {
-      console.log(LOG_NAME, 'WebSocket connected')
-    })
-    ws.addEventListener('close', () => {
-      console.log(LOG_NAME, 'WebSocket closed')
-    })
-    ws.addEventListener('error', (error) => {
-      console.error(LOG_NAME, 'WebSocket error', error)
-    })
+
+    if (typeof payload.meta.wsPort === 'number') {
+      // Connect to WebSocket, listen for config changes
+      const ws = new WebSocket(`ws://${location.hostname}:${payload.meta.wsPort}`)
+      ws.addEventListener('message', async (event) => {
+        console.log(LOG_NAME, 'WebSocket message', event.data)
+        const payload = JSON.parse(event.data)
+        if (payload.type === 'config-change')
+          get()
+      })
+      ws.addEventListener('open', () => {
+        console.log(LOG_NAME, 'WebSocket connected')
+      })
+      ws.addEventListener('close', () => {
+        console.log(LOG_NAME, 'WebSocket closed')
+      })
+      ws.addEventListener('error', (error) => {
+        console.error(LOG_NAME, 'WebSocket error', error)
+      })
+    }
 
     return payload
   })

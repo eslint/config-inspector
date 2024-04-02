@@ -5,3 +5,4 @@ dist
 .nuxt
 .env
 .idea/
+.eslint-config-inspector
