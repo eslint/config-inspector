@@ -145,5 +145,3 @@ function capitalize(str?: string) {
     </div>
   </div>
 </template>
-~/app/composables/rules~/app/composables/types
-~~/types
