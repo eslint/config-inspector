@@ -85,7 +85,6 @@ export async function readConfig(
     configs,
     rules,
     files,
-    cwd,
     meta: {
       lastUpdate: Date.now(),
       configPath,
