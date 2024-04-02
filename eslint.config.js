@@ -15,3 +15,9 @@ export default nuxt()
       },
     ),
   )
+  .append({
+    files: ['src/**/*.ts'],
+    rules: {
+      'no-console': 'off',
+    },
+  })

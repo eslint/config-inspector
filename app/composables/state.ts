@@ -1,3 +1,5 @@
+import type { FiltersConfigsPage } from '~~/types'
+
 export const filtersConfigs = reactive<FiltersConfigsPage>({
   rule: '',
   filepath: '',

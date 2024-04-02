@@ -4,7 +4,7 @@ import { errorInfo } from './composables/payload'
 import 'floating-vue/dist/style.css'
 import './styles/global.css'
 import './composables/dark'
-import { version } from './package.json'
+import { version } from '~~/package.json'
 import { ensureDataFetch } from '~/composables/payload'
 
 useHead({

@@ -1,5 +1,3 @@
-import pkg from './package.json'
-
 export default defineNuxtConfig({
   ssr: false,
 
@@ -10,6 +8,8 @@ export default defineNuxtConfig({
     'nuxt-shiki',
     'nuxt-eslint-auto-explicit-import',
   ],
+
+  srcDir: 'app',
 
   eslint: {
     config: {
@@ -42,33 +42,25 @@ export default defineNuxtConfig({
   ],
 
   nitro: {
-    preset: 'node-server',
+    preset: 'static',
     output: {
       dir: './dist',
     },
     routeRules: {
-      '/**': {
-        cors: true,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': '*',
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Allow-Headers': '*',
-          'Access-Control-Expose-Headers': '*',
-        },
+      '/': {
+        prerender: true,
+      },
+      '/200.html': {
+        prerender: true,
+      },
+      '/404.html': {
+        prerender: true,
+      },
+      '/*': {
+        prerender: false,
       },
     },
-    prerender: {
-      routes: ['/'],
-    },
     sourceMap: false,
-    externals: {
-      trace: false,
-      external: [
-        ...Object.keys(pkg.dependencies),
-        ...Object.keys(pkg.peerDependencies),
-      ],
-    },
   },
 
   app: {

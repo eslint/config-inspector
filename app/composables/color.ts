@@ -55,15 +55,18 @@ export function getHsla(
   return `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`
 }
 
-export function getPluginColor(name: string, opacity = 1) {
+export function getPluginColor(name: string, opacity = 1): string {
   if (predefinedColorMap[name]) {
     const color = predefinedColorMap[name]
-    if (typeof color === 'number')
+    if (typeof color === 'number') {
       return getHsla(color, opacity)
-    if (opacity === 1)
-      return predefinedColorMap[name]
-    const opacityHex = Math.floor(opacity * 255).toString(16).padStart(2, '0')
-    return predefinedColorMap[name] + opacityHex
+    }
+    else {
+      if (opacity === 1)
+        return color
+      const opacityHex = Math.floor(opacity * 255).toString(16).padStart(2, '0')
+      return color + opacityHex
+    }
   }
   return getHashColorFromString(name, opacity)
 }

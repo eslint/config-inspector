@@ -42,6 +42,7 @@ export default defineConfig({
       },
 
       primary: {
+        DEFAULT: '#8080F2',
         25: '#FBFBFF',
         50: '#F6F6FE',
         100: '#ECECFD',
