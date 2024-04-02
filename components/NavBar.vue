@@ -36,9 +36,12 @@ function toggleRuleView() {
     >
       <img src="/favicon.svg" inline-block h-1em> ESLint Config Inspector
     </a>
-    <div op50 font-mono text-base inline-block translate-y--5 ml1>
+    <a
+      op50 font-mono text-base inline-block translate-y--5 ml1
+      :href="`https://github.com/eslint/config-inspector/releases/tag/v${version}`" target="_blank"
+    >
       v{{ version }}
-    </div>
+    </a>
   </div>
   <div v-if="payload.meta.configPath" flex="~ gap-1 items-center" text-sm my1>
     <span font-mono op35>{{ payload.meta.configPath }}</span>

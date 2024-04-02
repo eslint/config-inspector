@@ -15,7 +15,7 @@ await ensureDataFetch()
 </script>
 
 <template>
-  <div v-if="errorInfo" grid h-full w-full place-content-center whitespace-pre-line>
+  <div v-if="errorInfo" bg-base color-base grid h-full w-full place-content-center whitespace-pre-line>
     <div font-200 text-xl mb6>
       <a
         href="https://github.com/eslint/config-inspector" target="_blank"
