@@ -11,7 +11,7 @@ export default defineComponent({
       return h(
         'span',
         [':', '/'].includes(part)
-          ? { style: { opacity: 0.4 } }
+          ? { style: { opacity: 0.35, margin: '0 1px' } }
           : i !== parts.value.length - 1
             ? { style: { color: getPluginColor(part) } }
             : null,

@@ -1,42 +1,69 @@
 import { isDark } from './dark'
 
-const pluginColorMap = {
-  'ts': '#34879f',
-  'typescript': '#34879f',
-  '@typescript-eslint': '#34879f',
+/**
+ * Predefined color map for matching the branding
+ *
+ * Accpet a 6-digit hex color string or a hue number
+ * Hue numbers are preferred because they will adapt better contrast in light/dark mode
+ *
+ * Hue numbers reference:
+ * - 0: red
+ * - 30: orange
+ * - 60: yellow
+ * - 120: green
+ * - 180: cyan
+ * - 240: blue
+ * - 270: purple
+ */
+const predefinedColorMap = {
+  'ts': 200,
+  'typescript': 200,
+  '@typescript-eslint': 200,
+  'ignore': '#888888',
+  'ignores': '#888888',
+  'disable': '#888888',
+  'disables': '#888888',
   'vue': '#41b883',
   'nuxt': '#41b883',
   'svelte': '#ff3e00',
   'react': '#61dafb',
-  'node': '#026e00',
-  'n': '#026e00',
-  'js': '#f1e05a',
-  'javascript': '#f1e05a',
-  'import': '#e36209',
-  'style': '#ffac45',
-  'antfu': '#30b8af',
-  'markdown': '#a8508f',
-} as Record<string, string>
+  'node': 110,
+  'n': 110,
+  'js': 50,
+  'javascript': 50,
+  'antfu': 170,
+  'markdown': 270,
+} as Record<string, string | number>
 
 export function getHashColorFromString(
   name: string,
-  saturation = 65,
-  lightness = isDark.value ? 60 : 40,
   opacity: number | string = 1,
 ) {
   let hash = 0
   for (let i = 0; i < name.length; i++)
     hash = name.charCodeAt(i) + ((hash << 5) - hash)
   const h = hash % 360
-  return `hsla(${h}, ${saturation}%, ${lightness}%, ${opacity})`
+  return getHsla(h, opacity)
+}
+
+export function getHsla(
+  hue: number,
+  opacity: number | string = 1,
+) {
+  const saturation = isDark.value ? 50 : 65
+  const lightness = isDark.value ? 60 : 40
+  return `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`
 }
 
 export function getPluginColor(name: string, opacity = 1) {
-  if (pluginColorMap[name]) {
+  if (predefinedColorMap[name]) {
+    const color = predefinedColorMap[name]
+    if (typeof color === 'number')
+      return getHsla(color, opacity)
     if (opacity === 1)
-      return pluginColorMap[name]
+      return predefinedColorMap[name]
     const opacityHex = Math.floor(opacity * 255).toString(16).padStart(2, '0')
-    return pluginColorMap[name] + opacityHex
+    return predefinedColorMap[name] + opacityHex
   }
-  return getHashColorFromString(name, undefined, undefined, opacity)
+  return getHashColorFromString(name, opacity)
 }

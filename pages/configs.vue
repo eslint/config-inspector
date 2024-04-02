@@ -9,7 +9,12 @@ import { getRuleLevel } from '~/composables/rules'
 import { filtersConfigs as filters, stateStorage } from '~/composables/state'
 import { payload } from '~/composables/payload'
 
-const opens = ref(payload.value.configs.map(() => true))
+const opens = ref(
+  payload.value.configs.length >= 10
+    // collapse all if there are too many items
+    ? payload.value.configs.map(() => false)
+    : payload.value.configs.map(() => true),
+)
 const input = ref(filters.filepath)
 
 function expandAll() {

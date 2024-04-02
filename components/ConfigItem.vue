@@ -47,8 +47,8 @@ const extraConfigs = computed(() => {
       <div class="absolute right-[calc(100%+10px)] top-1.5" text-right font-mono op35>
         #{{ index + 1 }}
       </div>
-      <div flex="~ gap-2 items-start wrap" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono op75>
-        <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition />
+      <div flex="~ gap-2 items-start wrap" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
+        <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition op50 />
         <span :class="config.name ? '' : 'op50 italic'" flex-auto>
           <ColorizedConfigName v-if="config.name" :name="config.name" />
           <span v-else>anonymous #{{ index + 1 }}</span>
