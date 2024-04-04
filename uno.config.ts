@@ -13,6 +13,7 @@ export default defineConfig({
   shortcuts: {
     'color-base': 'color-neutral-500 dark:color-neutral-300',
     'bg-base': 'bg-white dark:bg-neutral-900',
+    'bg-tooltip': 'bg-white:75 dark:bg-neutral-900:75 backdrop-blur-8',
     'bg-glass': 'bg-white:75 dark:bg-neutral-900:75 backdrop-blur-5',
     'bg-code': 'bg-gray5:5',
     'bg-hover': 'bg-gray:5',

@@ -59,7 +59,7 @@ export async function readConfig(
     return {
       ...c,
       plugins: c.plugins
-        ? Object.fromEntries(Object.entries(c.plugins ?? {}).map(([prefix]) => [prefix, {}]))
+        ? Object.fromEntries(Object.entries(c.plugins ?? {}).map(([prefix]) => [prefix, {}]).filter(i => i[0]))
         : undefined,
       languageOptions: c.languageOptions
         ? { ...c.languageOptions, parser: c.languageOptions.parser?.meta?.name as any }

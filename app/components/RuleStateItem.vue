@@ -37,11 +37,15 @@ function goto() {
       <span v-else ml1 op50>Set to </span>
       <span font-mono :class="colors[state.level]">{{ state.level }}</span>
       <template v-if="!isLocal">
-        <span op50>in the</span>
-        <button hover="underline" @click="goto()">
+        <span op50>in</span>
+        <button hover="!color-base" text-gray @click="goto()">
+          <ColorizedConfigName
+            v-if="config.name" :name="config.name"
+            font-mono px2 border="~ base rounded"
+          />
+          <span op50> the </span>
           {{ nth(state.configIndex + 1) }}
           <span op50> config item </span>
-          <span v-if="config.name" text-sm text-teal6 font-mono op75 dark:text-teal>({{ config.name }})</span>
         </button>
       </template>
       <div v-else op50>

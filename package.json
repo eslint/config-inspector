@@ -51,7 +51,7 @@
     "@iconify-json/carbon": "^1.1.31",
     "@iconify-json/ph": "^1.1.11",
     "@iconify-json/twemoji": "^1.1.15",
-    "@nuxt/eslint": "0.3.0-beta.6",
+    "@nuxt/eslint": "0.3.0-beta.9",
     "@types/connect": "^3.4.38",
     "@types/ws": "^8.5.10",
     "@typescript-eslint/utils": "^7.5.0",

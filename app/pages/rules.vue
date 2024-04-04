@@ -6,7 +6,7 @@ import { filtersRules as filters } from '~/composables/state'
 import { payload } from '~/composables/payload'
 
 const rules = computed(() => Object.values(payload.value.rules))
-const pluginNames = computed(() => Array.from(new Set(rules.value.map(i => i.plugin))))
+const pluginNames = computed(() => Array.from(new Set(rules.value.map(i => i.plugin))).filter(Boolean))
 
 const conditionalFiltered = computed(() => {
   let conditional = rules.value
