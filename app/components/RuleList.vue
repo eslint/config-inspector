@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { Fragment, computed, defineComponent, h } from 'vue'
 import type { Linter } from 'eslint'
+import { isGridView } from '../composables/state'
 import { getRuleFromName, payload } from '~/composables/payload'
-import { stateStorage } from '~/composables/state'
 import type { RuleInfo } from '~~/types'
 
 const props = defineProps<{

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, defineModel } from 'vue'
+import { isGridView } from '../composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
-import { filtersRules, stateStorage } from '~/composables/state'
+import { filtersRules } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
 import type { FiltersConfigsPage, FlatESLintConfigItem } from '~~/types'
 
