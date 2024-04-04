@@ -46,7 +46,7 @@
     "ws": "^8.16.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.12.0",
+    "@antfu/eslint-config": "^2.12.1",
     "@eslint/js": "^8.57.0",
     "@iconify-json/carbon": "^1.1.31",
     "@iconify-json/ph": "^1.1.11",
@@ -63,7 +63,7 @@
     "fuse.js": "^7.0.0",
     "nuxt": "^3.11.1",
     "nuxt-eslint-auto-explicit-import": "^0.0.2",
-    "nuxt-shiki": "^0.2.1",
+    "nuxt-shiki": "^0.3.0",
     "typescript": "^5.4.3",
     "unbuild": "^2.0.0",
     "vue-tsc": "^2.0.7"

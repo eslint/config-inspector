@@ -44,47 +44,51 @@ const extraConfigs = computed(() => {
     @toggle="open = $event.target.open"
   >
     <summary block>
-      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right font-mono op35>
+      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right font-mono op35 lt-lg:hidden>
         #{{ index + 1 }}
       </div>
-      <div flex="~ gap-2 items-start wrap" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
+      <div flex="~ gap-2 items-start wrap items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
         <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition op50 />
-        <span :class="config.name ? '' : 'op50 italic'" flex-auto>
-          <ColorizedConfigName v-if="config.name" :name="config.name" />
-          <span v-else>anonymous #{{ index + 1 }}</span>
-        </span>
+        <div flex flex-col gap-3 md:flex-row flex-auto>
+          <span :class="config.name ? '' : 'op50 italic'" flex-auto>
+            <ColorizedConfigName v-if="config.name" :name="config.name" />
+            <span v-else>anonymous #{{ index + 1 }}</span>
+          </span>
 
-        <SummarizeItem
-          icon="i-ph-file-magnifying-glass-duotone"
-          :number="config.files?.length || 0"
-          color="text-yellow5"
-          title="Files"
-        />
-        <SummarizeItem
-          icon="i-ph-eye-closed-duotone"
-          :number="config.ignores?.length || 0"
-          color="text-purple5 dark:text-purple4"
-          title="Ignores"
-        />
-        <SummarizeItem
-          icon="i-ph-sliders-duotone"
-          :number="Object.keys(extraConfigs).length"
-          color="text-green5"
-          title="Options"
-        />
-        <SummarizeItem
-          icon="i-ph-plug-duotone"
-          :number="Object.keys(config.plugins || {}).length"
-          color="text-teal5"
-          title="Plugins"
-        />
-        <SummarizeItem
-          icon="i-ph-list-dashes-duotone"
-          :number="Object.keys(config.rules || {}).length"
-          color="text-blue5 dark:text-blue4"
-          title="Rules"
-          mr-2
-        />
+          <div flex="~ gap-2 items-start wrap">
+            <SummarizeItem
+              icon="i-ph-file-magnifying-glass-duotone"
+              :number="config.files?.length || 0"
+              color="text-yellow5"
+              title="Files"
+            />
+            <SummarizeItem
+              icon="i-ph-eye-closed-duotone"
+              :number="config.ignores?.length || 0"
+              color="text-purple5 dark:text-purple4"
+              title="Ignores"
+            />
+            <SummarizeItem
+              icon="i-ph-sliders-duotone"
+              :number="Object.keys(extraConfigs).length"
+              color="text-green5"
+              title="Options"
+            />
+            <SummarizeItem
+              icon="i-ph-plug-duotone"
+              :number="Object.keys(config.plugins || {}).length"
+              color="text-teal5"
+              title="Plugins"
+            />
+            <SummarizeItem
+              icon="i-ph-list-dashes-duotone"
+              :number="Object.keys(config.rules || {}).length"
+              color="text-blue5 dark:text-blue4"
+              title="Rules"
+              mr-2
+            />
+          </div>
+        </div>
       </div>
     </summary>
 
@@ -144,7 +148,7 @@ const extraConfigs = computed(() => {
         </div>
         <RuleList
           py2
-          :class="stateStorage.viewType === 'grid' ? 'pl6' : ''"
+          :class="isGridView ? 'pl6' : ''"
           :rules="config.rules"
           :filter="name => !filters?.rule || filters.rule === name"
           :get-bind="(name: string) => ({ class: getRuleLevel(config.rules?.[name]) === 'off' ? 'op50' : '' })"

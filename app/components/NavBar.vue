@@ -76,6 +76,7 @@ function toggleRuleView() {
     />
     <button
       title="Toggle Rule View"
+      lt-md:hidden
       :class="stateStorage.viewType === 'list' ? 'i-ph-list-duotone' : 'i-ph-grid-four-duotone'"
       text-xl op50 hover:op75
       @click="toggleRuleView()"
