@@ -7,8 +7,8 @@
 
 A visual tool for inspecting and understanding your [ESLint flat configs](https://eslint.org/docs/latest/use/configure/configuration-files-new).
 
-<img width="1230" alt="Screenshot 1" src="https://github.com/eslint/config-inspector/assets/11247099/b3cbdd57-9374-4905-bfdc-cdd40646b747">
-<img width="1458" alt="Screenshot 2" src="https://github.com/eslint/config-inspector/assets/11247099/d008bf61-3685-4bf5-843f-524beb108305">
+<img width="1252" alt="Screenshot 1" src="https://github.com/eslint/config-inspector/assets/11247099/d6551d44-445e-4f22-9d8e-ccb8042a6226">
+<img width="1362" alt="Screenshot 2" src="https://github.com/eslint/config-inspector/assets/11247099/d74a057a-f674-4a8d-977f-d9b6a3cde949">
 
 ## Usage
 
