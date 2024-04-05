@@ -22,12 +22,19 @@ export interface ErrorInfo {
 export interface FilesGroup {
   id: string
   files: string[]
-  configs: number[]
+  configs: FlatESLintConfigItem[]
+  globs: Set<Linter.FlatConfigFileSpec>
+}
+
+export interface FileConfigMatchResult {
+  config: FlatESLintConfigItem
+  index: number
+  globs: Linter.FlatConfigFileSpec[]
 }
 
 export interface ResolvedPayload extends Payload {
   ruleStateMap: Map<string, RuleConfigStates>
-  filesMatchedConfigsMap: Map<string, number[]>
+  filesMatchedConfigsMap: Map<string, FileConfigMatchResult[]>
   filesGroup: FilesGroup[]
 }
 

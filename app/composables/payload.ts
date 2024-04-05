@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { $fetch } from 'ofetch'
-import type { ErrorInfo, FilesGroup, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/types'
+import type { ErrorInfo, FileConfigMatchResult, FilesGroup, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/types'
 
 const LOG_NAME = '[ESLint Config Inspector]'
 
@@ -96,18 +96,30 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
     .map((config, idx) => (!config.files && !config.ignores) || isIgnoreOnlyConfig(config) ? idx : undefined)
     .filter((idx): idx is number => idx !== undefined)
 
-  const filesMatchedConfigsMap = new Map<string, number[]>()
+  const filesMatchedConfigsMap = new Map<string, FileConfigMatchResult[]>()
   payload.files.forEach((file) => {
     filesMatchedConfigsMap.set(file, getMatchedConfigs(file, payload.configs))
   })
 
   const filesGroupMap = new Map<string, FilesGroup>()
-  for (const [file, configs] of filesMatchedConfigsMap.entries()) {
-    const configIndex = configs.sort((a, b) => a - b).filter(i => !generalConfigs.includes(i))
-    const id = configIndex.join(',')
-    if (!filesGroupMap.has(id))
-      filesGroupMap.set(id, { id, files: [], configs: configIndex })
-    filesGroupMap.get(id)!.files.push(file)
+  for (const [file, values] of filesMatchedConfigsMap.entries()) {
+    const configs = values.sort((a, b) => a.index - b.index).filter(i => !generalConfigs.includes(i.index))
+    const id = configs.map(i => i.index).join('-')
+    if (!filesGroupMap.has(id)) {
+      filesGroupMap.set(id, {
+        id,
+        files: [],
+        configs: configs.map(i => payload.configs[i.index]),
+        globs: new Set(),
+      })
+    }
+    const item = filesGroupMap.get(id)!
+    item.files.push(file)
+    values.forEach(i =>
+      i.globs.forEach(glob =>
+        item.globs.add(glob),
+      ),
+    )
   }
 
   configsOpenState.value = payload.configs.length >= 10

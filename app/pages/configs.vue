@@ -24,10 +24,8 @@ function collapseAll() {
 const filteredConfigs = computed(() => {
   let configs = payload.value.configs
 
-  if (filters.filepath) {
-    const indexes = getMatchedConfigs(filters.filepath, configs)
-    configs = configs.filter((_, idx) => indexes.includes(idx))
-  }
+  if (filters.filepath)
+    configs = getMatchedConfigs(filters.filepath, configs).map(i => i.config)
 
   if (filters.rule)
     configs = configs.filter(config => filters.rule! in (config.rules || {}))

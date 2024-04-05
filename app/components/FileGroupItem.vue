@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineModel, ref, watchEffect } from 'vue'
-import { payload } from '../composables/payload'
 import { useRouter } from '#app/composables/router'
 import type { FilesGroup } from '~~/types'
 
@@ -82,18 +81,19 @@ function goToConfig(idx: number) {
 
       <div flex="~ gap-2 items-center">
         <div i-ph-stack-duotone flex-none />
-        <div>Configs specific to files ({{ group.configs.length }})</div>
+        <div>Configs Specific to the Files ({{ group.configs.length }})</div>
       </div>
+
       <div flex="~ col gap-1" ml6 mt--2>
-        <div v-for="configIdx of group.configs" :key="configIdx" font-mono flex="~ gap-2">
+        <div v-for="config, idx of group.configs" :key="idx" font-mono flex="~ gap-2">
           <VDropdown>
-            <button border="~ base rounded px2" flex="~ gap-2 items-center" hover="bg-active" px2 py0.5>
-              <ColorizedConfigName v-if="payload.configs[configIdx].name" :name="payload.configs[configIdx].name!" />
+            <button border="~ base rounded px2" flex="~ gap-2 items-center" hover="bg-active" px2>
+              <ColorizedConfigName v-if="config.name" :name="config.name!" />
               <div v-else op50 italic>
                 anonymous
               </div>
               <div op50 text-sm>
-                #{{ configIdx + 1 }}
+                #{{ idx + 1 }}
               </div>
             </button>
             <template #popper="{ shown }">
@@ -102,7 +102,7 @@ function goToConfig(idx: number) {
                   <button
                     action-button
                     title="Copy"
-                    @click="goToConfig(configIdx)"
+                    @click="goToConfig(idx)"
                   >
                     <div i-ph-stack-duotone />
                     Go to this config
@@ -117,7 +117,12 @@ function goToConfig(idx: number) {
                         Applies to files matching
                       </div>
                       <div flex="~ gap-2 items-center wrap">
-                        <GlobItem v-for="glob, idx of payload.configs[configIdx].files" :key="idx" :glob="glob" />
+                        <GlobItem
+                          v-for="glob, idx2 of config.files?.flat()"
+                          :key="idx2"
+                          :glob="glob"
+                          :active="group.globs.has(glob)"
+                        />
                       </div>
                     </div>
                   </div>
@@ -126,6 +131,15 @@ function goToConfig(idx: number) {
             </template>
           </VDropdown>
         </div>
+      </div>
+
+      <div flex="~ gap-2 items-center">
+        <div i-ph-file-magnifying-glass-duotone flex-none />
+        <div>Matched Globs</div>
+      </div>
+
+      <div flex="~ gap-1 wrap" ml6 mt--2>
+        <GlobItem v-for="glob, idx2 of group.globs" :key="idx2" :glob="glob" />
       </div>
     </div>
   </details>
