@@ -9,8 +9,8 @@ export const filtersConfigs = reactive<FiltersConfigsPage>({
 export const filtersRules = reactive({
   plugin: '',
   search: '',
-  state: 'using' as 'using' | 'unused' | 'overloads' | '',
-  status: 'active' as 'deprecated' | 'active' | 'recommended' | '',
+  state: 'using' as 'using' | 'unused' | 'overloads' | 'error' | 'warn' | 'off' | 'off-only' | '',
+  status: 'active' as 'deprecated' | 'active' | 'recommended' | 'fixable' | '',
   fixable: null as boolean | null,
 })
 

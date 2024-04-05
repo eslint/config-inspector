@@ -27,11 +27,15 @@ const value = defineModel<string | number>('modelValue', {
     >
       <div
         :class="[
-          i === value ? '' : 'op35',
+          i === value ? '' : 'op35 saturate-0',
           titles?.[idx] ? '' : 'capitalize',
           classes?.[idx] || '',
         ]"
-      >{{ titles?.[idx] ?? i }}</div>
+      >
+        <slot :value="i" :title="titles?.[idx]" :index="idx">
+          {{ titles?.[idx] ?? i }}
+        </slot>
+      </div>
       <input
         v-model="value" type="radio" :value="i"
         :title="titles?.[idx]"

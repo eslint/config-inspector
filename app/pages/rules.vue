@@ -31,6 +31,23 @@ const conditionalFiltered = computed(() => {
     case 'overloads':
       conditional = conditional.filter(rule => (payload.value.ruleStateMap.get(rule.name)?.length || 0) > 1)
       break
+    case 'error':
+      conditional = conditional.filter(rule => payload.value.ruleStateMap.get(rule.name)?.some(i => i.level === 'error'))
+      break
+    case 'warn':
+      conditional = conditional.filter(rule => payload.value.ruleStateMap.get(rule.name)?.some(i => i.level === 'warn'))
+      break
+    case 'off':
+      conditional = conditional.filter(rule => payload.value.ruleStateMap.get(rule.name)?.some(i => i.level === 'off'))
+      break
+    case 'off-only':
+      conditional = conditional.filter((rule) => {
+        const states = payload.value.ruleStateMap.get(rule.name)
+        if (!states?.length)
+          return false
+        return states.every(i => i.level === 'off')
+      })
+      break
   }
 
   switch (filters.status) {
@@ -39,6 +56,9 @@ const conditionalFiltered = computed(() => {
       break
     case 'recommended':
       conditional = conditional.filter(rule => rule.docs?.recommended)
+      break
+    case 'fixable':
+      conditional = conditional.filter(rule => rule.fixable)
       break
     case 'deprecated':
       conditional = conditional.filter(rule => rule.deprecated)
@@ -110,17 +130,37 @@ function resetFilters() {
         </div>
         <OptionSelectGroup
           v-model="filters.state"
-          :options="['', 'using', 'overloads', 'unused']"
-          :titles="['All', 'Using', 'Overloaded', 'Unused']"
-        />
+          :options="['', 'using', 'unused', 'error', 'warn', 'off', 'overloads', 'off-only']"
+          :titles="['All', 'Using', 'Unused', 'Error', 'Warn', 'Off', 'Overloaded', 'Off Only']"
+        >
+          <template #default="{ value, title }">
+            <div class="flex items-center">
+              <div flex ml--1 mr-1 items-center>
+                <RuleLevelIcon v-if="value === 'error' || value === 'overloads'" level="error" />
+                <RuleLevelIcon v-if="value === 'warn' || value === 'overloads'" level="warn" />
+                <RuleLevelIcon v-if="value === 'off' || value === 'off-only' || value === 'overloads'" level="off" />
+              </div>
+              {{ title || value }}
+            </div>
+          </template>
+        </OptionSelectGroup>
         <div text-right text-sm op50>
           State
         </div>
         <OptionSelectGroup
           v-model="filters.status"
-          :options="['', 'active', 'recommended', 'deprecated']"
-          :titles="['All', 'Active', 'Recommended', 'Deprecated']"
-        />
+          :options="['', 'active', 'recommended', 'fixable', 'deprecated']"
+          :titles="['All', 'Active', 'Recommended', 'Fixable', 'Deprecated']"
+        >
+          <template #default="{ value, title }">
+            <div flex gap-1 items-center>
+              <div v-if="value === 'recommended'" ml--0.5 i-ph-check-square-duotone text-green />
+              <div v-if="value === 'fixable'" ml--0.5 i-ph-wrench-duotone text-amber />
+              <div v-if="value === 'deprecated'" ml--1 i-ph-prohibit-inset-duotone text-gray />
+              {{ title || value }}
+            </div>
+          </template>
+        </OptionSelectGroup>
       </div>
     </div>
 
