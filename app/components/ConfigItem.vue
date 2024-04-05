@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, defineModel } from 'vue'
-import { isGridView } from '../composables/state'
+import { isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
 import { filtersRules } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
@@ -13,6 +13,7 @@ const props = defineProps<{
   active?: boolean
 }>()
 
+
 const emit = defineEmits<{
   badgeClick: [string]
 }>()
@@ -20,6 +21,16 @@ const emit = defineEmits<{
 const open = defineModel('open', {
   default: true,
 })
+
+const hasShown = ref(open.value)
+if (!hasShown.value) {
+  const stop = watchEffect(() => {
+    if (open.value) {
+      hasShown.value = true
+      stop()
+    }
+  })
+}
 
 const router = useRouter()
 function gotoPlugin(name: string) {
@@ -97,7 +108,7 @@ const extraConfigs = computed(() => {
       #{{ index + 1 }}
     </div>
 
-    <div px4 py3 flex="~ col gap-4" of-auto>
+    <div v-if="hasShown" px4 py3 flex="~ col gap-4" of-auto>
       <div v-if="config.files" flex="~ gap-2 items-start">
         <div i-ph-file-magnifying-glass-duotone my1 flex-none />
         <div flex="~ col gap-2">
