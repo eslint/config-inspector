@@ -56,7 +56,7 @@
     "@iconify-json/simple-icons": "^1.1.98",
     "@iconify-json/twemoji": "^1.1.15",
     "@iconify-json/vscode-icons": "^1.1.33",
-    "@nuxt/eslint": "^0.3.0",
+    "@nuxt/eslint": "^0.3.1",
     "@types/connect": "^3.4.38",
     "@types/ws": "^8.5.10",
     "@typescript-eslint/utils": "^7.5.0",
