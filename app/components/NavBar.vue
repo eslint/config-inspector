@@ -69,6 +69,14 @@ function toggleRuleView() {
       <div i-ph-list-dashes-duotone flex-none />
       Rules
     </NuxtLink>
+    <NuxtLink
+      to="/files" active-class="op100! bg-active"
+      px3 py1 op50 border="~ base rounded"
+      flex="~ gap-2 items-center"
+    >
+      <div i-ph-files-duotone flex-none />
+      Files
+    </NuxtLink>
     <button
       title="Toggle Dark Mode"
       i-ph-sun-dim-duotone dark:i-ph-moon-stars-duotone ml1 text-xl op50 hover:op75

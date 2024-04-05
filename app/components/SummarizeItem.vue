@@ -8,7 +8,11 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div flex="~ gap-2" :title="`${props.number} ${props.title}`" :class="props.number ? props.color : 'op35'">
+  <div
+    v-tooltip="`${props.number} ${props.title}`"
+    flex="~ gap-2"
+    :class="props.number ? props.color : 'op35'"
+  >
     <div :class="props.icon" />
     <span min-w-6 :class="`text-${props.color}`">{{ props.number || '-' }}</span>
   </div>

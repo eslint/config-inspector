@@ -1,51 +1,32 @@
 <script setup lang="ts">
+import { computed, defineComponent, h, nextTick, onMounted, ref } from 'vue'
 import { debouncedWatch } from '@vueuse/core'
-import { computed, defineComponent, h, ref } from 'vue'
-import { minimatch } from 'minimatch'
 import type { Linter } from 'eslint'
-import Fuse, { type FuseResultMatch } from 'fuse.js'
+import type { FuseResultMatch } from 'fuse.js'
+import Fuse from 'fuse.js'
 import type { PropType, VNode } from 'vue'
+import { useRoute } from '#app/composables/router'
+import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
+import { getMatchedConfigs } from '~/composables/configs'
 import { getRuleLevel } from '~/composables/rules'
-import { filtersConfigs as filters, stateStorage } from '~/composables/state'
 import { payload } from '~/composables/payload'
 
-const opens = ref(
-  payload.value.configs.length >= 10
-    // collapse all if there are too many items
-    ? payload.value.configs.map(() => false)
-    : payload.value.configs.map(() => true),
-)
 const input = ref(filters.filepath)
 
 function expandAll() {
-  opens.value = opens.value.map(() => true)
+  configsOpenState.value = configsOpenState.value.map(() => true)
 }
 
 function collapseAll() {
-  opens.value = opens.value.map(() => false)
-}
-
-function matchGlob(file: string, glob: (Linter.FlatConfigFileSpec | Linter.FlatConfigFileSpec[])[]) {
-  const globs = (Array.isArray(glob) ? glob : [glob]).flat()
-  return globs.some(glob => typeof glob === 'function' ? glob(file) : minimatch(file, glob))
+  configsOpenState.value = configsOpenState.value.map(() => false)
 }
 
 const filteredConfigs = computed(() => {
   let configs = payload.value.configs
 
   if (filters.filepath) {
-    const ignoreOnlyConfigs = configs.filter(config => !config.rules && config.ignores)
-    const isIgnored = ignoreOnlyConfigs.some(config => matchGlob(filters.filepath!, config.ignores!))
-    if (isIgnored)
-      return []
-    const isAnyIncluded = configs.some(config => matchGlob(filters.filepath!, config.files || []))
-    if (!isAnyIncluded)
-      return []
-    configs = configs.filter((config) => {
-      const isIncluded = config.files ? matchGlob(filters.filepath!, config.files) : true
-      const isExcluded = config.ignores ? matchGlob(filters.filepath!, config.ignores) : false
-      return isIncluded && !isExcluded
-    })
+    const indexes = getMatchedConfigs(filters.filepath, configs)
+    configs = configs.filter((_, idx) => indexes.includes(idx))
   }
 
   if (filters.rule)
@@ -162,6 +143,18 @@ debouncedWatch(
   },
   { debounce: 200 },
 )
+
+const configEls = new Map<number, HTMLElement>()
+
+const route = useRoute()
+onMounted(async () => {
+  if (route.query.index != null) {
+    const index = Number(route.query.index) - 1
+    configsOpenState.value = configsOpenState.value.map((_, idx) => idx === index)
+    await nextTick()
+    configEls.get(index)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+})
 </script>
 
 <template>
@@ -366,7 +359,8 @@ debouncedWatch(
           >
             <ConfigItem
               v-show="filteredConfigs.includes(config) && (!filters.filepath || (!stateStorage.showSpecificOnly || config.files))"
-              v-model:open="opens[idx]"
+              :ref="(el) => { configEls.set(idx, (el as any)?.$el) }"
+              v-model:open="configsOpenState[idx]"
               :payload="payload"
               :config="config"
               :index="idx"

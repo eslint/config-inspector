@@ -19,8 +19,16 @@ export interface ErrorInfo {
   message?: string
 }
 
+export interface FilesGroup {
+  id: string
+  files: string[]
+  configs: number[]
+}
+
 export interface ResolvedPayload extends Payload {
   ruleStateMap: Map<string, RuleConfigStates>
+  filesMatchedConfigsMap: Map<string, number[]>
+  filesGroup: FilesGroup[]
 }
 
 export interface PayloadMeta {

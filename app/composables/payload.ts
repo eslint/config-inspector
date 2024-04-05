@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { $fetch } from 'ofetch'
-import type { ErrorInfo, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/types'
+import type { ErrorInfo, FilesGroup, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/types'
 
 const LOG_NAME = '[ESLint Config Inspector]'
 
@@ -61,7 +61,7 @@ export function ensureDataFetch() {
   return _promises
 }
 
-export const payload = computed(() => resolvePayload(data.value!))
+export const payload = computed(() => Object.freeze(resolvePayload(data.value!)))
 
 export function getRuleFromName(name: string): RuleInfo | undefined {
   return payload.value.rules[name]
@@ -92,8 +92,33 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
     })
   })
 
+  const generalConfigs = payload.configs
+    .map((config, idx) => (!config.files && !config.ignores) || isIgnoreOnlyConfig(config) ? idx : undefined)
+    .filter((idx): idx is number => idx !== undefined)
+
+  const filesMatchedConfigsMap = new Map<string, number[]>()
+  payload.files.forEach((file) => {
+    filesMatchedConfigsMap.set(file, getMatchedConfigs(file, payload.configs))
+  })
+
+  const filesGroupMap = new Map<string, FilesGroup>()
+  for (const [file, configs] of filesMatchedConfigsMap.entries()) {
+    const configIndex = configs.sort((a, b) => a - b).filter(i => !generalConfigs.includes(i))
+    const id = configIndex.join(',')
+    if (!filesGroupMap.has(id))
+      filesGroupMap.set(id, { id, files: [], configs: configIndex })
+    filesGroupMap.get(id)!.files.push(file)
+  }
+
+  configsOpenState.value = payload.configs.length >= 10
+    // collapse all if there are too many items
+    ? payload.configs.map(() => false)
+    : payload.configs.map(() => true)
+
   return {
     ...payload,
     ruleStateMap,
+    filesMatchedConfigsMap,
+    filesGroup: [...filesGroupMap.values()],
   }
 }

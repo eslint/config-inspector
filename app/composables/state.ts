@@ -1,4 +1,5 @@
 import { breakpointsTailwind } from '@vueuse/core'
+import { computed, reactive, ref } from 'vue'
 import type { FiltersConfigsPage } from '~~/types'
 
 export const filtersConfigs = reactive<FiltersConfigsPage>({
@@ -19,6 +20,7 @@ export const stateStorage = useLocalStorage(
   {
     viewType: 'list' as 'list' | 'grid',
     viewFileMatchType: 'configs' as 'configs' | 'merged',
+    viewFilesTab: 'list' as 'list' | 'group',
     showSpecificOnly: false,
   },
   { mergeDefaults: true },
@@ -28,3 +30,5 @@ const bp = useBreakpoints(breakpointsTailwind)
 const bpSm = bp.smallerOrEqual('md')
 
 export const isGridView = computed(() => bpSm.value || stateStorage.value.viewType === 'grid')
+
+export const configsOpenState = ref<boolean[]>([])

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
-import { errorInfo } from './composables/payload'
+import { ensureDataFetch, errorInfo } from '~/composables/payload'
+import { version } from '~~/package.json'
+
 import 'floating-vue/dist/style.css'
 import './styles/global.css'
 import './composables/dark'
-import { version } from '~~/package.json'
-import { ensureDataFetch } from '~/composables/payload'
 
 useHead({
   title: 'ESLint Config Inspector',

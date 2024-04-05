@@ -81,6 +81,8 @@ export async function readConfig(
     },
   )
 
+  files.sort()
+
   const payload: Payload = {
     configs,
     rules,
