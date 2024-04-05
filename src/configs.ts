@@ -18,7 +18,7 @@ const configFilenames = [
 export interface ReadConfigOptions {
   cwd: string
   userConfigPath?: string
-  userRootPath?: string
+  userBasePath?: string
   /**
    * Change current working directory to rootPath
    * @default true
@@ -30,21 +30,21 @@ export async function readConfig(
   {
     cwd,
     userConfigPath,
-    userRootPath,
+    userBasePath,
     chdir = true,
   }: ReadConfigOptions,
 ): Promise<{ payload: Payload, dependencies: string[] }> {
-  if (userRootPath)
-    userRootPath = resolve(cwd, userRootPath)
+  if (userBasePath)
+    userBasePath = resolve(cwd, userBasePath)
 
   const configPath = userConfigPath
     ? resolve(cwd, userConfigPath)
-    : await findUp(configFilenames, { cwd: userRootPath || cwd })
+    : await findUp(configFilenames, { cwd: userBasePath || cwd })
 
   if (!configPath)
     throw new Error('Cannot find ESLint config file')
 
-  const rootPath = userRootPath || (
+  const rootPath = userBasePath || (
     userConfigPath
       ? cwd // When user explicit provide config path, use current working directory as root
       : dirname(configPath) // Otherwise, use config file's directory as root

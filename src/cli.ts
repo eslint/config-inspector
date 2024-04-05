@@ -14,7 +14,7 @@ const cli = cac()
 cli
   .command('build', 'Build inspector with current config file for static hosting')
   .option('--config <configFile>', 'Config file path')
-  .option('--root <rootPath>', 'Root directory to inspect files. Default to directory of config file if not provided')
+  .option('--basePath <basePath>', 'Base directory for globs to resolve. Default to directory of config file if not provided')
   .option('--out-dir <dir>', 'Output directory', { default: '.eslint-config-inspector' })
   .action(async (options) => {
     console.log('Building static ESLint config inspector...')
@@ -27,7 +27,7 @@ cli
     const configs = await readConfig({
       cwd,
       userConfigPath: options.config,
-      userRootPath: options.root,
+      userBasePath: options.basePath,
     })
 
     if (existsSync(outDir))
@@ -47,7 +47,7 @@ cli
 cli
   .command('', 'Start dev inspector')
   .option('--config <configFile>', 'Config file path')
-  .option('--root <rootPath>', 'Root directory to inspect files. Default to directory of config file if not provided')
+  .option('--basePath <basePath>', 'Base directory for globs to resolve. Default to directory of config file if not provided')
   .option('--host <host>', 'Host', { default: process.env.HOST || '127.0.0.1' })
   .option('--port <port>', 'Port', { default: process.env.PORT || 7777 })
   .option('--open', 'Open browser', { default: true })
@@ -64,7 +64,7 @@ cli
     const server = await createHostServer({
       cwd,
       userConfigPath: options.config,
-      userRootPath: options.root,
+      userBasePath: options.basePath,
     })
 
     server.listen(port, host)
