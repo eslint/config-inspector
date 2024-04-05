@@ -1,4 +1,5 @@
 import { dirname, resolve } from 'node:path'
+import process from 'node:process'
 import { bundleRequire } from 'bundle-require'
 import type { Linter } from 'eslint'
 import fg from 'fast-glob'
@@ -18,6 +19,11 @@ export interface ReadConfigOptions {
   cwd: string
   userConfigPath?: string
   userRootPath?: string
+  /**
+   * Change current working directory to rootPath
+   * @default true
+   */
+  chdir?: boolean
 }
 
 export async function readConfig(
@@ -25,6 +31,7 @@ export async function readConfig(
     cwd,
     userConfigPath,
     userRootPath,
+    chdir = true,
   }: ReadConfigOptions,
 ): Promise<{ payload: Payload, dependencies: string[] }> {
   if (userRootPath)
@@ -42,6 +49,9 @@ export async function readConfig(
       ? cwd // When user explicit provide config path, use current working directory as root
       : dirname(configPath) // Otherwise, use config file's directory as root
   )
+
+  if (chdir && rootPath !== process.cwd())
+    process.chdir(rootPath)
 
   console.log('Reading ESLint configs from', configPath)
   const { mod, dependencies } = await bundleRequire({
