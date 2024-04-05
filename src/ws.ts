@@ -1,4 +1,3 @@
-import process from 'node:process'
 import { relative } from 'node:path'
 import chokidar from 'chokidar'
 import type { WebSocket } from 'ws'
