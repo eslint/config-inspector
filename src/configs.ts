@@ -1,9 +1,8 @@
-import fs from 'node:fs'
-import process from 'node:process'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import { bundleRequire } from 'bundle-require'
 import type { Linter } from 'eslint'
 import fg from 'fast-glob'
+import { findUp } from 'find-up'
 import type { Payload, RuleInfo } from '../types'
 
 const configFilenames = [
@@ -15,14 +14,39 @@ const configFilenames = [
   'eslint.config.cts',
 ]
 
-export async function readConfig(
-  cwd: string,
-  configPathOverride = process.env.ESLINT_CONFIG,
-): Promise<{ payload: Payload, dependencies: string[] }> {
-  const configPath = resolve(cwd, configPathOverride || configFilenames.find(i => fs.existsSync(resolve(cwd, i))) || configFilenames[0])
+export interface ReadConfigOptions {
+  cwd: string
+  userConfigPath?: string
+  userRootPath?: string
+}
 
+export async function readConfig(
+  {
+    cwd,
+    userConfigPath,
+    userRootPath,
+  }: ReadConfigOptions,
+): Promise<{ payload: Payload, dependencies: string[] }> {
+  if (userRootPath)
+    userRootPath = resolve(cwd, userRootPath)
+
+  const configPath = userConfigPath
+    ? resolve(cwd, userConfigPath)
+    : await findUp(configFilenames, { cwd: userRootPath || cwd })
+
+  if (!configPath)
+    throw new Error('Cannot find ESLint config file')
+
+  const rootPath = userRootPath || (
+    userConfigPath
+      ? cwd // When user explicit provide config path, use current working directory as root
+      : dirname(configPath) // Otherwise, use config file's directory as root
+  )
+
+  console.log('Reading ESLint configs from', configPath)
   const { mod, dependencies } = await bundleRequire({
     filepath: configPath,
+    cwd: rootPath,
   })
 
   const rawConfigs = await (mod.default ?? mod) as Linter.FlatConfig[]
@@ -71,7 +95,7 @@ export async function readConfig(
   const files = await fg(
     configs.flatMap(i => i.files ?? []).filter(i => typeof i === 'string') as string[],
     {
-      cwd,
+      cwd: rootPath,
       onlyFiles: true,
       ignore: [
         '**/node_modules/**',
@@ -87,6 +111,7 @@ export async function readConfig(
     files,
     meta: {
       lastUpdate: Date.now(),
+      rootPath,
       configPath,
     },
   }

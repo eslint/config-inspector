@@ -13,20 +13,31 @@ const cli = cac()
 
 cli
   .command('build', 'Build inspector with current config file for static hosting')
-  .option('--config <configFile>', 'Config file path', { default: process.env.ESLINT_CONFIG })
+  .option('--config <configFile>', 'Config file path')
+  .option('--root <rootPath>', 'Root directory to inspect files. Default to directory of config file if not provided')
   .option('--out-dir <dir>', 'Output directory', { default: '.eslint-config-inspector' })
   .action(async (options) => {
     console.log('Building static ESLint config inspector...')
 
+    if (process.env.ESLINT_CONFIG)
+      options.config ||= process.env.ESLINT_CONFIG
+
     const cwd = process.cwd()
     const outDir = resolve(cwd, options.outDir)
-    const configs = await readConfig(cwd, options.config || process.env.ESLINT_CONFIG)
+    const configs = await readConfig({
+      cwd,
+      userConfigPath: options.config,
+      userRootPath: options.root,
+    })
+
     if (existsSync(outDir))
       await fs.rm(outDir, { recursive: true })
     await fs.mkdir(outDir, { recursive: true })
     await fs.cp(distDir, outDir, { recursive: true })
     await fs.mkdir(resolve(outDir, 'api'), { recursive: true })
+
     configs.payload.meta.configPath = ''
+    configs.payload.meta.rootPath = ''
     await fs.writeFile(resolve(outDir, 'api/payload.json'), JSON.stringify(configs.payload, null, 2), 'utf-8')
 
     console.log(`Built to ${relative(cwd, outDir)}`)
@@ -35,19 +46,26 @@ cli
 
 cli
   .command('', 'Start dev inspector')
-  .option('--config <configFile>', 'Config file path', { default: process.env.ESLINT_CONFIG })
+  .option('--config <configFile>', 'Config file path')
+  .option('--root <rootPath>', 'Root directory to inspect files. Default to directory of config file if not provided')
   .option('--host <host>', 'Host', { default: process.env.HOST || '127.0.0.1' })
   .option('--port <port>', 'Port', { default: process.env.PORT || 7777 })
   .option('--open', 'Open browser', { default: true })
   .action(async (options) => {
     const host = options.host
     const port = await getPort({ port: options.port })
-    if (options.config)
-      process.env.ESLINT_CONFIG = options.config
+
+    if (process.env.ESLINT_CONFIG)
+      options.config ||= process.env.ESLINT_CONFIG
 
     console.log(`Starting ESLint config inspector at http://${host}:${port}`)
 
-    const server = await createHostServer()
+    const cwd = process.cwd()
+    const server = await createHostServer({
+      cwd,
+      userConfigPath: options.config,
+      userRootPath: options.root,
+    })
 
     server.listen(port, host)
 
