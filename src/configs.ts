@@ -1,10 +1,10 @@
-import fs from 'node:fs'
+import { dirname, resolve } from 'node:path'
 import process from 'node:process'
-import { resolve } from 'node:path'
 import { bundleRequire } from 'bundle-require'
 import type { Linter } from 'eslint'
 import fg from 'fast-glob'
-import type { Payload, RuleInfo } from '../types'
+import { findUp } from 'find-up'
+import type { FlatESLintConfigItem, Payload, RuleInfo } from '../types'
 
 const configFilenames = [
   'eslint.config.js',
@@ -15,17 +15,69 @@ const configFilenames = [
   'eslint.config.cts',
 ]
 
-export async function readConfig(
-  cwd: string,
-  configPathOverride = process.env.ESLINT_CONFIG,
-): Promise<{ payload: Payload, dependencies: string[] }> {
-  const configPath = resolve(cwd, configPathOverride || configFilenames.find(i => fs.existsSync(resolve(cwd, i))) || configFilenames[0])
+export interface ReadConfigOptions {
+  /**
+   * Current working directory
+   */
+  cwd: string
+  /**
+   * Override config file path.
+   * When not provided, will try to find config file in current working directory or userBasePath if provided.
+   */
+  userConfigPath?: string
+  /**
+   * Override base path. When not provided, will use directory of discovered config file.
+   */
+  userBasePath?: string
+  /**
+   * Change current working directory to basePath
+   * @default true
+   */
+  chdir?: boolean
+}
 
+/**
+ * Search and read the ESLint config file, processed into inspector payload with module dependencies
+ *
+ * Accpet an options object to specify the working directory path and overrides.
+ *
+ * It uses `bundle-requires` load the config file and find it's dependencies.
+ * It always get the latest version of the config file (no ESM cache).
+ */
+export async function readConfig(
+  {
+    cwd,
+    userConfigPath,
+    userBasePath,
+    chdir = true,
+  }: ReadConfigOptions,
+): Promise<{ configs: FlatESLintConfigItem[], payload: Payload, dependencies: string[] }> {
+  if (userBasePath)
+    userBasePath = resolve(cwd, userBasePath)
+
+  const configPath = userConfigPath
+    ? resolve(cwd, userConfigPath)
+    : await findUp(configFilenames, { cwd: userBasePath || cwd })
+
+  if (!configPath)
+    throw new Error('Cannot find ESLint config file')
+
+  const rootPath = userBasePath || (
+    userConfigPath
+      ? cwd // When user explicit provide config path, use current working directory as root
+      : dirname(configPath) // Otherwise, use config file's directory as root
+  )
+
+  if (chdir && rootPath !== process.cwd())
+    process.chdir(rootPath)
+
+  console.log('Reading ESLint configs from', configPath)
   const { mod, dependencies } = await bundleRequire({
     filepath: configPath,
+    cwd: rootPath,
   })
 
-  const rawConfigs = await (mod.default ?? mod) as Linter.FlatConfig[]
+  const rawConfigs = await (mod.default ?? mod) as FlatESLintConfigItem[]
 
   const rulesMap = new Map<string, RuleInfo>()
   const eslintRules = await import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.default.builtinRules)
@@ -71,7 +123,7 @@ export async function readConfig(
   const files = await fg(
     configs.flatMap(i => i.files ?? []).filter(i => typeof i === 'string') as string[],
     {
-      cwd,
+      cwd: rootPath,
       onlyFiles: true,
       ignore: [
         '**/node_modules/**',
@@ -89,11 +141,13 @@ export async function readConfig(
     files,
     meta: {
       lastUpdate: Date.now(),
+      rootPath,
       configPath,
     },
   }
 
   return {
+    configs: rawConfigs,
     dependencies,
     payload,
   }
