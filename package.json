@@ -23,7 +23,7 @@
   "scripts": {
     "build": "nuxi build && unbuild",
     "dev": "nuxi dev",
-    "prepare": "nuxi prepare",
+    "prepare": "nuxi prepare && npx simple-git-hooks",
     "start": "node bin.mjs",
     "prepack": "pnpm build",
     "lint": "nuxi prepare && eslint .",
@@ -61,11 +61,19 @@
     "eslint": "^9.0.0-rc.0",
     "floating-vue": "^5.2.2",
     "fuse.js": "^7.0.0",
+    "lint-staged": "^15.2.2",
     "nuxt": "^3.11.1",
     "nuxt-eslint-auto-explicit-import": "^0.0.2",
     "nuxt-shiki": "^0.3.0",
+    "simple-git-hooks": "^2.11.1",
     "typescript": "^5.4.3",
     "unbuild": "^2.0.0",
     "vue-tsc": "^2.0.7"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
