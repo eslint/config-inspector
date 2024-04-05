@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.4.0](https://github.com/eslint/config-inspector/compare/v0.3.1...v0.4.0) (2024-04-05)
+
+
+### Features
+
+* add more filters ([ace554f](https://github.com/eslint/config-inspector/commit/ace554fb198694ae85fb99becab81ae70456a335))
+* experiemental `Files` tab, close [#24](https://github.com/eslint/config-inspector/issues/24) ([2595b46](https://github.com/eslint/config-inspector/commit/2595b464685061baf51b419fe831ea3b38ebeb33))
+* improve files globs matching display ([fd35b20](https://github.com/eslint/config-inspector/commit/fd35b20742ca0f60991fd61a35a3aff16cac446e))
+* improve how configures are resolved ([#26](https://github.com/eslint/config-inspector/issues/26)) ([264c58f](https://github.com/eslint/config-inspector/commit/264c58f7b3ea9107018d330ddf52b4e2f4570058))
+* improve RWD ([e4739df](https://github.com/eslint/config-inspector/commit/e4739dfa56a1d09f037d184d279b80055ec7678d))
+
+
+### Bug Fixes
+
+* rules filter ([6cdfeca](https://github.com/eslint/config-inspector/commit/6cdfecab536bae6b39228a05268fb4e121d06811))
+* tweak ui ([e5c7108](https://github.com/eslint/config-inspector/commit/e5c71081fc7bfaa8e91910fc8b8820815be442ed))
+
+
+### Documentation
+
+* mention static build ([509a1ae](https://github.com/eslint/config-inspector/commit/509a1ae3c661abdb4a0a89df7bc305746bab855a))
+* update screenshot ([6c25668](https://github.com/eslint/config-inspector/commit/6c256689dbfc35c1cc1de6c5f6c1ee3dfa5aa3e8))
+
+
+### Chores
+
+* cleanup moot contents ([#23](https://github.com/eslint/config-inspector/issues/23)) ([03d4d77](https://github.com/eslint/config-inspector/commit/03d4d7749aa0124895643068b2b54222fd03d7a5))
+* lazy load config items ([b42ee54](https://github.com/eslint/config-inspector/commit/b42ee54904537e2c35902e2d854bef99e7dd5541))
+* lint ([21dcfce](https://github.com/eslint/config-inspector/commit/21dcfce709f98225499b59c717c5e27f224258cb))
+* lint ([b8e9590](https://github.com/eslint/config-inspector/commit/b8e95900c2a7b3759fb8b466433f81f932d348b8))
+* setup lint staged ([7b576fd](https://github.com/eslint/config-inspector/commit/7b576fdb7876cf1a0545c0ede39d3a0182bba599))
+* update ([90e5d61](https://github.com/eslint/config-inspector/commit/90e5d6128f64d0e6a66a807d5741e98e69e53ea2))
+
 ## [0.3.1](https://github.com/eslint/config-inspector/compare/v0.3.0...v0.3.1) (2024-04-02)
 
 
