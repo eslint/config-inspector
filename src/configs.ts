@@ -4,7 +4,7 @@ import { bundleRequire } from 'bundle-require'
 import type { Linter } from 'eslint'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
-import type { Payload, RuleInfo } from '../types'
+import type { FlatESLintConfigItem, Payload, RuleInfo } from '../types'
 
 const configFilenames = [
   'eslint.config.js',
@@ -16,16 +16,34 @@ const configFilenames = [
 ]
 
 export interface ReadConfigOptions {
+  /**
+   * Current working directory
+   */
   cwd: string
+  /**
+   * Override config file path.
+   * When not provided, will try to find config file in current working directory or userBasePath if provided.
+   */
   userConfigPath?: string
+  /**
+   * Override base path. When not provided, will use directory of discovered config file.
+   */
   userBasePath?: string
   /**
-   * Change current working directory to rootPath
+   * Change current working directory to basePath
    * @default true
    */
   chdir?: boolean
 }
 
+/**
+ * Search and read the ESLint config file, processed into inspector payload with module dependencies
+ *
+ * Accpet an options object to specify the working directory path and overrides.
+ *
+ * It uses `bundle-requires` load the config file and find it's dependencies.
+ * It always get the latest version of the config file (no ESM cache).
+ */
 export async function readConfig(
   {
     cwd,
@@ -33,7 +51,7 @@ export async function readConfig(
     userBasePath,
     chdir = true,
   }: ReadConfigOptions,
-): Promise<{ payload: Payload, dependencies: string[] }> {
+): Promise<{ configs: FlatESLintConfigItem[], payload: Payload, dependencies: string[] }> {
   if (userBasePath)
     userBasePath = resolve(cwd, userBasePath)
 
@@ -59,7 +77,7 @@ export async function readConfig(
     cwd: rootPath,
   })
 
-  const rawConfigs = await (mod.default ?? mod) as Linter.FlatConfig[]
+  const rawConfigs = await (mod.default ?? mod) as FlatESLintConfigItem[]
 
   const rulesMap = new Map<string, RuleInfo>()
   const eslintRules = await import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.default.builtinRules)
@@ -127,6 +145,7 @@ export async function readConfig(
   }
 
   return {
+    configs: rawConfigs,
     dependencies,
     payload,
   }
