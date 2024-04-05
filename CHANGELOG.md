@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/eslint/config-inspector/compare/v0.4.0...v0.4.1) (2024-04-05)
+
+
+### Bug Fixes
+
+* support eslint v9 as peerDeps ([ead64bd](https://github.com/eslint/config-inspector/commit/ead64bd632d46c11df079eda8e6dc3b5eb592607))
+
 ## [0.4.0](https://github.com/eslint/config-inspector/compare/v0.3.1...v0.4.0) (2024-04-05)
 
 
