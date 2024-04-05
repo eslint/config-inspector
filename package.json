@@ -30,7 +30,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "eslint": "^8.50.0"
+    "eslint": "^8.50.0 || ^9.0.0"
   },
   "dependencies": {
     "bundle-require": "^4.0.2",
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.12.1",
-    "@eslint/js": "^8.57.0",
+    "@eslint/js": "^9.0.0",
     "@iconify-json/carbon": "^1.1.31",
     "@iconify-json/file-icons": "^1.1.8",
     "@iconify-json/logos": "^1.1.42",
@@ -60,10 +60,10 @@
     "@types/connect": "^3.4.38",
     "@types/ws": "^8.5.10",
     "@typescript-eslint/utils": "^7.5.0",
-    "@unocss/eslint-config": "^0.58.9",
-    "@unocss/nuxt": "^0.58.9",
+    "@unocss/eslint-config": "^0.59.0",
+    "@unocss/nuxt": "^0.59.0",
     "@vueuse/nuxt": "^10.9.0",
-    "eslint": "^9.0.0-rc.0",
+    "eslint": "^9.0.0",
     "floating-vue": "^5.2.2",
     "fuse.js": "^7.0.0",
     "lint-staged": "^15.2.2",
