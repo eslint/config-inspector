@@ -365,7 +365,7 @@ debouncedWatch(
             :key="idx"
           >
             <ConfigItem
-              v-show="!filters.filepath ? true : filteredConfigs.includes(config) && (!stateStorage.showSpecificOnly || config.files)"
+              v-show="filteredConfigs.includes(config) && (!filters.filepath || (!stateStorage.showSpecificOnly || config.files))"
               v-model:open="opens[idx]"
               :payload="payload"
               :config="config"
