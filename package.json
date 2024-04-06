@@ -36,14 +36,14 @@
     "bundle-require": "^4.0.2",
     "cac": "^6.7.14",
     "chokidar": "^3.6.0",
-    "connect": "^3.7.0",
     "esbuild": "^0.20.2",
     "fast-glob": "^3.3.2",
     "find-up": "^7.0.0",
     "get-port-please": "^3.1.2",
+    "h3": "^1.11.1",
     "minimatch": "^9.0.4",
+    "mrmime": "^2.0.0",
     "open": "^10.1.0",
-    "sirv": "^2.0.4",
     "ws": "^8.16.0"
   },
   "devDependencies": {
