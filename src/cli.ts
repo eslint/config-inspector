@@ -2,9 +2,11 @@ import process from 'node:process'
 import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
+import { createServer } from 'node:http'
 import open from 'open'
 import { getPort } from 'get-port-please'
 import cac from 'cac'
+import { toNodeListener } from 'h3'
 import { createHostServer } from './server'
 import { distDir } from './dirs'
 import { readConfig } from './configs'
@@ -67,7 +69,7 @@ cli
       userBasePath: options.basePath,
     })
 
-    server.listen(port, host)
+    createServer(toNodeListener(server)).listen(port, host)
 
     if (options.open)
       await open(`http://${host === '127.0.0.1' ? 'localhost' : host}:${port}`)
