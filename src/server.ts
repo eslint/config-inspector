@@ -1,6 +1,7 @@
 import { join } from 'node:path'
 import { readFile, stat } from 'node:fs/promises'
-import { createApp, eventHandler, serveStatic } from 'h3'
+import { createServer } from 'node:http'
+import { createApp, eventHandler, serveStatic, toNodeListener } from 'h3'
 import { lookup } from 'mrmime'
 import { type CreateWsServerOptions, createWsServer } from './ws'
 import { distDir } from './dirs'
@@ -36,5 +37,5 @@ export async function createHostServer(options: CreateWsServerOptions) {
       return readFile(join(distDir, 'index.html'), 'utf8')
   }))
 
-  return app
+  return createServer(toNodeListener(app))
 }
