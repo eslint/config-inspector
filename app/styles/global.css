@@ -5,7 +5,7 @@ html, body , #__nuxt{
 }
 
 summary::-webkit-details-marker {
-  display:none;
+  display: none;
 }
 
 body {
