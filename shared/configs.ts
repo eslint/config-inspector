@@ -1,6 +1,6 @@
 import type { Linter } from 'eslint'
 import { minimatch } from 'minimatch'
-import type { FileConfigMatchResult, FlatESLintConfigItem } from '~~/types'
+import type { FileConfigMatchResult, FlatESLintConfigItem } from '~~/shared/types'
 
 function getMatchedGlobs(file: string, glob: (Linter.FlatConfigFileSpec | Linter.FlatConfigFileSpec[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()

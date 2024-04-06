@@ -4,7 +4,7 @@ import { bundleRequire } from 'bundle-require'
 import type { Linter } from 'eslint'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
-import type { FlatESLintConfigItem, Payload, RuleInfo } from '../types'
+import type { FlatESLintConfigItem, Payload, RuleInfo } from '../shared/types'
 
 const configFilenames = [
   'eslint.config.js',

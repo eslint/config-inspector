@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 import { vTooltip } from 'floating-vue'
-import { getRuleLevel } from '~/composables/rules'
-import type { RuleConfigStates, RuleInfo, RuleLevel } from '~~/types'
+import { getRuleLevel } from '~~/shared/rules'
+import type { RuleConfigStates, RuleInfo, RuleLevel } from '~~/shared/types'
 
 const props = defineProps<{
   rule: RuleInfo

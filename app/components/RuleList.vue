@@ -3,7 +3,7 @@ import { Fragment, computed, defineComponent, h } from 'vue'
 import type { Linter } from 'eslint'
 import { isGridView } from '../composables/state'
 import { getRuleFromName, payload } from '~/composables/payload'
-import type { RuleInfo } from '~~/types'
+import type { RuleInfo } from '~~/shared/types'
 
 const props = defineProps<{
   rules: RuleInfo[] | Record<string, Linter.RuleEntry>

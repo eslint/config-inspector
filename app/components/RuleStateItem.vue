@@ -4,7 +4,7 @@ import { nth, stringifyUnquoted } from '~/composables/strings'
 import { filtersConfigs } from '~/composables/state'
 import { payload } from '~/composables/payload'
 import { useRouter } from '#app/composables/router'
-import type { RuleConfigState } from '~~/types'
+import type { RuleConfigState } from '~~/shared/types'
 
 const props = defineProps<{
   state: RuleConfigState

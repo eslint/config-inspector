@@ -3,7 +3,8 @@ import { computed, defineModel, ref, watchEffect } from 'vue'
 import { filtersRules, isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
 import { useRouter } from '#app/composables/router'
-import type { FiltersConfigsPage, FlatESLintConfigItem } from '~~/types'
+import type { FiltersConfigsPage, FlatESLintConfigItem } from '~~/shared/types'
+import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 
 const props = defineProps<{
   config: FlatESLintConfigItem

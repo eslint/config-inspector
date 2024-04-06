@@ -5,6 +5,7 @@ import { version } from '../../package.json'
 import { filtersRules as filters, stateStorage } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
 import { payload } from '~/composables/payload'
+import { toggleDark } from '~/composables/dark'
 
 const lastUpdate = useTimeAgo(() => payload.value.meta.lastUpdate)
 

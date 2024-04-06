@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineModel, ref, watchEffect } from 'vue'
 import { useRouter } from '#app/composables/router'
-import type { FilesGroup } from '~~/types'
+import type { FilesGroup } from '~~/shared/types'
 
 defineProps<{
   index: number

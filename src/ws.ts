@@ -4,7 +4,7 @@ import type { WebSocket } from 'ws'
 import { WebSocketServer } from 'ws'
 import { getPort } from 'get-port-please'
 import { type ReadConfigOptions, readConfig } from './configs'
-import type { Payload } from '~~/types'
+import type { Payload } from '~~/shared/types'
 
 const readErrorWarning = `Failed to load \`eslint.config.js\`.
 Note that \`@eslint/config-inspector\` only works with the flat config format:

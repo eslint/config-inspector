@@ -7,8 +7,8 @@ import Fuse from 'fuse.js'
 import type { PropType, VNode } from 'vue'
 import { useRoute } from '#app/composables/router'
 import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
-import { getMatchedConfigs } from '~/composables/configs'
-import { getRuleLevel } from '~/composables/rules'
+import { getMatchedConfigs } from '~~/shared/configs'
+import { getRuleLevel } from '~~/shared/rules'
 import { payload } from '~/composables/payload'
 
 const input = ref(filters.filepath)
