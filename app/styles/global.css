@@ -4,6 +4,10 @@ html, body , #__nuxt{
   padding: 0;
 }
 
+summary::-webkit-details-marker {
+  display:none;
+}
+
 body {
   --at-apply: bg-base color-base font-sans;
 }
