@@ -4,17 +4,10 @@ import { bundleRequire } from 'bundle-require'
 import type { Linter } from 'eslint'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
+import c from 'picocolors'
 import type { FlatESLintConfigItem, Payload, RuleInfo } from '../shared/types'
 import { isIgnoreOnlyConfig } from '../shared/configs'
-
-const configFilenames = [
-  'eslint.config.js',
-  'eslint.config.mjs',
-  'eslint.config.cjs',
-  'eslint.config.ts',
-  'eslint.config.mts',
-  'eslint.config.cts',
-]
+import { MARK_CHECK, MARK_INFO, configFilenames } from './constants'
 
 export interface ReadConfigOptions {
   /**
@@ -79,7 +72,7 @@ export async function readConfig(
   if (chdir && rootPath !== process.cwd())
     process.chdir(rootPath)
 
-  console.log('Reading ESLint configs from', configPath)
+  console.log(MARK_INFO, `Reading ESLint config from`, c.blue(configPath))
   const { mod, dependencies } = await bundleRequire({
     filepath: configPath,
     cwd: rootPath,
@@ -128,6 +121,8 @@ export async function readConfig(
     }
   })
 
+  console.log(MARK_CHECK, 'Loaded with', configs.length, 'config items and', Object.keys(rules).length, 'rules')
+
   const payload: Payload = {
     configs,
     rules,
@@ -152,6 +147,7 @@ export async function globMatchedFiles(
   rootPath: string,
   configs: FlatESLintConfigItem[],
 ): Promise<string[]> {
+  console.log(MARK_INFO, 'Globing matched files')
   const files = await fg(
     configs.flatMap(i => i.files ?? []).filter(i => typeof i === 'string') as string[],
     {
@@ -169,7 +165,7 @@ export async function globMatchedFiles(
       deep: 5,
     },
   )
-
   files.sort()
+  console.log(MARK_CHECK, 'Found', files.length, 'matched files by configs')
   return files
 }

@@ -5,11 +5,15 @@ import { relative, resolve } from 'node:path'
 import open from 'open'
 import { getPort } from 'get-port-please'
 import cac from 'cac'
+import c from 'picocolors'
 import { createHostServer } from './server'
 import { distDir } from './dirs'
 import { readConfig } from './configs'
+import { MARK_CHECK, MARK_INFO } from './constants'
 
-const cli = cac()
+const cli = cac(
+  'eslint-config-inspector',
+)
 
 cli
   .command('build', 'Build inspector with current config file for static hosting')
@@ -18,7 +22,7 @@ cli
   .option('--basePath <basePath>', 'Base directory for globs to resolve. Default to directory of config file if not provided')
   .option('--outDir <dir>', 'Output directory', { default: '.eslint-config-inspector' })
   .action(async (options) => {
-    console.log('Building static ESLint config inspector...')
+    console.log(MARK_INFO, 'Building static ESLint config inspector...')
 
     if (process.env.ESLINT_CONFIG)
       options.config ||= process.env.ESLINT_CONFIG
@@ -42,8 +46,8 @@ cli
     configs.payload.meta.rootPath = ''
     await fs.writeFile(resolve(outDir, 'api/payload.json'), JSON.stringify(configs.payload, null, 2), 'utf-8')
 
-    console.log(`Built to ${relative(cwd, outDir)}`)
-    console.log(`You can use static server like \`npx serve ${relative(cwd, outDir)}\` to serve the inspector`)
+    console.log(MARK_CHECK, `Built to ${relative(cwd, outDir)}`)
+    console.log(MARK_INFO, `You can use static server like \`npx serve ${relative(cwd, outDir)}\` to serve the inspector`)
   })
 
 cli
@@ -61,7 +65,7 @@ cli
     if (process.env.ESLINT_CONFIG)
       options.config ||= process.env.ESLINT_CONFIG
 
-    console.log(`Starting ESLint config inspector at http://${host}:${port}`)
+    console.log(MARK_INFO, `Starting ESLint config inspector at`, c.green(`http://${host}:${port}`), '\n')
 
     const cwd = process.cwd()
     const server = await createHostServer({

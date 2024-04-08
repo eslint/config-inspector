@@ -1,9 +1,9 @@
-import { relative } from 'node:path'
 import chokidar from 'chokidar'
 import type { WebSocket } from 'ws'
 import { WebSocketServer } from 'ws'
 import { getPort } from 'get-port-please'
 import { type ReadConfigOptions, readConfig } from './configs'
+import { MARK_CHECK } from './constants'
 import type { Payload } from '~~/shared/types'
 
 const readErrorWarning = `Failed to load \`eslint.config.js\`.
@@ -22,7 +22,7 @@ export async function createWsServer(options: CreateWsServerOptions) {
 
   wss.on('connection', (ws) => {
     wsClients.add(ws)
-    console.log('Websocket client connected')
+    console.log(MARK_CHECK, 'Websocket client connected')
     ws.on('close', () => wsClients.delete(ws))
   })
 
@@ -34,7 +34,8 @@ export async function createWsServer(options: CreateWsServerOptions) {
 
   watcher.on('change', (path) => {
     payload = undefined
-    console.log('Config change detected', path)
+    console.log()
+    console.log(MARK_CHECK, 'Config change detected', path)
     wsClients.forEach((ws) => {
       ws.send(JSON.stringify({
         type: 'config-change',
@@ -50,7 +51,6 @@ export async function createWsServer(options: CreateWsServerOptions) {
           .then((res) => {
             const _payload = payload = res.payload
             _payload.meta.wsPort = port
-            console.log(`Read ESLint config from \`${relative(options.cwd, _payload.meta.configPath)}\` with`, _payload.configs.length, 'configs and', Object.keys(_payload.rules).length, 'rules')
             watcher.add(res.dependencies)
             return payload
           })
