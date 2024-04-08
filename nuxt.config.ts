@@ -17,6 +17,10 @@ export default defineNuxtConfig({
     },
   },
 
+  appConfig: {
+    baseURL: './',
+  },
+
   experimental: {
     typedPages: true,
   },
