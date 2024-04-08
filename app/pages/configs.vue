@@ -391,6 +391,7 @@ onMounted(async () => {
               :index="idx"
               :filters="filters"
               :active="!!(filters.filepath && config.files)"
+              :matched-globs="fileMatchResult?.globs"
               @badge-click="e => filters.rule = e"
             />
           </template>

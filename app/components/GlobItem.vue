@@ -36,12 +36,13 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
 
 <template>
   <component :is="showsPopup ? VDropdown : Noop">
-    <div
+    <component
+      :is="showsPopup ? 'button' : 'div'"
       border="~ rounded" px2 font-mono
       :class="active === true ? 'border-amber:50 text-amber bg-amber:5' : active === false ? 'border-base bg-gray:5 text-gray op50' : 'border-base bg-gray:5 text-gray'"
     >
       {{ glob }}
-    </div>
+    </component>
     <template #popper="{ shown, hide }">
       <div v-if="shown && popup === 'files'" max-h="30vh" min-w-80 p3 of-auto>
         <div v-if="files?.size" flex="~ col gap-1">

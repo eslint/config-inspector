@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, defineModel, ref, watchEffect } from 'vue'
+import type { Linter } from 'eslint'
 import { filtersRules, isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
 import { useRouter } from '#app/composables/router'
@@ -11,6 +12,7 @@ const props = defineProps<{
   index: number
   filters?: FiltersConfigsPage
   active?: boolean
+  matchedGlobs?: Linter.FlatConfigFileSpec[]
 }>()
 
 const emit = defineEmits<{
@@ -113,7 +115,11 @@ const extraConfigs = computed(() => {
         <div flex="~ col gap-2">
           <div>Applies to files matching</div>
           <div flex="~ gap-2 items-center wrap">
-            <GlobItem v-for="glob, idx of config.files?.flat()" :key="idx" :glob="glob" popup="files" />
+            <GlobItem
+              v-for="glob, idx of config.files?.flat()"
+              :key="idx" :glob="glob" popup="files"
+              :active="matchedGlobs?.includes(glob)"
+            />
           </div>
         </div>
       </div>
@@ -148,7 +154,11 @@ const extraConfigs = computed(() => {
             Ignore
           </div>
           <div flex="~ gap-2 items-center wrap">
-            <GlobItem v-for="glob, idx of config.ignores" :key="idx" :glob="glob" />
+            <GlobItem
+              v-for="glob, idx of config.ignores"
+              :key="idx" :glob="glob"
+              :active="matchedGlobs?.includes(glob)"
+            />
           </div>
         </div>
       </div>
