@@ -10,9 +10,19 @@ const data = ref<Payload>({
   rules: {},
   configs: [],
   meta: {} as any,
-  files: [],
 })
 
+/**
+ * State of initial loading
+ */
+export const isLoading = ref(true)
+/**
+ * State of fetching, used for loading indicator
+ */
+export const isFetching = ref(false)
+/**
+ * Error information
+ */
 export const errorInfo = ref<ErrorInfo>()
 
 function isErrorInfo(payload: Payload | ErrorInfo): payload is ErrorInfo {
@@ -20,13 +30,18 @@ function isErrorInfo(payload: Payload | ErrorInfo): payload is ErrorInfo {
 }
 
 async function get() {
+  isFetching.value = true
   const payload = await $fetch<Payload | ErrorInfo>('/api/payload.json')
   if (isErrorInfo(payload)) {
     errorInfo.value = payload
+    isLoading.value = false
+    isFetching.value = false
     return
   }
   errorInfo.value = undefined
   data.value = payload
+  isLoading.value = false
+  isFetching.value = false
   console.log(LOG_NAME, 'Config payload', payload)
   return payload
 }
@@ -99,7 +114,7 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
     .filter((idx): idx is number => idx !== undefined)
 
   const filesMatchedConfigsMap = new Map<string, FileConfigMatchResult[]>()
-  payload.files.forEach((file) => {
+  payload.files?.forEach((file) => {
     filesMatchedConfigsMap.set(file, getMatchedConfigs(file, payload.configs))
   })
 

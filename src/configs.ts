@@ -5,6 +5,7 @@ import type { Linter } from 'eslint'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
 import type { FlatESLintConfigItem, Payload, RuleInfo } from '../shared/types'
+import { isIgnoreOnlyConfig } from '~~/shared/configs'
 
 const configFilenames = [
   'eslint.config.js',
@@ -30,6 +31,12 @@ export interface ReadConfigOptions {
    */
   userBasePath?: string
   /**
+   * Glob file paths matched by the configs
+   *
+   * @default true
+   */
+  globMatchedFiles?: boolean
+  /**
    * Change current working directory to basePath
    * @default true
    */
@@ -50,6 +57,7 @@ export async function readConfig(
     userConfigPath,
     userBasePath,
     chdir = true,
+    globMatchedFiles: globFiles = true,
   }: ReadConfigOptions,
 ): Promise<{ configs: FlatESLintConfigItem[], payload: Payload, dependencies: string[] }> {
   if (userBasePath)
@@ -120,25 +128,12 @@ export async function readConfig(
     }
   })
 
-  const files = await fg(
-    configs.flatMap(i => i.files ?? []).filter(i => typeof i === 'string') as string[],
-    {
-      cwd: rootPath,
-      onlyFiles: true,
-      ignore: [
-        '**/node_modules/**',
-        ...configs.flatMap(i => i.ignores ?? []).filter(i => typeof i === 'string') as string[],
-      ],
-      deep: 5,
-    },
-  )
-
-  files.sort()
-
   const payload: Payload = {
     configs,
     rules,
-    files,
+    files: globFiles
+      ? await globMatchedFiles(rootPath, configs)
+      : undefined,
     meta: {
       lastUpdate: Date.now(),
       rootPath,
@@ -151,4 +146,30 @@ export async function readConfig(
     dependencies,
     payload,
   }
+}
+
+export async function globMatchedFiles(
+  rootPath: string,
+  configs: FlatESLintConfigItem[],
+): Promise<string[]> {
+  const files = await fg(
+    configs.flatMap(i => i.files ?? []).filter(i => typeof i === 'string') as string[],
+    {
+      cwd: rootPath,
+      onlyFiles: true,
+      ignore: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/.git/**',
+        ...configs
+          .filter(i => isIgnoreOnlyConfig(i))
+          .flatMap(i => i.files ?? [])
+          .filter(i => typeof i === 'string') as string[],
+      ],
+      deep: 5,
+    },
+  )
+
+  files.sort()
+  return files
 }

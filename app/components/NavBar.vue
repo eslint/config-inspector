@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useTimeAgo } from '@vueuse/core'
-import { version } from '../../package.json'
 import { filtersRules as filters, stateStorage } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
-import { payload } from '~/composables/payload'
+import { isFetching, payload } from '~/composables/payload'
 import { toggleDark } from '~/composables/dark'
 
 const lastUpdate = useTimeAgo(() => payload.value.meta.lastUpdate)
@@ -30,20 +29,7 @@ function toggleRuleView() {
 </script>
 
 <template>
-  <div text-3xl font-200>
-    <a
-      href="https://github.com/eslint/config-inspector" target="_blank"
-      flex="inline gap-2 items-center" mr1
-    >
-      <img src="/favicon.svg" inline-block h-1em> ESLint Config Inspector
-    </a>
-    <a
-      op50 font-mono text-base inline-block translate-y--5 ml1
-      :href="`https://github.com/eslint/config-inspector/releases/tag/v${version}`" target="_blank"
-    >
-      v{{ version }}
-    </a>
-  </div>
+  <ConfigInspectorBadge text-3xl font-200 />
   <div v-if="payload.meta.configPath" flex="~ gap-1 items-center" text-sm my1>
     <span font-mono op35>{{ payload.meta.configPath }}</span>
   </div>
@@ -52,6 +38,14 @@ function toggleRuleView() {
     <span font-bold>{{ payload.configs.length }}</span>
     <span op50>config items, updated</span>
     <span op75>{{ lastUpdate }}</span>
+    <div
+      v-if="isFetching"
+      flex="~ gap-2 items-center"
+      text-green ml2 animate-pulse
+    >
+      <div i-svg-spinners-90-ring-with-bg text-sm flex-none />
+      Fetching updates...
+    </div>
   </div>
   <div flex="~ gap-3 items-center wrap" py4>
     <NuxtLink
@@ -71,6 +65,7 @@ function toggleRuleView() {
       Rules
     </NuxtLink>
     <NuxtLink
+      v-if="payload.files"
       to="/files" active-class="op100! bg-active"
       px3 py1 op50 border="~ base rounded"
       flex="~ gap-2 items-center"

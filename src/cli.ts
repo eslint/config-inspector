@@ -14,8 +14,9 @@ const cli = cac()
 cli
   .command('build', 'Build inspector with current config file for static hosting')
   .option('--config <configFile>', 'Config file path')
+  .option('--files', 'Include matched file paths in payload', { default: true })
   .option('--basePath <basePath>', 'Base directory for globs to resolve. Default to directory of config file if not provided')
-  .option('--out-dir <dir>', 'Output directory', { default: '.eslint-config-inspector' })
+  .option('--outDir <dir>', 'Output directory', { default: '.eslint-config-inspector' })
   .action(async (options) => {
     console.log('Building static ESLint config inspector...')
 
@@ -28,6 +29,7 @@ cli
       cwd,
       userConfigPath: options.config,
       userBasePath: options.basePath,
+      globMatchedFiles: options.files,
     })
 
     if (existsSync(outDir))
@@ -47,6 +49,7 @@ cli
 cli
   .command('', 'Start dev inspector')
   .option('--config <configFile>', 'Config file path')
+  .option('--files', 'Include matched file paths in payload', { default: true })
   .option('--basePath <basePath>', 'Base directory for globs to resolve. Default to directory of config file if not provided')
   .option('--host <host>', 'Host', { default: process.env.HOST || '127.0.0.1' })
   .option('--port <port>', 'Port', { default: process.env.PORT || 7777 })
@@ -65,6 +68,7 @@ cli
       cwd,
       userConfigPath: options.config,
       userBasePath: options.basePath,
+      globMatchedFiles: options.files,
     })
 
     server.listen(port, host)

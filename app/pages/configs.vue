@@ -34,7 +34,7 @@ const filteredConfigs = computed(() => {
 })
 
 const autoCompleteFuse = computed(() => {
-  return new Fuse(payload.value.files, {
+  return new Fuse(payload.value.files || [], {
     threshold: 0.3,
     includeMatches: true,
   })

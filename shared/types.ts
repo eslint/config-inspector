@@ -9,9 +9,9 @@ export type RuleLevel = 'off' | 'warn' | 'error'
 
 export interface Payload {
   configs: FlatESLintConfigItem[]
-  files: string[]
   rules: Record<string, RuleInfo>
   meta: PayloadMeta
+  files?: string[]
 }
 
 export interface ErrorInfo {

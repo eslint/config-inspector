@@ -4,7 +4,7 @@ import { payload } from '~/composables/payload'
 </script>
 
 <template>
-  <div flex="~ col gap-4" my4>
+  <div v-if="payload.files" flex="~ col gap-4" my4>
     <div text-gray:75>
       This tab shows the preview for files match from the workspace.
       This feature is <span text-amber>experimental</span> and may not be 100% accurate.
@@ -44,6 +44,11 @@ import { payload } from '~/composables/payload'
       <div flex="~ col gap-1" ml6 py4 font-mono>
         <FileItem v-for="file of payload.files" :key="file" :filepath="file" />
       </div>
+    </div>
+  </div>
+  <div v-else>
+    <div op50 italic p3>
+      No matched files found in the workspace.
     </div>
   </div>
 </template>

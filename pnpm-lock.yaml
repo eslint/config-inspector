@@ -64,6 +64,9 @@ devDependencies:
   '@iconify-json/simple-icons':
     specifier: ^1.1.98
     version: 1.1.98
+  '@iconify-json/svg-spinners':
+    specifier: ^1.1.2
+    version: 1.1.2
   '@iconify-json/twemoji':
     specifier: ^1.1.15
     version: 1.1.15
@@ -1180,6 +1183,12 @@ packages:
 
   /@iconify-json/simple-icons@1.1.98:
     resolution: {integrity: sha512-oL1ucUCQE/aGVhb9Bvo556EcNjww9yzFITvwOKI0h3KYkF5iSAiwCqWkqxUJzrJHobQdd5R91jYfLG847G9uIA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/svg-spinners@1.1.2:
+    resolution: {integrity: sha512-Aab6SqkORaTJ1W+ooufn6C8BsBitrn3uk8iRQLPA6pjhyvQAhkKCGMctyXIL5ZjrycnoFVsZ4mx7KnwEMra8qg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
