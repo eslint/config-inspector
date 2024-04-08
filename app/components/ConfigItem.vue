@@ -113,7 +113,7 @@ const extraConfigs = computed(() => {
         <div flex="~ col gap-2">
           <div>Applies to files matching</div>
           <div flex="~ gap-2 items-center wrap">
-            <GlobItem v-for="glob, idx of config.files?.flat()" :key="idx" :glob="glob" />
+            <GlobItem v-for="glob, idx of config.files?.flat()" :key="idx" :glob="glob" popup="files" />
           </div>
         </div>
       </div>

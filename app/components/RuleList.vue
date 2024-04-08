@@ -53,7 +53,7 @@ const Wrapper = defineComponent({
       <Wrapper v-if="props.filter?.(name) !== false">
         <RuleItem
           :rule="getRule(name)!"
-          :rule-states="Array.isArray(rules) ? payload.ruleStateMap.get(name) || [] : undefined"
+          :rule-states="Array.isArray(rules) ? payload.ruleToState.get(name) || [] : undefined"
           :grid-view="isGridView"
           :value="getValue(name)"
           v-bind="getBind?.(name)"
@@ -61,7 +61,7 @@ const Wrapper = defineComponent({
           <template #popup>
             <slot name="popup" :rule-name="name" :value="getValue(name)">
               <RuleStateItem
-                v-for="state, idx of payload.ruleStateMap.get(name) || []"
+                v-for="state, idx of payload.ruleToState.get(name) || []"
                 :key="idx"
                 border="t base"
                 :state="state"

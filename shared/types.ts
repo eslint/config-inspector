@@ -11,7 +11,22 @@ export interface Payload {
   configs: FlatESLintConfigItem[]
   rules: Record<string, RuleInfo>
   meta: PayloadMeta
-  files?: string[]
+  files?: MatchedFile[]
+}
+
+export interface MatchedFile {
+  /**
+   * Filepath
+   */
+  filepath: string
+  /**
+   * Matched globs, includes both positive and negative globs
+   */
+  globs: Linter.FlatConfigFileSpec[]
+  /**
+   * Matched configs indexes
+   */
+  configs: number[]
 }
 
 export interface ErrorInfo {
@@ -26,22 +41,23 @@ export interface FilesGroup {
   globs: Set<Linter.FlatConfigFileSpec>
 }
 
-export interface FileConfigMatchResult {
-  config: FlatESLintConfigItem
-  index: number
-  globs: Linter.FlatConfigFileSpec[]
-}
-
 export interface ResolvedPayload extends Payload {
-  ruleStateMap: Map<string, RuleConfigStates>
-  filesMatchedConfigsMap: Map<string, FileConfigMatchResult[]>
-  filesGroup: FilesGroup[]
+  ruleToState: Map<string, RuleConfigStates>
+  globToConfigs: Map<Linter.FlatConfigFileSpec, FlatESLintConfigItem[]>
+  filesResolved?: {
+    list: string[]
+    globToFiles: Map<Linter.FlatConfigFileSpec, Set<string>>
+    configToFiles: Map<number, Set<string>>
+    fileToGlobs: Map<string, Set<Linter.FlatConfigFileSpec>>
+    fileToConfigs: Map<string, FlatESLintConfigItem[]>
+    groups: FilesGroup[]
+  }
 }
 
 export interface PayloadMeta {
   wsPort?: number
   lastUpdate: number
-  rootPath: string
+  basePath: string
   configPath: string
 }
 

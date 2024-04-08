@@ -5,8 +5,8 @@ import type { Linter } from 'eslint'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
 import c from 'picocolors'
-import type { FlatESLintConfigItem, Payload, RuleInfo } from '../shared/types'
-import { isIgnoreOnlyConfig } from '../shared/configs'
+import type { FlatESLintConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
+import { isIgnoreOnlyConfig, matchFile } from '../shared/configs'
 import { MARK_CHECK, MARK_INFO, configFilenames } from './constants'
 
 export interface ReadConfigOptions {
@@ -63,19 +63,19 @@ export async function readConfig(
   if (!configPath)
     throw new Error('Cannot find ESLint config file')
 
-  const rootPath = userBasePath || (
+  const basePath = userBasePath || (
     userConfigPath
       ? cwd // When user explicit provide config path, use current working directory as root
       : dirname(configPath) // Otherwise, use config file's directory as root
   )
 
-  if (chdir && rootPath !== process.cwd())
-    process.chdir(rootPath)
+  if (chdir && basePath !== process.cwd())
+    process.chdir(basePath)
 
   console.log(MARK_INFO, `Reading ESLint config from`, c.blue(configPath))
   const { mod, dependencies } = await bundleRequire({
     filepath: configPath,
-    cwd: rootPath,
+    cwd: basePath,
   })
 
   const rawConfigs = await (mod.default ?? mod) as FlatESLintConfigItem[]
@@ -127,11 +127,11 @@ export async function readConfig(
     configs,
     rules,
     files: globFiles
-      ? await globMatchedFiles(rootPath, configs)
+      ? await globMatchedFiles(basePath, rawConfigs)
       : undefined,
     meta: {
       lastUpdate: Date.now(),
-      rootPath,
+      basePath,
       configPath,
     },
   }
@@ -144,14 +144,14 @@ export async function readConfig(
 }
 
 export async function globMatchedFiles(
-  rootPath: string,
+  basePath: string,
   configs: FlatESLintConfigItem[],
-): Promise<string[]> {
+): Promise<MatchedFile[]> {
   console.log(MARK_INFO, 'Globing matched files')
   const files = await fg(
     configs.flatMap(i => i.files ?? []).filter(i => typeof i === 'string') as string[],
     {
-      cwd: rootPath,
+      cwd: basePath,
       onlyFiles: true,
       ignore: [
         '**/node_modules/**',
@@ -159,13 +159,31 @@ export async function globMatchedFiles(
         '**/.git/**',
         ...configs
           .filter(i => isIgnoreOnlyConfig(i))
-          .flatMap(i => i.files ?? [])
+          .flatMap(i => i.ignores ?? [])
           .filter(i => typeof i === 'string') as string[],
       ],
-      deep: 5,
+      deep: 5, // TODO: maybe increase this?
     },
   )
   files.sort()
-  console.log(MARK_CHECK, 'Found', files.length, 'matched files by configs')
+
+  const ignoreOnlyConfigs = configs.filter(isIgnoreOnlyConfig)
+  // const functionalGlobMap = new Map<any, string>()
+  // function stringifyGlob(glob: Linter.FlatConfigFileSpec) {
+  //   if (typeof glob === 'function') {
+  //     if (!functionalGlobMap.has(glob))
+  //       functionalGlobMap.set(glob, `<function#${functionalGlobMap.size + 1}>`)
+  //     return functionalGlobMap.get(glob)!
+  //   }
+  //   return glob
+  // }
+
   return files
+    .map((filepath) => {
+      const result = matchFile(filepath, configs, ignoreOnlyConfigs)
+      if (!result.configs.length)
+        return undefined
+      return result
+    })
+    .filter(i => i) as MatchedFile[]
 }

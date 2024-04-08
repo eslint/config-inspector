@@ -4,7 +4,7 @@ import { payload } from '~/composables/payload'
 </script>
 
 <template>
-  <div v-if="payload.files" flex="~ col gap-4" my4>
+  <div v-if="payload.filesResolved" flex="~ col gap-4" my4>
     <div text-gray:75>
       This tab shows the preview for files match from the workspace.
       This feature is <span text-amber>experimental</span> and may not be 100% accurate.
@@ -32,15 +32,15 @@ import { payload } from '~/composables/payload'
     </div>
 
     <div v-if="stateStorage.viewFilesTab === 'group'" flex="~ gap-2 col">
-      <FileGroupItem v-for="group, idx of payload.filesGroup" :key="group.id" :group="group" :index="idx" />
+      <FileGroupItem v-for="group, idx of payload.filesResolved.groups" :key="group.id" :group="group" :index="idx" />
     </div>
     <div v-else>
       <div flex="~ gap-2 items-center">
         <div i-ph-files-duotone flex-none />
-        <div>Matched Local Files ({{ payload.files.length }})</div>
+        <div>Matched Local Files ({{ payload.filesResolved.list.length }})</div>
       </div>
       <div flex="~ col gap-1" py4 font-mono>
-        <FileItem v-for="file of payload.files" :key="file" :filepath="file" />
+        <FileItem v-for="file of payload.filesResolved.list" :key="file" :filepath="file" />
       </div>
     </div>
   </div>

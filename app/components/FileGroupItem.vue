@@ -88,13 +88,7 @@ function goToConfig(idx: number) {
         <div v-for="config, idx of group.configs" :key="idx" font-mono flex="~ gap-2">
           <VDropdown>
             <button border="~ base rounded px2" flex="~ gap-2 items-center" hover="bg-active" px2>
-              <ColorizedConfigName v-if="config.name" :name="config.name!" />
-              <div v-else op50 italic>
-                anonymous
-              </div>
-              <div op50 text-sm>
-                #{{ idx + 1 }}
-              </div>
+              <ColorizedConfigName :name="config.name" :index="idx" />
             </button>
             <template #popper="{ shown }">
               <div v-if="shown" max-h="50vh" min-w-100>

@@ -21,7 +21,7 @@ withDefaults(
     </a>
     <a
       v-if="showVersion"
-      op50 font-mono inline-block translate-y--5 ml1 text-0.8em
+      op50 font-mono inline-block translate-y--5 ml1 text-0.6em font-200
       :href="`https://github.com/eslint/config-inspector/releases/tag/v${version}`" target="_blank"
     >
       v{{ version }}

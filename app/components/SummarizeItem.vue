@@ -11,9 +11,9 @@ const props = defineProps<{
   <div
     v-tooltip="`${props.number} ${props.title}`"
     flex="~ gap-2"
-    :class="props.number ? props.color : 'op35'"
+    :class="props.number ? props.color : 'op25'"
   >
     <div :class="props.icon" />
-    <span min-w-6 :class="`text-${props.color}`">{{ props.number || '-' }}</span>
+    <span min-w-6 :class="`text-${props.color}`">{{ props.number || '' }}</span>
   </div>
 </template>

@@ -1,20 +1,82 @@
 <script setup lang="ts">
+import { computed, defineComponent } from 'vue'
 import type { Linter } from 'eslint'
+import { Dropdown as VDropdown } from 'floating-vue'
+import { filtersConfigs } from '~/composables/state'
+import { useRouter } from '#app/composables/router'
+import { payload } from '~/composables/payload'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     glob: Linter.FlatConfigFileSpec
+    popup?: 'files' | 'configs'
     active?: boolean | null
   }>(),
   { active: null },
 )
+
+const showsPopup = computed(() => (props.popup === 'files' && payload.value.filesResolved) || props.popup === 'configs')
+const files = computed(() => props.popup === 'files'
+  ? payload.value.filesResolved?.globToFiles.get(props.glob)
+  : undefined)
+
+const configs = computed(() => props.popup === 'configs'
+  ? payload.value.globToConfigs.get(props.glob)
+  : undefined,
+)
+
+const router = useRouter()
+function goToConfig(idx: number) {
+  filtersConfigs.filepath = ''
+  router.push(`/configs?index=${idx + 1}`)
+}
+
+const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() })
 </script>
 
 <template>
-  <div
-    border="~ rounded" px2 font-mono
-    :class="active === true ? 'border-amber:50 text-amber bg-amber:5' : active === false ? 'border-base bg-gray:5 text-gray op50' : 'border-base bg-gray:5 text-gray'"
-  >
-    {{ glob }}
-  </div>
+  <component :is="showsPopup ? VDropdown : Noop">
+    <div
+      border="~ rounded" px2 font-mono
+      :class="active === true ? 'border-amber:50 text-amber bg-amber:5' : active === false ? 'border-base bg-gray:5 text-gray op50' : 'border-base bg-gray:5 text-gray'"
+    >
+      {{ glob }}
+    </div>
+    <template #popper="{ shown, hide }">
+      <div v-if="shown && popup === 'files'" max-h="30vh" min-w-80 p3 of-auto>
+        <div v-if="files?.size" flex="~ col gap-1">
+          <div>Files that matches this glob</div>
+          <FileItem
+            v-for="file of files" :key="file"
+            :filepath="file"
+            font-mono
+            @click="hide()"
+          />
+        </div>
+        <div v-else op50 text-center italic>
+          No files matched this glob.
+        </div>
+      </div>
+
+      <div v-if="shown && popup === 'configs'" max-h="30vh" min-w-80 p3 of-auto>
+        <div v-if="configs?.length" flex="~ col gap-1">
+          <div>Configs that contains this glob</div>
+          <div v-for="config of configs" :key="config.name" flex="~ gap-2">
+            <button
+              border="~ base rounded px2"
+              flex="~ gap-2 items-center"
+              hover="bg-active"
+              px2
+              @click="goToConfig(payload.configs.indexOf(config))"
+            >
+              <ColorizedConfigName :name="config.name" :index="payload.configs.indexOf(config)" />
+            </button>
+          </div>
+        </div>
+        <div v-else op50 text-center italic>
+          No configs matched this glob.
+        </div>
+      </div>
+    </template>
+  </component>
 </template>

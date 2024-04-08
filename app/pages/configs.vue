@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineComponent, h, nextTick, onMounted, ref } from 'vue'
+import { computed, defineComponent, h, nextTick, onMounted, ref, shallowRef, watch, watchEffect } from 'vue'
 import { debouncedWatch } from '@vueuse/core'
 import type { Linter } from 'eslint'
 import type { FuseResultMatch } from 'fuse.js'
@@ -7,9 +7,10 @@ import Fuse from 'fuse.js'
 import type { PropType, VNode } from 'vue'
 import { useRoute } from '#app/composables/router'
 import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
-import { getMatchedConfigs } from '~~/shared/configs'
+import { matchFile } from '~~/shared/configs'
 import { getRuleLevel } from '~~/shared/rules'
 import { payload } from '~/composables/payload'
+import type { FlatESLintConfigItem, MatchedFile } from '~~/shared/types'
 
 const input = ref(filters.filepath)
 
@@ -21,20 +22,28 @@ function collapseAll() {
   configsOpenState.value = configsOpenState.value.map(() => false)
 }
 
-const filteredConfigs = computed(() => {
+const filteredConfigs = shallowRef<FlatESLintConfigItem[]>([])
+const fileMatchResult = shallowRef<MatchedFile | null>(null)
+
+watchEffect(() => {
   let configs = payload.value.configs
 
-  if (filters.filepath)
-    configs = getMatchedConfigs(filters.filepath, configs).map(i => i.config)
+  if (filters.filepath) {
+    fileMatchResult.value = matchFile(filters.filepath, payload.value.configs)
+    configs = fileMatchResult.value.configs.map(idx => payload.value.configs[idx])
+  }
+  else {
+    fileMatchResult.value = null
+  }
 
   if (filters.rule)
     configs = configs.filter(config => filters.rule! in (config.rules || {}))
 
-  return configs
+  filteredConfigs.value = configs
 })
 
 const autoCompleteFuse = computed(() => {
-  return new Fuse(payload.value.files || [], {
+  return new Fuse(payload.value.filesResolved?.list || [], {
     threshold: 0.3,
     includeMatches: true,
   })
@@ -140,6 +149,14 @@ debouncedWatch(
     autoCompleteIndex.value = 0
   },
   { debounce: 200 },
+)
+
+watch(
+  () => filters.filepath,
+  () => {
+    if (filters.filepath !== input.value)
+      input.value = filters.filepath
+  },
 )
 
 const configEls = new Map<number, HTMLElement>()
@@ -274,8 +291,9 @@ onMounted(async () => {
           flex="~ gap-2 items-center" ml2 select-none
         >
           <input
-            v-model="stateStorage.showSpecificOnly"
+            :checked="stateStorage.showSpecificOnly"
             type="checkbox"
+            @change="stateStorage.showSpecificOnly = !!($event.target as any).checked"
           >
           <span op50>Show Specific Rules Only</span>
         </label>
@@ -299,9 +317,20 @@ onMounted(async () => {
       </div>
 
       <template v-if="!filteredConfigs.length">
-        <div italic op50>
+        <div italic op50 mt5>
           No matched config items.
         </div>
+        <template v-if="fileMatchResult?.globs.length">
+          <div>Ignored by globs:</div>
+          <div flex="~ gap-2 items-center wrap">
+            <GlobItem
+              v-for="glob, idx of fileMatchResult.globs"
+              :key="idx"
+              :glob="glob"
+              popup="configs"
+            />
+          </div>
+        </template>
       </template>
       <template v-else>
         <!-- Merged Rules -->

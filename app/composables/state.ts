@@ -21,7 +21,7 @@ export const stateStorage = useLocalStorage(
     viewType: 'list' as 'list' | 'grid',
     viewFileMatchType: 'configs' as 'configs' | 'merged',
     viewFilesTab: 'list' as 'list' | 'group',
-    showSpecificOnly: false,
+    showSpecificOnly: true,
   },
   { mergeDefaults: true },
 )

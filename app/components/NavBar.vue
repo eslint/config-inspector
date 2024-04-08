@@ -10,7 +10,7 @@ const lastUpdate = useTimeAgo(() => payload.value.meta.lastUpdate)
 
 const rules = computed(() => Object.values(payload.value.rules))
 const deprecatedUsing = computed(() => rules.value
-  .filter(rule => rule.deprecated && payload.value.ruleStateMap.get(rule.name)?.some(i => i.level !== 'off')))
+  .filter(rule => rule.deprecated && payload.value.ruleToState.get(rule.name)?.some(i => i.level !== 'off')))
 
 const router = useRouter()
 function showDeprecated() {
@@ -65,7 +65,7 @@ function toggleRuleView() {
       Rules
     </NuxtLink>
     <NuxtLink
-      v-if="payload.files"
+      v-if="payload.filesResolved"
       to="/files"
       btn-action text-base px3 py1
       active-class="btn-action-active"

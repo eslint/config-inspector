@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
+import type { Linter } from 'eslint'
 import { $fetch } from 'ofetch'
-import { getMatchedConfigs, isIgnoreOnlyConfig } from '~~/shared/configs'
+import { isGeneralConfig } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
-import type { ErrorInfo, FileConfigMatchResult, FilesGroup, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
+import type { ErrorInfo, FilesGroup, FlatESLintConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
 
 const LOG_NAME = '[ESLint Config Inspector]'
 
@@ -85,59 +86,44 @@ export function getRuleFromName(name: string): RuleInfo | undefined {
 }
 
 export function getRuleStates(name: string): RuleConfigStates | undefined {
-  return payload.value.ruleStateMap.get(name)
+  return payload.value.ruleToState.get(name)
 }
 
 export function resolvePayload(payload: Payload): ResolvedPayload {
-  const ruleStateMap = new Map<string, RuleConfigStates>()
+  const ruleToState = new Map<string, RuleConfigStates>()
+  const globToConfigs = new Map<Linter.FlatConfigFileSpec, FlatESLintConfigItem[]>()
+
   payload.configs.forEach((config, index) => {
-    if (!config.rules)
-      return
-    Object.entries(config.rules).forEach(([name, raw]) => {
-      const value = getRuleLevel(raw)
-      if (!value)
-        return
-      const options = getRuleOptions(raw)
-      if (!ruleStateMap.has(name))
-        ruleStateMap.set(name, [])
-      ruleStateMap.get(name)!.push({
-        name,
-        configIndex: index,
-        level: value,
-        options,
-      })
-    })
-  })
-
-  const generalConfigs = payload.configs
-    .map((config, idx) => (!config.files && !config.ignores) || isIgnoreOnlyConfig(config) ? idx : undefined)
-    .filter((idx): idx is number => idx !== undefined)
-
-  const filesMatchedConfigsMap = new Map<string, FileConfigMatchResult[]>()
-  payload.files?.forEach((file) => {
-    filesMatchedConfigsMap.set(file, getMatchedConfigs(file, payload.configs))
-  })
-
-  const filesGroupMap = new Map<string, FilesGroup>()
-  for (const [file, values] of filesMatchedConfigsMap.entries()) {
-    const configs = values.sort((a, b) => a.index - b.index).filter(i => !generalConfigs.includes(i.index))
-    const id = configs.map(i => i.index).join('-')
-    if (!filesGroupMap.has(id)) {
-      filesGroupMap.set(id, {
-        id,
-        files: [],
-        configs: configs.map(i => payload.configs[i.index]),
-        globs: new Set(),
+    // Rule Level
+    if (config.rules) {
+      Object.entries(config.rules).forEach(([name, raw]) => {
+        const value = getRuleLevel(raw)
+        if (value) {
+          const options = getRuleOptions(raw)
+          if (!ruleToState.has(name))
+            ruleToState.set(name, [])
+          ruleToState.get(name)!.push({
+            name,
+            configIndex: index,
+            level: value,
+            options,
+          })
+        }
       })
     }
-    const item = filesGroupMap.get(id)!
-    item.files.push(file)
-    values.forEach(i =>
-      i.globs.forEach(glob =>
-        item.globs.add(glob),
-      ),
-    )
-  }
+
+    // Globs
+    for (const glob of config.files?.flat() || []) {
+      if (!globToConfigs.has(glob))
+        globToConfigs.set(glob, [])
+      globToConfigs.get(glob)!.push(config)
+    }
+    for (const glob of config.ignores?.flat() || []) {
+      if (!globToConfigs.has(glob))
+        globToConfigs.set(glob, [])
+      globToConfigs.get(glob)!.push(config)
+    }
+  })
 
   configsOpenState.value = payload.configs.length >= 10
     // collapse all if there are too many items
@@ -146,8 +132,67 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
 
   return {
     ...payload,
-    ruleStateMap,
-    filesMatchedConfigsMap,
-    filesGroup: [...filesGroupMap.values()],
+    ruleToState,
+    globToConfigs,
+    filesResolved: resolveFiles(payload),
+  }
+}
+
+function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
+  if (!payload.files)
+    return undefined
+
+  const generalConfigIndex = payload.configs
+    .map((config, idx) => isGeneralConfig(config) ? idx : undefined)
+    .filter((idx): idx is number => idx !== undefined)
+
+  const files: string[] = []
+  const globToFiles = new Map<Linter.FlatConfigFileSpec, Set<string>>()
+  const fileToGlobs = new Map<string, Set<Linter.FlatConfigFileSpec>>()
+  const fileToConfigs = new Map<string, Set<number>>()
+  const configToFiles = new Map<number, Set<string>>()
+  const filesGroupMap = new Map<string, FilesGroup>()
+
+  for (const file of payload.files) {
+    files.push(file.filepath)
+    for (const glob of file.globs) {
+      if (!globToFiles.has(glob))
+        globToFiles.set(glob, new Set())
+      globToFiles.get(glob)!.add(file.filepath)
+      if (!fileToGlobs.has(file.filepath))
+        fileToGlobs.set(file.filepath, new Set())
+      fileToGlobs.get(file.filepath)!.add(glob)
+    }
+    for (const configIndex of file.configs) {
+      if (!configToFiles.has(configIndex))
+        configToFiles.set(configIndex, new Set())
+      configToFiles.get(configIndex)!.add(file.filepath)
+      if (!fileToConfigs.has(file.filepath))
+        fileToConfigs.set(file.filepath, new Set())
+      fileToConfigs.get(file.filepath)!.add(configIndex)
+    }
+
+    const specialConfigs = file.configs.filter(i => !generalConfigIndex.includes(i))
+    const groupId = specialConfigs.join('-')
+    if (!filesGroupMap.has(groupId)) {
+      filesGroupMap.set(groupId, {
+        id: groupId,
+        files: [],
+        configs: specialConfigs.map(i => payload.configs[i]),
+        globs: new Set<string>(),
+      })
+    }
+    const group = filesGroupMap.get(groupId)!
+    group.files.push(file.filepath)
+    file.globs.forEach(i => group.globs.add(i))
+  }
+
+  return {
+    list: files,
+    globToFiles,
+    fileToGlobs,
+    fileToConfigs: new Map(Array.from(fileToConfigs.entries()).map(([file, configs]) => [file, Array.from(configs).sort().map(i => payload.configs[i])])),
+    configToFiles,
+    groups: Array.from(filesGroupMap.values()),
   }
 }

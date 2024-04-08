@@ -43,7 +43,7 @@ cli
     await fs.mkdir(resolve(outDir, 'api'), { recursive: true })
 
     configs.payload.meta.configPath = ''
-    configs.payload.meta.rootPath = ''
+    configs.payload.meta.basePath = ''
     await fs.writeFile(resolve(outDir, 'api/payload.json'), JSON.stringify(configs.payload, null, 2), 'utf-8')
 
     console.log(MARK_CHECK, `Built to ${relative(cwd, outDir)}`)

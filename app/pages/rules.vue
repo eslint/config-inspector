@@ -23,26 +23,26 @@ const conditionalFiltered = computed(() => {
 
   switch (filters.state) {
     case 'using':
-      conditional = conditional.filter(rule => payload.value.ruleStateMap.get(rule.name))
+      conditional = conditional.filter(rule => payload.value.ruleToState.get(rule.name))
       break
     case 'unused':
-      conditional = conditional.filter(rule => !payload.value.ruleStateMap.get(rule.name))
+      conditional = conditional.filter(rule => !payload.value.ruleToState.get(rule.name))
       break
     case 'overloads':
-      conditional = conditional.filter(rule => (payload.value.ruleStateMap.get(rule.name)?.length || 0) > 1)
+      conditional = conditional.filter(rule => (payload.value.ruleToState.get(rule.name)?.length || 0) > 1)
       break
     case 'error':
-      conditional = conditional.filter(rule => payload.value.ruleStateMap.get(rule.name)?.some(i => i.level === 'error'))
+      conditional = conditional.filter(rule => payload.value.ruleToState.get(rule.name)?.some(i => i.level === 'error'))
       break
     case 'warn':
-      conditional = conditional.filter(rule => payload.value.ruleStateMap.get(rule.name)?.some(i => i.level === 'warn'))
+      conditional = conditional.filter(rule => payload.value.ruleToState.get(rule.name)?.some(i => i.level === 'warn'))
       break
     case 'off':
-      conditional = conditional.filter(rule => payload.value.ruleStateMap.get(rule.name)?.some(i => i.level === 'off'))
+      conditional = conditional.filter(rule => payload.value.ruleToState.get(rule.name)?.some(i => i.level === 'off'))
       break
     case 'off-only':
       conditional = conditional.filter((rule) => {
-        const states = payload.value.ruleStateMap.get(rule.name)
+        const states = payload.value.ruleToState.get(rule.name)
         if (!states?.length)
           return false
         return states.every(i => i.level === 'off')
@@ -190,7 +190,7 @@ function resetFilters() {
     <RuleList
       my4
       :rules="filtered"
-      :get-bind="(name: string) => ({ class: (payload.ruleStateMap.get(name)?.length || filters.state === 'unused') ? '' : 'op40' })"
+      :get-bind="(name: string) => ({ class: (payload.ruleToState.get(name)?.length || filters.state === 'unused') ? '' : 'op40' })"
     />
   </div>
 </template>
