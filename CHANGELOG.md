@@ -13,7 +13,7 @@
 ### Features
 
 * add more filters ([ace554f](https://github.com/eslint/config-inspector/commit/ace554fb198694ae85fb99becab81ae70456a335))
-* experiemental `Files` tab, close [#24](https://github.com/eslint/config-inspector/issues/24) ([2595b46](https://github.com/eslint/config-inspector/commit/2595b464685061baf51b419fe831ea3b38ebeb33))
+* experimental `Files` tab, close [#24](https://github.com/eslint/config-inspector/issues/24) ([2595b46](https://github.com/eslint/config-inspector/commit/2595b464685061baf51b419fe831ea3b38ebeb33))
 * improve files globs matching display ([fd35b20](https://github.com/eslint/config-inspector/commit/fd35b20742ca0f60991fd61a35a3aff16cac446e))
 * improve how configures are resolved ([#26](https://github.com/eslint/config-inspector/issues/26)) ([264c58f](https://github.com/eslint/config-inspector/commit/264c58f7b3ea9107018d330ddf52b4e2f4570058))
 * improve RWD ([e4739df](https://github.com/eslint/config-inspector/commit/e4739dfa56a1d09f037d184d279b80055ec7678d))
@@ -80,7 +80,7 @@
 ### Features
 
 * allow filter recommended rules, close [#6](https://github.com/eslint/config-inspector/issues/6) ([92748ef](https://github.com/eslint/config-inspector/commit/92748ef3955ed705a2f067bca03ade08cd5ba759))
-* show recommanded marker ([4164306](https://github.com/eslint/config-inspector/commit/4164306a97f59a798149a1fd39c36c20dfef5f15))
+* show recommended marker ([4164306](https://github.com/eslint/config-inspector/commit/4164306a97f59a798149a1fd39c36c20dfef5f15))
 * use `bundle-require` instead of `jiti`, support top-level-await, fix [#11](https://github.com/eslint/config-inspector/issues/11) ([89534ef](https://github.com/eslint/config-inspector/commit/89534ef0ae9f2d04d784fa4309e935b16f3c86d7))
 
 
