@@ -5,7 +5,7 @@ import type { Linter } from 'eslint'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
 import type { FlatESLintConfigItem, Payload, RuleInfo } from '../shared/types'
-import { isIgnoreOnlyConfig } from '~~/shared/configs'
+import { isIgnoreOnlyConfig } from '../shared/configs'
 
 const configFilenames = [
   'eslint.config.js',
