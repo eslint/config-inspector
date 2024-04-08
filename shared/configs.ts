@@ -1,18 +1,18 @@
 import type { Linter } from 'eslint'
 import { minimatch } from 'minimatch'
-import type { FlatESLintConfigItem, MatchedFile } from './types'
+import type { FlatConfigItem, MatchedFile } from './types'
 
 export function getMatchedGlobs(file: string, glob: (Linter.FlatConfigFileSpec | Linter.FlatConfigFileSpec[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()
   return globs.filter(glob => typeof glob === 'function' ? glob(file) : minimatch(file, glob)).flat()
 }
 
-const META_KEYS = new Set(['name'])
+const META_KEYS = new Set(['name', 'index'])
 
 /**
  * Config with only `ignores` property
  */
-export function isIgnoreOnlyConfig(config: FlatESLintConfigItem) {
+export function isIgnoreOnlyConfig(config: FlatConfigItem) {
   const keys = Object.keys(config).filter(i => !META_KEYS.has(i))
   return keys.length === 1 && keys[0] === 'ignores'
 }
@@ -20,14 +20,14 @@ export function isIgnoreOnlyConfig(config: FlatESLintConfigItem) {
 /**
  * Config without `files` and `ignores` properties or with only `ignores` property
  */
-export function isGeneralConfig(config: FlatESLintConfigItem) {
+export function isGeneralConfig(config: FlatConfigItem) {
   return (!config.files && !config.ignores) || isIgnoreOnlyConfig(config)
 }
 
 export function matchFile(
   filepath: string,
-  configs: FlatESLintConfigItem[],
-  ignoreOnlyConfigs: FlatESLintConfigItem[] = configs.filter(isIgnoreOnlyConfig),
+  configs: FlatConfigItem[],
+  ignoreOnlyConfigs: FlatConfigItem[],
 ): MatchedFile {
   const globalIgnored = ignoreOnlyConfigs.flatMap(config => getMatchedGlobs(filepath, config.ignores!))
   if (globalIgnored.length) {

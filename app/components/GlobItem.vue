@@ -68,9 +68,9 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
               flex="~ gap-2 items-center"
               hover="bg-active"
               px2
-              @click="goToConfig(payload.configs.indexOf(config))"
+              @click="goToConfig(config.index)"
             >
-              <ColorizedConfigName :name="config.name" :index="payload.configs.indexOf(config)" />
+              <ColorizedConfigName :name="config.name" :index="config.index" />
             </button>
           </div>
         </div>

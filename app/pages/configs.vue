@@ -10,7 +10,7 @@ import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/com
 import { matchFile } from '~~/shared/configs'
 import { getRuleLevel } from '~~/shared/rules'
 import { payload } from '~/composables/payload'
-import type { FlatESLintConfigItem, MatchedFile } from '~~/shared/types'
+import type { FlatConfigItem, MatchedFile } from '~~/shared/types'
 
 const input = ref(filters.filepath)
 
@@ -22,15 +22,24 @@ function collapseAll() {
   configsOpenState.value = configsOpenState.value.map(() => false)
 }
 
-const filteredConfigs = shallowRef<FlatESLintConfigItem[]>([])
+const filteredConfigs = shallowRef<FlatConfigItem[]>([])
 const fileMatchResult = shallowRef<MatchedFile | null>(null)
 
 watchEffect(() => {
   let configs = payload.value.configs
 
   if (filters.filepath) {
-    fileMatchResult.value = matchFile(filters.filepath, payload.value.configs)
-    configs = fileMatchResult.value.configs.map(idx => payload.value.configs[idx])
+    fileMatchResult.value = matchFile(
+      filters.filepath,
+      payload.value.configs,
+      payload.value.configsIgnoreOnly,
+    )
+    configs = Array.from(new Set([
+      ...fileMatchResult.value.configs,
+      ...payload.value.configsIgnoreOnly.map(i => i.index),
+    ]))
+      .sort()
+      .map(idx => payload.value.configs[idx])
   }
   else {
     fileMatchResult.value = null

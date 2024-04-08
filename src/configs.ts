@@ -1,11 +1,10 @@
 import { dirname, resolve } from 'node:path'
 import process from 'node:process'
 import { bundleRequire } from 'bundle-require'
-import type { Linter } from 'eslint'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
 import c from 'picocolors'
-import type { FlatESLintConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
+import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { isIgnoreOnlyConfig, matchFile } from '../shared/configs'
 import { MARK_CHECK, MARK_INFO, configFilenames } from './constants'
 
@@ -52,7 +51,7 @@ export async function readConfig(
     chdir = true,
     globMatchedFiles: globFiles = true,
   }: ReadConfigOptions,
-): Promise<{ configs: FlatESLintConfigItem[], payload: Payload, dependencies: string[] }> {
+): Promise<{ configs: FlatConfigItem[], payload: Payload, dependencies: string[] }> {
   if (userBasePath)
     userBasePath = resolve(cwd, userBasePath)
 
@@ -78,7 +77,7 @@ export async function readConfig(
     cwd: basePath,
   })
 
-  const rawConfigs = await (mod.default ?? mod) as FlatESLintConfigItem[]
+  const rawConfigs = await (mod.default ?? mod) as FlatConfigItem[]
 
   const rulesMap = new Map<string, RuleInfo>()
   const eslintRules = await import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.default.builtinRules)
@@ -108,9 +107,10 @@ export async function readConfig(
   }
 
   const rules = Object.fromEntries(rulesMap.entries())
-  const configs = rawConfigs.map((c): Linter.FlatConfig => {
+  const configs = rawConfigs.map((c, idx): FlatConfigItem => {
     return {
       ...c,
+      index: idx,
       plugins: c.plugins
         ? Object.fromEntries(Object.entries(c.plugins ?? {}).map(([prefix]) => [prefix, {}]).filter(i => i[0]))
         : undefined,
@@ -145,7 +145,7 @@ export async function readConfig(
 
 export async function globMatchedFiles(
   basePath: string,
-  configs: FlatESLintConfigItem[],
+  configs: FlatConfigItem[],
 ): Promise<MatchedFile[]> {
   console.log(MARK_INFO, 'Globing matched files')
   const files = await fg(

@@ -4,11 +4,11 @@ import type { Linter } from 'eslint'
 import { filtersRules, isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
 import { useRouter } from '#app/composables/router'
-import type { FiltersConfigsPage, FlatESLintConfigItem } from '~~/shared/types'
+import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 
 const props = defineProps<{
-  config: FlatESLintConfigItem
+  config: FlatConfigItem
   index: number
   filters?: FiltersConfigsPage
   active?: boolean
@@ -40,7 +40,7 @@ function gotoPlugin(name: string) {
 }
 
 const extraConfigs = computed(() => {
-  const ignoredKeys = ['files', 'plugins', 'ignores', 'rules', 'name']
+  const ignoredKeys = ['files', 'plugins', 'ignores', 'rules', 'name', 'index']
   return Object.fromEntries(
     Object.entries(props.config)
       .filter(([key]) => !ignoredKeys.includes(key)),

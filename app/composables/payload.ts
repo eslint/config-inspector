@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import type { Linter } from 'eslint'
 import { $fetch } from 'ofetch'
-import { isGeneralConfig } from '~~/shared/configs'
+import { isGeneralConfig, isIgnoreOnlyConfig } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
-import type { ErrorInfo, FilesGroup, FlatESLintConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
+import type { ErrorInfo, FilesGroup, FlatConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
 
 const LOG_NAME = '[ESLint Config Inspector]'
 
@@ -91,7 +91,7 @@ export function getRuleStates(name: string): RuleConfigStates | undefined {
 
 export function resolvePayload(payload: Payload): ResolvedPayload {
   const ruleToState = new Map<string, RuleConfigStates>()
-  const globToConfigs = new Map<Linter.FlatConfigFileSpec, FlatESLintConfigItem[]>()
+  const globToConfigs = new Map<Linter.FlatConfigFileSpec, FlatConfigItem[]>()
 
   payload.configs.forEach((config, index) => {
     // Rule Level
@@ -132,6 +132,8 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
 
   return {
     ...payload,
+    configsIgnoreOnly: payload.configs.filter(i => isIgnoreOnlyConfig(i)),
+    configsGeneral: payload.configs.filter(i => isGeneralConfig(i)),
     ruleToState,
     globToConfigs,
     filesResolved: resolveFiles(payload),
@@ -142,9 +144,8 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
   if (!payload.files)
     return undefined
 
-  const generalConfigIndex = payload.configs
-    .map((config, idx) => isGeneralConfig(config) ? idx : undefined)
-    .filter((idx): idx is number => idx !== undefined)
+  const generalConfigIndex = payload.configs.filter(i => isGeneralConfig(i))
+    .map(i => i.index)
 
   const files: string[] = []
   const globToFiles = new Map<Linter.FlatConfigFileSpec, Set<string>>()
