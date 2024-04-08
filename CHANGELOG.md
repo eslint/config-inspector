@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/eslint/config-inspector/compare/v0.4.2...v0.4.3) (2024-04-08)
+
+
+### Bug Fixes
+
+* file search specific toggle ([92269db](https://github.com/eslint/config-inspector/commit/92269dbb948644f28694faa25439dda1435318bb))
+
 ## [0.4.2](https://github.com/eslint/config-inspector/compare/v0.4.1...v0.4.2) (2024-04-08)
 
 
