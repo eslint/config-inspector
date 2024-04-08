@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.4.2](https://github.com/eslint/config-inspector/compare/v0.4.1...v0.4.2) (2024-04-08)
+
+
+### Features
+
+* improve files globbing display ([abab4f6](https://github.com/eslint/config-inspector/commit/abab4f657079030ab8f3f14a47daeac608f15446))
+* show loading indicator ([23c6135](https://github.com/eslint/config-inspector/commit/23c61359775eafecfd2990f542097ba9f030a712))
+
+
+### Bug Fixes
+
+* hide detail marker on safari ([#29](https://github.com/eslint/config-inspector/issues/29)) ([ad66b94](https://github.com/eslint/config-inspector/commit/ad66b940eacc788c24031d892fc8779dfdd07407))
+* improve cli output ([e27cb99](https://github.com/eslint/config-inspector/commit/e27cb99ac066c46377022f4c5d07050eff6aa277))
+* improve ui contrast ([f56903a](https://github.com/eslint/config-inspector/commit/f56903a8ba08b55b08f9df943f312c767cebdfe0))
+* improve ui for globs ([2299639](https://github.com/eslint/config-inspector/commit/2299639645e1e846070d638b7b40536e78b111d7))
+* port fallback ([31bb86c](https://github.com/eslint/config-inspector/commit/31bb86cf234b5729c9f2bfd77fb3ed625b614fac))
+* support dynamic base url, fix [#33](https://github.com/eslint/config-inspector/issues/33) ([7e8e8bf](https://github.com/eslint/config-inspector/commit/7e8e8bf936da424fbf927023972343dcea57e1b7))
+* support port range fallback ([c979872](https://github.com/eslint/config-inspector/commit/c979872f8a0902100b46390641db5199a84cadde))
+
+
+### Documentation
+
+* Fix typos on CHANGELOG.md ([#32](https://github.com/eslint/config-inspector/issues/32)) ([b00151c](https://github.com/eslint/config-inspector/commit/b00151c60cdbc86d40de4abe066ed8ca98fc324a))
+
+
+### Chores
+
+* fix import path ([15b650f](https://github.com/eslint/config-inspector/commit/15b650f7bbd8028ff79032c6dc15fdd7b4b2cfeb))
+* move shared logics ([a9f1198](https://github.com/eslint/config-inspector/commit/a9f11983a2d912f1b867da6279099f95a7652bf9))
+* release-please-mark ([0c2b0bc](https://github.com/eslint/config-inspector/commit/0c2b0bca06078086fa5388b12d4aeee229fb9756))
+* update deps ([bbda483](https://github.com/eslint/config-inspector/commit/bbda48353093ad89ea735cb659c3f002806ec64f))
+* use `h3` to create server ([#30](https://github.com/eslint/config-inspector/issues/30)) ([695e693](https://github.com/eslint/config-inspector/commit/695e6932dfd78c597b9825929571064d4b61df76))
+
 ## [0.4.1](https://github.com/eslint/config-inspector/compare/v0.4.0...v0.4.1) (2024-04-05)
 
 
