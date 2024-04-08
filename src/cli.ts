@@ -60,7 +60,7 @@ cli
   .option('--open', 'Open browser', { default: true })
   .action(async (options) => {
     const host = options.host
-    const port = await getPort({ port: options.port })
+    const port = await getPort({ port: options.port, portRange: [7777, 9000] })
 
     if (process.env.ESLINT_CONFIG)
       options.config ||= process.env.ESLINT_CONFIG
