@@ -60,7 +60,7 @@ cli
   .option('--open', 'Open browser', { default: true })
   .action(async (options) => {
     const host = options.host
-    const port = await getPort({ port: options.port, portRange: [7777, 9000] })
+    const port = await getPort({ port: options.port, portRange: [7777, 9000], host })
 
     if (process.env.ESLINT_CONFIG)
       options.config ||= process.env.ESLINT_CONFIG
@@ -75,10 +75,10 @@ cli
       globMatchedFiles: options.files,
     })
 
-    server.listen(port, host)
-
-    if (options.open)
-      await open(`http://${host === '127.0.0.1' ? 'localhost' : host}:${port}`)
+    server.listen(port, host, async () => {
+      if (options.open)
+        await open(`http://${host === '127.0.0.1' ? 'localhost' : host}:${port}`)
+    })
   })
 
 cli.help()
