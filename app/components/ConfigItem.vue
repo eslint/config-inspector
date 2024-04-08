@@ -179,7 +179,7 @@ const extraConfigs = computed(() => {
           <template #popup-actions="{ ruleName }">
             <button
               v-close-popper
-              action-button
+              btn-action-sm
               @click="emit('badgeClick', ruleName)"
             >
               <div i-ph-funnel-duotone />

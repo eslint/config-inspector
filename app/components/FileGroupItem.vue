@@ -100,7 +100,7 @@ function goToConfig(idx: number) {
               <div v-if="shown" max-h="50vh" min-w-100>
                 <div flex="~ items-center gap-2" p3>
                   <button
-                    action-button
+                    btn-action-sm
                     title="Copy"
                     @click="goToConfig(idx)"
                   >

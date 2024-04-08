@@ -12,19 +12,17 @@ import { payload } from '~/composables/payload'
     <div>
       <div border="~ base rounded" flex="~ inline">
         <button
-          :class="stateStorage.viewFilesTab === 'list' ? 'bg-gray:5' : 'op25'"
-          flex="~ gap-2 items-center"
-          px3 py1 hover:bg-gray:15
+          :class="stateStorage.viewFilesTab === 'list' ? 'btn-action-active' : 'op50'"
+          btn-action border-none
           @click="stateStorage.viewFilesTab = 'list'"
         >
           <div i-ph-files-duotone />
-          <span>Flies List</span>
+          <span>List</span>
         </button>
         <div border="l base" />
         <button
-          :class="stateStorage.viewFilesTab === 'group' ? 'bg-gray:5' : 'op25'"
-          flex="~ gap-2 items-center"
-          px3 py1 hover:bg-gray:15
+          :class="stateStorage.viewFilesTab === 'group' ? 'btn-action-active' : 'op50'"
+          btn-action border-none
           @click="stateStorage.viewFilesTab = 'group' "
         >
           <div i-ph-rows-duotone />
@@ -41,7 +39,7 @@ import { payload } from '~/composables/payload'
         <div i-ph-files-duotone flex-none />
         <div>Matched Local Files ({{ payload.files.length }})</div>
       </div>
-      <div flex="~ col gap-1" ml6 py4 font-mono>
+      <div flex="~ col gap-1" py4 font-mono>
         <FileItem v-for="file of payload.files" :key="file" :filepath="file" />
       </div>
     </div>

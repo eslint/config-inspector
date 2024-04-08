@@ -71,7 +71,7 @@ function capitalize(str?: string) {
         <div v-if="shown" max-h="50vh">
           <div flex="~ items-center gap-2" p3>
             <NuxtLink
-              action-button
+              btn-action-sm
               :to="rule.docs?.url" target="_blank" rel="noopener noreferrer"
               title="Docs"
             >
@@ -79,7 +79,7 @@ function capitalize(str?: string) {
               Docs
             </NuxtLink>
             <button
-              action-button
+              btn-action-sm
               title="Copy"
               @click="copy(rule.name)"
             >

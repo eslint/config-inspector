@@ -250,9 +250,8 @@ onMounted(async () => {
         <template v-if="filters.filepath">
           <div border="~ base rounded" flex>
             <button
-              :class="stateStorage.viewFileMatchType === 'configs' ? 'bg-gray:5' : 'op25'"
-              flex="~ gap-2 items-center"
-              px3 py1 hover:bg-gray:15
+              :class="stateStorage.viewFileMatchType === 'configs' ? 'btn-action-active' : 'op50'"
+              btn-action border-none
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
               <div i-ph-stack-duotone />
@@ -260,9 +259,8 @@ onMounted(async () => {
             </button>
             <div border="l base" />
             <button
-              :class="stateStorage.viewFileMatchType !== 'configs' ? 'bg-gray:5' : 'op25'"
-              flex="~ gap-2 items-center"
-              px3 py1 hover:bg-gray:15
+              :class="stateStorage.viewFileMatchType !== 'configs' ? 'btn-action-active' : 'op50'"
+              btn-action border-none
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
               <div i-ph-film-script-duotone />

@@ -49,26 +49,26 @@ function toggleRuleView() {
   </div>
   <div flex="~ gap-3 items-center wrap" py4>
     <NuxtLink
-      to="/configs" active-class="op100! bg-active"
-      px3 py1 op50 border="~ base rounded"
-      flex="~ gap-2 items-center"
+      to="/configs"
+      btn-action text-base px3 py1
+      active-class="btn-action-active"
     >
       <div i-ph-stack-duotone flex-none />
       Configs
     </NuxtLink>
     <NuxtLink
-      to="/rules" active-class="op100! bg-active"
-      px3 py1 op50 border="~ base rounded"
-      flex="~ gap-2 items-center"
+      to="/rules"
+      btn-action text-base px3 py1
+      active-class="btn-action-active"
     >
       <div i-ph-list-dashes-duotone flex-none />
       Rules
     </NuxtLink>
     <NuxtLink
       v-if="payload.files"
-      to="/files" active-class="op100! bg-active"
-      px3 py1 op50 border="~ base rounded"
-      flex="~ gap-2 items-center"
+      to="/files"
+      btn-action text-base px3 py1
+      active-class="btn-action-active"
     >
       <div i-ph-files-duotone flex-none />
       Files

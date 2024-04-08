@@ -19,7 +19,7 @@ const value = defineModel<string | number>('modelValue', {
       v-for="i, idx of options" :key="i"
       border="~ base rounded-full" relative hover:bg-hover px2.5 py0.5
       :class="[
-        i === value ? 'bg-active' : '',
+        i === value ? 'bg-active' : 'saturate-0 hover:saturate-100',
         props?.[idx]?.class || '',
       ]"
       v-bind="props?.[idx]"
@@ -27,7 +27,7 @@ const value = defineModel<string | number>('modelValue', {
     >
       <div
         :class="[
-          i === value ? '' : 'op35 saturate-0',
+          i === value ? '' : 'op50',
           titles?.[idx] ? '' : 'capitalize',
           classes?.[idx] || '',
         ]"

@@ -13,17 +13,20 @@ export default defineConfig({
   shortcuts: {
     'color-base': 'color-neutral-500 dark:color-neutral-300',
     'bg-base': 'bg-white dark:bg-neutral-900',
+    'border-base': 'border-#aaa3',
+
     'bg-tooltip': 'bg-white:75 dark:bg-neutral-900:75 backdrop-blur-8',
     'bg-glass': 'bg-white:75 dark:bg-neutral-900:75 backdrop-blur-5',
     'bg-code': 'bg-gray5:5',
-    'bg-hover': 'bg-gray:5',
-    'bg-active': 'bg-gray:10',
-    'border-base': 'border-#aaa3',
-    'border-box': 'border border-base rounded',
-    'text-button': 'border-box bg-hover hover:bg-active px3 py1 flex gap-1 items-center justify-center',
-    'icon-button': 'border-box bg-hover hover:bg-active p1',
-    'icon-button-sm': 'icon-button p0.5 text-sm',
-    'action-button': 'border border-base rounded flex gap-2 items-center px2 py1 text-sm op75 hover:op100 hover:bg-hover',
+    'bg-hover': 'bg-primary-400:5',
+
+    'text-active': 'color-primary-600 dark:color-primary-400',
+    'border-active': 'border-primary-600/25 dark:border-primary-400/25',
+    'bg-active': 'bg-primary-400:10',
+
+    'btn-action': 'border border-base rounded flex gap-2 items-center px2 py1 op75 hover:op100 hover:bg-hover',
+    'btn-action-sm': 'btn-action text-sm',
+    'btn-action-active': 'text-active border-active! bg-active op100!',
   },
   theme: {
     // Reference: https://github.com/eslint/eslint.org/blob/main/src/assets/scss/tokens/themes.scss
