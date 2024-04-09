@@ -71,8 +71,9 @@
     "lint-staged": "^15.2.2",
     "nuxt": "^3.11.2",
     "nuxt-eslint-auto-explicit-import": "^0.0.2",
-    "nuxt-shiki": "^0.3.0",
+    "shiki": "^1.2.4",
     "simple-git-hooks": "^2.11.1",
+    "textmate-grammar-glob": "^0.0.1",
     "typescript": "^5.4.4",
     "unbuild": "^2.0.0",
     "vue-tsc": "^2.0.10"

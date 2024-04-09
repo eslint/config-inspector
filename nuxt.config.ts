@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxt/eslint',
-    'nuxt-shiki',
     'nuxt-eslint-auto-explicit-import',
   ],
 

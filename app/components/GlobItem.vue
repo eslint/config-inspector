@@ -2,6 +2,7 @@
 import { computed, defineComponent } from 'vue'
 import type { Linter } from 'eslint'
 import { Dropdown as VDropdown } from 'floating-vue'
+import { useHighlightedGlob } from '../composables/shiki'
 import { filtersConfigs } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
 import { payload } from '~/composables/payload'
@@ -14,6 +15,8 @@ const props = withDefaults(
   }>(),
   { active: null },
 )
+
+const highlighted = useHighlightedGlob(() => props.glob.toString())
 
 const showsPopup = computed(() => (props.popup === 'files' && payload.value.filesResolved) || props.popup === 'configs')
 const files = computed(() => props.popup === 'files'
@@ -41,7 +44,7 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
       font-mono text-gray
       :class="active === true ? 'badge-active' : active === false ? 'badge op50' : 'badge'"
     >
-      {{ glob }}
+      <span v-html="highlighted" />
     </component>
     <template #popper="{ shown, hide }">
       <div v-if="shown && popup === 'files'" max-h="30vh" min-w-80 p3 of-auto>

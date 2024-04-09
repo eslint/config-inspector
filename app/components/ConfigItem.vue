@@ -6,6 +6,7 @@ import { stringifyUnquoted } from '~/composables/strings'
 import { useRouter } from '#app/composables/router'
 import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
+import { Shiki } from '~/composables/shiki'
 
 const props = defineProps<{
   config: FlatConfigItem
@@ -216,7 +217,8 @@ const extraConfigs = computed(() => {
                 {{ k }}
               </div>
               <Shiki
-                lang="ts" :code="stringifyUnquoted(v)"
+                lang="ts"
+                :code="stringifyUnquoted(v)"
                 max-h-100 max-w-full w-full of-scroll rounded bg-code p2 text-sm
               />
             </div>
