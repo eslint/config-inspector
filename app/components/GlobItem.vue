@@ -38,8 +38,8 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
   <component :is="showsPopup ? VDropdown : Noop">
     <component
       :is="showsPopup ? 'button' : 'div'"
-      border="~ rounded" px2 font-mono
-      :class="active === true ? 'border-amber:50 text-amber bg-amber:5' : active === false ? 'border-base bg-gray:5 text-gray op50' : 'border-base bg-gray:5 text-gray'"
+      font-mono text-gray
+      :class="active === true ? 'badge-active' : active === false ? 'badge op50' : 'badge'"
     >
       {{ glob }}
     </component>
@@ -64,10 +64,7 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
           <div>Configs that contains this glob</div>
           <div v-for="config of configs" :key="config.name" flex="~ gap-2">
             <button
-              border="~ base rounded px2"
-              flex="~ gap-2 items-center"
-              hover="bg-active"
-              px2
+              btn-badge
               @click="goToConfig(config.index)"
             >
               <ColorizedConfigName :name="config.name" :index="config.index" />

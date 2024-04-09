@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { stateStorage } from '../composables/state'
+import { fileGroupsOpenState, stateStorage } from '../composables/state'
 import { payload } from '~/composables/payload'
+
+function expandAll() {
+  fileGroupsOpenState.value = fileGroupsOpenState.value.map(() => true)
+}
+
+function collapseAll() {
+  fileGroupsOpenState.value = fileGroupsOpenState.value.map(() => false)
+}
 </script>
 
 <template>
@@ -9,7 +17,7 @@ import { payload } from '~/composables/payload'
       This tab shows the preview for files match from the workspace.
       This feature is <span text-amber>experimental</span> and may not be 100% accurate.
     </div>
-    <div>
+    <div flex="~ gap-2 items-center">
       <div border="~ base rounded" flex="~ inline">
         <button
           :class="stateStorage.viewFilesTab === 'list' ? 'btn-action-active' : 'op50'"
@@ -29,10 +37,31 @@ import { payload } from '~/composables/payload'
           <span>File Groups</span>
         </button>
       </div>
+      <div flex-auto />
+      <template v-if="stateStorage.viewFilesTab === 'group'">
+        <button
+          btn-action px3
+          @click="expandAll"
+        >
+          Expand All
+        </button>
+        <button
+          btn-action px3
+          @click="collapseAll"
+        >
+          Collapse All
+        </button>
+      </template>
     </div>
 
     <div v-if="stateStorage.viewFilesTab === 'group'" flex="~ gap-2 col">
-      <FileGroupItem v-for="group, idx of payload.filesResolved.groups" :key="group.id" :group="group" :index="idx" />
+      <FileGroupItem
+        v-for="group, idx of payload.filesResolved.groups"
+        :key="group.id"
+        v-model:open="fileGroupsOpenState[idx]"
+        :group="group"
+        :index="idx"
+      />
     </div>
     <div v-else>
       <div flex="~ gap-2 items-center">

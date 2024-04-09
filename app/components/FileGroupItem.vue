@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { defineModel, ref, watchEffect } from 'vue'
+import { computed, defineModel, ref, watchEffect } from 'vue'
 import { useRouter } from '#app/composables/router'
 import type { FilesGroup } from '~~/shared/types'
 
-defineProps<{
+const props = defineProps<{
   index: number
   group: FilesGroup
 }>()
@@ -21,6 +21,22 @@ if (!hasShown.value) {
     }
   })
 }
+
+const groupName = computed(() => {
+  if (props.group.configs.length === 1) {
+    return {
+      type: 'config',
+      config: props.group.configs[0],
+    } as const
+  }
+  if (props.group.globs.size <= 2) {
+    return {
+      type: 'glob',
+      globs: [...props.group.globs.values()],
+    } as const
+  }
+  return undefined
+})
 
 const router = useRouter()
 function goToConfig(idx: number) {
@@ -42,8 +58,27 @@ function goToConfig(idx: number) {
       <div flex="~ gap-2 items-start wrap items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
         <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition op50 />
         <div flex flex-col gap-3 md:flex-row flex-auto>
-          <span op50 flex-auto>
-            <span>Files group #{{ index + 1 }}</span>
+          <span flex-auto flex="~ gap-2 items-center">
+            <template v-if="groupName?.type === 'config'">
+              <span op75>Config</span>
+              <ColorizedConfigName
+                badge
+                :name="groupName.config.name"
+                :index="groupName.config.index"
+              />
+            </template>
+            <template v-else-if="groupName?.type === 'glob'">
+              <span op75>Globs</span>
+              <GlobItem
+                v-for="glob, idx of groupName.globs"
+                :key="idx"
+                :glob="glob"
+                text-gray
+              />
+            </template>
+            <span v-else op50>
+              Files group #{{ index + 1 }}
+            </span>
           </span>
 
           <div flex="~ gap-2 items-start wrap">
@@ -71,15 +106,6 @@ function goToConfig(idx: number) {
 
     <div v-if="hasShown" px4 py4 flex="~ col gap-4" of-auto>
       <div flex="~ gap-2 items-center">
-        <div i-ph-files-duotone flex-none />
-        <div>Matched Local Files ({{ group.files.length }})</div>
-      </div>
-
-      <div flex="~ col gap-1" ml7 mt--2>
-        <FileItem v-for="file of group.files" :key="file" font-mono :filepath="file" />
-      </div>
-
-      <div flex="~ gap-2 items-center">
         <div i-ph-stack-duotone flex-none />
         <div>Configs Specific to the Files ({{ group.configs.length }})</div>
       </div>
@@ -87,7 +113,7 @@ function goToConfig(idx: number) {
       <div flex="~ col gap-1" ml6 mt--2>
         <div v-for="config, idx of group.configs" :key="idx" font-mono flex="~ gap-2">
           <VDropdown>
-            <button border="~ base rounded px2" flex="~ gap-2 items-center" hover="bg-active" px2>
+            <button badge>
               <ColorizedConfigName :name="config.name" :index="idx" />
             </button>
             <template #popper="{ shown }">
@@ -134,6 +160,15 @@ function goToConfig(idx: number) {
 
       <div flex="~ gap-1 wrap" ml6 mt--2>
         <GlobItem v-for="glob, idx2 of group.globs" :key="idx2" :glob="glob" />
+      </div>
+
+      <div flex="~ gap-2 items-center">
+        <div i-ph-files-duotone flex-none />
+        <div>Matched Local Files ({{ group.files.length }})</div>
+      </div>
+
+      <div flex="~ col gap-1" ml7 mt--2>
+        <FileItem v-for="file of group.files" :key="file" font-mono :filepath="file" />
       </div>
     </div>
   </details>

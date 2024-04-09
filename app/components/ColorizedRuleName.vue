@@ -46,7 +46,7 @@ const parsed = computed(() => {
     ws-nowrap font-mono of-hidden text-ellipsis
     :class="[
       deprecated ? 'line-through' : '',
-      borderless ? '' : 'border border-base px2 bg-gray:5 rounded',
+      borderless ? '' : 'badge',
     ]"
   >
     <span v-if="parsed.scope" :style="{ color: getPluginColor(parsed.scope) }">{{ parsed.scope }}</span>

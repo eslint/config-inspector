@@ -188,12 +188,15 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
     file.globs.forEach(i => group.globs.add(i))
   }
 
+  const groups = Array.from(filesGroupMap.values())
+  fileGroupsOpenState.value = groups.map(() => true)
+
   return {
     list: files,
     globToFiles,
     fileToGlobs,
     fileToConfigs: new Map(Array.from(fileToConfigs.entries()).map(([file, configs]) => [file, Array.from(configs).sort().map(i => payload.configs[i])])),
     configToFiles,
-    groups: Array.from(filesGroupMap.values()),
+    groups,
   }
 }

@@ -308,17 +308,13 @@ onMounted(async () => {
         </label>
         <div flex-auto />
         <button
-          hover="op100! bg-active"
-          px3 py1 op50 border="~ base rounded"
-          flex="~ gap-2 items-center"
+          btn-action px3
           @click="expandAll"
         >
           Expand All
         </button>
         <button
-          hover="op100! bg-active"
-          px3 py1 op50 border="~ base rounded"
-          flex="~ gap-2 items-center"
+          btn-action px3
           @click="collapseAll"
         >
           Collapse All

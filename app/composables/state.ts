@@ -32,3 +32,4 @@ const bpSm = bp.smallerOrEqual('md')
 export const isGridView = computed(() => bpSm.value || stateStorage.value.viewType === 'grid')
 
 export const configsOpenState = ref<boolean[]>([])
+export const fileGroupsOpenState = ref<boolean[]>([])

@@ -20,13 +20,17 @@ export default defineConfig({
     'bg-code': 'bg-gray5:5',
     'bg-hover': 'bg-primary-400:5',
 
-    'text-active': 'color-primary-600 dark:color-primary-400',
+    'color-active': 'color-primary-600 dark:color-primary-400',
     'border-active': 'border-primary-600/25 dark:border-primary-400/25',
     'bg-active': 'bg-primary-400:10',
 
     'btn-action': 'border border-base rounded flex gap-2 items-center px2 py1 op75 hover:op100 hover:bg-hover',
     'btn-action-sm': 'btn-action text-sm',
-    'btn-action-active': 'text-active border-active! bg-active op100!',
+    'btn-action-active': 'color-active border-active! bg-active op100!',
+
+    'badge': 'border border-base rounded flex items-center px2',
+    'badge-active': 'badge border-amber:50 text-amber bg-amber:5',
+    'btn-badge': 'badge hover:bg-active',
   },
   theme: {
     // Reference: https://github.com/eslint/eslint.org/blob/main/src/assets/scss/tokens/themes.scss
