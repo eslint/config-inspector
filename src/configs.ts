@@ -77,7 +77,11 @@ export async function readConfig(
     cwd: basePath,
   })
 
-  const rawConfigs = await (mod.default ?? mod) as FlatConfigItem[]
+  let rawConfigs = await (mod.default ?? mod) as FlatConfigItem[]
+
+  // A single flat config object is also valid
+  if (!Array.isArray(rawConfigs))
+    rawConfigs = [rawConfigs]
 
   const rulesMap = new Map<string, RuleInfo>()
   const eslintRules = await import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.default.builtinRules)
