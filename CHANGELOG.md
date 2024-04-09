@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.4.5](https://github.com/eslint/config-inspector/compare/v0.4.4...v0.4.5) (2024-04-09)
+
+
+### Features
+
+* shift code hue to match more with the theme ([9442360](https://github.com/eslint/config-inspector/commit/944236044a5d654bbc94c68bddab5c71e6669f17))
+* show options indicator ([dcd0071](https://github.com/eslint/config-inspector/commit/dcd00715238007a32de3fb044679a34a7b45a426))
+* syntax highlight for globs ([d2a2d60](https://github.com/eslint/config-inspector/commit/d2a2d60679b3a35d21b3fb64da16037762063a88))
+
+
+### Bug Fixes
+
+* support single object config export, fix [#38](https://github.com/eslint/config-inspector/issues/38) ([feffffe](https://github.com/eslint/config-inspector/commit/feffffe774c64c9e1bdbf8fdf80f957c2267c0c3))
+
+
+### Chores
+
+* clean up ([01d6fc2](https://github.com/eslint/config-inspector/commit/01d6fc23d7972d6d926a820a1c2abbfbd7716105))
+* upgrade shiki ([a8e36ee](https://github.com/eslint/config-inspector/commit/a8e36ee2739a9d936431fa71bcaa044b944c0c35))
+
 ## [0.4.4](https://github.com/eslint/config-inspector/compare/v0.4.3...v0.4.4) (2024-04-09)
 
 
