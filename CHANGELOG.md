@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.4](https://github.com/eslint/config-inspector/compare/v0.4.3...v0.4.4) (2024-04-09)
+
+
+### Bug Fixes
+
+* configs auto complete enter key, close [#35](https://github.com/eslint/config-inspector/issues/35) ([328ede6](https://github.com/eslint/config-inspector/commit/328ede639c752f8590f308f3b62c31a1f501486c))
+* configs search result ([ab6e72a](https://github.com/eslint/config-inspector/commit/ab6e72aaf8801040c86066b7fe828401c29929d2))
+* improve file groups ui ([5051244](https://github.com/eslint/config-inspector/commit/50512440326abe78f0461edaa082098c4ab2fac1))
+
 ## [0.4.3](https://github.com/eslint/config-inspector/compare/v0.4.2...v0.4.3) (2024-04-08)
 
 
