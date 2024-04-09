@@ -25,15 +25,7 @@ export function useHighlightedGlob(code: () => string) {
     return shiki.value.codeToHtml(code(), {
       lang: 'glob',
       theme: isDark ? 'vitesse-dark' : 'vitesse-light',
-      transformers: [
-        {
-          root(node) {
-            node.children = [
-              (node.children[0] as any).children[0],
-            ]
-          },
-        },
-      ],
+      structure: 'inline',
     })
   })
 }
