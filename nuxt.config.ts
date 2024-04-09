@@ -28,18 +28,6 @@ export default defineNuxtConfig({
     inlineStyles: false,
   },
 
-  shiki: {
-    bundledLangs: ['js', 'ts'],
-    bundledThemes: ['vitesse-light', 'vitesse-dark'],
-    highlightOptions: {
-      themes: {
-        light: 'vitesse-light',
-        dark: 'vitesse-dark',
-      },
-      defaultColor: false,
-    },
-  },
-
   css: [
     '@unocss/reset/tailwind.css',
   ],
