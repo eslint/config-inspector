@@ -66,6 +66,8 @@ const autoCompleteIndex = ref(0)
 const autoCompleteOpen = ref(false)
 
 function autoCompleteConfirm(idx = autoCompleteIndex.value) {
+  if (!autoCompleteOpen.value)
+    return
   input.value = filters.filepath = autoCompleteFiles.value[idx]?.item || filters.filepath
   autoCompleteOpen.value = false
 }
@@ -77,6 +79,8 @@ function autoCompleteBlur() {
 }
 
 function autoCompleteMove(delta: number) {
+  if (!autoCompleteOpen.value)
+    return
   autoCompleteIndex.value += delta
   if (autoCompleteIndex.value < 0)
     autoCompleteIndex.value += autoCompleteFiles.value.length
@@ -166,6 +170,7 @@ watch(
     if (filters.filepath !== input.value)
       input.value = filters.filepath
   },
+  { flush: 'sync' },
 )
 
 const configEls = new Map<number, HTMLElement>()
