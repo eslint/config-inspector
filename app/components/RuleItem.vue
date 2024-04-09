@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 import { vTooltip } from 'floating-vue'
-import { getRuleLevel } from '~~/shared/rules'
+import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import type { RuleConfigStates, RuleInfo, RuleLevel } from '~~/shared/types'
 
 const props = defineProps<{
@@ -37,6 +37,7 @@ function capitalize(str?: string) {
         <RuleLevelIcon
           :level="s.level"
           :config-index="s.configIndex"
+          :has-options="!!s.options?.length"
         />
         <template #popper="{ shown }">
           <RuleStateItem v-if="shown" :state="s" />
@@ -51,7 +52,7 @@ function capitalize(str?: string) {
   >
     <RuleLevelIcon
       :level="getRuleLevel(value)!"
-      :class="getRuleLevel(value) === 'error' ? '' : ''"
+      :has-options="!!getRuleOptions(value)?.length"
     />
   </div>
 
