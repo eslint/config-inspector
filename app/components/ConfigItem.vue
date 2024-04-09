@@ -6,7 +6,6 @@ import { stringifyUnquoted } from '~/composables/strings'
 import { useRouter } from '#app/composables/router'
 import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
-import { Shiki } from '~/composables/shiki'
 
 const props = defineProps<{
   config: FlatConfigItem

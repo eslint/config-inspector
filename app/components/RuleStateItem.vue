@@ -5,7 +5,6 @@ import { filtersConfigs } from '~/composables/state'
 import { payload } from '~/composables/payload'
 import { useRouter } from '#app/composables/router'
 import type { RuleConfigState } from '~~/shared/types'
-import { Shiki } from '~/composables/shiki'
 
 const props = defineProps<{
   state: RuleConfigState

@@ -44,7 +44,7 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
       font-mono text-gray
       :class="active === true ? 'badge-active' : active === false ? 'badge op50' : 'badge'"
     >
-      <span v-html="highlighted" />
+      <span class="filter-hue-rotate-180" v-html="highlighted" />
     </component>
     <template #popper="{ shown, hide }">
       <div v-if="shown && popup === 'files'" max-h="30vh" min-w-80 p3 of-auto>
