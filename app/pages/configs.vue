@@ -7,7 +7,7 @@ import Fuse from 'fuse.js'
 import type { PropType, VNode } from 'vue'
 import { useRoute } from '#app/composables/router'
 import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
-import { matchFile } from '~~/shared/configs'
+import { isIgnoreOnlyConfig, matchFile } from '~~/shared/configs'
 import { getRuleLevel } from '~~/shared/rules'
 import { payload } from '~/composables/payload'
 import type { FlatConfigItem, MatchedFile } from '~~/shared/types'
@@ -34,12 +34,17 @@ watchEffect(() => {
       payload.value.configs,
       payload.value.configsIgnoreOnly,
     )
-    configs = Array.from(new Set([
-      ...fileMatchResult.value.configs,
-      ...payload.value.configsIgnoreOnly.map(i => i.index),
-    ]))
-      .sort()
-      .map(idx => payload.value.configs[idx])
+    if (fileMatchResult.value.configs.length) {
+      configs = Array.from(new Set([
+        ...fileMatchResult.value.configs,
+        ...payload.value.configsGeneral.filter(i => !isIgnoreOnlyConfig(i)).map(i => i.index),
+      ]))
+        .sort()
+        .map(idx => payload.value.configs[idx])
+    }
+    else {
+      configs = []
+    }
   }
   else {
     fileMatchResult.value = null
