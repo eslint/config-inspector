@@ -27,6 +27,7 @@ export async function createWsServer(options: CreateWsServerOptions) {
   })
 
   try {
+    // Initialize the `payload` for `basePath` for chokidar watching.
     await getData()
   }
   catch {}
