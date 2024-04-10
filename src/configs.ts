@@ -38,7 +38,7 @@ export interface ReadConfigOptions {
 /**
  * Search and read the ESLint config file, processed into inspector payload with module dependencies
  *
- * Accpet an options object to specify the working directory path and overrides.
+ * Accept an options object to specify the working directory path and overrides.
  *
  * It uses `bundle-requires` load the config file and find it's dependencies.
  * It always get the latest version of the config file (no ESM cache).
