@@ -26,9 +26,13 @@ export async function createWsServer(options: CreateWsServerOptions) {
     ws.on('close', () => wsClients.delete(ws))
   })
 
+  try {
+    await getData()
+  }
+  catch {}
   const watcher = chokidar.watch([], {
     ignoreInitial: true,
-    cwd: options.cwd,
+    cwd: payload?.meta.basePath || options.cwd,
     disableGlobbing: true,
   })
 
