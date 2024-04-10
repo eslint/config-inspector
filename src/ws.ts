@@ -2,7 +2,7 @@ import chokidar from 'chokidar'
 import type { WebSocket } from 'ws'
 import { WebSocketServer } from 'ws'
 import { getPort } from 'get-port-please'
-import { type ReadConfigOptions, readConfig } from './configs'
+import { type ReadConfigOptions, readConfig, resolveConfigPath } from './configs'
 import { MARK_CHECK } from './constants'
 import type { Payload } from '~~/shared/types'
 
@@ -26,14 +26,10 @@ export async function createWsServer(options: CreateWsServerOptions) {
     ws.on('close', () => wsClients.delete(ws))
   })
 
-  try {
-    // Initialize the `payload` for `basePath` for chokidar watching.
-    await getData()
-  }
-  catch {}
+  const { basePath } = await resolveConfigPath(options)
   const watcher = chokidar.watch([], {
     ignoreInitial: true,
-    cwd: payload?.meta.basePath || options.cwd,
+    cwd: basePath,
     disableGlobbing: true,
   })
 
