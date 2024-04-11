@@ -1,5 +1,17 @@
-import { minimatch } from 'minimatch'
+import { Minimatch } from 'minimatch'
 import type { FlatConfigItem, MatchedFile } from './types'
+
+const minimatchOpts = { dot: true, matchBase: true }
+const _matchInstances = new Map<string, Minimatch>()
+
+function minimatch(file: string, pattern: string) {
+  let m = _matchInstances.get(pattern)
+  if (!m) {
+    m = new Minimatch(pattern, minimatchOpts)
+    _matchInstances.set(pattern, m)
+  }
+  return m.match(file)
+}
 
 export function getMatchedGlobs(file: string, glob: (string | string[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()
