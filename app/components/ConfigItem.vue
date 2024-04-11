@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, defineModel, ref, watchEffect } from 'vue'
-import type { Linter } from 'eslint'
 import { filtersRules, isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
 import { useRouter } from '#app/composables/router'
@@ -12,7 +11,7 @@ const props = defineProps<{
   index: number
   filters?: FiltersConfigsPage
   active?: boolean
-  matchedGlobs?: Linter.FlatConfigFileSpec[]
+  matchedGlobs?: string[]
 }>()
 
 const emit = defineEmits<{

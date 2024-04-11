@@ -1,10 +1,9 @@
-import type { Linter } from 'eslint'
 import { minimatch } from 'minimatch'
 import type { FlatConfigItem, MatchedFile } from './types'
 
-export function getMatchedGlobs(file: string, glob: (Linter.FlatConfigFileSpec | Linter.FlatConfigFileSpec[])[]) {
+export function getMatchedGlobs(file: string, glob: (string | string[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()
-  return globs.filter(glob => typeof glob === 'function' ? glob(file) : minimatch(file, glob)).flat()
+  return globs.filter(glob => minimatch(file, glob)).flat()
 }
 
 const META_KEYS = new Set(['name', 'index'])

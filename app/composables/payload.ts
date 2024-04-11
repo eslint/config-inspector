@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import type { Linter } from 'eslint'
 import { $fetch } from 'ofetch'
 import { isGeneralConfig, isIgnoreOnlyConfig } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
@@ -91,7 +90,7 @@ export function getRuleStates(name: string): RuleConfigStates | undefined {
 
 export function resolvePayload(payload: Payload): ResolvedPayload {
   const ruleToState = new Map<string, RuleConfigStates>()
-  const globToConfigs = new Map<Linter.FlatConfigFileSpec, FlatConfigItem[]>()
+  const globToConfigs = new Map<string, FlatConfigItem[]>()
 
   payload.configs.forEach((config, index) => {
     // Rule Level
@@ -148,8 +147,8 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
     .map(i => i.index)
 
   const files: string[] = []
-  const globToFiles = new Map<Linter.FlatConfigFileSpec, Set<string>>()
-  const fileToGlobs = new Map<string, Set<Linter.FlatConfigFileSpec>>()
+  const globToFiles = new Map<string, Set<string>>()
+  const fileToGlobs = new Map<string, Set<string>>()
   const fileToConfigs = new Map<string, Set<number>>()
   const configToFiles = new Map<number, Set<string>>()
   const filesGroupMap = new Map<string, FilesGroup>()

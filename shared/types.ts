@@ -1,9 +1,11 @@
 import type { Linter } from 'eslint'
 import type { RuleMetaData } from '@typescript-eslint/utils/ts-eslint'
 
-export interface FlatConfigItem extends Linter.FlatConfig {
+export interface FlatConfigItem extends Omit<Linter.FlatConfig, 'files' | 'ignores'> {
   name?: string
   index: number
+  files?: (string | string[])[]
+  ignores?: string[]
 }
 
 export type RuleLevel = 'off' | 'warn' | 'error'
@@ -20,7 +22,7 @@ export interface ResolvedPayload extends Payload {
   configsGeneral: FlatConfigItem[]
 
   ruleToState: Map<string, RuleConfigStates>
-  globToConfigs: Map<Linter.FlatConfigFileSpec, FlatConfigItem[]>
+  globToConfigs: Map<string, FlatConfigItem[]>
 
   /**
    * Resolved data from files
@@ -28,9 +30,9 @@ export interface ResolvedPayload extends Payload {
    */
   filesResolved?: {
     list: string[]
-    globToFiles: Map<Linter.FlatConfigFileSpec, Set<string>>
+    globToFiles: Map<string, Set<string>>
     configToFiles: Map<number, Set<string>>
-    fileToGlobs: Map<string, Set<Linter.FlatConfigFileSpec>>
+    fileToGlobs: Map<string, Set<string>>
     fileToConfigs: Map<string, FlatConfigItem[]>
     groups: FilesGroup[]
   }
@@ -44,7 +46,7 @@ export interface MatchedFile {
   /**
    * Matched globs, includes both positive and negative globs
    */
-  globs: Linter.FlatConfigFileSpec[]
+  globs: string[]
   /**
    * Matched configs indexes
    */
@@ -60,7 +62,7 @@ export interface FilesGroup {
   id: string
   files: string[]
   configs: FlatConfigItem[]
-  globs: Set<Linter.FlatConfigFileSpec>
+  globs: Set<string>
 }
 
 export interface PayloadMeta {

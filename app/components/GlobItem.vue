@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, defineComponent } from 'vue'
-import type { Linter } from 'eslint'
 import { Dropdown as VDropdown } from 'floating-vue'
 import { useHighlightedGlob } from '../composables/shiki'
 import { filtersConfigs } from '~/composables/state'
@@ -9,7 +8,7 @@ import { payload } from '~/composables/payload'
 
 const props = withDefaults(
   defineProps<{
-    glob: Linter.FlatConfigFileSpec
+    glob: string
     popup?: 'files' | 'configs'
     active?: boolean | null
   }>(),

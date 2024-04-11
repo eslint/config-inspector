@@ -193,7 +193,7 @@ export async function globMatchedFiles(
 
   const ignoreOnlyConfigs = configs.filter(isIgnoreOnlyConfig)
   // const functionalGlobMap = new Map<any, string>()
-  // function stringifyGlob(glob: Linter.FlatConfigFileSpec) {
+  // function stringifyGlob(glob: string) {
   //   if (typeof glob === 'function') {
   //     if (!functionalGlobMap.has(glob))
   //       functionalGlobMap.set(glob, `<function#${functionalGlobMap.size + 1}>`)
