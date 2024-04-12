@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.4.6](https://github.com/eslint/config-inspector/compare/v0.4.5...v0.4.6) (2024-04-12)
+
+
+### Features
+
+* support `--base` option in build, fix [#41](https://github.com/eslint/config-inspector/issues/41) ([1156bb5](https://github.com/eslint/config-inspector/commit/1156bb51b278540a7da33cb704adfe1fb496f285))
+
+
+### Bug Fixes
+
+* start watcher with `basePath` ([#39](https://github.com/eslint/config-inspector/issues/39)) ([e259020](https://github.com/eslint/config-inspector/commit/e2590201fef48329cc69301dfc0776e4d860b2d2))
+* support only string globs ([c99f85e](https://github.com/eslint/config-inspector/commit/c99f85e07743e85593ff6ab03156515c216723c5))
+
+
+### Chores
+
+* cache Minimatch instance ([3bab7e8](https://github.com/eslint/config-inspector/commit/3bab7e8ae351f69c0b73b35abd29ab9607745129))
+* release-please-mark ([53ce18b](https://github.com/eslint/config-inspector/commit/53ce18b3e2c644f81ad268dbf035305893d92a00))
+* update deps ([a40fc38](https://github.com/eslint/config-inspector/commit/a40fc38c128441accbf3ce7032cfe9cde4ca80a4))
+
 ## [0.4.5](https://github.com/eslint/config-inspector/compare/v0.4.4...v0.4.5) (2024-04-09)
 
 
