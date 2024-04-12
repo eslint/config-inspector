@@ -29,9 +29,9 @@ function isErrorInfo(payload: Payload | ErrorInfo): payload is ErrorInfo {
   return 'error' in payload
 }
 
-async function get() {
+async function get(baseURL: string) {
   isFetching.value = true
-  const payload = await $fetch<Payload | ErrorInfo>('/api/payload.json')
+  const payload = await $fetch<Payload | ErrorInfo>('/api/payload.json', { baseURL })
   if (isErrorInfo(payload)) {
     errorInfo.value = payload
     isLoading.value = false
@@ -46,36 +46,42 @@ async function get() {
   return payload
 }
 
-const _promises = get()
-  .then((payload) => {
-    if (!payload)
-      return
+let _promise: Promise<Payload | undefined> | undefined
 
-    if (typeof payload.meta.wsPort === 'number') {
+export function init(baseURL: string) {
+  if (_promise)
+    return
+  _promise = get(baseURL)
+    .then((payload) => {
+      if (!payload)
+        return
+
+      if (typeof payload.meta.wsPort === 'number') {
       // Connect to WebSocket, listen for config changes
-      const ws = new WebSocket(`ws://${location.hostname}:${payload.meta.wsPort}`)
-      ws.addEventListener('message', async (event) => {
-        console.log(LOG_NAME, 'WebSocket message', event.data)
-        const payload = JSON.parse(event.data)
-        if (payload.type === 'config-change')
-          get()
-      })
-      ws.addEventListener('open', () => {
-        console.log(LOG_NAME, 'WebSocket connected')
-      })
-      ws.addEventListener('close', () => {
-        console.log(LOG_NAME, 'WebSocket closed')
-      })
-      ws.addEventListener('error', (error) => {
-        console.error(LOG_NAME, 'WebSocket error', error)
-      })
-    }
+        const ws = new WebSocket(`ws://${location.hostname}:${payload.meta.wsPort}`)
+        ws.addEventListener('message', async (event) => {
+          console.log(LOG_NAME, 'WebSocket message', event.data)
+          const payload = JSON.parse(event.data)
+          if (payload.type === 'config-change')
+            get(baseURL)
+        })
+        ws.addEventListener('open', () => {
+          console.log(LOG_NAME, 'WebSocket connected')
+        })
+        ws.addEventListener('close', () => {
+          console.log(LOG_NAME, 'WebSocket closed')
+        })
+        ws.addEventListener('error', (error) => {
+          console.error(LOG_NAME, 'WebSocket error', error)
+        })
+      }
 
-    return payload
-  })
+      return payload
+    })
+}
 
 export function ensureDataFetch() {
-  return _promises
+  return _promise
 }
 
 export const payload = computed(() => Object.freeze(resolvePayload(data.value!)))

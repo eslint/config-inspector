@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
-import { errorInfo, isLoading } from '~/composables/payload'
+import { useRuntimeConfig } from '#app/nuxt'
+import { errorInfo, init, isLoading } from '~/composables/payload'
 
 import 'floating-vue/dist/style.css'
 import './styles/global.css'
 import './composables/dark'
+
+const config = useRuntimeConfig()
+init(config.app.baseURL)
 
 useHead({
   title: 'ESLint Config Inspector',

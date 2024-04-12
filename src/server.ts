@@ -11,6 +11,13 @@ export async function createHostServer(options: CreateWsServerOptions) {
 
   const ws = await createWsServer(options)
 
+  const fileMap = new Map<string, Promise<string | undefined>>()
+  const readCachedFile = (id: string) => {
+    if (!fileMap.has(id))
+      fileMap.set(id, readFile(id, 'utf-8').catch(() => undefined))
+    return fileMap.get(id)
+  }
+
   app.use('/api/payload.json', eventHandler(async (event) => {
     event.node.res.setHeader('Content-Type', 'application/json')
     return event.node.res.end(JSON.stringify(await ws.getData()))
@@ -19,12 +26,11 @@ export async function createHostServer(options: CreateWsServerOptions) {
   app.use('/', eventHandler(async (event) => {
     const result = await serveStatic(event, {
       fallthrough: true,
-      getContents: id => readFile(join(distDir, id), 'utf-8'),
+      getContents: id => readCachedFile(join(distDir, id)),
       getMeta: async (id) => {
         const stats = await stat(join(distDir, id)).catch(() => {})
         if (!stats || !stats.isFile())
           return
-
         return {
           type: lookup(id),
           size: stats.size,
@@ -34,7 +40,7 @@ export async function createHostServer(options: CreateWsServerOptions) {
     })
 
     if (result === false)
-      return readFile(join(distDir, 'index.html'), 'utf8')
+      return readCachedFile(join(distDir, 'index.html'))
   }))
 
   return createServer(toNodeListener(app))

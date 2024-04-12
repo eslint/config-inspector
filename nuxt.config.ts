@@ -16,10 +16,6 @@ export default defineNuxtConfig({
     },
   },
 
-  appConfig: {
-    baseURL: './',
-  },
-
   experimental: {
     typedPages: true,
   },
@@ -55,10 +51,11 @@ export default defineNuxtConfig({
   },
 
   app: {
+    baseURL: './',
     head: {
       viewport: 'width=device-width,initial-scale=1',
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'icon', type: 'image/svg+xml', href: `/favicon.svg` },
       ],
     },
   },
@@ -69,6 +66,7 @@ export default defineNuxtConfig({
         defineModel: true,
       },
     },
+    base: './',
   },
 
   devtools: {
