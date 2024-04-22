@@ -4,15 +4,13 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  bundle-require@4.0.2:
-    hash: ytwnra2fe3qlklprtgfp4wp5vm
-    path: patches/bundle-require@4.0.2.patch
-
 importers:
 
   .:
     dependencies:
+      bundle-require:
+        specifier: ^4.0.3
+        version: 4.0.3(esbuild@0.20.2)
       cac:
         specifier: ^6.7.14
         version: 6.7.14
@@ -34,9 +32,6 @@ importers:
       h3:
         specifier: ^1.11.1
         version: 1.11.1
-      load-tsconfig:
-        specifier: ^0.2.5
-        version: 0.2.5
       minimatch:
         specifier: ^9.0.4
         version: 9.0.4
@@ -104,9 +99,6 @@ importers:
       '@vueuse/nuxt':
         specifier: ^10.9.0
         version: 10.9.0(nuxt@3.11.2(@parcel/watcher@2.4.1)(@types/node@20.4.6)(@unocss/reset@0.59.4)(encoding@0.1.13)(eslint@9.1.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@3.29.4))(vue@3.4.21(typescript@5.4.5)))(fuse.js@7.0.0)(ioredis@5.3.2)(optionator@0.9.3)(rollup@3.29.4)(terser@5.19.2)(typescript@5.4.5)(unocss@0.59.4(@unocss/webpack@0.59.4(rollup@3.29.4)(webpack@5.88.2(esbuild@0.20.2)))(postcss@8.4.38)(rollup@3.29.4)(vite@5.2.8(@types/node@20.4.6)(terser@5.19.2)))(vite@5.2.8(@types/node@20.4.6)(terser@5.19.2))(vue-tsc@2.0.14(typescript@5.4.5)))(rollup@3.29.4)(vue@3.4.21(typescript@5.4.5))
-      bundle-require:
-        specifier: ^4.0.2
-        version: 4.0.2(patch_hash=ytwnra2fe3qlklprtgfp4wp5vm)(esbuild@0.20.2)
       eslint:
         specifier: ^9.1.0
         version: 9.1.0
@@ -1907,8 +1899,8 @@ packages:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
     engines: {node: '>=18'}
 
-  bundle-require@4.0.2:
-    resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
+  bundle-require@4.0.3:
+    resolution: {integrity: sha512-2iscZ3fcthP2vka4Y7j277YJevwmsby/FpFDwjgw34Nl7dtCpt7zz/4TexmHMzY6KZEih7En9ImlbbgUNNQGtA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       esbuild: '>=0.17'
@@ -5479,7 +5471,7 @@ snapshots:
 
   '@eslint/config-inspector@0.4.6(eslint@9.1.0)':
     dependencies:
-      bundle-require: 4.0.2(patch_hash=ytwnra2fe3qlklprtgfp4wp5vm)(esbuild@0.20.2)
+      bundle-require: 4.0.3(esbuild@0.20.2)
       cac: 6.7.14
       chokidar: 3.6.0
       esbuild: 0.20.2
@@ -7294,7 +7286,7 @@ snapshots:
     dependencies:
       run-applescript: 7.0.0
 
-  bundle-require@4.0.2(patch_hash=ytwnra2fe3qlklprtgfp4wp5vm)(esbuild@0.20.2):
+  bundle-require@4.0.3(esbuild@0.20.2):
     dependencies:
       esbuild: 0.20.2
       load-tsconfig: 0.2.5
