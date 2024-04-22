@@ -6,7 +6,7 @@ import { getRuleFromName, payload } from '~/composables/payload'
 import type { RuleInfo } from '~~/shared/types'
 
 const props = defineProps<{
-  rules: RuleInfo[] | Record<string, Linter.RuleEntry>
+  rules: Partial<Linter.RulesRecord> | RuleInfo[]
   getBind?: (ruleName: string) => Record<string, any>
   filter?: (ruleName: string) => boolean
 }>()
