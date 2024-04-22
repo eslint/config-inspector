@@ -21,7 +21,7 @@ function collapseAll() {
       <div border="~ base rounded" flex="~ inline">
         <button
           :class="stateStorage.viewFilesTab === 'list' ? 'btn-action-active' : 'op50'"
-          btn-action border-none
+          border-none btn-action
           @click="stateStorage.viewFilesTab = 'list'"
         >
           <div i-ph-files-duotone />
@@ -30,7 +30,7 @@ function collapseAll() {
         <div border="l base" />
         <button
           :class="stateStorage.viewFilesTab === 'group' ? 'btn-action-active' : 'op50'"
-          btn-action border-none
+          border-none btn-action
           @click="stateStorage.viewFilesTab = 'group' "
         >
           <div i-ph-rows-duotone />
@@ -40,13 +40,13 @@ function collapseAll() {
       <div flex-auto />
       <template v-if="stateStorage.viewFilesTab === 'group'">
         <button
-          btn-action px3
+          px3 btn-action
           @click="expandAll"
         >
           Expand All
         </button>
         <button
-          btn-action px3
+          px3 btn-action
           @click="collapseAll"
         >
           Collapse All
@@ -74,7 +74,7 @@ function collapseAll() {
     </div>
   </div>
   <div v-else>
-    <div op50 italic p3>
+    <div p3 italic op50>
       No matched files found in the workspace.
     </div>
   </div>

@@ -127,7 +127,7 @@ function capitalize(str?: string) {
 
   <div
     v-if="gridView && (rule.deprecated || rule.fixable || rule.docs?.recommended)"
-    flex-auto justify-end flex flex-col items-start
+    flex flex-auto flex-col items-start justify-end
   >
     <div flex="~ gap-2" mt1>
       <div v-if="rule.deprecated" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>

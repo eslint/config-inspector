@@ -40,13 +40,13 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
   <component :is="showsPopup ? VDropdown : Noop">
     <component
       :is="showsPopup ? 'button' : 'div'"
-      font-mono text-gray
+      text-gray font-mono
       :class="active === true ? 'badge-active' : active === false ? 'badge op50' : 'badge'"
     >
       <span class="filter-hue-rotate-180" v-html="highlighted" />
     </component>
     <template #popper="{ shown, hide }">
-      <div v-if="shown && popup === 'files'" max-h="30vh" min-w-80 p3 of-auto>
+      <div v-if="shown && popup === 'files'" max-h="30vh" min-w-80 of-auto p3>
         <div v-if="files?.size" flex="~ col gap-1">
           <div>Files that matches this glob</div>
           <FileItem
@@ -56,12 +56,12 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
             @click="hide()"
           />
         </div>
-        <div v-else op50 text-center italic>
+        <div v-else text-center italic op50>
           No files matched this glob.
         </div>
       </div>
 
-      <div v-if="shown && popup === 'configs'" max-h="30vh" min-w-80 p3 of-auto>
+      <div v-if="shown && popup === 'configs'" max-h="30vh" min-w-80 of-auto p3>
         <div v-if="configs?.length" flex="~ col gap-1">
           <div>Configs that contains this glob</div>
           <div v-for="config of configs" :key="config.name" flex="~ gap-2">
@@ -73,7 +73,7 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
             </button>
           </div>
         </div>
-        <div v-else op50 text-center italic>
+        <div v-else text-center italic op50>
           No configs matched this glob.
         </div>
       </div>

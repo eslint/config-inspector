@@ -32,6 +32,6 @@ const icon = computed(() => ({
 <template>
   <div relative :class="[color, props.class]" :title="title">
     <div :class="icon" />
-    <div v-if="hasOptions" op75 bg-current rounded-full h-6px w-6px absolute top--2px right--2px />
+    <div v-if="hasOptions" absolute right--2px top--2px h-6px w-6px rounded-full bg-current op75 />
   </div>
 </template>

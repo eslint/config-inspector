@@ -30,7 +30,7 @@ function toggleRuleView() {
 
 <template>
   <ConfigInspectorBadge text-3xl font-200 />
-  <div v-if="payload.meta.configPath" flex="~ gap-1 items-center" text-sm my1>
+  <div v-if="payload.meta.configPath" flex="~ gap-1 items-center" my1 text-sm>
     <span font-mono op35>{{ payload.meta.configPath }}</span>
   </div>
   <div flex="~ gap-1 items-center wrap" text-sm>
@@ -41,16 +41,16 @@ function toggleRuleView() {
     <div
       v-if="isFetching"
       flex="~ gap-2 items-center"
-      text-green ml2 animate-pulse
+      ml2 animate-pulse text-green
     >
-      <div i-svg-spinners-90-ring-with-bg text-sm flex-none />
+      <div i-svg-spinners-90-ring-with-bg flex-none text-sm />
       Fetching updates...
     </div>
   </div>
   <div flex="~ gap-3 items-center wrap" py4>
     <NuxtLink
       to="/configs"
-      btn-action text-base px3 py1
+      px3 py1 text-base btn-action
       active-class="btn-action-active"
     >
       <div i-ph-stack-duotone flex-none />
@@ -58,7 +58,7 @@ function toggleRuleView() {
     </NuxtLink>
     <NuxtLink
       to="/rules"
-      btn-action text-base px3 py1
+      px3 py1 text-base btn-action
       active-class="btn-action-active"
     >
       <div i-ph-list-dashes-duotone flex-none />
@@ -67,7 +67,7 @@ function toggleRuleView() {
     <NuxtLink
       v-if="payload.filesResolved"
       to="/files"
-      btn-action text-base px3 py1
+      px3 py1 text-base btn-action
       active-class="btn-action-active"
     >
       <div i-ph-files-duotone flex-none />
@@ -80,9 +80,9 @@ function toggleRuleView() {
     />
     <button
       title="Toggle Rule View"
-      lt-md:hidden
+
       :class="stateStorage.viewType === 'list' ? 'i-ph-list-duotone' : 'i-ph-grid-four-duotone'"
-      text-xl op50 hover:op75
+      text-xl op50 lt-md:hidden hover:op75
       @click="toggleRuleView()"
     />
     <NuxtLink
@@ -90,7 +90,7 @@ function toggleRuleView() {
       i-carbon-logo-github text-lg op50 hover:op75
     />
     <template v-if="deprecatedUsing.length">
-      <div w-1px border="l base" h-5 ml3 mr2 />
+      <div border="l base" ml3 mr2 h-5 w-1px />
       <button
         to="/configs"
         border="~ orange/20 rounded-full"

@@ -60,8 +60,8 @@ const extraConfigs = computed(() => {
         #{{ index + 1 }}
       </div>
       <div flex="~ gap-2 items-start wrap items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
-        <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition op50 />
-        <div flex flex-col gap-3 md:flex-row flex-auto>
+        <div class="[details[open]_&]:rotate-90" i-ph-caret-right op50 transition />
+        <div flex flex-auto flex-col gap-3 md:flex-row>
           <span :class="config.name ? '' : 'op50 italic'" flex-auto>
             <ColorizedConfigName v-if="config.name" :name="config.name" />
             <span v-else>anonymous #{{ index + 1 }}</span>
@@ -104,11 +104,11 @@ const extraConfigs = computed(() => {
       </div>
     </summary>
 
-    <div absolute right-2 top-2 text-right text-5em font-mono op5 pointer-events-none>
+    <div pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5>
       #{{ index + 1 }}
     </div>
 
-    <div v-if="hasShown" px4 py3 flex="~ col gap-4" of-auto>
+    <div v-if="hasShown" flex="~ col gap-4" of-auto px4 py3>
       <div v-if="config.files" flex="~ gap-2 items-start">
         <div i-ph-file-magnifying-glass-duotone my1 flex-none />
         <div flex="~ col gap-2">
@@ -211,7 +211,7 @@ const extraConfigs = computed(() => {
           </div>
           <template v-for="v, k in extraConfigs" :key="k">
             <div border="~ base rounded-lg">
-              <div p2 px3 op50 of-auto>
+              <div of-auto p2 px3 op50>
                 {{ k }}
               </div>
               <Shiki

@@ -220,9 +220,9 @@ onMounted(async () => {
         >
           <button
             v-for="file, idx of autoCompleteFiles"
-            :key="file.item" px3 py0.5 text-left font-mono
+            :key="file.item"
             :class="idx === autoCompleteIndex ? 'bg-active' : ''"
-            hover:bg-active
+            hover:bg-active px3 py0.5 text-left font-mono
             @click="autoCompleteConfirm(idx)"
           >
             <template v-if="file.matches">
@@ -287,7 +287,7 @@ onMounted(async () => {
           <div border="~ base rounded" flex>
             <button
               :class="stateStorage.viewFileMatchType === 'configs' ? 'btn-action-active' : 'op50'"
-              btn-action border-none
+              border-none btn-action
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
               <div i-ph-stack-duotone />
@@ -296,7 +296,7 @@ onMounted(async () => {
             <div border="l base" />
             <button
               :class="stateStorage.viewFileMatchType !== 'configs' ? 'btn-action-active' : 'op50'"
-              btn-action border-none
+              border-none btn-action
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
               <div i-ph-film-script-duotone />
@@ -318,13 +318,13 @@ onMounted(async () => {
         </label>
         <div flex-auto />
         <button
-          btn-action px3
+          px3 btn-action
           @click="expandAll"
         >
           Expand All
         </button>
         <button
-          btn-action px3
+          px3 btn-action
           @click="collapseAll"
         >
           Collapse All
@@ -332,7 +332,7 @@ onMounted(async () => {
       </div>
 
       <template v-if="!filteredConfigs.length">
-        <div italic op50 mt5>
+        <div mt5 italic op50>
           No matched config items.
         </div>
         <template v-if="fileMatchResult?.globs.length">
@@ -362,7 +362,7 @@ onMounted(async () => {
               :rules="mergedRules.common"
             />
           </details>
-          <details class="flat-config-item" border="~ base rounded-lg" relative open>
+          <details class="flat-config-item" border="~ base rounded-lg" open relative>
             <summary block>
               <div flex="~ gap-2 items-start" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono op75>
                 <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition />

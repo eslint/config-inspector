@@ -135,7 +135,7 @@ function resetFilters() {
         >
           <template #default="{ value, title }">
             <div class="flex items-center">
-              <div flex ml--1 mr-1 items-center>
+              <div ml--1 mr-1 flex items-center>
                 <RuleLevelIcon v-if="value === 'error' || value === 'overloads'" level="error" />
                 <RuleLevelIcon v-if="value === 'warn' || value === 'overloads'" level="warn" />
                 <RuleLevelIcon v-if="value === 'off' || value === 'off-only' || value === 'overloads'" level="off" />
@@ -153,10 +153,10 @@ function resetFilters() {
           :titles="['All', 'Active', 'Recommended', 'Fixable', 'Deprecated']"
         >
           <template #default="{ value, title }">
-            <div flex gap-1 items-center>
-              <div v-if="value === 'recommended'" ml--0.5 i-ph-check-square-duotone text-green />
-              <div v-if="value === 'fixable'" ml--0.5 i-ph-wrench-duotone text-amber />
-              <div v-if="value === 'deprecated'" ml--1 i-ph-prohibit-inset-duotone text-gray />
+            <div flex items-center gap-1>
+              <div v-if="value === 'recommended'" i-ph-check-square-duotone ml--0.5 text-green />
+              <div v-if="value === 'fixable'" i-ph-wrench-duotone ml--0.5 text-amber />
+              <div v-if="value === 'deprecated'" i-ph-prohibit-inset-duotone ml--1 text-gray />
               {{ title || value }}
             </div>
           </template>

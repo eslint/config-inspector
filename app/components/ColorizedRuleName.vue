@@ -43,7 +43,7 @@ const parsed = computed(() => {
 <template>
   <component
     :is="as || 'div'"
-    ws-nowrap font-mono of-hidden text-ellipsis
+    of-hidden text-ellipsis ws-nowrap font-mono
     :class="[
       deprecated ? 'line-through' : '',
       borderless ? '' : 'badge',

@@ -56,8 +56,8 @@ function goToConfig(idx: number) {
         #{{ index + 1 }}
       </div>
       <div flex="~ gap-2 items-start wrap items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
-        <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition op50 />
-        <div flex flex-col gap-3 md:flex-row flex-auto>
+        <div class="[details[open]_&]:rotate-90" i-ph-caret-right op50 transition />
+        <div flex flex-auto flex-col gap-3 md:flex-row>
           <span flex-auto flex="~ gap-2 items-center">
             <template v-if="groupName?.type === 'config'">
               <span op75>Config</span>
@@ -100,11 +100,11 @@ function goToConfig(idx: number) {
       </div>
     </summary>
 
-    <div absolute right-2 top-2 text-right text-5em font-mono op5 pointer-events-none>
+    <div pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5>
       #{{ index + 1 }}
     </div>
 
-    <div v-if="hasShown" px4 py4 flex="~ col gap-4" of-auto>
+    <div v-if="hasShown" flex="~ col gap-4" of-auto px4 py4>
       <div flex="~ gap-2 items-center">
         <div i-ph-stack-duotone flex-none />
         <div>Configs Specific to the Files ({{ group.configs.length }})</div>

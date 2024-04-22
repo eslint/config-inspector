@@ -41,7 +41,7 @@ function goto() {
         <button hover="!color-base" text-gray @click="goto()">
           <ColorizedConfigName
             v-if="config.name" :name="config.name"
-            font-mono px2 border="~ base rounded"
+            px2 font-mono border="~ base rounded"
           />
           <span op50> the </span>
           {{ nth(state.configIndex + 1) }}
