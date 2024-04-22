@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.7](https://github.com/eslint/config-inspector/compare/v0.4.6...v0.4.7) (2024-04-22)
+
+
+### Bug Fixes
+
+* patch bundle-require ([179bc64](https://github.com/eslint/config-inspector/commit/179bc643871c97e4c57e423ee94d5b52d8c3f675))
+
+
+### Chores
+
+* lint ([deae1a3](https://github.com/eslint/config-inspector/commit/deae1a3d46d4c96bdaf728b0b1f9270b3cc10554))
+* update deps ([e3fcad5](https://github.com/eslint/config-inspector/commit/e3fcad5791d5b4f2f195b0c4e497aaab927973a3))
+
 ## [0.4.6](https://github.com/eslint/config-inspector/compare/v0.4.5...v0.4.6) (2024-04-12)
 
 
