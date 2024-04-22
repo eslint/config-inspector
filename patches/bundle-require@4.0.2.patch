@@ -1,0 +1,78 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index f501766b71e3c856f97c37aa37608bbec53fa281..cae0c5b63891abcfa2b3665d40f1e65ca64455c5 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -82,6 +82,7 @@ var DIRNAME_VAR_NAME = "__injected_dirname__";
+ var FILENAME_VAR_NAME = "__injected_filename__";
+ var IMPORT_META_URL_VAR_NAME = "__injected_import_meta_url__";
+ var JS_EXT_RE = /\.([mc]?[tj]s|[tj]sx)$/;
++var PATH_NODE_MODULES_RE = /[\/\\]node_modules[\/\\]/;
+ function inferLoader(ext) {
+   if (ext === ".mjs" || ext === ".cjs")
+     return "js";
+@@ -116,9 +117,6 @@ var externalPlugin = ({
+     name: "bundle-require:external",
+     setup(ctx) {
+       ctx.onResolve({ filter: /.*/ }, async (args) => {
+-        if (args.path[0] === "." || import_path2.default.isAbsolute(args.path)) {
+-          return;
+-        }
+         if (match(args.path, external)) {
+           return {
+             external: true
+@@ -127,6 +125,16 @@ var externalPlugin = ({
+         if (match(args.path, notExternal)) {
+           return;
+         }
++        if (args.path.match(PATH_NODE_MODULES_RE)) {
++          const resolved = args.path[0] === "." ? import_path2.default.resolve(args.resolveDir, args.path) : args.path;
++          return {
++            path: resolved,
++            external: true
++          };
++        }
++        if (args.path[0] === "." || import_path2.default.isAbsolute(args.path)) {
++          return;
++        }
+         return {
+           external: true
+         };
+diff --git a/dist/index.js b/dist/index.js
+index 214ed416d1e739f0a4ebb0b9f2b017b174b76b6d..aa515a5cf0223bedd7f9316d47ddeeac847caa13 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -49,6 +49,7 @@ var DIRNAME_VAR_NAME = "__injected_dirname__";
+ var FILENAME_VAR_NAME = "__injected_filename__";
+ var IMPORT_META_URL_VAR_NAME = "__injected_import_meta_url__";
+ var JS_EXT_RE = /\.([mc]?[tj]s|[tj]sx)$/;
++var PATH_NODE_MODULES_RE = /[\/\\]node_modules[\/\\]/;
+ function inferLoader(ext) {
+   if (ext === ".mjs" || ext === ".cjs")
+     return "js";
+@@ -83,9 +84,6 @@ var externalPlugin = ({
+     name: "bundle-require:external",
+     setup(ctx) {
+       ctx.onResolve({ filter: /.*/ }, async (args) => {
+-        if (args.path[0] === "." || path2.isAbsolute(args.path)) {
+-          return;
+-        }
+         if (match(args.path, external)) {
+           return {
+             external: true
+@@ -94,6 +92,16 @@ var externalPlugin = ({
+         if (match(args.path, notExternal)) {
+           return;
+         }
++        if (args.path.match(PATH_NODE_MODULES_RE)) {
++          const resolved = args.path[0] === "." ? path2.resolve(args.resolveDir, args.path) : args.path;
++          return {
++            path: resolved,
++            external: true
++          };
++        }
++        if (args.path[0] === "." || path2.isAbsolute(args.path)) {
++          return;
++        }
+         return {
+           external: true
+         };

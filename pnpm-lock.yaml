@@ -4,13 +4,15 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  bundle-require@4.0.2:
+    hash: ytwnra2fe3qlklprtgfp4wp5vm
+    path: patches/bundle-require@4.0.2.patch
+
 importers:
 
   .:
     dependencies:
-      bundle-require:
-        specifier: ^4.0.2
-        version: 4.0.2(esbuild@0.20.2)
       cac:
         specifier: ^6.7.14
         version: 6.7.14
@@ -32,6 +34,9 @@ importers:
       h3:
         specifier: ^1.11.1
         version: 1.11.1
+      load-tsconfig:
+        specifier: ^0.2.5
+        version: 0.2.5
       minimatch:
         specifier: ^9.0.4
         version: 9.0.4
@@ -50,7 +55,7 @@ importers:
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.15.0
-        version: 2.15.0(@unocss/eslint-plugin@0.59.0(eslint@9.1.0)(typescript@5.4.5))(@vue/compiler-sfc@3.4.21)(eslint@9.1.0)(typescript@5.4.5)
+        version: 2.15.0(@unocss/eslint-plugin@0.59.4(eslint@9.1.0)(typescript@5.4.5))(@vue/compiler-sfc@3.4.21)(eslint@9.1.0)(typescript@5.4.5)
       '@eslint/js':
         specifier: ^9.1.1
         version: 9.1.1
@@ -99,6 +104,9 @@ importers:
       '@vueuse/nuxt':
         specifier: ^10.9.0
         version: 10.9.0(nuxt@3.11.2(@parcel/watcher@2.4.1)(@types/node@20.4.6)(@unocss/reset@0.59.4)(encoding@0.1.13)(eslint@9.1.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@3.29.4))(vue@3.4.21(typescript@5.4.5)))(fuse.js@7.0.0)(ioredis@5.3.2)(optionator@0.9.3)(rollup@3.29.4)(terser@5.19.2)(typescript@5.4.5)(unocss@0.59.4(@unocss/webpack@0.59.4(rollup@3.29.4)(webpack@5.88.2(esbuild@0.20.2)))(postcss@8.4.38)(rollup@3.29.4)(vite@5.2.8(@types/node@20.4.6)(terser@5.19.2)))(vite@5.2.8(@types/node@20.4.6)(terser@5.19.2))(vue-tsc@2.0.14(typescript@5.4.5)))(rollup@3.29.4)(vue@3.4.21(typescript@5.4.5))
+      bundle-require:
+        specifier: ^4.0.2
+        version: 4.0.2(patch_hash=ytwnra2fe3qlklprtgfp4wp5vm)(esbuild@0.20.2)
       eslint:
         specifier: ^9.1.0
         version: 9.1.0
@@ -1248,9 +1256,6 @@ packages:
   '@types/eslint@8.56.10':
     resolution: {integrity: sha512-Shavhk87gCtY2fhXDctcfS3e6FdxWkCx1iUZ9eEUbh7rTqlZT0/IzOkCOVt0fCjcFuZ9FPYfuezTBImfHCDBGQ==}
 
-  '@types/eslint@8.56.7':
-    resolution: {integrity: sha512-SjDvI/x3zsZnOkYZ3lCt9lOZWZLB2jIlNKz+LBgCtDurK0JZcwucxYHn1w2BJkD34dgX9Tjnak0txtq4WTggEA==}
-
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
@@ -1411,26 +1416,15 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  '@unocss/config@0.59.0':
-    resolution: {integrity: sha512-uBsLXmT8Dap6YRHSdlsVLYev8L6JVK6vUFcVCe0w7B74TC+GceE13lNOG3Zhz1EVfHaOrUEcYFthDILUkjBR3Q==}
-    engines: {node: '>=14'}
-
   '@unocss/config@0.59.4':
     resolution: {integrity: sha512-h3yhj+D5Ygn5R7gbK4wMrtXZX6FF5DF6YD517sSSb0XB3lxHD9PhhT4HaV1hpHknvu0cMFU3460M45+TN1TI0Q==}
     engines: {node: '>=14'}
-
-  '@unocss/core@0.59.0':
-    resolution: {integrity: sha512-9tXL6TV4FRpmFy70dHryA5NHsS7bV/x771LOPnZyiw+TRK4oGVk96IsATOflcn7L3FbXQY1mV+8Uzhkhx2PY0A==}
 
   '@unocss/core@0.59.4':
     resolution: {integrity: sha512-bBZ1sgcAtezQVZ1BST9IS3jqcsTLyqKNjiIf7FTnX3DHpfpYuMDFzSOtmkZDzBleOLO/CtcRWjT0HwTSQAmV0A==}
 
   '@unocss/eslint-config@0.59.4':
     resolution: {integrity: sha512-a0FWOXQtdheYplZI+Oba2QMNWzCsfTUV/EuYEUDuKFARcsqpzO0PgRSH0MDHz0nROYmxeKkEKW/56dbAXmjBFQ==}
-    engines: {node: '>=14'}
-
-  '@unocss/eslint-plugin@0.59.0':
-    resolution: {integrity: sha512-/tjX9Z84/EQy5UFR4xn+1aoXKTkAGH3roQMYPPS+cmbchy9vjgON/6mWvm1oRwHHt9RnLsCM/uT0IT/QfS4W7g==}
     engines: {node: '>=14'}
 
   '@unocss/eslint-plugin@0.59.4':
@@ -4608,9 +4602,6 @@ packages:
       typescript:
         optional: true
 
-  unconfig@0.3.12:
-    resolution: {integrity: sha512-oDtfWDC0TMYFuwdt7E7CaqYZGqq1wAiC12PRTFe/93IkgNi+wVlF/LCjcD/bgNkGoopb0RsU363Ge3YXy7NGSw==}
-
   unconfig@0.3.13:
     resolution: {integrity: sha512-N9Ph5NC4+sqtcOjPfHrRcHekBCadCXWTBzp2VYYbySOHW0PfD9XLCeXshTXjkPYwLrBr9AtSeU0CZmkYECJhng==}
 
@@ -5050,7 +5041,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@antfu/eslint-config@2.15.0(@unocss/eslint-plugin@0.59.0(eslint@9.1.0)(typescript@5.4.5))(@vue/compiler-sfc@3.4.21)(eslint@9.1.0)(typescript@5.4.5)':
+  '@antfu/eslint-config@2.15.0(@unocss/eslint-plugin@0.59.4(eslint@9.1.0)(typescript@5.4.5))(@vue/compiler-sfc@3.4.21)(eslint@9.1.0)(typescript@5.4.5)':
     dependencies:
       '@antfu/install-pkg': 0.3.2
       '@clack/prompts': 0.7.0
@@ -5087,7 +5078,7 @@ snapshots:
       yaml-eslint-parser: 1.2.2
       yargs: 17.7.2
     optionalDependencies:
-      '@unocss/eslint-plugin': 0.59.0(eslint@9.1.0)(typescript@5.4.5)
+      '@unocss/eslint-plugin': 0.59.4(eslint@9.1.0)(typescript@5.4.5)
     transitivePeerDependencies:
       - '@vue/compiler-sfc'
       - supports-color
@@ -5504,7 +5495,7 @@ snapshots:
 
   '@eslint/config-inspector@0.4.6(eslint@9.1.0)':
     dependencies:
-      bundle-require: 4.0.2(esbuild@0.20.2)
+      bundle-require: 4.0.2(patch_hash=ytwnra2fe3qlklprtgfp4wp5vm)(esbuild@0.20.2)
       cac: 6.7.14
       chokidar: 3.6.0
       esbuild: 0.20.2
@@ -6356,15 +6347,10 @@ snapshots:
 
   '@types/eslint-scope@3.7.4':
     dependencies:
-      '@types/eslint': 8.56.7
+      '@types/eslint': 8.56.10
       '@types/estree': 1.0.5
 
   '@types/eslint@8.56.10':
-    dependencies:
-      '@types/estree': 1.0.5
-      '@types/json-schema': 7.0.15
-
-  '@types/eslint@8.56.7':
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
@@ -6591,19 +6577,10 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  '@unocss/config@0.59.0':
-    dependencies:
-      '@unocss/core': 0.59.0
-      unconfig: 0.3.12
-    optional: true
-
   '@unocss/config@0.59.4':
     dependencies:
       '@unocss/core': 0.59.4
       unconfig: 0.3.13
-
-  '@unocss/core@0.59.0':
-    optional: true
 
   '@unocss/core@0.59.4': {}
 
@@ -6614,19 +6591,6 @@ snapshots:
       - eslint
       - supports-color
       - typescript
-
-  '@unocss/eslint-plugin@0.59.0(eslint@9.1.0)(typescript@5.4.5)':
-    dependencies:
-      '@typescript-eslint/utils': 7.7.0(eslint@9.1.0)(typescript@5.4.5)
-      '@unocss/config': 0.59.0
-      '@unocss/core': 0.59.0
-      magic-string: 0.30.9
-      synckit: 0.9.0
-    transitivePeerDependencies:
-      - eslint
-      - supports-color
-      - typescript
-    optional: true
 
   '@unocss/eslint-plugin@0.59.4(eslint@9.1.0)(typescript@5.4.5)':
     dependencies:
@@ -7358,7 +7322,7 @@ snapshots:
     dependencies:
       run-applescript: 7.0.0
 
-  bundle-require@4.0.2(esbuild@0.20.2):
+  bundle-require@4.0.2(patch_hash=ytwnra2fe3qlklprtgfp4wp5vm)(esbuild@0.20.2):
     dependencies:
       esbuild: 0.20.2
       load-tsconfig: 0.2.5
@@ -10406,14 +10370,6 @@ snapshots:
     transitivePeerDependencies:
       - sass
       - supports-color
-
-  unconfig@0.3.12:
-    dependencies:
-      '@antfu/utils': 0.7.7
-      defu: 6.1.4
-      jiti: 1.21.0
-      mlly: 1.6.1
-    optional: true
 
   unconfig@0.3.13:
     dependencies:
