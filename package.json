@@ -78,6 +78,11 @@
     "unbuild": "^2.0.0",
     "vue-tsc": "^2.0.16"
   },
+  "pnpm": {
+    "overrides": {
+      "nitropack": "2.8.1"
+    }
+  },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
   },
