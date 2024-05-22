@@ -15,7 +15,7 @@ A visual tool for inspecting and understanding your [ESLint flat configs](https:
 Go to the project root that contains `eslint.config.js` and run:
 
 ```bash
-npx @eslint/config-inspector
+npx @eslint/config-inspector@latest
 ```
 
 Visit http://localhost:7777/ to view and play with your ESLint config. Changes to the config file will be updated automatically.
