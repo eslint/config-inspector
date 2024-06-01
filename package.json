@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.19.1",
-    "@eslint/js": "^9.4.0",
     "@iconify-json/carbon": "^1.1.34",
     "@iconify-json/file-icons": "^1.1.8",
     "@iconify-json/logos": "^1.1.42",
@@ -63,8 +62,8 @@
     "@types/connect": "^3.4.38",
     "@types/ws": "^8.5.10",
     "@typescript-eslint/utils": "^7.11.0",
-    "@unocss/eslint-config": "^0.60.3",
-    "@unocss/nuxt": "^0.60.3",
+    "@unocss/eslint-config": "^0.60.4",
+    "@unocss/nuxt": "^0.60.4",
     "@vueuse/nuxt": "^10.10.0",
     "eslint": "^9.4.0",
     "floating-vue": "^5.2.2",
