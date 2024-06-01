@@ -45,6 +45,7 @@ function goToConfig(idx: number) {
 </script>
 
 <template>
+  <!-- @vue-ignore -->
   <details
     class="flat-config-item"
     :open="open"
