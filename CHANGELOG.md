@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.9](https://github.com/eslint/config-inspector/compare/v0.4.8...v0.4.9) (2024-06-01)
+
+
+### Bug Fixes
+
+* dev time endless ERROR [unhandledRejection] read ECONNRESET ([#50](https://github.com/eslint/config-inspector/issues/50)) ([dea7f77](https://github.com/eslint/config-inspector/commit/dea7f7754d10ac0518ae5d15bfcef9286862c83f))
+* load `eslint` module from config file dir, close [#53](https://github.com/eslint/config-inspector/issues/53) ([770aded](https://github.com/eslint/config-inspector/commit/770aded1249d5e6c9b59b4d8743be16df101711b))
+
 ## [0.4.8](https://github.com/eslint/config-inspector/compare/v0.4.7...v0.4.8) (2024-05-02)
 
 
