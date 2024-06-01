@@ -1,7 +1,7 @@
 import { Minimatch } from 'minimatch'
 import type { FlatConfigItem, MatchedFile } from './types'
 
-const minimatchOpts = { dot: true, matchBase: true }
+const minimatchOpts = { dot: true }
 const _matchInstances = new Map<string, Minimatch>()
 
 function minimatch(file: string, pattern: string) {
