@@ -10,6 +10,6 @@ export function nth(n: number) {
 
 export function stringifyUnquoted(obj: any) {
   return JSON.stringify(obj, null, 2)
-    .replace(/"([\w\d_]+)":/g, '$1:')
+    .replace(/"(\w+)":/g, '$1:')
     .replace(/"/g, '\'')
 }
