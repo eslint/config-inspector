@@ -4,6 +4,7 @@ import { bundleRequire } from 'bundle-require'
 import fg from 'fast-glob'
 import { findUp } from 'find-up'
 import c from 'picocolors'
+import { resolve as resolveModule } from 'mlly'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { isIgnoreOnlyConfig, matchFile } from '../shared/configs'
 import { MARK_CHECK, MARK_INFO, configFilenames } from './constants'
@@ -104,7 +105,12 @@ export async function readConfig(
     rawConfigs = [rawConfigs]
 
   const rulesMap = new Map<string, RuleInfo>()
-  const eslintRules = await import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.default.builtinRules)
+
+  // Try resolve `eslint` module from the same directory as the config file
+  // Otherwise fallback to bare import
+  const eslintPath = await resolveModule('eslint/use-at-your-own-risk', { url: basePath })
+    .catch(() => null) || 'eslint/use-at-your-own-risk'
+  const eslintRules = await import(eslintPath).then(r => r.default.builtinRules)
 
   for (const [name, rule] of eslintRules.entries()) {
     rulesMap.set(name, {

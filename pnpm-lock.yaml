@@ -38,6 +38,9 @@ importers:
       minimatch:
         specifier: ^9.0.4
         version: 9.0.4
+      mlly:
+        specifier: ^1.7.0
+        version: 1.7.0
       mrmime:
         specifier: ^2.0.0
         version: 2.0.0
