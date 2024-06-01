@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.10](https://github.com/eslint/config-inspector/compare/v0.4.9...v0.4.10) (2024-06-01)
+
+
+### Bug Fixes
+
+* use minimatch without `matchBase:true` ([#57](https://github.com/eslint/config-inspector/issues/57)) ([4a89c48](https://github.com/eslint/config-inspector/commit/4a89c48e7b72949733c004589151ce018c8faecc))
+
 ## [0.4.9](https://github.com/eslint/config-inspector/compare/v0.4.8...v0.4.9) (2024-06-01)
 
 
