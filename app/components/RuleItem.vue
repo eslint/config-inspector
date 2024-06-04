@@ -80,7 +80,7 @@ function capitalize(str?: string) {
               Docs
             </NuxtLink>
             <button
-              btn-action
+              btn-action-sm
               title="Copy"
               @click="copy(rule.name)"
             >
