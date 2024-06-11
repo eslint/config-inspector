@@ -89,7 +89,7 @@ cli
     if (process.env.ESLINT_CONFIG)
       options.config ||= process.env.ESLINT_CONFIG
 
-    console.log(MARK_INFO, `Starting ESLint config inspector at`, c.green(`http://${host}:${port}`), '\n')
+    console.log(MARK_INFO, `Starting ESLint config inspector at`, c.green(`http://${host === '127.0.0.1' ? 'localhost' : host}:${port}`), '\n')
 
     const cwd = process.cwd()
     const server = await createHostServer({
