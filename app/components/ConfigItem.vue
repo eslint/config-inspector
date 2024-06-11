@@ -60,15 +60,15 @@ const extraConfigs = computed(() => {
       <div class="absolute right-[calc(100%+10px)] top-1.5" text-right font-mono op35 lt-lg:hidden>
         #{{ index + 1 }}
       </div>
-      <div flex="~ gap-2 items-start wrap items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
-        <div class="[details[open]_&]:rotate-90" i-ph-caret-right op50 transition />
-        <div flex flex-auto flex-col gap-3 md:flex-row>
-          <span :class="config.name ? '' : 'op50 italic'" flex-auto>
+      <div flex="~ gap-2 items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
+        <div class="[details[open]_&]:rotate-90" i-ph-caret-right flex-none op50 transition />
+        <div flex flex-auto flex-col flex-wrap gap-3 md:flex-row md:justify-end>
+          <span :class="config.name ? '' : 'op50 italic'" flex-1>
             <ColorizedConfigName v-if="config.name" :name="config.name" />
             <span v-else>anonymous #{{ index + 1 }}</span>
           </span>
 
-          <div flex="~ gap-2 items-start wrap">
+          <div flex="~ gap-2 items-start">
             <SummarizeItem
               icon="i-ph-file-magnifying-glass-duotone"
               :number="config.files?.length || 0"

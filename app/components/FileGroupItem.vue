@@ -114,7 +114,7 @@ function goToConfig(idx: number) {
       <div flex="~ col gap-1" ml6 mt--2>
         <div v-for="config, idx of group.configs" :key="idx" font-mono flex="~ gap-2">
           <VDropdown>
-            <button badge>
+            <button badge text-start>
               <ColorizedConfigName :name="config.name" :index="idx" />
             </button>
             <template #popper="{ shown }">
