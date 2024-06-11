@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.11](https://github.com/eslint/config-inspector/compare/v0.4.10...v0.4.11) (2024-06-11)
+
+
+### Bug Fixes
+
+* alignment hostname ([#61](https://github.com/eslint/config-inspector/issues/61)) ([1546667](https://github.com/eslint/config-inspector/commit/15466676f58bc8f72ccc9e8b012eb589dc78bb39))
+* Better handling for long config names ([#60](https://github.com/eslint/config-inspector/issues/60)) ([055a667](https://github.com/eslint/config-inspector/commit/055a667c75a7f015177c1a9cda76287c4b60fd0f))
+
 ## [0.4.10](https://github.com/eslint/config-inspector/compare/v0.4.9...v0.4.10) (2024-06-01)
 
 
