@@ -108,6 +108,17 @@ export async function readConfig(
   // https://github.com/eslint/eslint/blob/21d3766c3f4efd981d3cc294c2c82c8014815e6e/lib/config/default-config.js#L66-L69
   rawConfigs.unshift(
     {
+      name: 'eslint/defaults/languages',
+      languageOptions: {
+        sourceType: 'module',
+        ecmaVersion: 'latest',
+        parserOptions: {},
+      },
+      linterOptions: {
+        reportUnusedDisableDirectives: 1,
+      },
+    } as FlatConfigItem,
+    {
       name: 'eslint/defaults/ignores',
       ignores: [
         '**/node_modules/',
