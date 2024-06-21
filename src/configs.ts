@@ -104,13 +104,22 @@ export async function readConfig(
   if (!Array.isArray(rawConfigs))
     rawConfigs = [rawConfigs]
 
+  // ESLint applies these default configs to all files
+  // https://github.com/eslint/eslint/blob/21d3766c3f4efd981d3cc294c2c82c8014815e6e/lib/config/default-config.js#L66-L69
   rawConfigs.unshift(
     {
-      name: 'eslint/default-config',
+      name: 'eslint/defaults/ignores',
+      ignores: [
+        '**/node_modules/',
+        '.git/',
+      ],
+    } as FlatConfigItem,
+    {
+      name: 'eslint/defaults/files',
       files: ['**/*.js', '**/*.mjs'],
     } as FlatConfigItem,
     {
-      name: 'eslint/default-config/cjs',
+      name: 'eslint/defaults/files-cjs',
       files: ['**/*.cjs'],
       languageOptions: {
         sourceType: 'commonjs',
