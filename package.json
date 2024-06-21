@@ -71,7 +71,7 @@
     "lint-staged": "^15.2.7",
     "nuxt": "^3.12.2",
     "nuxt-eslint-auto-explicit-import": "^0.0.2",
-    "shiki": "^1.7.0",
+    "shiki": "^1.9.0",
     "simple-git-hooks": "^2.11.1",
     "textmate-grammar-glob": "^0.0.1",
     "typescript": "^5.5.2",

@@ -1,9 +1,9 @@
 import type { HighlighterCore } from 'shiki/core'
-import { getHighlighterCore } from 'shiki/core'
+import { createHighlighterCore } from 'shiki/core'
 
 export const shiki = shallowRef<HighlighterCore>()
 
-getHighlighterCore({
+createHighlighterCore({
   themes: [
     import('shiki/themes/vitesse-light.mjs'),
     import('shiki/themes/vitesse-dark.mjs'),
