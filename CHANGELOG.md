@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.12](https://github.com/eslint/config-inspector/compare/v0.4.11...v0.4.12) (2024-06-21)
+
+
+### Bug Fixes
+
+* button font size ([8e34306](https://github.com/eslint/config-inspector/commit/8e343060e1b9d1aab0e60a50cc6b8e2a4a104dad))
+* improve contrast on light mode ([919e774](https://github.com/eslint/config-inspector/commit/919e774fb2844a67aab5e6f9784aeb5e9f2d3f52))
+* prepend eslint default configs ([#66](https://github.com/eslint/config-inspector/issues/66)) ([4ef77d9](https://github.com/eslint/config-inspector/commit/4ef77d92166544b8b09d3ca1dae3143210484efe))
+
 ## [0.4.11](https://github.com/eslint/config-inspector/compare/v0.4.10...v0.4.11) (2024-06-11)
 
 
