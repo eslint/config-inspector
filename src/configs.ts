@@ -104,6 +104,21 @@ export async function readConfig(
   if (!Array.isArray(rawConfigs))
     rawConfigs = [rawConfigs]
 
+  rawConfigs.unshift(
+    {
+      name: 'eslint/default-config',
+      files: ['**/*.js', '**/*.mjs'],
+    } as FlatConfigItem,
+    {
+      name: 'eslint/default-config/cjs',
+      files: ['**/*.cjs'],
+      languageOptions: {
+        sourceType: 'commonjs',
+        ecmaVersion: 'latest',
+      },
+    } as FlatConfigItem,
+  )
+
   const rulesMap = new Map<string, RuleInfo>()
 
   // Try resolve `eslint` module from the same directory as the config file
