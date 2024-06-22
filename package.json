@@ -33,6 +33,8 @@
     "eslint": "^8.50.0 || ^9.0.0"
   },
   "dependencies": {
+    "@eslint/config-array": "^0.16.0",
+    "@voxpelli/config-array-find-files": "^0.1.2",
     "bundle-require": "^5.0.0",
     "cac": "^6.7.14",
     "chokidar": "^3.6.0",

@@ -1,7 +1,8 @@
-import { dirname, resolve } from 'node:path'
+import { dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
+import { ConfigArray } from '@eslint/config-array'
+import { configArrayFindFiles } from '@voxpelli/config-array-find-files'
 import { bundleRequire } from 'bundle-require'
-import fg from 'fast-glob'
 import { findUp } from 'find-up'
 import c from 'picocolors'
 import { resolve as resolveModule } from 'mlly'
@@ -208,28 +209,39 @@ export async function readConfig(
   }
 }
 
+const noopSchema = {
+  merge: 'replace',
+  validate() {},
+}
+
+const flatConfigNoopSchema = {
+  settings: noopSchema,
+  linterOptions: noopSchema,
+  language: noopSchema,
+  languageOptions: noopSchema,
+  processor: noopSchema,
+  plugins: noopSchema,
+  rules: noopSchema,
+}
+
 export async function globMatchedFiles(
   basePath: string,
   configs: FlatConfigItem[],
 ): Promise<MatchedFile[]> {
   console.log(MARK_INFO, 'Globing matched files')
-  const files = await fg(
-    configs.flatMap(i => i.files ?? []).filter(i => typeof i === 'string') as string[],
-    {
-      cwd: basePath,
-      onlyFiles: true,
-      ignore: [
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/.git/**',
-        ...configs
-          .filter(i => isIgnoreOnlyConfig(i))
-          .flatMap(i => i.ignores ?? [])
-          .filter(i => typeof i === 'string') as string[],
-      ],
-      deep: 5, // TODO: maybe increase this?
-    },
-  )
+
+  const configArray = new ConfigArray(configs, {
+    basePath,
+    schema: flatConfigNoopSchema,
+  })
+
+  await configArray.normalize()
+
+  const files = await configArrayFindFiles({
+    basePath,
+    configs: configArray,
+  })
+
   files.sort()
 
   const ignoreOnlyConfigs = configs.filter(isIgnoreOnlyConfig)
@@ -245,6 +257,7 @@ export async function globMatchedFiles(
 
   return files
     .map((filepath) => {
+      filepath = relative(basePath, filepath)
       const result = matchFile(filepath, configs, ignoreOnlyConfigs)
       if (!result.configs.length)
         return undefined
