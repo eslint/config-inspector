@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/eslint/config-inspector/compare/v0.4.12...v0.5.0) (2024-06-22)
+
+
+### chore
+
+* release-please-mark ([e32a302](https://github.com/eslint/config-inspector/commit/e32a3027ec2b5cb179e74d1eb932070cb500fe95))
+
+
+### Bug Fixes
+
+* use `@eslint/config-array` to resolve paths ([#69](https://github.com/eslint/config-inspector/issues/69)) ([ca6070e](https://github.com/eslint/config-inspector/commit/ca6070e86bd6a5aa6f11cf1d9fc9bd0d9e956e97))
+
 ## [0.4.12](https://github.com/eslint/config-inspector/compare/v0.4.11...v0.4.12) (2024-06-21)
 
 

@@ -1,7 +1,7 @@
 {
   "name": "@eslint/config-inspector",
   "type": "module",
-  "version": "0.4.12",
+  "version": "0.5.0",
   "packageManager": "pnpm@9.4.0",
   "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
