@@ -162,7 +162,7 @@ const extraConfigs = computed(() => {
           </div>
         </div>
       </div>
-      <div v-if="Object.keys(config.rules || {}).length">
+      <div v-if="config.rules && Object.keys(config.rules).length">
         <div flex="~ gap-2 items-center">
           <div i-ph-list-dashes-duotone my1 flex-none />
           <div>Rules ({{ Object.keys(config.rules).length }})</div>
