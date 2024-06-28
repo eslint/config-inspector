@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/eslint/config-inspector/compare/v0.5.0...v0.5.1) (2024-06-28)
+
+
+### Bug Fixes
+
+* correct condition on showing the rules list ([88d5719](https://github.com/eslint/config-inspector/commit/88d57190e52839afc99f6b1246abe188984a88ea))
+
 ## [0.5.0](https://github.com/eslint/config-inspector/compare/v0.4.12...v0.5.0) (2024-06-22)
 
 
