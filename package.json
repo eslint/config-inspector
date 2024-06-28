@@ -33,7 +33,7 @@
     "eslint": "^8.50.0 || ^9.0.0"
   },
   "dependencies": {
-    "@eslint/config-array": "^0.16.0",
+    "@eslint/config-array": "^0.17.0",
     "@voxpelli/config-array-find-files": "^0.1.2",
     "bundle-require": "^5.0.0",
     "cac": "^6.7.14",
@@ -43,7 +43,7 @@
     "find-up": "^7.0.0",
     "get-port-please": "^3.1.2",
     "h3": "^1.12.0",
-    "minimatch": "^9.0.4",
+    "minimatch": "^9.0.5",
     "mlly": "^1.7.1",
     "mrmime": "^2.0.0",
     "open": "^10.1.0",
@@ -56,14 +56,14 @@
     "@iconify-json/file-icons": "^1.1.8",
     "@iconify-json/logos": "^1.1.43",
     "@iconify-json/ph": "^1.1.13",
-    "@iconify-json/simple-icons": "^1.1.106",
+    "@iconify-json/simple-icons": "^1.1.107",
     "@iconify-json/svg-spinners": "^1.1.2",
     "@iconify-json/twemoji": "^1.1.15",
     "@iconify-json/vscode-icons": "^1.1.35",
     "@nuxt/eslint": "^0.3.13",
     "@types/connect": "^3.4.38",
     "@types/ws": "^8.5.10",
-    "@typescript-eslint/utils": "^7.13.1",
+    "@typescript-eslint/utils": "^7.14.1",
     "@unocss/eslint-config": "^0.61.0",
     "@unocss/nuxt": "^0.61.0",
     "@vueuse/nuxt": "^10.11.0",
@@ -73,12 +73,12 @@
     "lint-staged": "^15.2.7",
     "nuxt": "^3.12.2",
     "nuxt-eslint-auto-explicit-import": "^0.0.2",
-    "shiki": "^1.9.0",
+    "shiki": "^1.10.0",
     "simple-git-hooks": "^2.11.1",
     "textmate-grammar-glob": "^0.0.1",
     "typescript": "^5.5.2",
     "unbuild": "^2.0.0",
-    "vue-tsc": "^2.0.21"
+    "vue-tsc": "^2.0.22"
   },
   "pnpm": {
     "overrides": {
