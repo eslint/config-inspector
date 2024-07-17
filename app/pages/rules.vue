@@ -2,7 +2,7 @@
 import { debouncedWatch } from '@vueuse/core'
 import { computed, ref } from 'vue'
 import Fuse from 'fuse.js'
-import { filtersRules as filters } from '~/composables/state'
+import { bpSm, filtersRules as filters, stateStorage } from '~/composables/state'
 import { payload } from '~/composables/payload'
 
 const rules = computed(() => Object.values(payload.value.rules))
@@ -164,28 +164,49 @@ function resetFilters() {
       </div>
     </div>
 
-    <div flex="~ gap-2">
-      <div
-        flex="~ inline gap-2 items-center"
-        border="~ gray/20 rounded-full" bg-gray:10 px3 py1
-      >
-        <div i-ph-list-checks-duotone />
-        <span>{{ filtered.length }}</span>
-        <span op75>rules {{ isDefaultFilters ? 'enabled' : 'filtered' }}</span>
-        <span text-sm op50>out of {{ rules.length }} rules</span>
-      </div>
-      <button
-        v-if="!isDefaultFilters"
-        flex="~ inline gap-2 items-center"
-        border="~ purple/20 rounded-full" bg-purple:10 px3 py1
-        @click="resetFilters()"
-      >
-        <div i-ph-funnel-duotone text-purple />
-        <span op50>Clear Filter</span>
+    <div items-center justify-between md:flex>
+      <div flex="~ gap-2" lt-sm:flex-col>
+        <div
+          flex="~ inline gap-2 items-center"
+          border="~ gray/20 rounded-full" bg-gray:10 px3 py1
+        >
+          <div i-ph-list-checks-duotone />
+          <span>{{ filtered.length }}</span>
+          <span op75>rules {{ isDefaultFilters ? 'enabled' : 'filtered' }}</span>
+          <span text-sm op50>out of {{ rules.length }} rules</span>
+        </div>
         <button
-          i-ph-x ml--1 text-sm op25 hover:op100
-        />
-      </button>
+          v-if="!isDefaultFilters"
+          flex="~ inline gap-2 items-center self-start"
+          border="~ purple/20 rounded-full" bg-purple:10 px3 py1
+          @click="resetFilters()"
+        >
+          <div i-ph-funnel-duotone text-purple />
+          <span op50>Clear Filter</span>
+          <button
+            i-ph-x ml--1 text-sm op25 hover:op100
+          />
+        </button>
+      </div>
+
+      <div v-if="!bpSm" flex="~ gap-1">
+        <button
+          btn-action
+          :class="{ 'btn-action-active': stateStorage.viewType === 'list' }"
+          @click="stateStorage.viewType = 'list'"
+        >
+          <div i-ph-list-duotone />
+          List
+        </button>
+        <button
+          btn-action
+          :class="{ 'btn-action-active': stateStorage.viewType === 'grid' }"
+          @click="stateStorage.viewType = 'grid'"
+        >
+          <div i-ph-grid-four-duotone />
+          Grid
+        </button>
+      </div>
     </div>
     <RuleList
       my4

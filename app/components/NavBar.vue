@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useTimeAgo } from '@vueuse/core'
-import { filtersRules as filters, stateStorage } from '~/composables/state'
+import { filtersRules as filters } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
 import { isFetching, payload } from '~/composables/payload'
 import { toggleDark } from '~/composables/dark'
@@ -21,10 +21,6 @@ function showDeprecated() {
 
   if (router.currentRoute.value.path !== '/rules')
     router.push('/rules')
-}
-
-function toggleRuleView() {
-  stateStorage.value.viewType = stateStorage.value.viewType === 'list' ? 'grid' : 'list'
 }
 </script>
 
@@ -77,13 +73,6 @@ function toggleRuleView() {
       title="Toggle Dark Mode"
       i-ph-sun-dim-duotone dark:i-ph-moon-stars-duotone ml1 text-xl op50 hover:op75
       @click="toggleDark()"
-    />
-    <button
-      title="Toggle Rule View"
-
-      :class="stateStorage.viewType === 'list' ? 'i-ph-list-duotone' : 'i-ph-grid-four-duotone'"
-      text-xl op50 lt-md:hidden hover:op75
-      @click="toggleRuleView()"
     />
     <NuxtLink
       href="https://github.com/eslint/config-inspector" target="_blank"

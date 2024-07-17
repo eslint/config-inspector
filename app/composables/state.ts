@@ -27,7 +27,7 @@ export const stateStorage = useLocalStorage(
 )
 
 const bp = useBreakpoints(breakpointsTailwind)
-const bpSm = bp.smallerOrEqual('md')
+export const bpSm = bp.smallerOrEqual('md')
 
 export const isGridView = computed(() => bpSm.value || stateStorage.value.viewType === 'grid')
 
