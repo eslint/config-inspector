@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.2](https://github.com/eslint/config-inspector/compare/v0.5.1...v0.5.2) (2024-07-17)
+
+
+### Bug Fixes
+
+* disable font ligatures for monospace fonts, close [#73](https://github.com/eslint/config-inspector/issues/73) ([ce55bc4](https://github.com/eslint/config-inspector/commit/ce55bc4b530d82832e269caa8f887cb4bc0fd081))
+* move toggleRuleView to page rules ([#75](https://github.com/eslint/config-inspector/issues/75)) ([0fd797c](https://github.com/eslint/config-inspector/commit/0fd797c92861f6a9bc3219a866382532fd87b3ae))
+
 ## [0.5.1](https://github.com/eslint/config-inspector/compare/v0.5.0...v0.5.1) (2024-06-28)
 
 
