@@ -61,15 +61,12 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    vue: {
-      script: {
-        defineModel: true,
-      },
-    },
     base: './',
   },
 
   devtools: {
     enabled: false,
   },
+
+  compatibilityDate: '2024-07-17',
 })
