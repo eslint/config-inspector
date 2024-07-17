@@ -20,6 +20,10 @@ html.dark {
   font-size: 15px;
 }
 
+.font-mono, [font-mono=""] {
+  font-variant-ligatures: none;
+}
+
 /* Overrides Floating Vue */
 .v-popper--theme-dropdown .v-popper__inner,
 .v-popper--theme-tooltip .v-popper__inner {
