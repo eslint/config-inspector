@@ -93,7 +93,7 @@ function goToConfig(idx: number) {
               icon="i-ph-stack-duotone"
               :number="group.configs.length"
               color="text-blue5 dark:text-blue4"
-              title="Rules"
+              title="Configs"
               mr-2
             />
           </div>
