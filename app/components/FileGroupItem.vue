@@ -74,7 +74,6 @@ function goToConfig(idx: number) {
                 v-for="glob, idx of groupName.globs"
                 :key="idx"
                 :glob="glob"
-                text-gray
               />
             </template>
             <span v-else op50>
