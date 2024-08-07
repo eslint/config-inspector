@@ -97,6 +97,7 @@ export async function readConfig(
   const { mod, dependencies } = await bundleRequire({
     filepath: configPath,
     cwd: basePath,
+    tsconfig: false,
   })
 
   let rawConfigs = await (mod.default ?? mod) as FlatConfigItem[]
