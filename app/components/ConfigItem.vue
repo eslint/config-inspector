@@ -147,7 +147,7 @@ const extraConfigs = computed(() => {
       <div v-if="config.ignores" flex="~ gap-2 items-start">
         <div i-ph-eye-closed-duotone my1 flex-none />
         <div flex="~ col gap-2">
-          <div v-if="!config.files">
+          <div v-if="Object.keys(config).some(configKey => configKey !== 'ignores' && configKey !== 'index') === false">
             Ignore files globally
           </div>
           <div v-else>
