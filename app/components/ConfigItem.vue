@@ -18,6 +18,19 @@ const emit = defineEmits<{
   badgeClick: [string]
 }>()
 
+/**
+ * Fields that are considered metadata and not part of the config object.
+ * @type {Set<string>}
+ * @see {@link https://github.com/eslint/rewrite/blob/e2a7ec809db20e638abbad250d105ddbde88a8d5/packages/config-array/src/config-array.js#L72-L76}
+ */
+const META_FIELDS = new Set(['name'])
+
+/**
+ * Fields that are added to configs internally by config inspector.
+ * @type {Set<string>}
+ */
+const CONFIG_INSPECTOR_FIELDS = new Set(['index'])
+
 const open = defineModel('open', {
   default: true,
 })
@@ -147,7 +160,7 @@ const extraConfigs = computed(() => {
       <div v-if="config.ignores" flex="~ gap-2 items-start">
         <div i-ph-eye-closed-duotone my1 flex-none />
         <div flex="~ col gap-2">
-          <div v-if="Object.keys(config).some(configKey => configKey !== 'ignores' && configKey !== 'index') === false">
+          <div v-if="Object.keys(config).some(key => key !== 'ignores' && !CONFIG_INSPECTOR_FIELDS.has(key) && !META_FIELDS.has(key)) === false">
             Ignore files globally
           </div>
           <div v-else>
