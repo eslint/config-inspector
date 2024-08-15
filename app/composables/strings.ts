@@ -1,10 +1,11 @@
 export function nth(n: number) {
-  if (n === 1)
-    return '1st'
-  if (n === 2)
-    return '2nd'
-  if (n === 3)
-    return '3rd'
+  const nString = `${n}`
+  if (nString.endsWith('1') && n !== 11)
+    return `${nString}st`
+  if (nString.endsWith('2') && n !== 12)
+    return `${nString}nd`
+  if (nString.endsWith('3') && n !== 13)
+    return `${nString}rd`
   return `${n}th`
 }
 
