@@ -1,3 +1,6 @@
+import process from 'node:process'
+import { types } from 'node:util'
+
 import chokidar from 'chokidar'
 import type { WebSocket } from 'ws'
 import { WebSocketServer } from 'ws'
@@ -27,7 +30,15 @@ export async function createWsServer(options: CreateWsServerOptions) {
     ws.on('close', () => wsClients.delete(ws))
   })
 
-  const { basePath } = await resolveConfigPath(options)
+  const resolvedConfigPath = await resolveConfigPath(options)
+
+  if (types.isNativeError(resolvedConfigPath)) {
+    resolvedConfigPath.prettyPrint()
+    process.exit(1)
+  }
+
+  const { basePath } = resolvedConfigPath
+
   const watcher = chokidar.watch([], {
     ignoreInitial: true,
     cwd: basePath,
@@ -51,6 +62,9 @@ export async function createWsServer(options: CreateWsServerOptions) {
       if (!payload) {
         return await readConfig(options)
           .then((res) => {
+            if (types.isNativeError(res)) {
+              throw res
+            }
             const _payload = payload = res.payload
             _payload.meta.wsPort = port
             watcher.add(res.dependencies)

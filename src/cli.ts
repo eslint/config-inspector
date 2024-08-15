@@ -2,6 +2,8 @@ import process from 'node:process'
 import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
+import { types } from 'node:util'
+
 import open from 'open'
 import { getPort } from 'get-port-please'
 import cac from 'cac'
@@ -39,6 +41,11 @@ cli
       userBasePath: options.basePath,
       globMatchedFiles: options.files,
     })
+
+    if (types.isNativeError(configs)) {
+      configs.prettyPrint()
+      process.exit(1)
+    }
 
     let baseURL = options.base
     if (!baseURL.endsWith('/'))

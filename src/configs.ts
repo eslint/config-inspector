@@ -1,5 +1,6 @@
-import { dirname, relative, resolve } from 'node:path'
+import { basename, dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
+import { types } from 'node:util'
 import { ConfigArray } from '@eslint/config-array'
 import { configArrayFindFiles } from '@voxpelli/config-array-find-files'
 import { bundleRequire } from 'bundle-require'
@@ -8,7 +9,7 @@ import c from 'picocolors'
 import { resolve as resolveModule } from 'mlly'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { isIgnoreOnlyConfig, matchFile } from '../shared/configs'
-import { MARK_CHECK, MARK_INFO, configFilenames } from './constants'
+import { MARK_CHECK, MARK_ERROR, MARK_INFO, configFilenames, legacyConfigFilenames } from './constants'
 
 export interface ReadConfigOptions extends ResolveConfigPathOptions {
   /**
@@ -40,6 +41,47 @@ export interface ResolveConfigPathOptions {
   userBasePath?: string
 }
 
+export class ConfigPathError extends Error {
+  override name = 'ConfigPathError' as const
+
+  constructor(
+    public basePath: string,
+    public configFilenames: string[],
+  ) {
+    super('Cannot find ESLint config file')
+  }
+
+  prettyPrint() {
+    console.error(MARK_ERROR, this.message, c.dim(`
+
+Looked in ${c.underline(this.basePath)} and parent folders for:
+
+ * ${this.configFilenames.join('\n * ')}`,
+    ))
+  }
+}
+
+export class ConfigPathLegacyError extends Error {
+  override name = 'ConfigPathLegacyError' as const
+
+  constructor(
+    public basePath: string,
+    public configFilename: string,
+  ) {
+    super('Found ESLint legacy config file')
+  }
+
+  prettyPrint() {
+    console.error(MARK_ERROR, this.message, c.dim(`
+
+Encountered unsupported legacy config ${c.underline(this.configFilename)} in ${c.underline(this.basePath)}
+
+\`@eslint/config-inspector\` only works with the new flat config format:
+https://eslint.org/docs/latest/use/configure/configuration-files-new`,
+    ))
+  }
+}
+
 /**
  * Search and read the ESLint config file.
  *
@@ -55,12 +97,27 @@ export async function resolveConfigPath(options: ResolveConfigPathOptions) {
   if (userBasePath)
     userBasePath = resolve(cwd, userBasePath)
 
-  const configPath = userConfigPath
-    ? resolve(cwd, userConfigPath)
-    : await findUp(configFilenames, { cwd: userBasePath || cwd })
+  const lookupBasePath = userBasePath || cwd
 
-  if (!configPath)
-    throw new Error('Cannot find ESLint config file')
+  let configPath = userConfigPath && resolve(cwd, userConfigPath)
+
+  if (!configPath) {
+    configPath = await findUp(configFilenames, { cwd: lookupBasePath })
+  }
+
+  if (!configPath) {
+    const legacyConfigPath = await findUp(legacyConfigFilenames, { cwd: lookupBasePath })
+
+    return legacyConfigPath
+      ? new ConfigPathLegacyError(
+        `${relative(cwd, dirname(legacyConfigPath))}/`,
+        basename(legacyConfigPath),
+      )
+      : new ConfigPathError(
+        `${relative(cwd, lookupBasePath)}/`,
+        configFilenames,
+      )
+  }
 
   const basePath = userBasePath || (
     userConfigPath
@@ -83,13 +140,19 @@ export async function resolveConfigPath(options: ResolveConfigPathOptions) {
  */
 export async function readConfig(
   options: ReadConfigOptions,
-): Promise<{ configs: FlatConfigItem[], payload: Payload, dependencies: string[] }> {
+): Promise<ConfigPathLegacyError | ConfigPathError | { configs: FlatConfigItem[], payload: Payload, dependencies: string[] }> {
   const {
     chdir = true,
     globMatchedFiles: globFiles = true,
   } = options
 
-  const { basePath, configPath } = await resolveConfigPath(options)
+  const resolvedConfigPath = await resolveConfigPath(options)
+
+  if (types.isNativeError(resolvedConfigPath)) {
+    return resolvedConfigPath
+  }
+
+  const { basePath, configPath } = resolvedConfigPath
   if (chdir && basePath !== process.cwd())
     process.chdir(basePath)
 
