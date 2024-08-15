@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.5.3](https://github.com/eslint/config-inspector/compare/v0.5.2...v0.5.3) (2024-08-15)
+
+
+### chore
+
+* release-please-mark ([7720a12](https://github.com/eslint/config-inspector/commit/7720a12e9dbc911d922dfcd6f933add666120fa2))
+
+
+### Features
+
+* cache web fonts locally, close [#79](https://github.com/eslint/config-inspector/issues/79) ([0fbd05e](https://github.com/eslint/config-inspector/commit/0fbd05e2aa86dbdb24f070116f44aeb5f78b7c05))
+
+
+### Bug Fixes
+
+* `nth` formatting for values above 20 ([#83](https://github.com/eslint/config-inspector/issues/83)) ([1c0ecf1](https://github.com/eslint/config-inspector/commit/1c0ecf195bb18a41a97367ee03d916331806cfb5))
+* disable tsconfig resolution on config loading, close [#52](https://github.com/eslint/config-inspector/issues/52) ([27c2372](https://github.com/eslint/config-inspector/commit/27c2372f6816a0c1e6886fcb3bf19986d193a388))
+* label of "Rules" -&gt; "Configs" on file group ([#77](https://github.com/eslint/config-inspector/issues/77)) ([0f0b1b8](https://github.com/eslint/config-inspector/commit/0f0b1b839411a836d639cf6577ecfa86d6cd49b0))
+
 ## [0.5.2](https://github.com/eslint/config-inspector/compare/v0.5.1...v0.5.2) (2024-07-17)
 
 
