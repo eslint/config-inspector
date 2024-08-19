@@ -2,6 +2,7 @@ import process from 'node:process'
 import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
+
 import open from 'open'
 import { getPort } from 'get-port-please'
 import cac from 'cac'
@@ -11,6 +12,7 @@ import { createHostServer } from './server'
 import { distDir } from './dirs'
 import { readConfig } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'
+import { ConfigInspectorError } from './errors'
 
 const cli = cac(
   'eslint-config-inspector',
@@ -33,12 +35,23 @@ cli
 
     const cwd = process.cwd()
     const outDir = resolve(cwd, options.outDir)
-    const configs = await readConfig({
-      cwd,
-      userConfigPath: options.config,
-      userBasePath: options.basePath,
-      globMatchedFiles: options.files,
-    })
+
+    let configs
+    try {
+      configs = await readConfig({
+        cwd,
+        userConfigPath: options.config,
+        userBasePath: options.basePath,
+        globMatchedFiles: options.files,
+      })
+    }
+    catch (error) {
+      if (error instanceof ConfigInspectorError) {
+        error.prettyPrint()
+        process.exit(1)
+      }
+      throw error
+    }
 
     let baseURL = options.base
     if (!baseURL.endsWith('/'))

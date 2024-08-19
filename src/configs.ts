@@ -1,4 +1,4 @@
-import { dirname, relative, resolve } from 'node:path'
+import { basename, dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
 import { ConfigArray } from '@eslint/config-array'
 import { configArrayFindFiles } from '@voxpelli/config-array-find-files'
@@ -8,7 +8,8 @@ import c from 'picocolors'
 import { resolve as resolveModule } from 'mlly'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { isIgnoreOnlyConfig, matchFile } from '../shared/configs'
-import { MARK_CHECK, MARK_INFO, configFilenames } from './constants'
+import { MARK_CHECK, MARK_INFO, configFilenames, legacyConfigFilenames } from './constants'
+import { ConfigPathError, ConfigPathLegacyError } from './errors'
 
 export interface ReadConfigOptions extends ResolveConfigPathOptions {
   /**
@@ -55,22 +56,44 @@ export async function resolveConfigPath(options: ResolveConfigPathOptions) {
   if (userBasePath)
     userBasePath = resolve(cwd, userBasePath)
 
-  const configPath = userConfigPath
-    ? resolve(cwd, userConfigPath)
-    : await findUp(configFilenames, { cwd: userBasePath || cwd })
+  const lookupBasePath = userBasePath || cwd
 
-  if (!configPath)
-    throw new Error('Cannot find ESLint config file')
+  let configPath = userConfigPath && resolve(cwd, userConfigPath)
+
+  if (!configPath) {
+    configPath = await findUp(configFilenames, { cwd: lookupBasePath })
+  }
+
+  if (!configPath) {
+    const legacyConfigPath = await findUp(legacyConfigFilenames, { cwd: lookupBasePath })
+
+    throw legacyConfigPath
+      ? new ConfigPathLegacyError(
+        `${relative(cwd, dirname(legacyConfigPath))}/`,
+        basename(legacyConfigPath),
+      )
+      : new ConfigPathError(
+        `${relative(cwd, lookupBasePath)}/`,
+        configFilenames,
+      )
+  }
 
   const basePath = userBasePath || (
     userConfigPath
       ? cwd // When user explicit provide config path, use current working directory as root
       : dirname(configPath) // Otherwise, use config file's directory as root
   )
+
   return {
     basePath,
     configPath,
   }
+}
+
+export interface ESLintConfig {
+  configs: FlatConfigItem[]
+  payload: Payload
+  dependencies: string[]
 }
 
 /**
@@ -83,13 +106,15 @@ export async function resolveConfigPath(options: ResolveConfigPathOptions) {
  */
 export async function readConfig(
   options: ReadConfigOptions,
-): Promise<{ configs: FlatConfigItem[], payload: Payload, dependencies: string[] }> {
+): Promise<ESLintConfig> {
   const {
     chdir = true,
     globMatchedFiles: globFiles = true,
   } = options
 
-  const { basePath, configPath } = await resolveConfigPath(options)
+  const resolvedConfigPath = await resolveConfigPath(options)
+
+  const { basePath, configPath } = resolvedConfigPath
   if (chdir && basePath !== process.cwd())
     process.chdir(basePath)
 
