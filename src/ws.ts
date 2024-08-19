@@ -1,5 +1,4 @@
 import process from 'node:process'
-import { types } from 'node:util'
 
 import chokidar from 'chokidar'
 import type { WebSocket } from 'ws'
@@ -8,6 +7,7 @@ import { getPort } from 'get-port-please'
 import type { ReadConfigOptions } from './configs'
 import { readConfig, resolveConfigPath } from './configs'
 import { MARK_CHECK } from './constants'
+import { ConfigInspectorError } from './errors'
 import type { Payload } from '~~/shared/types'
 
 const readErrorWarning = `Failed to load \`eslint.config.js\`.
@@ -30,11 +30,18 @@ export async function createWsServer(options: CreateWsServerOptions) {
     ws.on('close', () => wsClients.delete(ws))
   })
 
-  const resolvedConfigPath = await resolveConfigPath(options)
-
-  if (types.isNativeError(resolvedConfigPath)) {
-    resolvedConfigPath.prettyPrint()
-    process.exit(1)
+  let resolvedConfigPath: Awaited<ReturnType<typeof resolveConfigPath>>
+  try {
+    resolvedConfigPath = await resolveConfigPath(options)
+  }
+  catch (e) {
+    if (e instanceof ConfigInspectorError) {
+      e.prettyPrint()
+      process.exit(1)
+    }
+    else {
+      throw e
+    }
   }
 
   const { basePath } = resolvedConfigPath
@@ -62,9 +69,6 @@ export async function createWsServer(options: CreateWsServerOptions) {
       if (!payload) {
         return await readConfig(options)
           .then((res) => {
-            if (types.isNativeError(res)) {
-              throw res
-            }
             const _payload = payload = res.payload
             _payload.meta.wsPort = port
             watcher.add(res.dependencies)
@@ -75,7 +79,12 @@ export async function createWsServer(options: CreateWsServerOptions) {
     }
     catch (e) {
       console.error(readErrorWarning)
-      console.error(e)
+      if (e instanceof ConfigInspectorError) {
+        e.prettyPrint()
+      }
+      else {
+        console.error(e)
+      }
       return {
         message: readErrorWarning,
         error: String(e),
