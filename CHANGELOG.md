@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.5.4](https://github.com/eslint/config-inspector/compare/v0.5.3...v0.5.4) (2024-08-19)
+
+
+### chore
+
+* release-please-mark ([cf98452](https://github.com/eslint/config-inspector/commit/cf98452b0599f8e0f465e9477aaa8a35d1cad47e))
+
+
+### Features
+
+* improved errors when config can not be found ([#85](https://github.com/eslint/config-inspector/issues/85)) ([748590e](https://github.com/eslint/config-inspector/commit/748590e95b6ac61f4bdb266ff34d620a009dae63))
+
+
+### Bug Fixes
+
+* improved check of whether ignore is global ([#84](https://github.com/eslint/config-inspector/issues/84)) ([7e66113](https://github.com/eslint/config-inspector/commit/7e661138bc37be0e2dada78f02a2c2531cb18e1d))
+
 ## [0.5.3](https://github.com/eslint/config-inspector/compare/v0.5.2...v0.5.3) (2024-08-15)
 
 
