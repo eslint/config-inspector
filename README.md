@@ -32,8 +32,6 @@ Visit http://localhost:7777/ to view and play with your ESLint config. Changes t
 | `--open` | Open browser | `true` |
 | `-h, --help` | Display help text | - |
 
-This table accurately represents the CLI output you provided, with each option, its description, and default value (where applicable) in a clear, tabular format.
-
 ### Online Preview
 
 Or play it right in your browser now:
