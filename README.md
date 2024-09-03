@@ -20,17 +20,7 @@ npx @eslint/config-inspector@latest
 
 Visit http://localhost:7777/ to view and play with your ESLint config. Changes to the config file will be updated automatically.
 
-### CLI Options
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| `--config <configFile>` | Config file path | - |
-| `--files` | Include matched file paths in payload | `true` |
-| `--basePath <basePath>` | Base directory for globs to resolve. Default to directory of config file if not provided | - |
-| `--host <host>` | Host | `127.0.0.1` |
-| `--port <port>` | Port | `7777` |
-| `--open` | Open browser | `true` |
-| `-h, --help` | Display help text | - |
+Run `npx @eslint/config-inspector --help` to see all the CLI options available.
 
 ### Online Preview
 
@@ -48,16 +38,7 @@ npx @eslint/config-inspector build
 
 This will generate a Single-Page Application (SPA) under `.eslint-config-inspector`, with the snapshot of the current ESLint config. You can deploy it somewhere, or use it for comparison etc.
 
-### Build Options
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| `--config <configFile>` | Config file path | - |
-| `--files` | Include matched file paths in payload | `true` |
-| `--basePath <basePath>` | Base directory for globs to resolve. Default to directory of config file if not provided | - |
-| `--base <baseURL>` | Base URL for deployment | `/` |
-| `--outDir <dir>` | Output directory | `.eslint-config-inspector` |
-| `-h, --help` | Display help text | - |
+Run `npx @eslint/config-inspector build --help` to see all the CLI options available.
 
 ## Contributing
 
