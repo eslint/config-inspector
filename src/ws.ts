@@ -1,14 +1,14 @@
-import process from 'node:process'
+import type { Payload } from '~~/shared/types'
 
-import chokidar from 'chokidar'
 import type { WebSocket } from 'ws'
-import { WebSocketServer } from 'ws'
-import { getPort } from 'get-port-please'
 import type { ReadConfigOptions } from './configs'
+import process from 'node:process'
+import chokidar from 'chokidar'
+import { getPort } from 'get-port-please'
+import { WebSocketServer } from 'ws'
 import { readConfig, resolveConfigPath } from './configs'
 import { MARK_CHECK } from './constants'
 import { ConfigInspectorError } from './errors'
-import type { Payload } from '~~/shared/types'
 
 const readErrorWarning = `Failed to load \`eslint.config.js\`.
 Note that \`@eslint/config-inspector\` only works with the flat config format:

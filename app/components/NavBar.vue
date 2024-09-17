@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useTimeAgo } from '@vueuse/core'
-import { filtersRules as filters } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
-import { isFetching, payload } from '~/composables/payload'
+import { useTimeAgo } from '@vueuse/core'
+import { computed } from 'vue'
 import { toggleDark } from '~/composables/dark'
+import { isFetching, payload } from '~/composables/payload'
+import { filtersRules as filters } from '~/composables/state'
 
 const lastUpdate = useTimeAgo(() => payload.value.meta.lastUpdate)
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
+import { useRouter } from '#app/composables/router'
+import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import { computed, defineModel, ref, watchEffect } from 'vue'
 import { filtersRules, isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
-import { useRouter } from '#app/composables/router'
-import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
-import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 
 const props = defineProps<{
   config: FlatConfigItem

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useHead } from '@unhead/vue'
 import { useRuntimeConfig } from '#app/nuxt'
+import { useHead } from '@unhead/vue'
 import { errorInfo, init, isLoading } from '~/composables/payload'
 
 import 'floating-vue/dist/style.css'

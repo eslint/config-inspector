@@ -1,18 +1,18 @@
-import process from 'node:process'
-import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
+import fs from 'node:fs/promises'
 import { relative, resolve } from 'node:path'
+import process from 'node:process'
 
-import open from 'open'
-import { getPort } from 'get-port-please'
 import cac from 'cac'
-import c from 'picocolors'
 import fg from 'fast-glob'
-import { createHostServer } from './server'
-import { distDir } from './dirs'
+import { getPort } from 'get-port-please'
+import open from 'open'
+import c from 'picocolors'
 import { readConfig } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'
+import { distDir } from './dirs'
 import { ConfigInspectorError } from './errors'
+import { createHostServer } from './server'
 
 const cli = cac(
   'eslint-config-inspector',

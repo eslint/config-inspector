@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, defineComponent, h, nextTick, onMounted, ref, shallowRef, watch, watchEffect } from 'vue'
-import { debouncedWatch } from '@vueuse/core'
+import type { FlatConfigItem, MatchedFile } from '~~/shared/types'
 import type { Linter } from 'eslint'
 import type { FuseResultMatch } from 'fuse.js'
-import Fuse from 'fuse.js'
 import type { PropType, VNode } from 'vue'
 import { useRoute } from '#app/composables/router'
-import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
+import { debouncedWatch } from '@vueuse/core'
 import { isIgnoreOnlyConfig, matchFile } from '~~/shared/configs'
 import { getRuleLevel } from '~~/shared/rules'
+import Fuse from 'fuse.js'
+import { computed, defineComponent, h, nextTick, onMounted, ref, shallowRef, watch, watchEffect } from 'vue'
 import { payload } from '~/composables/payload'
-import type { FlatConfigItem, MatchedFile } from '~~/shared/types'
+import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
 
 const input = ref(filters.filepath)
 

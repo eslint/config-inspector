@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Fragment, computed, defineComponent, h } from 'vue'
-import type { Linter } from 'eslint'
-import { isGridView } from '../composables/state'
-import { getRuleFromName, payload } from '~/composables/payload'
 import type { RuleInfo } from '~~/shared/types'
+import type { Linter } from 'eslint'
+import { computed, defineComponent, Fragment, h } from 'vue'
+import { getRuleFromName, payload } from '~/composables/payload'
+import { isGridView } from '../composables/state'
 
 const props = defineProps<{
   rules: Partial<Linter.RulesRecord> | RuleInfo[]

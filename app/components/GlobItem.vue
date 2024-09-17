@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, defineComponent } from 'vue'
-import { Dropdown as VDropdown } from 'floating-vue'
-import { useHighlightedGlob } from '../composables/shiki'
-import { filtersConfigs } from '~/composables/state'
 import { useRouter } from '#app/composables/router'
+import { Dropdown as VDropdown } from 'floating-vue'
+import { computed, defineComponent } from 'vue'
 import { payload } from '~/composables/payload'
+import { filtersConfigs } from '~/composables/state'
+import { useHighlightedGlob } from '../composables/shiki'
 
 const props = withDefaults(
   defineProps<{

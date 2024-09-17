@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { fileGroupsOpenState, stateStorage } from '../composables/state'
 import { payload } from '~/composables/payload'
+import { fileGroupsOpenState, stateStorage } from '../composables/state'
 
 function expandAll() {
   fileGroupsOpenState.value = fileGroupsOpenState.value.map(() => true)

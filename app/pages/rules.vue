@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { debouncedWatch } from '@vueuse/core'
-import { computed, ref } from 'vue'
 import Fuse from 'fuse.js'
-import { bpSm, filtersRules as filters, stateStorage } from '~/composables/state'
+import { computed, ref } from 'vue'
 import { payload } from '~/composables/payload'
+import { bpSm, filtersRules as filters, stateStorage } from '~/composables/state'
 
 const rules = computed(() => Object.values(payload.value.rules))
 const pluginNames = computed(() => Array.from(new Set(rules.value.map(i => i.plugin))).filter(Boolean))

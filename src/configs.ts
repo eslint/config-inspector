@@ -1,14 +1,14 @@
+import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { basename, dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
 import { ConfigArray } from '@eslint/config-array'
 import { configArrayFindFiles } from '@voxpelli/config-array-find-files'
 import { bundleRequire } from 'bundle-require'
 import { findUp } from 'find-up'
-import c from 'picocolors'
 import { resolve as resolveModule } from 'mlly'
-import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
+import c from 'picocolors'
 import { isIgnoreOnlyConfig, matchFile } from '../shared/configs'
-import { MARK_CHECK, MARK_INFO, configFilenames, legacyConfigFilenames } from './constants'
+import { configFilenames, legacyConfigFilenames, MARK_CHECK, MARK_INFO } from './constants'
 import { ConfigPathError, ConfigPathLegacyError } from './errors'
 
 export interface ReadConfigOptions extends ResolveConfigPathOptions {

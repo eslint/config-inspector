@@ -1,5 +1,5 @@
-import type { Linter } from 'eslint'
 import type { RuleMetaData } from '@typescript-eslint/utils/ts-eslint'
+import type { Linter } from 'eslint'
 
 export interface FlatConfigItem extends Omit<Linter.FlatConfig, 'files' | 'ignores'> {
   name?: string

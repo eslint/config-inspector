@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import { $fetch } from 'ofetch'
+import type { ErrorInfo, FilesGroup, FlatConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
 import { isGeneralConfig, isIgnoreOnlyConfig } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
-import type { ErrorInfo, FilesGroup, FlatConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
+import { $fetch } from 'ofetch'
 
 const LOG_NAME = '[ESLint Config Inspector]'
 

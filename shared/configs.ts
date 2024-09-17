@@ -1,5 +1,5 @@
-import { Minimatch } from 'minimatch'
 import type { FlatConfigItem, MatchedFile } from './types'
+import { Minimatch } from 'minimatch'
 
 const minimatchOpts = { dot: true }
 const _matchInstances = new Map<string, Minimatch>()
