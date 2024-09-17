@@ -183,7 +183,7 @@ function resetFilters() {
         >
           <div i-ph-funnel-duotone text-purple />
           <span op50>Clear Filter</span>
-          <button
+          <div
             i-ph-x ml--1 text-sm op25 hover:op100
           />
         </button>

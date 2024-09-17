@@ -49,7 +49,6 @@ export async function createWsServer(options: CreateWsServerOptions) {
   const watcher = chokidar.watch([], {
     ignoreInitial: true,
     cwd: basePath,
-    disableGlobbing: true,
   })
 
   watcher.on('change', (path) => {
