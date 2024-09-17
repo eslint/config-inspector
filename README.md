@@ -20,6 +20,8 @@ npx @eslint/config-inspector@latest
 
 Visit http://localhost:7777/ to view and play with your ESLint config. Changes to the config file will be updated automatically.
 
+Run `npx @eslint/config-inspector --help` to see all the CLI options available.
+
 ### Online Preview
 
 Or play it right in your browser now:
@@ -35,6 +37,8 @@ npx @eslint/config-inspector build
 ```
 
 This will generate a Single-Page Application (SPA) under `.eslint-config-inspector`, with the snapshot of the current ESLint config. You can deploy it somewhere, or use it for comparison etc.
+
+Run `npx @eslint/config-inspector build --help` to see all the CLI options available.
 
 ## Contributing
 
