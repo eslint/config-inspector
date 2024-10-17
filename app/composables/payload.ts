@@ -86,8 +86,11 @@ export function ensureDataFetch() {
 
 export const payload = computed(() => Object.freeze(resolvePayload(data.value!)))
 
-export function getRuleFromName(name: string): RuleInfo | undefined {
-  return payload.value.rules[name]
+export function getRuleFromName(name: string): RuleInfo {
+  return payload.value.rules[name] || {
+    name,
+    invalid: true,
+  }
 }
 
 export function getRuleStates(name: string): RuleConfigStates | undefined {
