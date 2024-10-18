@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.5](https://github.com/eslint/config-inspector/compare/v0.5.4...v0.5.5) (2024-10-18)
+
+
+### chore
+
+* release-please-mark ([33d48ce](https://github.com/eslint/config-inspector/commit/33d48cecb75c822b8e0fb541b510fa01cbcd3ca1))
+
+
+### Features
+
+* label non-existent rule as invalid ([#96](https://github.com/eslint/config-inspector/issues/96)) ([a872bd5](https://github.com/eslint/config-inspector/commit/a872bd5b79f8e8f25afdb0f7190dcac1f045ef7a))
+
 ## [0.5.4](https://github.com/eslint/config-inspector/compare/v0.5.3...v0.5.4) (2024-08-19)
 
 
