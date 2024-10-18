@@ -75,6 +75,10 @@ export interface PayloadMeta {
 export interface RuleInfo extends RuleMetaData<any, any> {
   name: string
   plugin: string
+  /**
+   * The rule may be removed
+   */
+  invalid?: boolean
 }
 
 export interface FiltersConfigsPage {

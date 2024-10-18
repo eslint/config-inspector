@@ -72,6 +72,7 @@ function capitalize(str?: string) {
         <div v-if="shown" max-h="50vh">
           <div flex="~ items-center gap-2" p3>
             <NuxtLink
+              v-if="!rule.invalid"
               btn-action-sm
               :to="rule.docs?.url" target="_blank" rel="noopener noreferrer"
               title="Docs"
@@ -115,23 +116,24 @@ function capitalize(str?: string) {
     <div
       :class="[
         rule.deprecated ? 'line-through' : '',
+        rule.invalid ? 'text-red' : '',
         gridView ? 'op50 text-sm' : 'op75 ws-nowrap of-hidden text-ellipsis line-clamp-1',
       ]"
     >
-      {{ capitalize(rule.docs?.description) }}
+      {{ rule.invalid ? 'Invalid rule has no description' : capitalize(rule.docs?.description) }}
     </div>
-    <div v-if="!gridView && rule.deprecated" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
-      DEPRECATED
+    <div v-if="!gridView && (rule.invalid || rule.deprecated)" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
+      {{ rule.invalid ? 'INVALID' : 'DEPRECATED' }}
     </div>
   </div>
 
   <div
-    v-if="gridView && (rule.deprecated || rule.fixable || rule.docs?.recommended)"
+    v-if="gridView && (rule.invalid || rule.deprecated || rule.fixable || rule.docs?.recommended)"
     flex flex-auto flex-col items-start justify-end
   >
     <div flex="~ gap-2" mt1>
-      <div v-if="rule.deprecated" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
-        DEPRECATED
+      <div v-if="rule.invalid || rule.deprecated" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
+        {{ rule.invalid ? 'INVALID' : 'DEPRECATED' }}
       </div>
       <div
         v-if="rule.docs?.recommended"
