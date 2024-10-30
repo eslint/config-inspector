@@ -4,6 +4,141 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@antfu/eslint-config':
+      specifier: ^3.8.0
+      version: 3.8.0
+    '@eslint/config-array':
+      specifier: ^0.18.0
+      version: 0.18.0
+    '@iconify-json/carbon':
+      specifier: ^1.2.3
+      version: 1.2.3
+    '@iconify-json/file-icons':
+      specifier: ^1.2.0
+      version: 1.2.0
+    '@iconify-json/logos':
+      specifier: ^1.2.3
+      version: 1.2.3
+    '@iconify-json/ph':
+      specifier: ^1.2.1
+      version: 1.2.1
+    '@iconify-json/simple-icons':
+      specifier: ^1.2.8
+      version: 1.2.8
+    '@iconify-json/svg-spinners':
+      specifier: ^1.2.1
+      version: 1.2.1
+    '@iconify-json/twemoji':
+      specifier: ^1.2.1
+      version: 1.2.1
+    '@iconify-json/vscode-icons':
+      specifier: ^1.2.2
+      version: 1.2.2
+    '@nuxt/eslint':
+      specifier: ^0.6.0
+      version: 0.6.0
+    '@types/connect':
+      specifier: ^3.4.38
+      version: 3.4.38
+    '@types/ws':
+      specifier: ^8.5.12
+      version: 8.5.12
+    '@typescript-eslint/utils':
+      specifier: ^8.10.0
+      version: 8.10.0
+    '@unocss/eslint-config':
+      specifier: ^0.63.4
+      version: 0.63.4
+    '@unocss/nuxt':
+      specifier: ^0.63.4
+      version: 0.63.4
+    '@voxpelli/config-array-find-files':
+      specifier: ^1.2.1
+      version: 1.2.1
+    '@vueuse/nuxt':
+      specifier: ^11.1.0
+      version: 11.1.0
+    bundle-require:
+      specifier: ^5.0.0
+      version: 5.0.0
+    cac:
+      specifier: ^6.7.14
+      version: 6.7.14
+    chokidar:
+      specifier: ^4.0.1
+      version: 4.0.1
+    esbuild:
+      specifier: ^0.24.0
+      version: 0.24.0
+    eslint:
+      specifier: ^9.12.0
+      version: 9.12.0
+    fast-glob:
+      specifier: ^3.3.2
+      version: 3.3.2
+    find-up:
+      specifier: ^7.0.0
+      version: 7.0.0
+    floating-vue:
+      specifier: ^5.2.2
+      version: 5.2.2
+    fuse.js:
+      specifier: ^7.0.0
+      version: 7.0.0
+    get-port-please:
+      specifier: ^3.1.2
+      version: 3.1.2
+    h3:
+      specifier: ^1.13.0
+      version: 1.13.0
+    lint-staged:
+      specifier: ^15.2.10
+      version: 15.2.10
+    minimatch:
+      specifier: ^9.0.5
+      version: 9.0.5
+    mlly:
+      specifier: ^1.7.2
+      version: 1.7.2
+    mrmime:
+      specifier: ^2.0.0
+      version: 2.0.0
+    nuxt:
+      specifier: ^3.13.2
+      version: 3.13.2
+    nuxt-eslint-auto-explicit-import:
+      specifier: ^0.1.0
+      version: 0.1.0
+    open:
+      specifier: ^10.1.0
+      version: 10.1.0
+    picocolors:
+      specifier: ^1.1.1
+      version: 1.1.1
+    shiki:
+      specifier: ^1.22.0
+      version: 1.22.0
+    simple-git-hooks:
+      specifier: ^2.11.1
+      version: 2.11.1
+    textmate-grammar-glob:
+      specifier: ^0.0.1
+      version: 0.0.1
+    typescript:
+      specifier: ^5.6.3
+      version: 5.6.3
+    unbuild:
+      specifier: ^2.0.0
+      version: 2.0.0
+    vue-tsc:
+      specifier: ^2.1.6
+      version: 2.1.6
+    ws:
+      specifier: ^8.18.0
+      version: 8.18.0
+
 overrides:
   nitropack: 2.8.1
 
@@ -12,137 +147,137 @@ importers:
   .:
     dependencies:
       '@eslint/config-array':
-        specifier: ^0.18.0
+        specifier: 'catalog:'
         version: 0.18.0
       '@voxpelli/config-array-find-files':
-        specifier: ^1.2.1
+        specifier: 'catalog:'
         version: 1.2.1(@eslint/config-array@0.18.0)
       bundle-require:
-        specifier: ^5.0.0
+        specifier: 'catalog:'
         version: 5.0.0(esbuild@0.24.0)
       cac:
-        specifier: ^6.7.14
+        specifier: 'catalog:'
         version: 6.7.14
       chokidar:
-        specifier: ^4.0.1
+        specifier: 'catalog:'
         version: 4.0.1
       esbuild:
-        specifier: ^0.24.0
+        specifier: 'catalog:'
         version: 0.24.0
       fast-glob:
-        specifier: ^3.3.2
+        specifier: 'catalog:'
         version: 3.3.2
       find-up:
-        specifier: ^7.0.0
+        specifier: 'catalog:'
         version: 7.0.0
       get-port-please:
-        specifier: ^3.1.2
+        specifier: 'catalog:'
         version: 3.1.2
       h3:
-        specifier: ^1.13.0
+        specifier: 'catalog:'
         version: 1.13.0
       minimatch:
-        specifier: ^10.0.1
-        version: 10.0.1
+        specifier: 'catalog:'
+        version: 9.0.5
       mlly:
-        specifier: ^1.7.2
+        specifier: 'catalog:'
         version: 1.7.2
       mrmime:
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       open:
-        specifier: ^10.1.0
+        specifier: 'catalog:'
         version: 10.1.0
       picocolors:
-        specifier: ^1.1.1
+        specifier: 'catalog:'
         version: 1.1.1
       ws:
-        specifier: ^8.18.0
+        specifier: 'catalog:'
         version: 8.18.0
     devDependencies:
       '@antfu/eslint-config':
-        specifier: ^3.8.0
+        specifier: 'catalog:'
         version: 3.8.0(@typescript-eslint/utils@8.10.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3))(@unocss/eslint-plugin@0.63.4(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3))(@vue/compiler-sfc@3.5.6)(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
       '@iconify-json/carbon':
-        specifier: ^1.2.3
+        specifier: 'catalog:'
         version: 1.2.3
       '@iconify-json/file-icons':
-        specifier: ^1.2.0
+        specifier: 'catalog:'
         version: 1.2.0
       '@iconify-json/logos':
-        specifier: ^1.2.3
+        specifier: 'catalog:'
         version: 1.2.3
       '@iconify-json/ph':
-        specifier: ^1.2.1
+        specifier: 'catalog:'
         version: 1.2.1
       '@iconify-json/simple-icons':
-        specifier: ^1.2.8
+        specifier: 'catalog:'
         version: 1.2.8
       '@iconify-json/svg-spinners':
-        specifier: ^1.2.1
+        specifier: 'catalog:'
         version: 1.2.1
       '@iconify-json/twemoji':
-        specifier: ^1.2.1
+        specifier: 'catalog:'
         version: 1.2.1
       '@iconify-json/vscode-icons':
-        specifier: ^1.2.2
+        specifier: 'catalog:'
         version: 1.2.2
       '@nuxt/eslint':
-        specifier: ^0.6.0
+        specifier: 'catalog:'
         version: 0.6.0(eslint@9.12.0(jiti@1.21.6))(magicast@0.3.5)(rollup@3.29.4)(typescript@5.6.3)(vite@5.4.5(@types/node@20.12.11)(terser@5.31.0))(webpack-sources@3.2.3)
       '@types/connect':
-        specifier: ^3.4.38
+        specifier: 'catalog:'
         version: 3.4.38
       '@types/ws':
-        specifier: ^8.5.12
+        specifier: 'catalog:'
         version: 8.5.12
       '@typescript-eslint/utils':
-        specifier: ^8.10.0
+        specifier: 'catalog:'
         version: 8.10.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
       '@unocss/eslint-config':
-        specifier: ^0.63.4
+        specifier: 'catalog:'
         version: 0.63.4(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
       '@unocss/nuxt':
-        specifier: ^0.63.4
+        specifier: 'catalog:'
         version: 0.63.4(magicast@0.3.5)(postcss@8.4.47)(rollup@3.29.4)(vite@5.4.5(@types/node@20.12.11)(terser@5.31.0))(webpack-sources@3.2.3)(webpack@5.88.2(esbuild@0.24.0))
       '@vueuse/nuxt':
-        specifier: ^11.1.0
+        specifier: 'catalog:'
         version: 11.1.0(magicast@0.3.5)(nuxt@3.13.2(@opentelemetry/api@1.8.0)(@parcel/watcher@2.4.1)(@types/node@20.12.11)(encoding@0.1.13)(eslint@9.12.0(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@3.29.4)(terser@5.31.0)(typescript@5.6.3)(vite@5.4.5(@types/node@20.12.11)(terser@5.31.0))(vue-tsc@2.1.6(typescript@5.6.3))(webpack-sources@3.2.3))(rollup@3.29.4)(vue@3.5.6(typescript@5.6.3))(webpack-sources@3.2.3)
       eslint:
-        specifier: ^9.12.0
+        specifier: 'catalog:'
         version: 9.12.0(jiti@1.21.6)
       floating-vue:
-        specifier: ^5.2.2
+        specifier: 'catalog:'
         version: 5.2.2(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@3.29.4)(webpack-sources@3.2.3))(vue@3.5.6(typescript@5.6.3))
       fuse.js:
-        specifier: ^7.0.0
+        specifier: 'catalog:'
         version: 7.0.0
       lint-staged:
-        specifier: ^15.2.10
+        specifier: 'catalog:'
         version: 15.2.10
       nuxt:
-        specifier: ^3.13.2
+        specifier: 'catalog:'
         version: 3.13.2(@opentelemetry/api@1.8.0)(@parcel/watcher@2.4.1)(@types/node@20.12.11)(encoding@0.1.13)(eslint@9.12.0(jiti@1.21.6))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@3.29.4)(terser@5.31.0)(typescript@5.6.3)(vite@5.4.5(@types/node@20.12.11)(terser@5.31.0))(vue-tsc@2.1.6(typescript@5.6.3))(webpack-sources@3.2.3)
       nuxt-eslint-auto-explicit-import:
-        specifier: ^0.1.0
+        specifier: 'catalog:'
         version: 0.1.0(eslint@9.12.0(jiti@1.21.6))(magicast@0.3.5)(rollup@3.29.4)(typescript@5.6.3)(webpack-sources@3.2.3)
       shiki:
-        specifier: ^1.22.0
+        specifier: 'catalog:'
         version: 1.22.0
       simple-git-hooks:
-        specifier: ^2.11.1
+        specifier: 'catalog:'
         version: 2.11.1
       textmate-grammar-glob:
-        specifier: ^0.0.1
+        specifier: 'catalog:'
         version: 0.0.1
       typescript:
-        specifier: ^5.6.3
+        specifier: 'catalog:'
         version: 5.6.3
       unbuild:
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.0(typescript@5.6.3)(vue-tsc@2.1.6(typescript@5.6.3))
       vue-tsc:
-        specifier: ^2.1.6
+        specifier: 'catalog:'
         version: 2.1.6(typescript@5.6.3)
 
 packages:
@@ -1125,7 +1260,7 @@ packages:
     resolution: {integrity: sha512-WB/U/B6HdRiIt/CfbcqqFp7Svz+3INLtnGcuMT2hnU39S3cb9JGGkvB1T6lbIlDoQ9VRnhc4riIFFoicGRZ2mw==}
     hasBin: true
     peerDependencies:
-      eslint: ^9.11.1
+      eslint: ^8.50.0 || ^9.0.0
 
   '@eslint/core@0.6.0':
     resolution: {integrity: sha512-8I2Q8ykA4J0x0o7cg67FPVnehcqWTBehu/lmY+bolPFHGjh49YzGBMXTvpqVgEbBdvNCSxj6iFgiIyHzf03lzg==}
@@ -1769,7 +1904,7 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       '@typescript-eslint/parser': ^8.0.0 || ^8.0.0-alpha.0
-      eslint: ^9.12.0
+      eslint: ^8.57.0 || ^9.0.0
       typescript: '*'
     peerDependenciesMeta:
       typescript:
@@ -3823,10 +3958,6 @@ packages:
   min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
-
-  minimatch@10.0.1:
-    resolution: {integrity: sha512-ethXTt3SGGR+95gudmqJ1eNhRO7eGEGIgYA9vnPatK4/etz2MEVDno5GMCibdMTuBMyElzIlgxMna3K94XDIDQ==}
-    engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -6981,7 +7112,7 @@ snapshots:
       '@typescript-eslint/parser': 8.9.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
       '@typescript-eslint/scope-manager': 8.9.0
       '@typescript-eslint/type-utils': 8.9.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
-      '@typescript-eslint/utils': 8.10.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
+      '@typescript-eslint/utils': 8.9.0(eslint@9.12.0(jiti@1.21.6))(typescript@5.6.3)
       '@typescript-eslint/visitor-keys': 8.9.0
       eslint: 9.12.0(jiti@1.21.6)
       graphemer: 1.4.0
@@ -9683,10 +9814,6 @@ snapshots:
   mimic-fn@4.0.0: {}
 
   min-indent@1.0.1: {}
-
-  minimatch@10.0.1:
-    dependencies:
-      brace-expansion: 2.0.1
 
   minimatch@3.1.2:
     dependencies:
