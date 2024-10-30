@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.6](https://github.com/eslint/config-inspector/compare/v0.5.5...v0.5.6) (2024-10-30)
+
+
+### Bug Fixes
+
+* downgrade `minimatch`, close [#103](https://github.com/eslint/config-inspector/issues/103) ([4e4ae47](https://github.com/eslint/config-inspector/commit/4e4ae47ce2a8d6703b909eaa64d35df2761b0343))
+
 ## [0.5.5](https://github.com/eslint/config-inspector/compare/v0.5.4...v0.5.5) (2024-10-18)
 
 
