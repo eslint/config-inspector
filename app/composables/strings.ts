@@ -14,3 +14,18 @@ export function stringifyUnquoted(obj: any) {
     .replace(/"(\w+)":/g, '$1:')
     .replace(/"/g, '\'')
 }
+
+/**
+ * Replaces all occurrences of the pattern:
+ * `['--', value, '--']`
+ *
+ * with:
+ * `value, // [!code highlight]
+ *
+ * Lines with the [!code highlight] comment will be processed by Shiki's diff
+ * notation transformer and have the `.line.highlighted` classes applied
+ */
+export function transformHighlight(code: string) {
+  return code
+    .replace(/\[\s*'--',\s*(\S.+),\s*'--'\s*\],?/g, '$1, // [!code highlight]')
+}

@@ -61,6 +61,7 @@
     "@iconify-json/twemoji": "catalog:",
     "@iconify-json/vscode-icons": "catalog:",
     "@nuxt/eslint": "catalog:",
+    "@shikijs/transformers": "catalog:",
     "@types/connect": "catalog:",
     "@types/ws": "catalog:",
     "@typescript-eslint/utils": "catalog:",

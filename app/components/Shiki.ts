@@ -1,3 +1,5 @@
+import { transformerNotationHighlight } from '@shikijs/transformers'
+
 // @unocss-include
 export default defineComponent({
   name: 'Shiki',
@@ -24,6 +26,7 @@ export default defineComponent({
               node.properties.style = ''
             },
           },
+          transformerNotationHighlight(),
         ],
       })
     })

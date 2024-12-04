@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { RuleConfigState } from '~~/shared/types'
 import { useRouter } from '#app/composables/router'
-import { computed } from 'vue'
-import { payload } from '~/composables/payload'
+import { computed, reactive } from 'vue'
+import { deepCompareOptions } from '~/composables/options'
+import { getRuleDefaultOptions, payload } from '~/composables/payload'
 import { filtersConfigs } from '~/composables/state'
-import { nth, stringifyUnquoted } from '~/composables/strings'
+import { nth, stringifyUnquoted, transformHighlight } from '~/composables/strings'
 
 const props = defineProps<{
   state: RuleConfigState
@@ -18,6 +19,16 @@ const colors = {
 }
 
 const config = computed(() => payload.value.configs[props.state.configIndex])
+
+const defaultOptions = computed(() => getRuleDefaultOptions(props.state.name))
+
+const comparedOptions = computed(() => deepCompareOptions(props.state.options ?? [], defaultOptions.value))
+
+const initialRuleOptionsView = computed(() => !props.state.options?.length && defaultOptions.value?.length ? 'default' : 'state')
+
+const ruleOptions = reactive({
+  viewType: initialRuleOptionsView.value as 'state' | 'default',
+})
 
 const router = useRouter()
 function goto() {
@@ -71,20 +82,52 @@ function goto() {
         </div>
       </template>
     </div>
-    <template v-if="state.options?.length">
-      <div flex="~ gap-2 items-center">
-        <div i-ph-sliders-duotone my1 flex-none op75 />
-        <div op50>
-          Rule options
+    <template v-if="state.options?.length || defaultOptions?.length">
+      <div items-center justify-between md:flex>
+        <div flex="~ gap-1" op50>
+          <button
+            v-if="state.options?.length"
+            btn-action
+            :class="{ 'btn-action-active': ruleOptions.viewType === 'state' }"
+            @click="ruleOptions.viewType = 'state'"
+          >
+            <div i-ph-sliders-duotone my1 flex-none op75 />
+            Rule options
+          </button>
+          <button
+            v-if="defaultOptions?.length"
+            btn-action
+            :class="{ 'btn-action-active': ruleOptions.viewType === 'default' }"
+            @click="ruleOptions.viewType = 'default'"
+          >
+            <div i-ph-faders-duotone my1 flex-none op75 />
+            Default options
+          </button>
         </div>
       </div>
-      <Shiki
-        v-for="options, idx of state.options"
-        :key="idx"
-        lang="ts"
-        :code="stringifyUnquoted(options)"
-        rounded bg-code p2 text-sm
-      />
+      <template v-if="ruleOptions.viewType === 'state'">
+        <Shiki
+          v-for="options, idx of comparedOptions.options"
+          :key="idx"
+          lang="ts"
+          :code="transformHighlight(stringifyUnquoted(options))"
+          rounded bg-code p2 text-sm
+        />
+      </template>
+      <template v-if="ruleOptions.viewType === 'default'">
+        <Shiki
+          v-for="options, idx of defaultOptions"
+          :key="idx"
+          lang="ts"
+          :code="stringifyUnquoted(options)"
+          rounded bg-code p2 text-sm
+        />
+      </template>
+    </template>
+    <template v-if="ruleOptions.viewType === 'state' && comparedOptions.hasRedundantOptions">
+      <div op50>
+        Options <span italic op75>italicized</span> match the default for the rule
+      </div>
     </template>
   </div>
 </template>
