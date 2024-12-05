@@ -15,7 +15,6 @@ function minimatch(file: string, pattern: string) {
 
 function getMatchedGlobs(file: string, glob: (string | string[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()
-  // Strip leading `!` from globs since they don't mean invert the match condition, but rather unignore
   return globs.filter(glob => minimatch(file, glob)).flat()
 }
 
@@ -40,9 +39,7 @@ export function isGeneralConfig(config: FlatConfigItem) {
  * Given a list of matched globs, if an unignore (leading !) is the last one, then the file no longer matches the glob set
  */
 function filterUnignoreGlobs(globs: string[]) {
-  if (!globs.length)
-    return globs
-  if (globs[globs.length - 1].startsWith('!'))
+  if (!globs.length || globs[globs.length - 1].startsWith('!'))
     return []
   return globs
 }
@@ -53,7 +50,6 @@ export function matchFile(
   ignoreOnlyConfigs: FlatConfigItem[],
 ): MatchedFile {
   const globalIgnored = ignoreOnlyConfigs.flatMap(config => filterUnignoreGlobs(getMatchedGlobs(filepath, config.ignores!)))
-
   if (globalIgnored.length) {
     return {
       filepath,
@@ -70,7 +66,6 @@ export function matchFile(
   configs.forEach((config, index) => {
     const positive = getMatchedGlobs(filepath, config.files || [])
     const negative = filterUnignoreGlobs(getMatchedGlobs(filepath, config.ignores || []))
-
     if (!negative.length && positive.length)
       result.configs.push(index)
     result.globs.push(
