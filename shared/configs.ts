@@ -36,12 +36,11 @@ export function isGeneralConfig(config: FlatConfigItem) {
 }
 
 /**
- * Given a list of matched globs, if an unignore (leading !) is the last one, then the file no longer matches the glob set
+ * Given a list of matched ignore globs, determine if the config is ultimately ignored.
+ * If an unignore (leading !) is the last glob, then the config is "unignored".
  */
-function filterUnignoreGlobs(globs: string[]) {
-  if (!globs.length || globs[globs.length - 1].startsWith('!'))
-    return []
-  return globs
+function isIgnored(negativeGlobs: string[]) {
+  return negativeGlobs.length && !negativeGlobs[negativeGlobs.length - 1].startsWith('!')
 }
 
 export function matchFile(
@@ -49,11 +48,13 @@ export function matchFile(
   configs: FlatConfigItem[],
   ignoreOnlyConfigs: FlatConfigItem[],
 ): MatchedFile {
-  const globalIgnored = ignoreOnlyConfigs.flatMap(config => filterUnignoreGlobs(getMatchedGlobs(filepath, config.ignores!)))
-  if (globalIgnored.length) {
+  const globalIgnoredConfigs = ignoreOnlyConfigs.map(config => getMatchedGlobs(filepath, config.ignores!))
+  const globalIgnored = globalIgnoredConfigs.some(isIgnored)
+
+  if (globalIgnored) {
     return {
       filepath,
-      globs: globalIgnored,
+      globs: globalIgnoredConfigs.flat(),
       configs: [],
     }
   }
@@ -65,8 +66,8 @@ export function matchFile(
   }
   configs.forEach((config, index) => {
     const positive = getMatchedGlobs(filepath, config.files || [])
-    const negative = filterUnignoreGlobs(getMatchedGlobs(filepath, config.ignores || []))
-    if (!negative.length && positive.length)
+    const negative = getMatchedGlobs(filepath, config.ignores || [])
+    if (!isIgnored(negative) && positive.length)
       result.configs.push(index)
     result.globs.push(
       ...positive,
