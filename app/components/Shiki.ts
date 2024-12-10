@@ -1,3 +1,5 @@
+import { transformerNotationMap } from '@shikijs/transformers'
+
 // @unocss-include
 export default defineComponent({
   name: 'Shiki',
@@ -24,6 +26,14 @@ export default defineComponent({
               node.properties.style = ''
             },
           },
+          transformerNotationMap(
+            {
+              classMap: {
+                muted: 'muted',
+              },
+            },
+            '@shikijs/transformers:notation-muted',
+          ),
         ],
       })
     })

@@ -9,6 +9,21 @@ export function nth(n: number) {
   return `${n}th`
 }
 
+export function stringifyOptions(object: any) {
+  /**
+   * Replaces all occurrences of the pattern:
+   * `['--', value, '--']`
+   *
+   * with:
+   * `value, // [!code muted]
+   *
+   * Lines with the [!code muted] comment will be processed by Shiki's diff
+   * notation transformer and have the `.line.muted` classes applied
+   */
+  return stringifyUnquoted(object)
+    .replace(/\[\s*'--',\s*(\S.+),\s*'--'\s*\],?/g, '$1, // [!code muted]')
+}
+
 export function stringifyUnquoted(obj: any) {
   return JSON.stringify(obj, null, 2)
     .replace(/"(\w+)":/g, '$1:')

@@ -3,6 +3,8 @@ import type { RuleConfigStates, RuleInfo, RuleLevel } from '~~/shared/types'
 import { useClipboard } from '@vueuse/core'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import { vTooltip } from 'floating-vue'
+import { deepCompareOptions } from '~/composables/options'
+import { getRuleDefaultOptions } from '~/composables/payload'
 
 const props = defineProps<{
   rule: RuleInfo
@@ -16,6 +18,11 @@ const emit = defineEmits<{
   badgeClick: [MouseEvent]
   stateClick: [RuleLevel]
 }>()
+
+function redundantOptions(options: any) {
+  const { hasRedundantOptions } = deepCompareOptions(options ?? [], getRuleDefaultOptions(props.rule.name))
+  return hasRedundantOptions
+}
 
 const { copy } = useClipboard()
 
@@ -38,6 +45,7 @@ function capitalize(str?: string) {
           :level="s.level"
           :config-index="s.configIndex"
           :has-options="!!s.options?.length"
+          :has-redundant-options="redundantOptions(s.options)"
         />
         <template #popper="{ shown }">
           <RuleStateItem v-if="shown" :state="s" />
@@ -53,6 +61,7 @@ function capitalize(str?: string) {
     <RuleLevelIcon
       :level="getRuleLevel(value)!"
       :has-options="!!getRuleOptions(value)?.length"
+      :has-redundant-options="redundantOptions(getRuleOptions(value))"
     />
   </div>
 

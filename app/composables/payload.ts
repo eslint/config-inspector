@@ -93,6 +93,10 @@ export function getRuleFromName(name: string): RuleInfo {
   }
 }
 
+export function getRuleDefaultOptions(name: string): any[] {
+  return payload.value.rules[name]?.defaultOptions ?? []
+}
+
 export function getRuleStates(name: string): RuleConfigStates | undefined {
   return payload.value.ruleToState.get(name)
 }
