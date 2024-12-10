@@ -79,7 +79,6 @@ export interface RuleInfo extends RuleMetaData<any, any> {
    * The rule may be removed
    */
   invalid?: boolean
-  defaultOptions?: any[]
 }
 
 export interface FiltersConfigsPage {
