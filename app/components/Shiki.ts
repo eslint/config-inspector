@@ -1,4 +1,4 @@
-import { transformerNotationHighlight } from '@shikijs/transformers'
+import { transformerNotationMap } from '@shikijs/transformers'
 
 // @unocss-include
 export default defineComponent({
@@ -26,7 +26,14 @@ export default defineComponent({
               node.properties.style = ''
             },
           },
-          transformerNotationHighlight(),
+          transformerNotationMap(
+            {
+              classMap: {
+                muted: 'muted',
+              },
+            },
+            '@shikijs/transformers:notation-muted',
+          ),
         ],
       })
     })

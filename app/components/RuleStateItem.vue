@@ -5,7 +5,7 @@ import { computed, reactive } from 'vue'
 import { deepCompareOptions } from '~/composables/options'
 import { getRuleDefaultOptions, payload } from '~/composables/payload'
 import { filtersConfigs } from '~/composables/state'
-import { nth, stringifyUnquoted, transformHighlight } from '~/composables/strings'
+import { nth, stringifyOptions } from '~/composables/strings'
 
 const props = defineProps<{
   state: RuleConfigState
@@ -101,7 +101,7 @@ function goto() {
             @click="ruleOptions.viewType = 'default'"
           >
             <div i-ph-faders-duotone my1 flex-none op75 />
-            Default options
+            Option defaults
           </button>
         </div>
       </div>
@@ -110,7 +110,7 @@ function goto() {
           v-for="options, idx of comparedOptions.options"
           :key="idx"
           lang="ts"
-          :code="transformHighlight(stringifyUnquoted(options))"
+          :code="stringifyOptions(options)"
           rounded bg-code p2 text-sm
         />
       </template>
@@ -119,7 +119,7 @@ function goto() {
           v-for="options, idx of defaultOptions"
           :key="idx"
           lang="ts"
-          :code="stringifyUnquoted(options)"
+          :code="stringifyOptions(options)"
           rounded bg-code p2 text-sm
         />
       </template>

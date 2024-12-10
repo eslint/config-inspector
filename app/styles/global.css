@@ -20,7 +20,7 @@ html.dark {
   font-size: 15px;
 }
 
-.shiki span.line.highlighted {
+.shiki span.line.muted {
   font-style: italic;
   opacity: 75%;
 }

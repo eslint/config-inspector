@@ -9,23 +9,23 @@ export function nth(n: number) {
   return `${n}th`
 }
 
+export function stringifyOptions(object: any) {
+  /**
+   * Replaces all occurrences of the pattern:
+   * `['--', value, '--']`
+   *
+   * with:
+   * `value, // [!code highlight]
+   *
+   * Lines with the [!code highlight] comment will be processed by Shiki's diff
+   * notation transformer and have the `.line.highlighted` classes applied
+   */
+  return stringifyUnquoted(object)
+    .replace(/\[\s*'--',\s*(\S.+),\s*'--'\s*\],?/g, '$1, // [!code muted]')
+}
+
 export function stringifyUnquoted(obj: any) {
   return JSON.stringify(obj, null, 2)
     .replace(/"(\w+)":/g, '$1:')
     .replace(/"/g, '\'')
-}
-
-/**
- * Replaces all occurrences of the pattern:
- * `['--', value, '--']`
- *
- * with:
- * `value, // [!code highlight]
- *
- * Lines with the [!code highlight] comment will be processed by Shiki's diff
- * notation transformer and have the `.line.highlighted` classes applied
- */
-export function transformHighlight(code: string) {
-  return code
-    .replace(/\[\s*'--',\s*(\S.+),\s*'--'\s*\],?/g, '$1, // [!code highlight]')
 }
