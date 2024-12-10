@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/eslint/config-inspector/compare/v0.5.6...v0.6.0) (2024-12-10)
+
+
+### Features
+
+* present `meta.defaultOptions` in the config inspector ([#110](https://github.com/eslint/config-inspector/issues/110)) ([9820d63](https://github.com/eslint/config-inspector/commit/9820d635272524f072ee7351e5b3d0ca7c874806))
+
+
+### Bug Fixes
+
+* add gap between number of rules and view switcher ([#105](https://github.com/eslint/config-inspector/issues/105)) ([a3c4a7a](https://github.com/eslint/config-inspector/commit/a3c4a7a6fe18aa9485899c10d52083e21d218052))
+
 ## [0.5.6](https://github.com/eslint/config-inspector/compare/v0.5.5...v0.5.6) (2024-10-30)
 
 
