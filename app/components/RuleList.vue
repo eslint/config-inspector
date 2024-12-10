@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { RuleInfo } from '~~/shared/types'
 import type { Linter } from 'eslint'
+import type { RuleInfo } from '~~/shared/types'
 import { computed, defineComponent, Fragment, h } from 'vue'
 import { getRuleFromName, payload } from '~/composables/payload'
 import { isGridView } from '../composables/state'

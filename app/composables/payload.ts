@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 import type { ErrorInfo, FilesGroup, FlatConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
+import { $fetch } from 'ofetch'
+import { computed, ref } from 'vue'
 import { isGeneralConfig, isIgnoreOnlyConfig } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
-import { $fetch } from 'ofetch'
+import { configsOpenState, fileGroupsOpenState } from './state'
 
 const LOG_NAME = '[ESLint Config Inspector]'
 

@@ -1,5 +1,5 @@
 import type { FiltersConfigsPage } from '~~/shared/types'
-import { breakpointsTailwind } from '@vueuse/core'
+import { breakpointsTailwind, useBreakpoints, useLocalStorage } from '@vueuse/core'
 import { computed, reactive, ref } from 'vue'
 
 export const filtersConfigs = reactive<FiltersConfigsPage>({

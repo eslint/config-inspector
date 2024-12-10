@@ -1,4 +1,7 @@
 import { transformerNotationMap } from '@shikijs/transformers'
+import { computed, defineComponent, h } from 'vue'
+import { isDark } from '../composables/dark'
+import { sanitizeHtml, shiki } from '../composables/shiki'
 
 // @unocss-include
 export default defineComponent({

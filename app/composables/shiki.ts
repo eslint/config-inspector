@@ -1,5 +1,7 @@
 import type { HighlighterCore } from 'shiki/core'
 import { createHighlighterCore } from 'shiki/core'
+import { computed, shallowRef } from 'vue'
+import { isDark } from './dark'
 
 export const shiki = shallowRef<HighlighterCore>()
 

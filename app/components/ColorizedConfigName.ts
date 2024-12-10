@@ -1,3 +1,6 @@
+import { computed, defineComponent, h } from 'vue'
+import { getPluginColor } from '../composables/color'
+
 export default defineComponent({
   props: {
     name: {

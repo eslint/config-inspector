@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { RuleConfigStates, RuleInfo, RuleLevel } from '~~/shared/types'
 import { useClipboard } from '@vueuse/core'
-import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import { vTooltip } from 'floating-vue'
+import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import { deepCompareOptions } from '~/composables/options'
 import { getRuleDefaultOptions } from '~/composables/payload'
 

@@ -1,6 +1,5 @@
-import type { Payload } from '~~/shared/types'
-
 import type { WebSocket } from 'ws'
+import type { Payload } from '~~/shared/types'
 import type { ReadConfigOptions } from './configs'
 import process from 'node:process'
 import chokidar from 'chokidar'
