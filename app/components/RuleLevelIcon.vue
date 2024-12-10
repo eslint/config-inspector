@@ -6,6 +6,7 @@ import { nth } from '~/composables/strings'
 const props = defineProps<{
   level: RuleLevel
   hasOptions?: boolean
+  hasRedundantOptions?: boolean
   configIndex?: number
   class?: string
 }>()
@@ -32,6 +33,6 @@ const icon = computed(() => ({
 <template>
   <div relative :class="[color, props.class]" :title="title">
     <div :class="icon" />
-    <div v-if="hasOptions" absolute right--2px top--2px h-6px w-6px rounded-full bg-current op75 />
+    <div v-if="hasOptions" absolute right--2px top--2px h-6px w-6px rounded-full bg-current op75 :class="hasRedundantOptions ? 'text-blue5' : ''" />
   </div>
 </template>

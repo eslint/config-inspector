@@ -20,6 +20,11 @@ html.dark {
   font-size: 15px;
 }
 
+.shiki span.line.muted {
+  font-style: italic;
+  opacity: 75%;
+}
+
 .font-mono, [font-mono=""] {
   font-variant-ligatures: none;
 }
