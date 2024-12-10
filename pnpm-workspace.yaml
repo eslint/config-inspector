@@ -1,24 +1,24 @@
 packages: []
 catalog:
-  '@antfu/eslint-config': ^3.8.0
-  '@eslint/config-array': ^0.18.0
-  '@iconify-json/carbon': ^1.2.3
+  '@antfu/eslint-config': ^3.11.2
+  '@eslint/config-array': ^0.19.1
+  '@iconify-json/carbon': ^1.2.4
   '@iconify-json/file-icons': ^1.2.0
   '@iconify-json/logos': ^1.2.3
   '@iconify-json/ph': ^1.2.1
-  '@iconify-json/simple-icons': ^1.2.8
+  '@iconify-json/simple-icons': ^1.2.15
   '@iconify-json/svg-spinners': ^1.2.1
   '@iconify-json/twemoji': ^1.2.1
-  '@iconify-json/vscode-icons': ^1.2.2
-  '@nuxt/eslint': ^0.6.0
+  '@iconify-json/vscode-icons': ^1.2.4
+  '@nuxt/eslint': ^0.7.2
   '@shikijs/transformers': ^1.24.2
   '@types/connect': ^3.4.38
-  '@types/ws': ^8.5.12
-  '@typescript-eslint/utils': ^8.10.0
-  '@unocss/eslint-config': ^0.63.4
-  '@unocss/nuxt': ^0.63.4
+  '@types/ws': ^8.5.13
+  '@typescript-eslint/utils': ^8.18.0
+  '@unocss/eslint-config': ^0.65.1
+  '@unocss/nuxt': ^0.65.1
   '@voxpelli/config-array-find-files': ^1.2.1
-  '@vueuse/nuxt': ^11.1.0
+  '@vueuse/nuxt': ^12.0.0
   bundle-require: ^5.0.0
   cac: ^6.7.14
   chokidar: ^4.0.1
@@ -33,17 +33,17 @@ catalog:
   lint-staged: ^15.2.10
   # v10.0 requires Node.js v20, so we stick with v9.0
   minimatch: ^9.0.5
-  mlly: ^1.7.2
+  mlly: ^1.7.3
   mrmime: ^2.0.0
-  nuxt: ^3.13.2
-  nuxt-eslint-auto-explicit-import: ^0.1.0
+  nitropack: 2.8.1
+  nuxt: ^3.14.1592
+  nuxt-eslint-auto-explicit-import: ^0.1.1
   open: ^10.1.0
   picocolors: ^1.1.1
   shiki: ^1.24.2
   simple-git-hooks: ^2.11.1
   textmate-grammar-glob: ^0.0.1
-  typescript: ^5.6.3
+  typescript: ~5.6.3
   unbuild: ^2.0.0
-  vue-tsc: ^2.1.6
+  vue-tsc: ^2.1.10
   ws: ^8.18.0
-  nitropack: 2.8.1
