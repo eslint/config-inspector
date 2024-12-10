@@ -15,10 +15,10 @@ export function stringifyOptions(object: any) {
    * `['--', value, '--']`
    *
    * with:
-   * `value, // [!code highlight]
+   * `value, // [!code muted]
    *
-   * Lines with the [!code highlight] comment will be processed by Shiki's diff
-   * notation transformer and have the `.line.highlighted` classes applied
+   * Lines with the [!code muted] comment will be processed by Shiki's diff
+   * notation transformer and have the `.line.muted` classes applied
    */
   return stringifyUnquoted(object)
     .replace(/\[\s*'--',\s*(\S.+),\s*'--'\s*\],?/g, '$1, // [!code muted]')
