@@ -164,7 +164,7 @@ function resetFilters() {
       </div>
     </div>
 
-    <div flex="~ gap-2" items-center justify-between>
+    <div items-center justify-between gap-2 md:flex>
       <div flex="~ gap-2" lt-sm:flex-col>
         <div
           flex="~ inline gap-2 items-center"
