@@ -13,27 +13,9 @@ function minimatch(file: string, pattern: string) {
   return m.match(file)
 }
 
-export function getMatchedGlobs(file: string, globs: (string | string[])[]) {
-  const flatGlobs = (Array.isArray(globs) ? globs : [globs]).flat()
-  let unmatched: string[] = []
-
-  flatGlobs.forEach((glob, i) => {
-    if (minimatch(file, glob)) {
-      if (glob.startsWith('!'))
-        unmatched.push(glob)
-    }
-    else {
-      if (glob.startsWith('!')) {
-        const unignoreMatched = getMatchedGlobs(file, flatGlobs.slice(0, i))
-        unmatched = unmatched.concat(unignoreMatched.length > 0 ? unignoreMatched : [], glob)
-      }
-      else {
-        unmatched.push(glob)
-      }
-    }
-  })
-
-  return flatGlobs.filter(glob => !unmatched.includes(glob))
+export function getMatchedGlobs(file: string, glob: (string | string[])[]) {
+  const globs = (Array.isArray(glob) ? glob : [glob]).flat()
+  return globs.filter(glob => minimatch(file, glob)).flat()
 }
 
 const META_KEYS = new Set(['name', 'index'])
@@ -58,9 +40,7 @@ export function matchFile(
   configs: FlatConfigItem[],
   ignoreOnlyConfigs: FlatConfigItem[],
 ): MatchedFile {
-  const globIgnoreBlobs = ignoreOnlyConfigs.flatMap(config => config.ignores ?? [])
-  const globalIgnored = getMatchedGlobs(filepath, globIgnoreBlobs)
-
+  const globalIgnored = ignoreOnlyConfigs.flatMap(config => getMatchedGlobs(filepath, config.ignores!))
   if (globalIgnored.length) {
     return {
       filepath,
