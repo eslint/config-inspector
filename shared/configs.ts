@@ -1,4 +1,5 @@
 import type { FlatConfigItem, MatchedFile } from './types'
+import { ConfigArray } from '@eslint/config-array'
 import { Minimatch } from 'minimatch'
 
 const minimatchOpts = { dot: true }
@@ -38,31 +39,47 @@ export function isGeneralConfig(config: FlatConfigItem) {
 export function matchFile(
   filepath: string,
   configs: FlatConfigItem[],
-  ignoreOnlyConfigs: FlatConfigItem[],
+  configArray: ConfigArray,
 ): MatchedFile {
-  const globalIgnored = ignoreOnlyConfigs.flatMap(config => getMatchedGlobs(filepath, config.ignores!))
-  if (globalIgnored.length) {
-    return {
-      filepath,
-      globs: globalIgnored,
-      configs: [],
-    }
-  }
-
   const result: MatchedFile = {
     filepath,
     globs: [],
     configs: [],
   }
+
   configs.forEach((config, index) => {
     const positive = getMatchedGlobs(filepath, config.files || [])
     const negative = getMatchedGlobs(filepath, config.ignores || [])
-    if (!negative.length && positive.length)
+    if (configArray && !configArray.isFileIgnored(filepath) && positive.length > 0) {
       result.configs.push(index)
-    result.globs.push(
-      ...positive,
-      ...negative,
-    )
+      // push positive globs only when there are configs matched
+      result.globs.push(...positive)
+    }
+    // push negative globs except for unignore globs
+    result.globs.push(...negative.filter(glob => !glob.startsWith('!')))
   })
+
   return result
+}
+
+const NOOP_SCHEMA = {
+  merge: 'replace',
+  validate() {},
+}
+
+const FLAT_CONFIG_NOOP_SCHEMA = {
+  settings: NOOP_SCHEMA,
+  linterOptions: NOOP_SCHEMA,
+  language: NOOP_SCHEMA,
+  languageOptions: NOOP_SCHEMA,
+  processor: NOOP_SCHEMA,
+  plugins: NOOP_SCHEMA,
+  rules: NOOP_SCHEMA,
+}
+
+export function buildConfigArray(configs: FlatConfigItem[], basePath: string) {
+  return new ConfigArray(configs.map(({ index: _, ...c }) => c), {
+    basePath,
+    schema: FLAT_CONFIG_NOOP_SCHEMA,
+  }).normalizeSync()
 }

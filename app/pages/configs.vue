@@ -7,7 +7,7 @@ import { useRoute } from '#app/composables/router'
 import { debouncedWatch } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { computed, defineComponent, h, nextTick, onMounted, ref, shallowRef, watch, watchEffect } from 'vue'
-import { isIgnoreOnlyConfig, matchFile } from '~~/shared/configs'
+import { buildConfigArray, isIgnoreOnlyConfig, matchFile } from '~~/shared/configs'
 import { getRuleLevel } from '~~/shared/rules'
 import { payload } from '~/composables/payload'
 import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
@@ -32,7 +32,7 @@ watchEffect(() => {
     fileMatchResult.value = matchFile(
       filters.filepath,
       payload.value.configs,
-      payload.value.configsIgnoreOnly,
+      buildConfigArray(payload.value.configs, payload.value.meta.basePath),
     )
     if (fileMatchResult.value.configs.length) {
       configs = Array.from(new Set([

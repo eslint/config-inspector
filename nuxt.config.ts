@@ -18,6 +18,7 @@ export default defineNuxtConfig({
 
   experimental: {
     typedPages: true,
+    clientNodeCompat: true,
   },
 
   features: {
