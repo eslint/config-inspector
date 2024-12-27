@@ -27,6 +27,7 @@
     "start": "node bin.mjs",
     "prepack": "pnpm build",
     "lint": "nuxi prepare && eslint .",
+    "test": "mocha tests/**.ts",
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
@@ -63,6 +64,7 @@
     "@nuxt/eslint": "catalog:",
     "@shikijs/transformers": "catalog:",
     "@types/connect": "catalog:",
+    "@types/mocha": "catalog:",
     "@types/ws": "catalog:",
     "@typescript-eslint/utils": "catalog:",
     "@unocss/eslint-config": "catalog:",
@@ -72,11 +74,13 @@
     "floating-vue": "catalog:",
     "fuse.js": "catalog:",
     "lint-staged": "catalog:",
+    "mocha": "catalog:",
     "nuxt": "catalog:",
     "nuxt-eslint-auto-explicit-import": "catalog:",
     "shiki": "catalog:",
     "simple-git-hooks": "catalog:",
     "textmate-grammar-glob": "catalog:",
+    "tsx": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:",
     "vue-tsc": "catalog:"

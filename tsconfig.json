@@ -3,6 +3,7 @@
   "compilerOptions": {
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
+    "types": ["mocha"],
     "noEmit": true
   }
 }
