@@ -15,7 +15,7 @@ describe('matchFile', () => {
       })
     })
 
-    it('should match when global ignored is a series of specificity', () => {
+    it('should match when final matched glob is not an unignore', () => {
       const result = testGlobalIgnores(['tests/**', '!tests/folder/**', 'tests/**/*.test.ts'])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
@@ -34,7 +34,7 @@ describe('matchFile', () => {
     })
 
     it('should not match when file is unignored', () => {
-      const result = testGlobalIgnores(['tests/**', '!tests/**/*.test.ts'])
+      const result = testGlobalIgnores(['tests/**', '!tests/**/*.test.ts', 'tests/other/**'])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
         globs: ['tests/**'],
@@ -53,7 +53,7 @@ describe('matchFile', () => {
       })
     })
 
-    it('should be ignored when a complex series of unignores and rematches', () => {
+    it('should be ignored when final matched glob is not an unignore', () => {
       const result = matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['**'], ignores: ['tests/**', '!tests/folder/**', 'tests/**/*.test.ts'] }], [])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
@@ -62,8 +62,8 @@ describe('matchFile', () => {
       })
     })
 
-    it('should match when last matching glob is an unignored', () => {
-      const result = matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['**'], ignores: ['tests/**', '!tests/folder/**'] }], [])
+    it('should match when last matching glob is an unignore', () => {
+      const result = matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['**'], ignores: ['tests/**', '!tests/folder/**', 'tests/other/**'] }], [])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
         globs: ['**', 'tests/**', '!tests/folder/**'],
@@ -80,7 +80,7 @@ describe('matchFile', () => {
         { index: 4, files: ['**'], ignores: ['tests/**.miss'] },
         { index: 5, files: ['**'], ignores: ['tests/**', '!tests/folder/*.foo', '!tests/folder/*.bar'] },
         { index: 6, files: ['**'], ignores: ['tests/**', '!tests/*.test.ts', 'tests/folder/*'] },
-        { index: 7, files: ['**'], ignores: ['tests/**', '!tests/*.test.ts', 'tests/folder/*', '!tests/folder/*.ts'] },
+        { index: 7, files: ['**'], ignores: ['tests/**', '!tests/*.test.ts', 'tests/folder/*', '!tests/folder/*.ts', 'tests/other/**'] },
       ], [])
       assert.deepEqual(result.configs, [0, 3, 4, 7])
     })
