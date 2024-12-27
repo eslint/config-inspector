@@ -12,12 +12,11 @@ export default nuxt()
             'vue/no-extra-parens': 'off',
           },
         },
-        ignores: ['**/*.d.ts', '!**/special.d.ts'],
       },
     ),
   )
   .append({
-    files: ['src/**/*.d.ts'],
+    files: ['src/**/*.ts'],
     rules: {
       'no-console': 'off',
     },
