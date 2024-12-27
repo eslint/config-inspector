@@ -12,6 +12,7 @@ catalog:
   '@iconify-json/vscode-icons': ^1.2.2
   '@nuxt/eslint': ^0.6.0
   '@types/connect': ^3.4.38
+  '@types/mocha': ^10.0.10
   '@types/ws': ^8.5.12
   '@typescript-eslint/utils': ^8.10.0
   '@unocss/eslint-config': ^0.63.4
@@ -33,6 +34,7 @@ catalog:
   # v10.0 requires Node.js v20, so we stick with v9.0
   minimatch: ^9.0.5
   mlly: ^1.7.2
+  mocha: ^10.4.0
   mrmime: ^2.0.0
   nuxt: ^3.13.2
   nuxt-eslint-auto-explicit-import: ^0.1.0
@@ -41,6 +43,7 @@ catalog:
   shiki: ^1.22.0
   simple-git-hooks: ^2.11.1
   textmate-grammar-glob: ^0.0.1
+  tsx: ^4.19.2
   typescript: ^5.6.3
   unbuild: ^2.0.0
   vue-tsc: ^2.1.6

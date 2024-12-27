@@ -64,5 +64,5 @@ jobs:
       - name: Build
         run: nr build
 
-      # - name: Test
-      #   run: nr test
+      - name: Test
+        run: nr test
