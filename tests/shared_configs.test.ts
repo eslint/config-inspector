@@ -3,8 +3,11 @@ import { matchFile } from '../shared/configs.js'
 
 describe('matchFile', () => {
   describe('global ignored', () => {
+    const testGlobalIgnores = (ignores: string[]) => {
+      return matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['tests/**'] }], [{ index: 0, ignores }])
+    }
     it('should match no configs', () => {
-      const result = matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['tests/**'] }], [{ index: 0, ignores: ['tests/**'] }])
+      const result = testGlobalIgnores(['tests/**'])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
         globs: ['tests/**'],
@@ -13,7 +16,7 @@ describe('matchFile', () => {
     })
 
     it('should match when global ignored is a series of specificity', () => {
-      const result = matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['tests/**'] }], [{ index: 0, ignores: ['tests/**', '!tests/folder/**', 'tests/**/*.test.ts'] }])
+      const result = testGlobalIgnores(['tests/**', '!tests/folder/**', 'tests/**/*.test.ts'])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
         globs: ['tests/**', '!tests/folder/**', 'tests/**/*.test.ts'],
@@ -22,7 +25,7 @@ describe('matchFile', () => {
     })
 
     it('should match when irrelevant unignores included', () => {
-      const result = matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['tests/**'] }], [{ index: 0, ignores: ['tests/**', '!tests/other/**', '!tests/*.test.ts'] }])
+      const result = testGlobalIgnores(['tests/**', '!tests/other/**', '!tests/*.test.ts'])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
         globs: ['tests/**'],
@@ -31,7 +34,7 @@ describe('matchFile', () => {
     })
 
     it('should not match when file is unignored', () => {
-      const result = matchFile('tests/folder/foo.test.ts', [{ index: 0, files: ['tests/**'] }], [{ index: 0, ignores: ['tests/**', '!tests/**/*.test.ts'] }])
+      const result = testGlobalIgnores(['tests/**', '!tests/**/*.test.ts'])
       assert.deepEqual(result, {
         filepath: 'tests/folder/foo.test.ts',
         globs: ['tests/**'],
