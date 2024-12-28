@@ -48,16 +48,31 @@ export function matchFile(
   }
 
   configs.forEach((config, index) => {
+    const isFileGlobalIgnored = configArray.isFileIgnored(filepath)
+    let isFileIgnoredInCurrConfig = false
+    if (config.ignores) {
+      const ignoreConfigArray = buildConfigArray([{
+        index: config.index,
+        // only include ignores because of how ConfigArray works internally:
+        // isFileIgnored only works when only `ignore` exists
+        // (https://github.com/eslint/rewrite/blob/config-array-v0.19.1/packages/config-array/src/config-array.js#L726)
+        ignores: config.ignores ?? [],
+      }], configArray.basePath)
+      isFileIgnoredInCurrConfig = ignoreConfigArray.isFileIgnored(filepath)
+    }
+
     const positive = getMatchedGlobs(filepath, config.files || [])
     const negative = getMatchedGlobs(filepath, config.ignores || [])
-    if (configArray && !configArray.isFileIgnored(filepath) && positive.length > 0) {
+    if (!isFileGlobalIgnored && !isFileIgnoredInCurrConfig && positive.length > 0) {
       result.configs.push(index)
       // push positive globs only when there are configs matched
       result.globs.push(...positive)
     }
-    // push negative globs except for unignore globs
-    result.globs.push(...negative.filter(glob => !glob.startsWith('!')))
+
+    result.globs.push(...negative)
   })
+
+  result.globs = [...new Set(result.globs)]
 
   return result
 }
