@@ -1,3 +1,4 @@
+import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile } from './types'
 import { ConfigArray } from '@eslint/config-array'
 import { Minimatch } from 'minimatch'
@@ -16,7 +17,11 @@ function minimatch(file: string, pattern: string) {
 
 export function getMatchedGlobs(file: string, glob: (string | string[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()
-  return globs.filter(glob => minimatch(file, glob)).flat()
+  return globs.filter((glob) => {
+    const matchResult = minimatch(file, glob)
+    // for unignore glob, we need to flip back the match
+    return glob.startsWith('!') ? !matchResult : matchResult
+  }).flat()
 }
 
 const META_KEYS = new Set(['name', 'index'])
@@ -39,7 +44,7 @@ export function isGeneralConfig(config: FlatConfigItem) {
 export function matchFile(
   filepath: string,
   configs: FlatConfigItem[],
-  configArray: ConfigArray,
+  basePath: string,
 ): MatchedFile {
   const result: MatchedFile = {
     filepath,
@@ -47,24 +52,16 @@ export function matchFile(
     configs: [],
   }
 
-  configs.forEach((config, index) => {
-    const isFileGlobalIgnored = configArray.isFileIgnored(filepath)
-    let isFileIgnoredInCurrConfig = false
-    if (config.ignores) {
-      const ignoreConfigArray = buildConfigArray([{
-        index: config.index,
-        // only include ignores because of how ConfigArray works internally:
-        // isFileIgnored only works when only `ignore` exists
-        // (https://github.com/eslint/rewrite/blob/config-array-v0.19.1/packages/config-array/src/config-array.js#L726)
-        ignores: config.ignores ?? [],
-      }], configArray.basePath)
-      isFileIgnoredInCurrConfig = ignoreConfigArray.isFileIgnored(filepath)
-    }
-
+  const {
+    config: globalMatchedConfig = {},
+    status: globalMatchStatus,
+  } = buildConfigArray(configs, basePath).getConfigWithStatus(filepath)
+  configs.forEach((config) => {
     const positive = getMatchedGlobs(filepath, config.files || [])
     const negative = getMatchedGlobs(filepath, config.ignores || [])
-    if (!isFileGlobalIgnored && !isFileIgnoredInCurrConfig && positive.length > 0) {
-      result.configs.push(index)
+
+    if (globalMatchStatus === 'matched' && globalMatchedConfig.index?.includes(config.index) && positive.length > 0) {
+      result.configs.push(config.index)
       // push positive globs only when there are configs matched
       result.globs.push(...positive)
     }
@@ -89,11 +86,18 @@ const FLAT_CONFIG_NOOP_SCHEMA = {
   languageOptions: NOOP_SCHEMA,
   processor: NOOP_SCHEMA,
   plugins: NOOP_SCHEMA,
+  index: {
+    ...NOOP_SCHEMA,
+    // accumulate the matched config index to an array
+    merge(v1: number, v2: number) {
+      return [v1].concat(v2).flat()
+    },
+  },
   rules: NOOP_SCHEMA,
 }
 
-export function buildConfigArray(configs: FlatConfigItem[], basePath: string) {
-  return new ConfigArray(configs.map(({ index: _, ...c }) => c), {
+export function buildConfigArray(configs: Linter.Config[], basePath: string) {
+  return new ConfigArray(configs, {
     basePath,
     schema: FLAT_CONFIG_NOOP_SCHEMA,
   }).normalizeSync()

@@ -1,3 +1,4 @@
+import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { basename, dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
@@ -218,7 +219,7 @@ export async function readConfig(
     configs,
     rules,
     files: globFiles
-      ? await globMatchedFiles(basePath, rawConfigs)
+      ? await globMatchedFiles(basePath, configs, rawConfigs)
       : undefined,
     meta: {
       lastUpdate: Date.now(),
@@ -237,19 +238,19 @@ export async function readConfig(
 export async function globMatchedFiles(
   basePath: string,
   configs: FlatConfigItem[],
+  rawConfigs: Linter.Config[],
 ): Promise<MatchedFile[]> {
   console.log(MARK_INFO, 'Globing matched files')
 
-  const configArray = buildConfigArray(configs, basePath)
   const files = (await configArrayFindFiles({
     basePath,
-    configs: configArray,
+    configs: buildConfigArray(rawConfigs, basePath),
   })).toSorted()
 
   return files
     .map((filepath) => {
       filepath = relative(basePath, filepath)
-      const result = matchFile(filepath, configs, configArray)
+      const result = matchFile(filepath, configs, basePath)
       if (!result.configs.length)
         return undefined
       return result

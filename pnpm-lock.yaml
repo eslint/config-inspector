@@ -145,16 +145,21 @@ catalogs:
 overrides:
   nitropack: 2.8.1
 
+patchedDependencies:
+  '@eslint/config-array@0.19.1':
+    hash: x7vaku5tfstwhfkemiablef5bi
+    path: patches/@eslint__config-array@0.19.1.patch
+
 importers:
 
   .:
     dependencies:
       '@eslint/config-array':
         specifier: 'catalog:'
-        version: 0.19.1
+        version: 0.19.1(patch_hash=x7vaku5tfstwhfkemiablef5bi)
       '@voxpelli/config-array-find-files':
         specifier: 'catalog:'
-        version: 1.2.1(@eslint/config-array@0.19.1)
+        version: 1.2.1(@eslint/config-array@0.19.1(patch_hash=x7vaku5tfstwhfkemiablef5bi))
       bundle-require:
         specifier: 'catalog:'
         version: 5.0.0(esbuild@0.24.0)
@@ -6132,7 +6137,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/config-array@0.19.1':
+  '@eslint/config-array@0.19.1(patch_hash=x7vaku5tfstwhfkemiablef5bi)':
     dependencies:
       '@eslint/object-schema': 2.1.5
       debug: 4.3.7
@@ -7485,9 +7490,9 @@ snapshots:
       '@eslint/config-array': 0.18.0
       '@nodelib/fs.walk': 2.0.0
 
-  '@voxpelli/config-array-find-files@1.2.1(@eslint/config-array@0.19.1)':
+  '@voxpelli/config-array-find-files@1.2.1(@eslint/config-array@0.19.1(patch_hash=x7vaku5tfstwhfkemiablef5bi))':
     dependencies:
-      '@eslint/config-array': 0.19.1
+      '@eslint/config-array': 0.19.1(patch_hash=x7vaku5tfstwhfkemiablef5bi)
       '@nodelib/fs.walk': 2.0.0
 
   '@vue-macros/common@1.14.0(rollup@3.29.4)(vue@3.5.13(typescript@5.6.3))':
@@ -8710,7 +8715,7 @@ snapshots:
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@9.16.0(jiti@2.4.1))
       '@eslint-community/regexpp': 4.12.1
-      '@eslint/config-array': 0.19.1
+      '@eslint/config-array': 0.19.1(patch_hash=x7vaku5tfstwhfkemiablef5bi)
       '@eslint/core': 0.9.0
       '@eslint/eslintrc': 3.2.0
       '@eslint/js': 9.16.0

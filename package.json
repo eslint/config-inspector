@@ -84,6 +84,9 @@
   "pnpm": {
     "overrides": {
       "nitropack": "catalog:"
+    },
+    "patchedDependencies": {
+      "@eslint/config-array@0.19.1": "patches/@eslint__config-array@0.19.1.patch"
     }
   },
   "simple-git-hooks": {
