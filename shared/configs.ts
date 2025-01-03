@@ -1,7 +1,9 @@
+import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile } from './types'
-import { Minimatch } from 'minimatch'
+import { ConfigArray } from '@eslint/config-array'
+import { Minimatch, type MinimatchOptions } from 'minimatch'
 
-const minimatchOpts = { dot: true }
+const minimatchOpts: MinimatchOptions = { dot: true, flipNegate: true }
 const _matchInstances = new Map<string, Minimatch>()
 
 function minimatch(file: string, pattern: string) {
@@ -38,31 +40,61 @@ export function isGeneralConfig(config: FlatConfigItem) {
 export function matchFile(
   filepath: string,
   configs: FlatConfigItem[],
-  ignoreOnlyConfigs: FlatConfigItem[],
+  basePath: string,
 ): MatchedFile {
-  const globalIgnored = ignoreOnlyConfigs.flatMap(config => getMatchedGlobs(filepath, config.ignores!))
-  if (globalIgnored.length) {
-    return {
-      filepath,
-      globs: globalIgnored,
-      configs: [],
-    }
-  }
-
   const result: MatchedFile = {
     filepath,
     globs: [],
     configs: [],
   }
-  configs.forEach((config, index) => {
+
+  const {
+    config: globalMatchedConfig = {},
+    status: globalMatchStatus,
+  } = buildConfigArray(configs, basePath).getConfigWithStatus(filepath)
+  configs.forEach((config) => {
     const positive = getMatchedGlobs(filepath, config.files || [])
     const negative = getMatchedGlobs(filepath, config.ignores || [])
-    if (!negative.length && positive.length)
-      result.configs.push(index)
-    result.globs.push(
-      ...positive,
-      ...negative,
-    )
+
+    if (globalMatchStatus === 'matched' && globalMatchedConfig.index?.includes(config.index) && positive.length > 0) {
+      result.configs.push(config.index)
+      // push positive globs only when there are configs matched
+      result.globs.push(...positive)
+    }
+
+    result.globs.push(...negative)
   })
+
+  result.globs = [...new Set(result.globs)]
+
   return result
+}
+
+const NOOP_SCHEMA = {
+  merge: 'replace',
+  validate() {},
+}
+
+const FLAT_CONFIG_NOOP_SCHEMA = {
+  settings: NOOP_SCHEMA,
+  linterOptions: NOOP_SCHEMA,
+  language: NOOP_SCHEMA,
+  languageOptions: NOOP_SCHEMA,
+  processor: NOOP_SCHEMA,
+  plugins: NOOP_SCHEMA,
+  index: {
+    ...NOOP_SCHEMA,
+    // accumulate the matched config index to an array
+    merge(v1: number, v2: number) {
+      return [v1].concat(v2).flat()
+    },
+  },
+  rules: NOOP_SCHEMA,
+}
+
+export function buildConfigArray(configs: Linter.Config[], basePath: string) {
+  return new ConfigArray(configs, {
+    basePath,
+    schema: FLAT_CONFIG_NOOP_SCHEMA,
+  }).normalizeSync()
 }

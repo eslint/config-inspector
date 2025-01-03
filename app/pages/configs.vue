@@ -32,7 +32,7 @@ watchEffect(() => {
     fileMatchResult.value = matchFile(
       filters.filepath,
       payload.value.configs,
-      payload.value.configsIgnoreOnly,
+      payload.value.meta.basePath,
     )
     if (fileMatchResult.value.configs.length) {
       configs = Array.from(new Set([

@@ -1,11 +1,8 @@
 import type { RuleMetaData } from '@typescript-eslint/utils/ts-eslint'
 import type { Linter } from 'eslint'
 
-export interface FlatConfigItem extends Omit<Linter.FlatConfig, 'files' | 'ignores'> {
-  name?: string
+export interface FlatConfigItem extends Linter.Config {
   index: number
-  files?: (string | string[])[]
-  ignores?: string[]
 }
 
 export type RuleLevel = 'off' | 'warn' | 'error'

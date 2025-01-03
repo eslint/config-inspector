@@ -1,13 +1,13 @@
+import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { basename, dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
-import { ConfigArray } from '@eslint/config-array'
 import { configArrayFindFiles } from '@voxpelli/config-array-find-files'
 import { bundleRequire } from 'bundle-require'
 import { findUp } from 'find-up'
 import { resolve as resolveModule } from 'mlly'
 import c from 'picocolors'
-import { isIgnoreOnlyConfig, matchFile } from '../shared/configs'
+import { buildConfigArray, matchFile } from '../shared/configs'
 import { configFilenames, legacyConfigFilenames, MARK_CHECK, MARK_INFO } from './constants'
 import { ConfigPathError, ConfigPathLegacyError } from './errors'
 
@@ -219,7 +219,7 @@ export async function readConfig(
     configs,
     rules,
     files: globFiles
-      ? await globMatchedFiles(basePath, rawConfigs)
+      ? await globMatchedFiles(basePath, configs, rawConfigs)
       : undefined,
     meta: {
       lastUpdate: Date.now(),
@@ -235,56 +235,22 @@ export async function readConfig(
   }
 }
 
-const noopSchema = {
-  merge: 'replace',
-  validate() {},
-}
-
-const flatConfigNoopSchema = {
-  settings: noopSchema,
-  linterOptions: noopSchema,
-  language: noopSchema,
-  languageOptions: noopSchema,
-  processor: noopSchema,
-  plugins: noopSchema,
-  rules: noopSchema,
-}
-
 export async function globMatchedFiles(
   basePath: string,
   configs: FlatConfigItem[],
+  rawConfigs: Linter.Config[],
 ): Promise<MatchedFile[]> {
   console.log(MARK_INFO, 'Globing matched files')
 
-  const configArray = new ConfigArray(configs, {
+  const files = (await configArrayFindFiles({
     basePath,
-    schema: flatConfigNoopSchema,
-  })
-
-  await configArray.normalize()
-
-  const files = await configArrayFindFiles({
-    basePath,
-    configs: configArray,
-  })
-
-  files.sort()
-
-  const ignoreOnlyConfigs = configs.filter(isIgnoreOnlyConfig)
-  // const functionalGlobMap = new Map<any, string>()
-  // function stringifyGlob(glob: string) {
-  //   if (typeof glob === 'function') {
-  //     if (!functionalGlobMap.has(glob))
-  //       functionalGlobMap.set(glob, `<function#${functionalGlobMap.size + 1}>`)
-  //     return functionalGlobMap.get(glob)!
-  //   }
-  //   return glob
-  // }
+    configs: buildConfigArray(rawConfigs, basePath),
+  })).toSorted()
 
   return files
     .map((filepath) => {
       filepath = relative(basePath, filepath)
-      const result = matchFile(filepath, configs, ignoreOnlyConfigs)
+      const result = matchFile(filepath, configs, basePath)
       if (!result.configs.length)
         return undefined
       return result

@@ -27,6 +27,7 @@
     "start": "node bin.mjs",
     "prepack": "pnpm build",
     "lint": "nuxi prepare && eslint .",
+    "test": "vitest",
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
@@ -79,11 +80,15 @@
     "textmate-grammar-glob": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:",
+    "vitest": "^2.1.8",
     "vue-tsc": "catalog:"
   },
   "pnpm": {
     "overrides": {
       "nitropack": "catalog:"
+    },
+    "patchedDependencies": {
+      "@eslint/config-array@0.19.1": "patches/@eslint__config-array@0.19.1.patch"
     }
   },
   "simple-git-hooks": {
