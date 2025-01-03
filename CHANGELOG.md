@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0](https://github.com/eslint/config-inspector/compare/v0.6.0...v0.7.0) (2025-01-03)
+
+
+### chore
+
+* release-please-mark ([baaaaff](https://github.com/eslint/config-inspector/commit/baaaaff836cf81677454d63f1cd70ce72e88ad96))
+
+
+### Bug Fixes
+
+* bundle eslint-config related deps ([7d2945b](https://github.com/eslint/config-inspector/commit/7d2945b7fbb24d4293c7c7edba0e046781f65e89))
+* match glob logic for unignore ignores ([#115](https://github.com/eslint/config-inspector/issues/115)) ([58df9b1](https://github.com/eslint/config-inspector/commit/58df9b1396abb671c7b19642c9dcf3900bfba8a8))
+
 ## [0.6.0](https://github.com/eslint/config-inspector/compare/v0.5.6...v0.6.0) (2024-12-10)
 
 
