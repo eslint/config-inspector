@@ -1,7 +1,8 @@
 import type { Linter } from 'eslint'
+import type { MinimatchOptions } from 'minimatch'
 import type { FlatConfigItem, MatchedFile } from './types'
 import { ConfigArray } from '@eslint/config-array'
-import { Minimatch, type MinimatchOptions } from 'minimatch'
+import { Minimatch } from 'minimatch'
 
 const minimatchOpts: MinimatchOptions = { dot: true, flipNegate: true }
 const _matchInstances = new Map<string, Minimatch>()

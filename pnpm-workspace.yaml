@@ -10,6 +10,7 @@ catalog:
   '@iconify-json/svg-spinners': ^1.2.2
   '@iconify-json/twemoji': ^1.2.2
   '@iconify-json/vscode-icons': ^1.2.7
+  '@nodelib/fs.walk': ^3.0.1
   '@nuxt/eslint': ^0.7.4
   '@shikijs/transformers': ^1.26.0
   '@types/connect': ^3.4.38
@@ -22,6 +23,7 @@ catalog:
   bundle-require: ^5.1.0
   cac: ^6.7.14
   chokidar: ^4.0.3
+  debug: ^4.4.0
   esbuild: ^0.24.2
   eslint: ^9.17.0
   fast-glob: ^3.3.2
@@ -44,5 +46,6 @@ catalog:
   textmate-grammar-glob: ^0.0.1
   typescript: ^5.7.2
   unbuild: ^3.2.0
+  vitest: ^2.1.8
   vue-tsc: ^2.2.0
   ws: ^8.18.0

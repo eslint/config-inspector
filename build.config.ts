@@ -5,4 +5,7 @@ export default defineBuildConfig({
     'src/cli.ts',
   ],
   clean: false,
+  rollup: {
+    inlineDependencies: true,
+  },
 })
