@@ -339,7 +339,7 @@ onMounted(async () => {
           <div>Ignored by globs:</div>
           <div flex="~ gap-2 items-center wrap">
             <GlobItem
-              v-for="glob, idx of fileMatchResult.globs.filter(glob => !glob.startsWith('!'))"
+              v-for="glob, idx of fileMatchResult.globs"
               :key="idx"
               :glob="glob"
               popup="configs"

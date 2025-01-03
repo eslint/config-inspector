@@ -1,9 +1,9 @@
 import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile } from './types'
 import { ConfigArray } from '@eslint/config-array'
-import { Minimatch } from 'minimatch'
+import { Minimatch, type MinimatchOptions } from 'minimatch'
 
-const minimatchOpts = { dot: true }
+const minimatchOpts: MinimatchOptions = { dot: true, flipNegate: true }
 const _matchInstances = new Map<string, Minimatch>()
 
 function minimatch(file: string, pattern: string) {
@@ -17,11 +17,7 @@ function minimatch(file: string, pattern: string) {
 
 export function getMatchedGlobs(file: string, glob: (string | string[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()
-  return globs.filter((glob) => {
-    const matchResult = minimatch(file, glob)
-    // for unignore glob, we need to flip back the match
-    return glob.startsWith('!') ? !matchResult : matchResult
-  }).flat()
+  return globs.filter(glob => minimatch(file, glob)).flat()
 }
 
 const META_KEYS = new Set(['name', 'index'])
