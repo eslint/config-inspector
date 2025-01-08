@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/eslint/config-inspector/compare/v0.7.0...v0.7.1) (2025-01-08)
+
+
+### Bug Fixes
+
+* avoid using `.toSorted` to improve node compatibility, close [#117](https://github.com/eslint/config-inspector/issues/117) ([c7ed332](https://github.com/eslint/config-inspector/commit/c7ed3329de423f81154f7248bc2ee048ed9c3651))
+
 ## [0.7.0](https://github.com/eslint/config-inspector/compare/v0.6.0...v0.7.0) (2025-01-03)
 
 
