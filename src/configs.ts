@@ -242,10 +242,12 @@ export async function globMatchedFiles(
 ): Promise<MatchedFile[]> {
   console.log(MARK_INFO, 'Globing matched files')
 
-  const files = (await configArrayFindFiles({
-    basePath,
-    configs: buildConfigArray(rawConfigs, basePath),
-  })).toSorted()
+  const files = [
+    ...await configArrayFindFiles({
+      basePath,
+      configs: buildConfigArray(rawConfigs, basePath),
+    }),
+  ].sort()
 
   return files
     .map((filepath) => {
