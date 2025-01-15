@@ -12,6 +12,7 @@ catalog:
   '@iconify-json/vscode-icons': ^1.2.10
   '@nodelib/fs.walk': ^3.0.1
   '@nuxt/eslint': ^0.7.5
+  '@shikijs/langs-precompiled': ^1.27.0
   '@shikijs/transformers': ^1.26.2
   '@types/connect': ^3.4.38
   '@types/ws': ^8.5.13

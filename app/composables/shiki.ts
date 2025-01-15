@@ -1,4 +1,5 @@
 import type { HighlighterCore } from 'shiki/core'
+import { createJavaScriptRegexEngine } from '@shikijs/engine-javascript'
 import { createHighlighterCore } from 'shiki/core'
 import { computed, shallowRef } from 'vue'
 import { isDark } from './dark'
@@ -7,15 +8,15 @@ export const shiki = shallowRef<HighlighterCore>()
 
 createHighlighterCore({
   themes: [
-    import('shiki/themes/vitesse-light.mjs'),
-    import('shiki/themes/vitesse-dark.mjs'),
+    import('@shikijs/themes/vitesse-light'),
+    import('@shikijs/themes/vitesse-dark'),
   ],
   langs: [
-    import('shiki/langs/javascript.mjs'),
-    import('shiki/langs/typescript.mjs'),
+    import('@shikijs/langs-precompiled/javascript'),
+    import('@shikijs/langs-precompiled/typescript'),
     import('textmate-grammar-glob/grammars/glob.json') as any,
   ],
-  loadWasm: import('shiki/wasm'),
+  engine: createJavaScriptRegexEngine(),
 }).then((highlighter) => {
   shiki.value = highlighter
 })
