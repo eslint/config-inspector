@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0](https://github.com/eslint/config-inspector/compare/v0.7.1...v1.0.0) (2025-01-15)
+
+
+### chore
+
+* release-please-mark ([ea0bffd](https://github.com/eslint/config-inspector/commit/ea0bffdab0131422bfb40425f8b4dd6c94c60559))
+
+
+### Features
+
+* improve shiki bundle ([3b94fb9](https://github.com/eslint/config-inspector/commit/3b94fb912e0c8bd25b833b77c444557fac396b55))
+
 ## [0.7.1](https://github.com/eslint/config-inspector/compare/v0.7.0...v0.7.1) (2025-01-08)
 
 
