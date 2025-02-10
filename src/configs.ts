@@ -240,7 +240,7 @@ export async function globMatchedFiles(
   configs: FlatConfigItem[],
   rawConfigs: Linter.Config[],
 ): Promise<MatchedFile[]> {
-  console.log(MARK_INFO, 'Globing matched files')
+  console.log(MARK_INFO, 'Globbing matched files')
 
   const files = [
     ...await configArrayFindFiles({
