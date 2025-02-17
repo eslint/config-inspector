@@ -3,11 +3,11 @@ import fs from 'node:fs/promises'
 import { relative, resolve } from 'node:path'
 import process from 'node:process'
 
+import c from 'ansis'
 import cac from 'cac'
 import fg from 'fast-glob'
 import { getPort } from 'get-port-please'
 import open from 'open'
-import c from 'picocolors'
 import { readConfig } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'
 import { distDir } from './dirs'
@@ -102,7 +102,7 @@ cli
     if (process.env.ESLINT_CONFIG)
       options.config ||= process.env.ESLINT_CONFIG
 
-    console.log(MARK_INFO, `Starting ESLint config inspector at`, c.green(`http://${host === '127.0.0.1' ? 'localhost' : host}:${port}`), '\n')
+    console.log(MARK_INFO, `Starting ESLint config inspector at`, c.green`http://${host === '127.0.0.1' ? 'localhost' : host}:${port}`, '\n')
 
     const cwd = process.cwd()
     const server = await createHostServer({

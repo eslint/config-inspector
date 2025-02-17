@@ -1,4 +1,4 @@
-import c from 'picocolors'
+import c from 'ansis'
 import { MARK_ERROR } from './constants'
 
 export class ConfigInspectorError extends Error {
