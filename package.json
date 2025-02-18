@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@nodelib/fs.walk": "catalog:",
+    "ansis": "catalog:",
     "bundle-require": "catalog:",
     "cac": "catalog:",
     "chokidar": "catalog:",
@@ -47,7 +48,6 @@
     "mlly": "catalog:",
     "mrmime": "catalog:",
     "open": "catalog:",
-    "picocolors": "catalog:",
     "ws": "catalog:"
   },
   "devDependencies": {

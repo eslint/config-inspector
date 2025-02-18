@@ -1,4 +1,4 @@
-import c from 'picocolors'
+import c from 'ansis'
 
 export const configFilenames = [
   'eslint.config.js',
