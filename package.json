@@ -41,13 +41,13 @@
     "chokidar": "catalog:",
     "debug": "catalog:",
     "esbuild": "catalog:",
-    "fast-glob": "catalog:",
     "find-up": "catalog:",
     "get-port-please": "catalog:",
     "h3": "catalog:",
     "mlly": "catalog:",
     "mrmime": "catalog:",
     "open": "catalog:",
+    "tinyglobby": "catalog:",
     "ws": "catalog:"
   },
   "devDependencies": {

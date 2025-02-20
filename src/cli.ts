@@ -5,9 +5,9 @@ import process from 'node:process'
 
 import c from 'ansis'
 import cac from 'cac'
-import fg from 'fast-glob'
 import { getPort } from 'get-port-please'
 import open from 'open'
+import { glob } from 'tinyglobby'
 import { readConfig } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'
 import { distDir } from './dirs'
@@ -64,7 +64,7 @@ cli
       await fs.rm(outDir, { recursive: true })
     await fs.mkdir(outDir, { recursive: true })
     await fs.cp(distDir, outDir, { recursive: true })
-    const htmlFiles = await fg('**/*.html', { cwd: distDir, onlyFiles: true })
+    const htmlFiles = await glob('**/*.html', { cwd: distDir, onlyFiles: true, expandDirectories: false })
     // Rewrite HTML files with base URL
     if (baseURL !== '/') {
       for (const file of htmlFiles) {

@@ -90,9 +90,6 @@ catalogs:
     eslint:
       specifier: ^9.18.0
       version: 9.18.0
-    fast-glob:
-      specifier: ^3.3.3
-      version: 3.3.3
     find-up:
       specifier: ^7.0.0
       version: 7.0.0
@@ -138,6 +135,9 @@ catalogs:
     textmate-grammar-glob:
       specifier: ^0.0.1
       version: 0.0.1
+    tinyglobby:
+      specifier: ^0.2.11
+      version: 0.2.11
     typescript:
       specifier: ^5.7.3
       version: 5.7.3
@@ -187,9 +187,6 @@ importers:
       esbuild:
         specifier: 'catalog:'
         version: 0.24.2
-      fast-glob:
-        specifier: 'catalog:'
-        version: 3.3.3
       find-up:
         specifier: 'catalog:'
         version: 7.0.0
@@ -208,6 +205,9 @@ importers:
       open:
         specifier: 'catalog:'
         version: 10.1.0
+      tinyglobby:
+        specifier: 'catalog:'
+        version: 0.2.11
       ws:
         specifier: 'catalog:'
         version: 8.18.0
@@ -3129,6 +3129,14 @@ packages:
       picomatch:
         optional: true
 
+  fdir@6.4.3:
+    resolution: {integrity: sha512-PMXmW2y1hDDfTSRc9gaXIuCCRpuoz3Kaz8cUelp3smouvfT632ozg2vrT6lJsHKKOF59YLbOGfAWGUcKEfRMQw==}
+    peerDependencies:
+      picomatch: ^3 || ^4
+    peerDependenciesMeta:
+      picomatch:
+        optional: true
+
   file-entry-cache@8.0.0:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
     engines: {node: '>=16.0.0'}
@@ -4892,6 +4900,10 @@ packages:
     resolution: {integrity: sha512-Zc+8eJlFMvgatPZTl6A9L/yht8QqdmUNtURHaKZLmKBE12hNPSrqNkUp2cs3M/UKmNVVAMFQYSjYIVHDjW5zew==}
     engines: {node: '>=12.0.0'}
 
+  tinyglobby@0.2.11:
+    resolution: {integrity: sha512-32TmKeeKUahv0Go8WmQgiEp9Y21NuxjwjqiRC1nrUB51YacfSwuB44xgXD+HdIppmMRgjQNPdrHyA6vIybYZ+g==}
+    engines: {node: '>=12.0.0'}
+
   tinypool@1.0.2:
     resolution: {integrity: sha512-al6n+QEANGFOMf/dmUMsuS5/r9B06uwlyNjZZql/zv8J7ybHCgoihBNORZCY2mzUuAnomQa2JdhyHKzZxPCrFA==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -6378,7 +6390,7 @@ snapshots:
       semver: 7.6.3
       simple-git: 3.27.0
       sirv: 3.0.0
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.11
       unimport: 3.14.5(rollup@4.30.1)
       vite: 5.4.11(@types/node@20.12.11)(terser@5.31.0)
       vite-plugin-inspect: 0.8.9(@nuxt/kit@3.15.1(magicast@0.3.5)(rollup@4.30.1))(rollup@4.30.1)(vite@5.4.11(@types/node@20.12.11)(terser@5.31.0))
@@ -7113,7 +7125,7 @@ snapshots:
       magic-string: 0.30.17
       pathe: 1.1.2
       perfect-debounce: 1.0.0
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.11
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -7194,7 +7206,7 @@ snapshots:
       '@unocss/rule-utils': 65.4.0
       css-tree: 3.1.0
       postcss: 8.4.49
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.11
     transitivePeerDependencies:
       - supports-color
 
@@ -7277,7 +7289,7 @@ snapshots:
       '@unocss/inspector': 65.4.0(vue@3.5.13(typescript@5.7.3))
       chokidar: 3.6.0
       magic-string: 0.30.17
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.11
       vite: 5.4.11(@types/node@20.12.11)(terser@5.31.0)
     transitivePeerDependencies:
       - rollup
@@ -7292,7 +7304,7 @@ snapshots:
       '@unocss/core': 65.4.0
       chokidar: 3.6.0
       magic-string: 0.30.17
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.11
       unplugin: 2.1.2
       webpack: 5.88.2(esbuild@0.24.2)
       webpack-sources: 3.2.3
@@ -8750,6 +8762,10 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.2
 
+  fdir@6.4.3(picomatch@4.0.2):
+    optionalDependencies:
+      picomatch: 4.0.2
+
   file-entry-cache@8.0.0:
     dependencies:
       flat-cache: 4.0.1
@@ -9725,7 +9741,7 @@ snapshots:
       postcss: 8.4.49
       postcss-nested: 7.0.2(postcss@8.4.49)
       semver: 7.6.3
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.11
     optionalDependencies:
       typescript: 5.7.3
       vue: 3.5.13(typescript@5.7.3)
@@ -10890,6 +10906,11 @@ snapshots:
       fdir: 6.4.2(picomatch@4.0.2)
       picomatch: 4.0.2
 
+  tinyglobby@0.2.11:
+    dependencies:
+      fdir: 6.4.3(picomatch@4.0.2)
+      picomatch: 4.0.2
+
   tinypool@1.0.2: {}
 
   tinyrainbow@1.2.0: {}
@@ -10968,7 +10989,7 @@ snapshots:
       rollup: 4.30.1
       rollup-plugin-dts: 6.1.1(rollup@4.30.1)(typescript@5.7.3)
       scule: 1.3.0
-      tinyglobby: 0.2.10
+      tinyglobby: 0.2.11
       untyped: 1.5.2
     optionalDependencies:
       typescript: 5.7.3
