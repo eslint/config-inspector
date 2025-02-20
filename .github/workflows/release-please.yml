@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: lts/*
           registry-url: https://registry.npmjs.org
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm publish --provenance --access public
         env:

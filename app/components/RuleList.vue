@@ -12,12 +12,12 @@ const props = defineProps<{
 }>()
 
 const names = computed(() => Array.isArray(props.rules) ? props.rules.map(i => i.name) : Object.keys(props.rules))
-const getRule = function (name: string) {
+function getRule(name: string) {
   return Array.isArray(props.rules)
     ? props.rules.find(i => i.name === name)
     : getRuleFromName(name)!
 }
-const getValue = function (name: string) {
+function getValue(name: string) {
   return Array.isArray(props.rules)
     ? undefined
     : props.rules[name]

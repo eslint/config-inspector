@@ -2,7 +2,7 @@
   "name": "@eslint/config-inspector",
   "type": "module",
   "version": "1.0.0",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.4.1",
   "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
   "funding": "https://opencollective.com/eslint",
@@ -90,8 +90,11 @@
     "overrides": {
       "nitropack": "catalog:"
     },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ],
     "patchedDependencies": {
-      "@eslint/config-array@0.19.1": "patches/@eslint__config-array@0.19.1.patch"
+      "@eslint/config-array": "patches/@eslint__config-array.patch"
     }
   },
   "simple-git-hooks": {

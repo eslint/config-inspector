@@ -1,10 +1,11 @@
+import type { CreateWsServerOptions } from './ws'
 import { readFile, stat } from 'node:fs/promises'
 import { createServer } from 'node:http'
 import { join } from 'node:path'
 import { createApp, eventHandler, serveStatic, toNodeListener } from 'h3'
 import { lookup } from 'mrmime'
 import { distDir } from './dirs'
-import { createWsServer, type CreateWsServerOptions } from './ws'
+import { createWsServer } from './ws'
 
 export async function createHostServer(options: CreateWsServerOptions) {
   const app = createApp()
