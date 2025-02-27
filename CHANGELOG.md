@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.1](https://github.com/eslint/config-inspector/compare/v1.0.0...v1.0.1) (2025-02-27)
+
+
+### chore
+
+* release-please-mark ([a89e28b](https://github.com/eslint/config-inspector/commit/a89e28b68c29b45735e3eb3c951e2f552af202b5))
+
+
+### Features
+
+* replace picocolors with ansis ([#123](https://github.com/eslint/config-inspector/issues/123)) ([bf6f650](https://github.com/eslint/config-inspector/commit/bf6f650bdc26a5d00219cdc353e48cc8723956c2))
+* update deps ([3c6acfa](https://github.com/eslint/config-inspector/commit/3c6acfa878b259cdf45bfdbe6114ea7e6733ed16))
+
+
+### Bug Fixes
+
+* spelling of "globbing" ([#121](https://github.com/eslint/config-inspector/issues/121)) ([afb7441](https://github.com/eslint/config-inspector/commit/afb744174e4fa7e66add355c872dd9df109c099f))
+
 ## [1.0.0](https://github.com/eslint/config-inspector/compare/v0.7.1...v1.0.0) (2025-01-15)
 
 
