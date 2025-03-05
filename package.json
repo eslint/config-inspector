@@ -78,6 +78,7 @@
     "minimatch": "catalog:",
     "nuxt": "catalog:",
     "nuxt-eslint-auto-explicit-import": "catalog:",
+    "rollup": "^4.34.9",
     "shiki": "catalog:",
     "simple-git-hooks": "catalog:",
     "textmate-grammar-glob": "catalog:",
@@ -88,9 +89,11 @@
   },
   "pnpm": {
     "overrides": {
-      "nitropack": "catalog:"
+      "nitropack": "catalog:",
+      "rollup": "catalog:"
     },
     "onlyBuiltDependencies": [
+      "@parcel/watcher",
       "esbuild"
     ],
     "patchedDependencies": {
