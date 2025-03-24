@@ -9,10 +9,6 @@ import './composables/dark'
 
 const config = useRuntimeConfig()
 init(config.app.baseURL)
-
-useHead({
-  title: 'ESLint Config Inspector',
-})
 </script>
 
 <template>
