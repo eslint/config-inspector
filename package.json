@@ -2,7 +2,7 @@
   "name": "@eslint/config-inspector",
   "type": "module",
   "version": "1.0.2",
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.8.0",
   "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
   "funding": "https://opencollective.com/eslint",
@@ -78,7 +78,7 @@
     "minimatch": "catalog:",
     "nuxt": "catalog:",
     "nuxt-eslint-auto-explicit-import": "catalog:",
-    "rollup": "^4.34.9",
+    "rollup": "catalog:",
     "shiki": "catalog:",
     "simple-git-hooks": "catalog:",
     "textmate-grammar-glob": "catalog:",
@@ -87,18 +87,9 @@
     "vitest": "catalog:",
     "vue-tsc": "catalog:"
   },
-  "pnpm": {
-    "overrides": {
-      "nitropack": "catalog:",
-      "rollup": "catalog:"
-    },
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild"
-    ],
-    "patchedDependencies": {
-      "@eslint/config-array": "patches/@eslint__config-array.patch"
-    }
+  "resolutions": {
+    "nitropack": "catalog:",
+    "rollup": "catalog:"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

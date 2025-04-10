@@ -12,6 +12,7 @@ export default nuxt()
             'vue/no-extra-parens': 'off',
           },
         },
+        pnpm: true,
       },
     ),
   )
