@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/eslint/config-inspector/compare/v1.0.2...v1.1.0) (2025-06-06)
+
+
+### Features
+
+* update deps ([541ba4c](https://github.com/eslint/config-inspector/commit/541ba4ccb1dc7bbc30b811d832de5b994df5bcb4))
+
+
+### Bug Fixes
+
+* rules page style, close [#134](https://github.com/eslint/config-inspector/issues/134) ([0af8b66](https://github.com/eslint/config-inspector/commit/0af8b66706b1504ef0cd763c5821873a3228f030))
+
 ## [1.0.2](https://github.com/eslint/config-inspector/compare/v1.0.1...v1.0.2) (2025-03-05)
 
 
