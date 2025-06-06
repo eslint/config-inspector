@@ -121,7 +121,7 @@ function capitalize(str?: string) {
     <div v-else />
   </div>
 
-  <div :class="props.class" flex="~ gap-2 items-center">
+  <div :class="props.class" flex="~ gap-2 items-center" of-hidden>
     <div
       :class="[
         rule.deprecated ? 'line-through' : '',
