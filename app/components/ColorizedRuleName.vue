@@ -6,7 +6,10 @@ const props = defineProps<{
   prefix?: string
   url?: string
   as?: string
-  deprecated?: boolean
+  deprecated?: boolean | {
+    message?: string
+    url?: string
+  }
   borderless?: boolean
   break?: boolean
 }>()
