@@ -29,7 +29,7 @@ catalog:
   chokidar: ^4.0.3
   debug: ^4.4.1
   esbuild: ^0.25.5
-  eslint: ^9.28.0
+  eslint: ^9.30.0
   find-up: ^7.0.0
   floating-vue: ^5.2.2
   fuse.js: ^7.1.0

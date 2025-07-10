@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
 import { useRouter } from '#app/composables/router'
-import { computed, defineModel, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import { filtersRules, isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
@@ -20,14 +20,12 @@ const emit = defineEmits<{
 
 /**
  * Fields that are considered metadata and not part of the config object.
- * @type {Set<string>}
  * @see {@link https://github.com/eslint/rewrite/blob/e2a7ec809db20e638abbad250d105ddbde88a8d5/packages/config-array/src/config-array.js#L72-L76}
  */
 const META_FIELDS = new Set(['name'])
 
 /**
  * Fields that are added to configs internally by config inspector.
- * @type {Set<string>}
  */
 const CONFIG_INSPECTOR_FIELDS = new Set(['index'])
 
@@ -123,6 +121,15 @@ const extraConfigs = computed(() => {
     </div>
 
     <div v-if="hasShown" flex="~ col gap-4" of-auto px4 py3>
+      <div v-if="config.basePath" flex="~ gap-2 items-start">
+        <div i-ph-stack-simple my1 flex-none />
+        <div flex="~ col gap-2">
+          <div>Base path</div>
+          <p>
+            {{ config.basePath }}
+          </p>
+        </div>
+      </div>
       <div v-if="config.files" flex="~ gap-2 items-start">
         <div i-ph-file-magnifying-glass-duotone my1 flex-none />
         <div flex="~ col gap-2">

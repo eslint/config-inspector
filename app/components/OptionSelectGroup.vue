@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineModel } from 'vue'
-
 defineProps<{
   options: readonly string[] | number[]
   titles?: string[]
