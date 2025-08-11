@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
 import { useRouter } from '#app/composables/router'
-import { computed, defineModel, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import { filtersRules, isGridView } from '~/composables/state'
 import { stringifyUnquoted } from '~/composables/strings'
