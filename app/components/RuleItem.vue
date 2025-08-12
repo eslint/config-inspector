@@ -131,9 +131,11 @@ function capitalize(str?: string) {
     >
       {{ rule.invalid ? 'Invalid rule has no description' : capitalize(rule.docs?.description) }}
     </div>
-    <div v-if="!gridView && (rule.invalid || rule.deprecated)" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
-      {{ rule.invalid ? 'INVALID' : 'DEPRECATED' }}
-    </div>
+    <RuleDeprecatedInfo
+      v-if="!gridView && (rule.invalid || rule.deprecated)"
+      :deprecated="rule.deprecated"
+      :invalid="rule.invalid"
+    />
   </div>
 
   <div
@@ -141,9 +143,11 @@ function capitalize(str?: string) {
     flex flex-auto flex-col items-start justify-end
   >
     <div flex="~ gap-2" mt1>
-      <div v-if="rule.invalid || rule.deprecated" border="~ red/25 rounded" bg-red:5 px1 text-xs text-red>
-        {{ rule.invalid ? 'INVALID' : 'DEPRECATED' }}
-      </div>
+      <RuleDeprecatedInfo
+        v-if="rule.invalid || rule.deprecated"
+        :deprecated="rule.deprecated"
+        :invalid="rule.invalid"
+      />
       <div
         v-if="rule.docs?.recommended"
         v-tooltip="'✅ Recommended'"
