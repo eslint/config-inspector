@@ -18,7 +18,7 @@ const colors = {
   off: 'text-gray',
 }
 
-const config = computed(() => payload.value.configs[props.state.configIndex])
+const config = computed(() => payload.value.configs[props.state.configIndex]!)
 
 const defaultOptions = computed(() => getRuleDefaultOptions(props.state.name))
 

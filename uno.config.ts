@@ -121,7 +121,7 @@ export default defineConfig({
         mono: 'Space Mono',
       },
       processors: createLocalFontProcessor({
-        fontAssetsDir: './app/public/fonts',
+        fontAssetsDir: './public/fonts',
         fontServeBaseUrl: './fonts',
       }),
     }),

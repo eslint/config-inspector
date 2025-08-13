@@ -46,7 +46,7 @@ function showDeprecated() {
   <div flex="~ gap-3 items-center wrap" py4>
     <NuxtLink
       to="/configs"
-      px3 py1 text-base btn-action
+      btn-action px3 py1 text-base
       active-class="btn-action-active"
     >
       <div i-ph-stack-duotone flex-none />
@@ -54,7 +54,7 @@ function showDeprecated() {
     </NuxtLink>
     <NuxtLink
       to="/rules"
-      px3 py1 text-base btn-action
+      btn-action px3 py1 text-base
       active-class="btn-action-active"
     >
       <div i-ph-list-dashes-duotone flex-none />
@@ -63,7 +63,7 @@ function showDeprecated() {
     <NuxtLink
       v-if="payload.filesResolved"
       to="/files"
-      px3 py1 text-base btn-action
+      btn-action px3 py1 text-base
       active-class="btn-action-active"
     >
       <div i-ph-files-duotone flex-none />

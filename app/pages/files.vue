@@ -21,7 +21,7 @@ function collapseAll() {
       <div border="~ base rounded" flex="~ inline">
         <button
           :class="stateStorage.viewFilesTab === 'list' ? 'btn-action-active' : 'op50'"
-          border-none btn-action
+          btn-action border-none
           @click="stateStorage.viewFilesTab = 'list'"
         >
           <div i-ph-files-duotone />
@@ -30,7 +30,7 @@ function collapseAll() {
         <div border="l base" />
         <button
           :class="stateStorage.viewFilesTab === 'group' ? 'btn-action-active' : 'op50'"
-          border-none btn-action
+          btn-action border-none
           @click="stateStorage.viewFilesTab = 'group' "
         >
           <div i-ph-rows-duotone />
@@ -40,13 +40,13 @@ function collapseAll() {
       <div flex-auto />
       <template v-if="stateStorage.viewFilesTab === 'group'">
         <button
-          px3 btn-action
+          btn-action px3
           @click="expandAll"
         >
           Expand All
         </button>
         <button
-          px3 btn-action
+          btn-action px3
           @click="collapseAll"
         >
           Collapse All

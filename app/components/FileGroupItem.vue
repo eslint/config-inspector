@@ -26,7 +26,7 @@ const groupName = computed(() => {
   if (props.group.configs.length === 1) {
     return {
       type: 'config',
-      config: props.group.configs[0],
+      config: props.group.configs[0]!,
     } as const
   }
   if (props.group.globs.size <= 2) {

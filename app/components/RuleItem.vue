@@ -29,7 +29,7 @@ const { copy } = useClipboard()
 function capitalize(str?: string) {
   if (!str)
     return str
-  return str[0].toUpperCase() + str.slice(1)
+  return str[0]!.toUpperCase() + str.slice(1)
 }
 </script>
 
@@ -75,7 +75,7 @@ function capitalize(str?: string) {
         :break="gridView"
         text-start
         as="button"
-        @click="e => emit('badgeClick', e)"
+        @click="(e: MouseEvent) => emit('badgeClick', e)"
       />
       <template #popper="{ shown }">
         <div v-if="shown" max-h="50vh">
