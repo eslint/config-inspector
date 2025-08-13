@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/eslint/config-inspector/compare/v1.1.0...v1.2.0) (2025-08-13)
+
+
+### Features
+
+* display rule deprecated info ([#141](https://github.com/eslint/config-inspector/issues/141)) ([1c86b27](https://github.com/eslint/config-inspector/commit/1c86b278964e1f0229bc8d8309c3a63b7d388a31))
+* upgrade to nuxt4, update deps ([#142](https://github.com/eslint/config-inspector/issues/142)) ([1947870](https://github.com/eslint/config-inspector/commit/194787010a6dcd08a4d664861fb96d7e6bd16fac))
+
 ## [1.1.0](https://github.com/eslint/config-inspector/compare/v1.0.2...v1.1.0) (2025-06-06)
 
 
