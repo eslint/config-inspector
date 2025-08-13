@@ -8,3 +8,4 @@ dist
 .DS_Store
 .eslint-config-inspector
 public/fonts
+app/public/fonts
