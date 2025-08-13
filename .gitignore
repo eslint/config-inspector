@@ -7,4 +7,4 @@ dist
 .idea/
 .DS_Store
 .eslint-config-inspector
-app/public/fonts
+public/fonts

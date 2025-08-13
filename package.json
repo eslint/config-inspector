@@ -21,14 +21,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "nuxi build && unbuild",
-    "dev": "nuxi dev",
-    "prepare": "nuxi prepare && npx simple-git-hooks",
+    "build": "nuxt build && unbuild",
+    "dev": "nuxt dev",
+    "prepare": "nuxt prepare && npx simple-git-hooks",
     "start": "node bin.mjs",
     "prepack": "pnpm build",
-    "lint": "nuxi prepare && eslint .",
+    "lint": "nuxt prepare && eslint .",
     "test": "vitest",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "nuxt typecheck"
   },
   "peerDependencies": {
     "eslint": "^8.50.0 || ^9.0.0"

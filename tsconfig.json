@@ -1,8 +1,20 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
-  "compilerOptions": {
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "noEmit": true
-  }
+  "references": [
+    {
+      "path": "./.nuxt/tsconfig.app.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.server.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.shared.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.cli.json"
+    }
+  ],
+  "files": []
 }

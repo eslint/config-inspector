@@ -8,8 +8,6 @@ export default defineNuxtConfig({
     'nuxt-eslint-auto-explicit-import',
   ],
 
-  srcDir: 'app',
-
   eslint: {
     config: {
       standalone: false,

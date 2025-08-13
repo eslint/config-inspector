@@ -92,7 +92,7 @@ export function getRuleFromName(name: string): RuleInfo {
   return payload.value.rules[name] || {
     name,
     invalid: true,
-  }
+  } as RuleInfo
 }
 
 export function getRuleDefaultOptions(name: string): any[] {
@@ -193,7 +193,7 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
       filesGroupMap.set(groupId, {
         id: groupId,
         files: [],
-        configs: specialConfigs.map(i => payload.configs[i]),
+        configs: specialConfigs.map(i => payload.configs[i]!),
         globs: new Set<string>(),
       })
     }
@@ -209,7 +209,7 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
     list: files,
     globToFiles,
     fileToGlobs,
-    fileToConfigs: new Map(Array.from(fileToConfigs.entries()).map(([file, configs]) => [file, Array.from(configs).sort().map(i => payload.configs[i])])),
+    fileToConfigs: new Map(Array.from(fileToConfigs.entries()).map(([file, configs]) => [file, Array.from(configs).sort().map(i => payload.configs[i]!)])),
     configToFiles,
     groups,
   }

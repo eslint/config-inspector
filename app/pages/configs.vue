@@ -40,7 +40,7 @@ watchEffect(() => {
         ...payload.value.configsGeneral.filter(i => !isIgnoreOnlyConfig(i)).map(i => i.index),
       ]))
         .sort()
-        .map(idx => payload.value.configs[idx])
+        .map(idx => payload.value.configs[idx]!)
     }
     else {
       configs = []
@@ -216,13 +216,13 @@ onMounted(async () => {
           v-show="autoCompleteOpen && autoCompleteFiles.length"
           pos="absolute left-8 right-8 top-1/1"
           border="~ base rounded"
-          flex="~ col" z-1 mt--1 max-h-80 of-auto py1 shadow bg-glass
+          flex="~ col" z-1 mt--1 max-h-80 of-auto bg-glass py1 shadow
         >
           <button
             v-for="file, idx of autoCompleteFiles"
             :key="file.item"
             :class="idx === autoCompleteIndex ? 'bg-active' : ''"
-            hover:bg-active px3 py0.5 text-left font-mono
+            px3 py0.5 text-left font-mono hover:bg-active
             @click="autoCompleteConfirm(idx)"
           >
             <template v-if="file.matches">
@@ -287,7 +287,7 @@ onMounted(async () => {
           <div border="~ base rounded" flex>
             <button
               :class="stateStorage.viewFileMatchType === 'configs' ? 'btn-action-active' : 'op50'"
-              border-none btn-action
+              btn-action border-none
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
               <div i-ph-stack-duotone />
@@ -296,7 +296,7 @@ onMounted(async () => {
             <div border="l base" />
             <button
               :class="stateStorage.viewFileMatchType !== 'configs' ? 'btn-action-active' : 'op50'"
-              border-none btn-action
+              btn-action border-none
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
               <div i-ph-film-script-duotone />
@@ -318,13 +318,13 @@ onMounted(async () => {
         </label>
         <div flex-auto />
         <button
-          px3 btn-action
+          btn-action px3
           @click="expandAll"
         >
           Expand All
         </button>
         <button
-          px3 btn-action
+          btn-action px3
           @click="collapseAll"
         >
           Collapse All
