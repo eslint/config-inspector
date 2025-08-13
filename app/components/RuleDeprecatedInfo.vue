@@ -8,7 +8,7 @@ const {
   invalid,
 } = defineProps<{
   deprecated: RuleInfo['deprecated']
-  invalid: RuleInfo['invalid']
+  invalid: RuleInfo['invalid'] | undefined
 }>()
 
 const deprecatedInfo = computed(() => {
