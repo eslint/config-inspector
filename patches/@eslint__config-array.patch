@@ -1,13 +1,13 @@
 diff --git a/dist/esm/index.js b/dist/esm/index.js
-index 1e68f33e3d641d856ab25b8206be085b6c205067..7dd46e0b8872078bba033ac75c79a9046020d589 100644
+index d349bf13ef57b4fa3c9226cb7432642cba1371f6..1fc133d89e20a45a67cb0f03793885be5bfeb6b8 100644
 --- a/dist/esm/index.js
 +++ b/dist/esm/index.js
-@@ -221,7 +221,7 @@ const CONFIG_TYPES = new Set(["array", "function"]);
+@@ -233,7 +233,7 @@ const CONFIG_TYPES = new Set(["array", "function"]);
   * Fields that are considered metadata and not part of the config object.
   * @type {Set<string>}
   */
--const META_FIELDS = new Set(["name"]);
-+const META_FIELDS = new Set(["name", "index"]);
+-const META_FIELDS = new Set(["name", "basePath"]);
++const META_FIELDS = new Set(["name", "basePath", "index"]);
  
  /**
   * A schema containing just files and ignores for early validation.

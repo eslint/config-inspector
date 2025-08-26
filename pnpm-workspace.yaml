@@ -1,58 +1,58 @@
-packages: []
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
   '@antfu/eslint-config': ^5.2.1
-  '@eslint/config-array': ^0.20.0
-  '@iconify-json/carbon': ^1.2.9
-  '@iconify-json/file-icons': ^1.2.1
-  '@iconify-json/logos': ^1.2.4
+  '@eslint/config-array': ^0.21.0
+  '@iconify-json/carbon': ^1.2.13
+  '@iconify-json/file-icons': ^1.2.2
+  '@iconify-json/logos': ^1.2.9
   '@iconify-json/ph': ^1.2.2
-  '@iconify-json/simple-icons': ^1.2.37
-  '@iconify-json/svg-spinners': ^1.2.2
-  '@iconify-json/twemoji': ^1.2.2
-  '@iconify-json/vscode-icons': ^1.2.22
+  '@iconify-json/simple-icons': ^1.2.49
+  '@iconify-json/svg-spinners': ^1.2.4
+  '@iconify-json/twemoji': ^1.2.4
+  '@iconify-json/vscode-icons': ^1.2.30
   '@nodelib/fs.walk': ^3.0.1
-  '@nuxt/eslint': ^1.4.1
-  '@shikijs/langs-precompiled': ^3.6.0
-  '@shikijs/transformers': ^3.6.0
+  '@nuxt/eslint': ^1.9.0
+  '@shikijs/langs-precompiled': ^3.11.0
+  '@shikijs/transformers': ^3.11.0
   '@types/connect': ^3.4.38
   '@types/ws': ^8.18.1
-  '@typescript-eslint/utils': ^8.33.1
+  '@typescript-eslint/utils': ^8.41.0
   '@unocss/eslint-config': ^66.4.2
   '@unocss/nuxt': ^66.4.2
   '@voxpelli/config-array-find-files': ^1.2.2
-  '@vueuse/nuxt': ^13.3.0
+  '@vueuse/nuxt': ^13.7.0
   ansis: ^4.1.0
   bundle-require: ^5.1.0
   cac: ^6.7.14
   chokidar: ^4.0.3
   debug: ^4.4.1
-  esbuild: ^0.25.5
-  eslint: ^9.28.0
+  esbuild: ^0.25.9
+  eslint: ^9.34.0
   find-up: ^7.0.0
   floating-vue: ^5.2.2
   fuse.js: ^7.1.0
-  get-port-please: ^3.1.2
-  h3: ^1.15.3
-  lint-staged: ^15.5.2
-  minimatch: ^9.0.5
-  mlly: ^1.7.4
+  get-port-please: ^3.2.0
+  h3: ^1.15.4
+  lint-staged: ^16.1.5
+  minimatch: ^10.0.3
+  mlly: ^1.8.0
   mrmime: ^2.0.1
-  nitropack: ^2.11.12
+  nitropack: ^2.12.4
   nuxt: ^4.0.3
   nuxt-eslint-auto-explicit-import: ^0.1.1
-  open: ^10.1.2
-  rollup: ^4.41.1
-  shiki: ^3.6.0
-  simple-git-hooks: ^2.13.0
+  open: ^10.2.0
+  rollup: ^4.48.1
+  shiki: ^3.11.0
+  simple-git-hooks: ^2.13.1
   textmate-grammar-glob: ^0.0.1
   tinyglobby: ^0.2.14
   typescript: ^5.9.2
-  unbuild: ^3.6.0
-  vitest: ^3.2.2
-  vue-tsc: ^3.0.5
-  ws: ^8.18.2
+  unbuild: ^3.6.1
+  vitest: ^3.2.4
+  vue-tsc: ^3.0.6
+  ws: ^8.18.3
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
