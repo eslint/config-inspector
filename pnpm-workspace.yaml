@@ -47,8 +47,8 @@ catalog:
   simple-git-hooks: ^2.13.1
   textmate-grammar-glob: ^0.0.1
   tinyglobby: ^0.2.14
+  tsdown: ^0.14.2
   typescript: ^5.9.2
-  unbuild: ^3.6.1
   vitest: ^3.2.4
   vue-tsc: ^3.0.6
   ws: ^8.18.3
