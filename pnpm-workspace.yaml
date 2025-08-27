@@ -1,3 +1,4 @@
+packages: []
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
