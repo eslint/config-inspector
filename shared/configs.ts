@@ -49,16 +49,15 @@ export function matchFile(
     configs: [],
   }
 
-  const arr = buildConfigArray(configs, basePath)
   const {
     config: globalMatchedConfig = {},
     status: globalMatchStatus,
-  } = arr.getConfigWithStatus(filepath)
+  } = buildConfigArray(configs, basePath).getConfigWithStatus(filepath)
   configs.forEach((config) => {
-    const positive = getMatchedGlobs(filepath, config.files || ['**'])
+    const positive = getMatchedGlobs(filepath, config.files || [])
     const negative = getMatchedGlobs(filepath, config.ignores || [])
 
-    if (globalMatchStatus === 'matched' && globalMatchedConfig.index?.includes(config.index)) {
+    if (globalMatchStatus === 'matched' && globalMatchedConfig.index?.includes(config.index) && positive.length > 0) {
       result.configs.push(config.index)
       // push positive globs only when there are configs matched
       result.globs.push(...positive)
