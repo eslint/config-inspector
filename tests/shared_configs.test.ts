@@ -91,8 +91,61 @@ describe('matchFile', () => {
         { index: 5, files: ['**'], ignores: ['tests/**', '!tests/folder/*.foo', '!tests/folder/*.bar'] },
         { index: 6, files: ['**'], ignores: ['tests/**', '!tests/*.test.ts', 'tests/folder/*'] },
         { index: 7, files: ['**'], ignores: ['tests/**', '!tests/*.test.ts', 'tests/folder/*', '!tests/folder/*.ts', 'tests/other/**'] },
+        { index: 8 },
       ], process.cwd())
-      expect(result.configs).toEqual([0, 3, 4, 7])
+      expect(result.configs).toEqual([0, 3, 4, 7, 8])
+    })
+  })
+
+  describe('merging precedence', () => {
+    // Typically, there is a global config at first positions that specifies that e.g. .js and .mjs is included,
+    //  which causes such files to be qualified also for universal configs.
+    it('last config without files should win for overlapping configs', () => {
+      const configs = [
+        { index: -1, files: ['**/*.js', '**/*.mjs'] },
+        { index: 0 },
+        { index: 1, files: ['**/*.js'] },
+        { index: 2 },
+      ]
+      // Should apply all configs to .js file, last wins
+      const result = matchFile('foo.js', configs, process.cwd())
+      expect(result.configs).toEqual([-1, 0, 1, 2])
+    })
+
+    it('last config with files wins for matching files only', () => {
+      const configs = [
+        { index: -1, files: ['**/*.js', '**/*.mjs'] },
+        { index: 0 },
+        { index: 1, files: ['**/*.js'] },
+      ]
+      // Only configs 0 and 1 apply to .js file
+      const result = matchFile('foo.js', configs, process.cwd())
+      expect(result.configs).toEqual([-1, 0, 1])
+      // Only config 0 applies to .mjs file
+      const resultTs = matchFile('foo.mjs', configs, process.cwd())
+      expect(resultTs.configs).toEqual([-1, 0])
+    })
+
+    it('global config applies to all files', () => {
+      const configs = [
+        { index: -1, files: ['**/*.js', '**/*.mjs'] },
+        { index: 0 },
+        { index: 1 },
+      ]
+      const result = matchFile('foo.js', configs, process.cwd())
+      const result2 = matchFile('foo.mjs', configs, process.cwd())
+      expect(result.configs).toEqual([-1, 0, 1])
+      expect(result2.configs).toEqual([-1, 0, 1])
+    })
+
+    it('config with files does not apply to non-matching files', () => {
+      const configs = [
+        { index: -1, files: ['**/*.js', '**/*.mjs'] },
+        { index: 0 },
+        { index: 1, files: ['**/*.js'] },
+      ]
+      const result = matchFile('foo.mjs', configs, process.cwd())
+      expect(result.configs).toEqual([-1, 0])
     })
   })
 })
