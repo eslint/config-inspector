@@ -209,7 +209,7 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
     list: files,
     globToFiles,
     fileToGlobs,
-    fileToConfigs: new Map(Array.from(fileToConfigs.entries()).map(([file, configs]) => [file, Array.from(configs).sort().map(i => payload.configs[i]!)])),
+    fileToConfigs: new Map(Array.from(fileToConfigs.entries()).map(([file, configs]) => [file, Array.from(configs).sort((a, b) => a - b).map(i => payload.configs[i]!)])),
     configToFiles,
     groups,
   }
