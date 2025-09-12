@@ -35,13 +35,11 @@ watchEffect(() => {
       payload.value.meta.basePath,
     )
     if (fileMatchResult.value.configs.length) {
-      const uniqueIdxs = Array.from(new Set([
+      configs = ((Array.from(new Set([
         ...fileMatchResult.value.configs,
         ...payload.value.configsGeneral.filter(i => !isIgnoreOnlyConfig(i)).map(i => i.index),
-      ]))
-      const sortedIdxs = uniqueIdxs
-        .sort((a, b) => a - b)
-      configs = sortedIdxs
+      ])))
+        .sort((a, b) => a - b))
         .map(idx => payload.value.configs[idx]!)
     }
     else {
