@@ -39,7 +39,7 @@ watchEffect(() => {
         ...fileMatchResult.value.configs,
         ...payload.value.configsGeneral.filter(i => !isIgnoreOnlyConfig(i)).map(i => i.index),
       ]))
-        .sort()
+        .sort((a, b) => a - b)
         .map(idx => payload.value.configs[idx]!)
     }
     else {
