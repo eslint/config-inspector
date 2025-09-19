@@ -5,4 +5,9 @@ export default defineConfig({
     'src/cli.ts',
   ],
   clean: false,
+  inputOptions: {
+    experimental: {
+      resolveNewUrlToAsset: false,
+    },
+  },
 })
