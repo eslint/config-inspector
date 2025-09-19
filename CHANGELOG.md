@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/eslint/config-inspector/compare/v1.2.0...v1.3.0) (2025-09-15)
+
+
+### Features
+
+* update deps ([#146](https://github.com/eslint/config-inspector/issues/146)) ([655b4a4](https://github.com/eslint/config-inspector/commit/655b4a4923d2b8bd11fc853c75cf4281be9beb13))
+
 ## [1.2.0](https://github.com/eslint/config-inspector/compare/v1.1.0...v1.2.0) (2025-08-13)
 
 
