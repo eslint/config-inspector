@@ -2,7 +2,7 @@
   "name": "@eslint/config-inspector",
   "type": "module",
   "version": "1.3.0",
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.17.0",
   "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
   "funding": "https://opencollective.com/eslint",
@@ -21,7 +21,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "nuxt build && unbuild",
+    "build": "nuxt build && tsdown",
     "dev": "nuxt dev",
     "prepare": "nuxt prepare && npx simple-git-hooks",
     "start": "node bin.mjs",
@@ -82,8 +82,8 @@
     "shiki": "catalog:",
     "simple-git-hooks": "catalog:",
     "textmate-grammar-glob": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:",
-    "unbuild": "catalog:",
     "vitest": "catalog:",
     "vue-tsc": "catalog:"
   },
