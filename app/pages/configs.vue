@@ -12,6 +12,14 @@ import { getRuleLevel } from '~~/shared/rules'
 import { payload } from '~/composables/payload'
 import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
 
+// TODO: fix the lint
+// eslint-disable-next-line unimport/auto-insert
+definePageMeta({
+  scrollToTop(to) {
+    return !('index' in to.query)
+  },
+})
+
 const input = ref(filters.filepath)
 
 function expandAll() {
