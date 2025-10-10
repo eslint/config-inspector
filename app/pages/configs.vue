@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Linter } from 'eslint'
 import type { FuseResultMatch } from 'fuse.js'
-import type { PropType, VNode } from 'vue'
+import type { ComponentPublicInstance, PropType, VNode } from 'vue'
 import type { FlatConfigItem, MatchedFile } from '~~/shared/types'
 import { useRoute } from '#app/composables/router'
 import { debouncedWatch } from '@vueuse/core'
@@ -399,10 +399,9 @@ onMounted(async () => {
           >
             <ConfigItem
               v-show="filteredConfigs.includes(config) && (!filters.filepath || (!stateStorage.showSpecificOnly || config.files))"
-              :ref="(el) => { configEls.set(idx, (el as any)?.$el) }"
+              :ref="(el) => { configEls.set(idx, (el as ComponentPublicInstance)?.$el) }"
               v-model:open="configsOpenState[idx]"
-              :payload="payload"
-              :config="config"
+              :config
               :index="idx"
               :filters="filters"
               :active="!!(filters.filepath && config.files)"
