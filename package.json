@@ -20,6 +20,9 @@
     "*.mjs",
     "dist"
   ],
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
   "scripts": {
     "build": "nuxt build && tsdown",
     "dev": "nuxt dev",
@@ -29,9 +32,6 @@
     "lint": "nuxt prepare && eslint .",
     "test": "vitest",
     "typecheck": "nuxt typecheck"
-  },
-  "engines": {
-    "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "peerDependencies": {
     "eslint": "^8.50.0 || ^9.0.0"
