@@ -223,8 +223,8 @@ export async function readConfig(
       : undefined,
     meta: {
       lastUpdate: Date.now(),
-      basePath,
-      configPath,
+      basePath: basePath.replaceAll('\\', '/'),
+      configPath: configPath.replaceAll('\\', '/'),
     },
   }
 
@@ -251,7 +251,7 @@ export async function globMatchedFiles(
 
   return files
     .map((filepath) => {
-      filepath = relative(basePath, filepath)
+      filepath = relative(basePath, filepath).replaceAll('\\', '/')
       const result = matchFile(filepath, configs, basePath)
       if (!result.configs.length)
         return undefined
