@@ -1,56 +1,57 @@
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
-  '@antfu/eslint-config': ^5.4.1
-  '@eslint/config-array': ^0.21.0
-  '@iconify-json/carbon': ^1.2.13
+  '@antfu/eslint-config': ^6.2.0
+  '@eslint/config-array': ^0.21.1
+  '@iconify-json/carbon': ^1.2.14
   '@iconify-json/file-icons': ^1.2.2
-  '@iconify-json/logos': ^1.2.9
+  '@iconify-json/logos': ^1.2.10
   '@iconify-json/ph': ^1.2.2
-  '@iconify-json/simple-icons': ^1.2.53
+  '@iconify-json/simple-icons': ^1.2.57
   '@iconify-json/svg-spinners': ^1.2.4
   '@iconify-json/twemoji': ^1.2.4
-  '@iconify-json/vscode-icons': ^1.2.30
+  '@iconify-json/vscode-icons': ^1.2.33
   '@nodelib/fs.walk': ^3.0.1
-  '@nuxt/eslint': ^1.9.0
-  '@shikijs/langs-precompiled': ^3.13.0
-  '@shikijs/transformers': ^3.13.0
+  '@nuxt/eslint': ^1.10.0
+  '@shikijs/langs-precompiled': ^3.15.0
+  '@shikijs/transformers': ^3.15.0
   '@types/connect': ^3.4.38
   '@types/ws': ^8.18.1
-  '@typescript-eslint/utils': ^8.44.1
-  '@unocss/eslint-config': ^66.5.2
-  '@unocss/nuxt': ^66.5.2
+  '@typescript-eslint/utils': ^8.46.3
+  '@unocss/eslint-config': ^66.5.4
+  '@unocss/nuxt': ^66.5.4
   '@voxpelli/config-array-find-files': ^1.2.2
-  '@vueuse/nuxt': ^13.9.0
-  ansis: ^4.1.0
+  '@vueuse/nuxt': ^14.0.0
+  ansis: ^4.2.0
   bundle-require: ^5.1.0
   cac: ^6.7.14
   chokidar: ^4.0.3
   debug: ^4.4.3
-  esbuild: ^0.25.10
-  eslint: ^9.36.0
+  esbuild: ^0.25.12
+  eslint: ^9.39.1
   find-up: ^7.0.0
   floating-vue: ^5.2.2
   fuse.js: ^7.1.0
   get-port-please: ^3.2.0
   h3: ^1.15.4
-  lint-staged: ^16.2.0
-  minimatch: ^10.0.3
+  lint-staged: ^16.2.6
+  minimatch: ^10.1.1
   mlly: ^1.8.0
   mrmime: ^2.0.1
-  nitropack: ^2.12.6
-  nuxt: ^4.1.2
+  nitropack: ^2.12.9
+  nuxt: ^4.2.0
   nuxt-eslint-auto-explicit-import: ^0.1.1
   open: ^10.2.0
-  rollup: ^4.52.1
-  shiki: ^3.13.0
+  rollup: ^4.52.5
+  shiki: ^3.15.0
   simple-git-hooks: ^2.13.1
   textmate-grammar-glob: ^0.0.1
   tinyglobby: ^0.2.15
-  tsdown: ^0.15.4
-  typescript: ^5.9.2
-  vitest: ^3.2.4
-  vue-tsc: ^3.0.8
+  tsdown: ^0.16.0
+  typescript: ^5.9.3
+  vite: npm:rolldown-vite@^7.2.1
+  vitest: ^4.0.7
+  vue-tsc: ^3.1.3
   ws: ^8.18.3
 
 onlyBuiltDependencies:

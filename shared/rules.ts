@@ -13,6 +13,7 @@ export function getRuleLevel(level: Linter.RuleEntry | undefined) {
     case 'error':
       return 'error'
   }
+  return 'off'
 }
 
 export function getRuleOptions<T extends any[]>(level: Linter.RuleEntry<T> | undefined): T | undefined {
