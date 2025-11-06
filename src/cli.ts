@@ -1,12 +1,12 @@
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
-import { relative, resolve } from 'node:path'
 import process from 'node:process'
-
 import c from 'ansis'
+
 import cac from 'cac'
 import { getPort } from 'get-port-please'
 import open from 'open'
+import { relative, resolve } from 'pathe'
 import { glob } from 'tinyglobby'
 import { readConfig } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'

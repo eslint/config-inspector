@@ -1,12 +1,12 @@
 import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
-import { basename, dirname, relative, resolve } from 'node:path'
 import process from 'node:process'
 import { configArrayFindFiles } from '@voxpelli/config-array-find-files'
 import c from 'ansis'
 import { bundleRequire } from 'bundle-require'
 import { findUp } from 'find-up'
 import { resolve as resolveModule } from 'mlly'
+import { basename, dirname, normalize, relative, resolve } from 'pathe'
 import { buildConfigArray, matchFile } from '../shared/configs'
 import { configFilenames, legacyConfigFilenames, MARK_CHECK, MARK_INFO } from './constants'
 import { ConfigPathError, ConfigPathLegacyError } from './errors'
@@ -78,11 +78,13 @@ export async function resolveConfigPath(options: ResolveConfigPathOptions) {
       )
   }
 
-  const basePath = userBasePath || (
+  const basePath = normalize(userBasePath || (
     userConfigPath
       ? cwd // When user explicit provide config path, use current working directory as root
       : dirname(configPath) // Otherwise, use config file's directory as root
-  )
+  ))
+
+  configPath = normalize(configPath)
 
   return {
     basePath,
@@ -135,6 +137,7 @@ export async function readConfig(
   // https://github.com/eslint/eslint/blob/21d3766c3f4efd981d3cc294c2c82c8014815e6e/lib/config/default-config.js#L66-L69
   rawConfigs.unshift(
     {
+      index: 1,
       name: 'eslint/defaults/languages',
       languageOptions: {
         sourceType: 'module',
@@ -146,6 +149,7 @@ export async function readConfig(
       },
     } as FlatConfigItem,
     {
+      index: 2,
       name: 'eslint/defaults/ignores',
       ignores: [
         '**/node_modules/',
@@ -153,10 +157,12 @@ export async function readConfig(
       ],
     } as FlatConfigItem,
     {
+      index: 3,
       name: 'eslint/defaults/files',
       files: ['**/*.js', '**/*.mjs'],
     } as FlatConfigItem,
     {
+      index: 4,
       name: 'eslint/defaults/files-cjs',
       files: ['**/*.cjs'],
       languageOptions: {
@@ -207,7 +213,10 @@ export async function readConfig(
         ? Object.fromEntries(Object.entries(c.plugins ?? {}).map(([prefix]) => [prefix, {}]).filter(i => i[0]))
         : undefined,
       languageOptions: c.languageOptions
-        ? { ...c.languageOptions, parser: c.languageOptions.parser?.meta?.name as any }
+        ? {
+            ...c.languageOptions,
+            parser: (c.languageOptions.parser as any)?.meta?.name as any,
+          }
         : undefined,
       processor: (c.processor as any)?.meta?.name,
     }
@@ -223,8 +232,8 @@ export async function readConfig(
       : undefined,
     meta: {
       lastUpdate: Date.now(),
-      basePath: basePath.replaceAll('\\', '/'),
-      configPath: configPath.replaceAll('\\', '/'),
+      basePath,
+      configPath,
     },
   }
 
