@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/eslint/config-inspector/compare/v1.3.0...v1.4.0) (2025-11-06)
+
+
+### Features
+
+* update deps ([cb06cda](https://github.com/eslint/config-inspector/commit/cb06cda7748a4328fb7b21c3c389a66eb282443d))
+
+
+### Bug Fixes
+
+* normalize filepath using `pathe` ([#125](https://github.com/eslint/config-inspector/issues/125)) ([#177](https://github.com/eslint/config-inspector/issues/177)) ([8486806](https://github.com/eslint/config-inspector/commit/8486806fdc11e6656e46e121c8a24c827ecd77cb))
+* scroll to correct `ConfigItem` when navigating from `FileGroupItem` ([#170](https://github.com/eslint/config-inspector/issues/170)) ([58034c1](https://github.com/eslint/config-inspector/commit/58034c1c1a44e42df964a77e199f53e1b2589610))
+
 ## [1.3.0](https://github.com/eslint/config-inspector/compare/v1.2.0...v1.3.0) (2025-09-15)
 
 
