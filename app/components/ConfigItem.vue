@@ -61,13 +61,12 @@ const extraConfigs = computed(() => {
 </script>
 
 <template>
-  <!-- @vue-ignore -->
   <details
     class="flat-config-item"
     :open="open"
     border="~ rounded-lg" relative
     :class="active ? 'border-yellow:70' : 'border-base'"
-    @toggle="open = $event.target.open"
+    @toggle="open = ($event.target as any).open"
   >
     <summary block>
       <div class="absolute right-[calc(100%+10px)] top-1.5" text-right font-mono op35 lt-lg:hidden>

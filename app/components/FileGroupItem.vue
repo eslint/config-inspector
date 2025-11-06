@@ -122,7 +122,7 @@ function goToConfig(idx: number) {
                   <button
                     btn-action-sm
                     title="Copy"
-                    @click="goToConfig(idx)"
+                    @click="goToConfig(config.index)"
                   >
                     <div i-ph-stack-duotone />
                     Go to this config
