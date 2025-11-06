@@ -69,13 +69,13 @@ export async function resolveConfigPath(options: ResolveConfigPathOptions) {
 
     throw legacyConfigPath
       ? new ConfigPathLegacyError(
-        `${relative(cwd, dirname(legacyConfigPath))}/`,
-        basename(legacyConfigPath),
-      )
+          `${relative(cwd, dirname(legacyConfigPath))}/`,
+          basename(legacyConfigPath),
+        )
       : new ConfigPathError(
-        `${relative(cwd, lookupBasePath)}/`,
-        configFilenames,
-      )
+          `${relative(cwd, lookupBasePath)}/`,
+          configFilenames,
+        )
   }
 
   const basePath = normalize(userBasePath || (

@@ -59,7 +59,7 @@ function capitalize(str?: string) {
     :class="[props.class, gridView ? 'absolute top-2 right-2 flex-col' : '']"
   >
     <RuleLevelIcon
-      :level="getRuleLevel(value)!"
+      :level="getRuleLevel(value)"
       :has-options="!!getRuleOptions(value)?.length"
       :has-redundant-options="redundantOptions(getRuleOptions(value))"
     />

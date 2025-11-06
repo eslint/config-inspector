@@ -14,7 +14,7 @@ const props = defineProps<{
 const names = computed(() => Array.isArray(props.rules) ? props.rules.map(i => i.name) : Object.keys(props.rules))
 function getRule(name: string) {
   return Array.isArray(props.rules)
-    ? props.rules.find(i => i.name === name)
+    ? props.rules.find(i => i.name === name)!
     : getRuleFromName(name)!
 }
 function getValue(name: string) {
@@ -52,7 +52,7 @@ const Wrapper = defineComponent({
     >
       <Wrapper v-if="props.filter?.(name) !== false">
         <RuleItem
-          :rule="getRule(name)!"
+          :rule="getRule(name)"
           :rule-states="Array.isArray(rules) ? payload.ruleToState.get(name) || [] : undefined"
           :grid-view="isGridView"
           :value="getValue(name)"
