@@ -17,7 +17,7 @@ catalog:
   '@shikijs/transformers': ^3.15.0
   '@types/connect': ^3.4.38
   '@types/ws': ^8.18.1
-  '@typescript-eslint/utils': ^8.46.3
+  '@typescript-eslint/utils': ^8.46.4
   '@unocss/eslint-config': ^66.5.4
   '@unocss/nuxt': ^66.5.4
   '@voxpelli/config-array-find-files': ^1.2.2
