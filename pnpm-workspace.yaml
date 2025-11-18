@@ -7,7 +7,7 @@ catalog:
   '@iconify-json/file-icons': ^1.2.2
   '@iconify-json/logos': ^1.2.10
   '@iconify-json/ph': ^1.2.2
-  '@iconify-json/simple-icons': ^1.2.57
+  '@iconify-json/simple-icons': ^1.2.58
   '@iconify-json/svg-spinners': ^1.2.4
   '@iconify-json/twemoji': ^1.2.4
   '@iconify-json/vscode-icons': ^1.2.33
