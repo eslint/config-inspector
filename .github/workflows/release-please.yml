@@ -28,13 +28,13 @@ jobs:
     if: ${{ needs.release-please.outputs.releases_created == 'true' }}
     steps:
       - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v5
         with:
           node-version: lts/*
           registry-url: https://registry.npmjs.org
       # npm 11.5.1 or later is required so update to latest to be sure
       - run: npm install -g npm@latest
-      - uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm publish --provenance --access public
   notify-twitter:
