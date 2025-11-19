@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/eslint/config-inspector/compare/v1.4.0...v1.4.1) (2025-11-19)
+
+
+### Bug Fixes
+
+* release script ([5b4695c](https://github.com/eslint/config-inspector/commit/5b4695cb4011089274bda616c947188889f8f789))
+
 ## [1.4.0](https://github.com/eslint/config-inspector/compare/v1.3.0...v1.4.0) (2025-11-06)
 
 
