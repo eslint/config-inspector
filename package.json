@@ -20,6 +20,9 @@
     "*.mjs",
     "dist"
   ],
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
   "scripts": {
     "build": "nuxt build && tsdown",
     "dev": "nuxt dev",
