@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/eslint/config-inspector/compare/v1.4.1...v1.4.2) (2025-11-23)
+
+
+### Bug Fixes
+
+* cli entrypoint import path ([#187](https://github.com/eslint/config-inspector/issues/187)) ([171a7c7](https://github.com/eslint/config-inspector/commit/171a7c7ea4ab361c418f2dafa08a72c73e209eeb))
+
 ## [1.4.1](https://github.com/eslint/config-inspector/compare/v1.4.0...v1.4.1) (2025-11-19)
 
 
