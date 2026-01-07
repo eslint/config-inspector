@@ -1,0 +1,19 @@
+name: add-to-triage
+
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+      - transferred
+
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  add-to-triage:
+    uses: eslint/workflows/.github/workflows/add-to-triage.yml@main
+    secrets:
+      project_bot_token: ${{ secrets.PROJECT_BOT_TOKEN }}
