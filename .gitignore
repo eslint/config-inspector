@@ -8,3 +8,7 @@ dist
 .DS_Store
 .eslint-config-inspector
 public/fonts
+*.code-workspace
+
+# Automatically generated files by GitHub Actions workflow
+tools/update-readme.js
