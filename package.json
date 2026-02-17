@@ -31,7 +31,7 @@
     "typecheck": "nuxt typecheck"
   },
   "peerDependencies": {
-    "eslint": "^8.50.0 || ^9.0.0"
+    "eslint": "^8.50.0 || ^9.0.0 || ^10.0.0"
   },
   "dependencies": {
     "ansis": "catalog:",
