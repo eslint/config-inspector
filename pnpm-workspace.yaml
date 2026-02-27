@@ -43,7 +43,7 @@ catalog:
   open: ^11.0.0
   pathe: ^2.0.3
   rolldown: ^1.0.0-beta.50
-  rollup: ^4.53.2
+  rollup: ^4.58.0
   shiki: ^3.15.0
   simple-git-hooks: ^2.13.1
   textmate-grammar-glob: ^0.0.1
