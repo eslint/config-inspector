@@ -1,4 +1,4 @@
-<img src="./public/favicon.svg" width="100" height="100"><br>
+<img src="./public/favicon.svg" width="100" height="100" alt="ESLint Config Inspector"><br>
 
 # ESLint Config Inspector
 
@@ -26,7 +26,7 @@ Run `npx @eslint/config-inspector --help` to see all the CLI options available.
 
 Or play it right in your browser now:
 
-[![](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/eslint/config-inspector)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/eslint/config-inspector)
 
 ### Static Build
 
