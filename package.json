@@ -2,7 +2,7 @@
   "name": "@eslint/config-inspector",
   "type": "module",
   "version": "1.4.2",
-  "packageManager": "pnpm@10.22.0",
+  "packageManager": "pnpm@10.30.3",
   "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
   "funding": "https://opencollective.com/eslint",
@@ -31,7 +31,7 @@
     "typecheck": "nuxt typecheck"
   },
   "peerDependencies": {
-    "eslint": "^8.50.0 || ^9.0.0"
+    "eslint": "^8.50.0 || ^9.0.0 || ^10.0.0"
   },
   "dependencies": {
     "ansis": "catalog:",
@@ -89,7 +89,6 @@
     "vue-tsc": "catalog:"
   },
   "resolutions": {
-    "@nuxt/vite-builder": "https://pkg.pr.new/@nuxt/vite-builder@33682",
     "esbuild": "catalog:",
     "nitropack": "catalog:",
     "rolldown": "catalog:",
