@@ -52,7 +52,7 @@ catalog:
   simple-git-hooks: ^2.13.1
   textmate-grammar-glob: ^0.0.1
   tinyglobby: ^0.2.15
-  tsdown: ^0.16.8
+  tsdown: ^0.20.3
   typescript: ^5.9.3
   vite: ^8.0.0-beta.16
   vitest: ^4.0.18
