@@ -17,7 +17,7 @@ jobs:
       tag_name: ${{ steps.release.outputs.tag_name }}
       html_url: ${{ steps.release.outputs.html_url }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4
         id: release
         with:
           token: ${{ secrets.WORKFLOW_PUSH_BOT_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
     if: ${{ needs.release-please.outputs.releases_created == 'true' }}
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
       - uses: actions/setup-node@v6
         with:
           node-version: lts/*
