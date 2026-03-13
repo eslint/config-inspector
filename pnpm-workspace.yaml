@@ -5,7 +5,7 @@ trustPolicy: no-downgrade
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
-  '@antfu/eslint-config': ^7.6.1
+  '@antfu/eslint-config': ^7.7.0
   '@eslint/config-array': ^0.23.2
   '@iconify-json/carbon': ^1.2.19
   '@iconify-json/file-icons': ^1.2.2
