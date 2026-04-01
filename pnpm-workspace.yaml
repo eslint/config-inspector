@@ -36,7 +36,7 @@ catalog:
   floating-vue: ^5.2.2
   fuse.js: ^7.1.0
   get-port-please: ^3.2.0
-  h3: ^1.15.5
+  h3: ^1.15.10
   lint-staged: ^16.3.2
   minimatch: ^10.2.4
   mlly: ^1.8.0
