@@ -92,7 +92,7 @@ function getLinkClass(url: string | undefined) {
           </template>
         </p>
         <p mt2>
-          <a text-red underline :href="deprecatedInfo.url">Learn more</a>
+          <a text-red underline target="_blank" :href="deprecatedInfo.url">Learn more</a>
         </p>
       </div>
     </template>
