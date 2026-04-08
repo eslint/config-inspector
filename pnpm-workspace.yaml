@@ -39,7 +39,7 @@ catalog:
   h3: ^1.15.5
   lint-staged: ^16.3.2
   minimatch: ^10.2.4
-  mlly: ^1.8.0
+  mlly: ^1.8.2
   mrmime: ^2.0.1
   nitropack: ^2.13.1
   nuxt: ^4.3.1
