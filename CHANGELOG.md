@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0](https://github.com/eslint/config-inspector/compare/v1.5.0...v2.0.0) (2026-04-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Require Node.js ^20.19.0 || ^22.13.0 || >=24 ([#173](https://github.com/eslint/config-inspector/issues/173))
+
+### Features
+
+* open deprecated link in new tab ([#225](https://github.com/eslint/config-inspector/issues/225)) ([83cc006](https://github.com/eslint/config-inspector/commit/83cc0060e9baeaf152d5e007c02defeb02579412))
+* Require Node.js ^20.19.0 || ^22.13.0 || &gt;=24 ([#173](https://github.com/eslint/config-inspector/issues/173)) ([a753d03](https://github.com/eslint/config-inspector/commit/a753d0330b927b5c1c56340ad58c8c23a3f854b9))
+
 ## [1.5.0](https://github.com/eslint/config-inspector/compare/v1.4.2...v1.5.0) (2026-03-04)
 
 
