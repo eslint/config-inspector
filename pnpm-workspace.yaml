@@ -31,7 +31,7 @@ catalog:
   cac: ^7.0.0
   chokidar: ^5.0.0
   esbuild: ^0.27.3
-  eslint: ^10.0.2
+  eslint: ^10.2.1
   find-up: ^8.0.0
   floating-vue: ^5.2.2
   fuse.js: ^7.1.0
