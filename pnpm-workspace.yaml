@@ -6,7 +6,7 @@ patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
   '@antfu/eslint-config': ^7.6.1
-  '@eslint/config-array': ^0.23.2
+  '@eslint/config-array': ^0.23.5
   '@iconify-json/carbon': ^1.2.19
   '@iconify-json/file-icons': ^1.2.2
   '@iconify-json/logos': ^1.2.10
