@@ -72,6 +72,7 @@ cli
         const newContent = content
           .replaceAll(/\s(href|src)="\//g, ` $1="${baseURL}`)
           .replaceAll('baseURL:"/"', `baseURL:"${baseURL}"`)
+          .replaceAll('"#entry":"/_nuxt/', `"#entry":"${baseURL}_nuxt/`)
         await fs.writeFile(resolve(outDir, file), newContent, 'utf-8')
       }
     }
