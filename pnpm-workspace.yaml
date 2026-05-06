@@ -46,7 +46,7 @@ catalog:
   nuxt-eslint-auto-explicit-import: ^0.1.1
   open: ^11.0.0
   pathe: ^2.0.3
-  rolldown: ^1.0.0-rc.6
+  rolldown: ^1.0.0-rc.18
   rollup: ^4.59.0
   shiki: ^4.0.1
   simple-git-hooks: ^2.13.1
