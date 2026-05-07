@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/eslint/config-inspector/compare/v2.0.0...v2.0.1) (2026-05-07)
+
+
+### Bug Fixes
+
+* missing replacement of `baseURL` in cli ([#235](https://github.com/eslint/config-inspector/issues/235)) ([2eec296](https://github.com/eslint/config-inspector/commit/2eec296f8f5440870c0fdeae7c1fd7d6fa39d690))
+
 ## [2.0.0](https://github.com/eslint/config-inspector/compare/v1.5.0...v2.0.0) (2026-04-14)
 
 
