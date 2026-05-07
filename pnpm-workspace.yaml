@@ -14,7 +14,7 @@ catalog:
   '@iconify-json/simple-icons': ^1.2.72
   '@iconify-json/svg-spinners': ^1.2.4
   '@iconify-json/twemoji': ^1.2.5
-  '@iconify-json/vscode-icons': ^1.2.44
+  '@iconify-json/vscode-icons': ^1.2.47
   '@nodelib/fs.walk': ^3.0.1
   '@nuxt/eslint': ^1.15.2
   '@shikijs/langs-precompiled': ^4.0.1
