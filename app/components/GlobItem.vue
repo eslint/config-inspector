@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRouter } from '#app/composables/router'
 import { Dropdown as VDropdown } from 'floating-vue'
 import { computed, defineComponent } from 'vue'
+import { useRouter } from '#app/composables/router'
 import { payload } from '~/composables/payload'
 import { filtersConfigs } from '~/composables/state'
 import { useHighlightedGlob } from '../composables/shiki'

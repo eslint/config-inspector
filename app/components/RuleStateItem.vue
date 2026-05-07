@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RuleConfigState } from '~~/shared/types'
-import { useRouter } from '#app/composables/router'
 import { computed, reactive } from 'vue'
+import { useRouter } from '#app/composables/router'
 import { deepCompareOptions } from '~/composables/options'
 import { getRuleDefaultOptions, payload } from '~/composables/payload'
 import { filtersConfigs } from '~/composables/state'

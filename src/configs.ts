@@ -1,7 +1,8 @@
+import type { ConfigArray } from '@eslint/config-array'
 import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import process from 'node:process'
-import { configArrayFindFiles } from '@voxpelli/config-array-find-files'
+import fswalk from '@nodelib/fs.walk'
 import c from 'ansis'
 import { bundleRequire } from 'bundle-require'
 import { findUp } from 'find-up'
@@ -252,10 +253,7 @@ export async function globMatchedFiles(
   console.log(MARK_INFO, 'Globbing matched files')
 
   const files = [
-    ...await configArrayFindFiles({
-      basePath,
-      configs: buildConfigArray(rawConfigs, basePath),
-    }),
+    ...await configArrayFindFiles(basePath, buildConfigArray(rawConfigs, basePath)),
   ].sort()
 
   return files
@@ -267,4 +265,46 @@ export async function globMatchedFiles(
       return result
     })
     .filter(i => i) as MatchedFile[]
+}
+
+/**
+ * Walk a directory and collect files that match the given config array.
+ * Skips directories ignored by the config array, and only keeps files that
+ * resolve to a defined config.
+ *
+ * Adapted from https://github.com/voxpelli/config-array-find-files (MIT, © 2024 Pelle Wessman)
+ */
+async function configArrayFindFiles(basePath: string, configs: ConfigArray): Promise<string[]> {
+  return new Promise((resolvePromise, rejectPromise) => {
+    let rejected = false
+
+    function safeFilter(filter: (entry: fswalk.Entry) => boolean) {
+      return (entry: fswalk.Entry) => {
+        if (rejected)
+          return false
+        try {
+          return filter(entry)
+        }
+        catch (err) {
+          rejected = true
+          rejectPromise(err)
+          return false
+        }
+      }
+    }
+
+    fswalk.walk(
+      basePath,
+      {
+        deepFilter: safeFilter(entry => !configs.isDirectoryIgnored(entry.path)),
+        entryFilter: safeFilter(entry => !entry.dirent.isDirectory() && configs.getConfig(entry.path) !== undefined),
+      },
+      (error, entries) => {
+        if (error)
+          rejectPromise(error)
+        else
+          resolvePromise(entries.map(e => e.path))
+      },
+    )
+  })
 }

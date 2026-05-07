@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useRouter } from '#app/composables/router'
 import { computed } from 'vue'
+import { useRouter } from '#app/composables/router'
 import { filepathIconsMap } from '~/composables/icons'
 import { filtersConfigs } from '~/composables/state'
 

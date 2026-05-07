@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRouter } from '#app/composables/router'
 import { useTimeAgo } from '@vueuse/core'
 import { computed } from 'vue'
+import { useRouter } from '#app/composables/router'
 import { toggleDark } from '~/composables/dark'
 import { isFetching, payload } from '~/composables/payload'
 import { filtersRules as filters } from '~/composables/state'
