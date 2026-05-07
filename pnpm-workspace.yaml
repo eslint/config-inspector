@@ -30,7 +30,7 @@ catalog:
   bundle-require: ^5.1.0
   cac: ^7.0.0
   chokidar: ^5.0.0
-  devframe: ^0.1.19
+  devframe: ^0.1.20
   esbuild: ^0.28.0
   eslint: ^10.3.0
   find-up: ^8.0.0
@@ -47,7 +47,7 @@ catalog:
   nuxt-eslint-auto-explicit-import: ^0.1.1
   open: ^11.0.0
   pathe: ^2.0.3
-  rolldown: ^1.0.0-rc.18
+  rolldown: ^1.0.0
   rollup: ^4.60.3
   semver: ^7.7.4
   shiki: ^4.0.2
@@ -55,9 +55,9 @@ catalog:
   skills-npm: ^1.1.1
   textmate-grammar-glob: ^0.0.1
   tinyglobby: ^0.2.16
-  tsdown: ^0.21.10
+  tsdown: ^0.22.0
   typescript: ^6.0.3
-  vite: ^8.0.10
+  vite: ^8.0.11
   vitest: ^4.1.5
   vue-tsc: ^3.2.8
   ws: ^8.20.0
