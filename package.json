@@ -2,7 +2,7 @@
   "name": "@eslint/config-inspector",
   "type": "module",
   "version": "2.0.0",
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@10.33.4",
   "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
   "funding": "https://opencollective.com/eslint",
@@ -66,8 +66,8 @@
     "@typescript-eslint/utils": "catalog:",
     "@unocss/eslint-config": "catalog:",
     "@unocss/nuxt": "catalog:",
-    "@voxpelli/config-array-find-files": "catalog:",
     "@vueuse/nuxt": "catalog:",
+    "devframe": "catalog:",
     "eslint": "catalog:",
     "find-up": "catalog:",
     "floating-vue": "catalog:",
@@ -83,6 +83,7 @@
     "pathe": "catalog:",
     "rolldown": "catalog:",
     "rollup": "catalog:",
+    "semver": "catalog:",
     "shiki": "catalog:",
     "simple-git-hooks": "catalog:",
     "textmate-grammar-glob": "catalog:",
@@ -92,10 +93,12 @@
     "vue-tsc": "catalog:"
   },
   "resolutions": {
+    "chokidar": "catalog:",
     "esbuild": "catalog:",
     "nitropack": "catalog:",
     "rolldown": "catalog:",
     "rollup": "catalog:",
+    "semver": "catalog:",
     "vite": "catalog:"
   },
   "simple-git-hooks": {

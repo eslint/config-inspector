@@ -1,3 +1,4 @@
+import type { PropertyDefinition } from '@eslint/config-array'
 import type { Linter } from 'eslint'
 import type { MinimatchOptions } from 'minimatch'
 import type { FlatConfigItem, MatchedFile } from './types'
@@ -71,7 +72,7 @@ export function matchFile(
   return result
 }
 
-const NOOP_SCHEMA = {
+const NOOP_SCHEMA: PropertyDefinition = {
   merge: 'replace',
   validate() {},
 }
