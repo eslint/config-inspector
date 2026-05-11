@@ -11,6 +11,7 @@
 ### Features
 
 * change default `--outDir` to `dist/__eslint-config-inspector` ([#242](https://github.com/eslint/config-inspector/issues/242)) ([a672654](https://github.com/eslint/config-inspector/commit/a6726544b35dd0c8dfc59276680a39ac1a4c387f))
+* render `>` between extended config names as a chevron ([#246](https://github.com/eslint/config-inspector/issues/246)) ([612cd5e](https://github.com/eslint/config-inspector/commit/612cd5e6368a4a1f2da5f7b7dbcfa0020a98bb1a))
 * use jiti to load config files, align with ESLint CLI ([#243](https://github.com/eslint/config-inspector/issues/243)) ([d37616f](https://github.com/eslint/config-inspector/commit/d37616f06babe2d9cb5480ff8225585b5d44d56e))
 
 
