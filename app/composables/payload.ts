@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { ErrorInfo, FilesGroup, FlatConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
+import type { ErrorInfo, FilesGroup, FlatConfigItem, GlobEntry, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
 import { defineRpcFunction } from 'devframe'
 import { connectDevframe } from 'devframe/client'
 import { computed, ref } from 'vue'
@@ -114,7 +114,10 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
       })
     }
 
-    // Globs
+    // Globs — `globToConfigs` is a per-pattern reverse-lookup map.
+    // Compound (intersection) entries from `config.files` are split into
+    // their constituent patterns here; compound badges in the UI compute
+    // their own intersection from `globToFiles` instead of reading this map.
     for (const glob of config.files?.flat() || []) {
       if (!globToConfigs.has(glob))
         globToConfigs.set(glob, [])
@@ -142,6 +145,10 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
   }
 }
 
+function globEntryKey(g: GlobEntry): string {
+  return Array.isArray(g) ? `[${g.join('\x00')}]` : g
+}
+
 function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
   if (!payload.files)
     return undefined
@@ -155,16 +162,25 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
   const fileToConfigs = new Map<string, Set<number>>()
   const configToFiles = new Map<number, Set<string>>()
   const filesGroupMap = new Map<string, FilesGroup>()
+  // Track per-group glob entries by their key so compound entries can be
+  // deduplicated while preserving their AND grouping for display.
+  const groupGlobKeys = new Map<string, Set<string>>()
 
   for (const file of payload.files) {
     files.push(file.filepath)
-    for (const glob of file.globs) {
-      if (!globToFiles.has(glob))
-        globToFiles.set(glob, new Set())
-      globToFiles.get(glob)!.add(file.filepath)
-      if (!fileToGlobs.has(file.filepath))
-        fileToGlobs.set(file.filepath, new Set())
-      fileToGlobs.get(file.filepath)!.add(glob)
+    for (const entry of file.globs) {
+      // Per-pattern lookups (compound entries are expanded to their members,
+      // which are guaranteed to have matched the file since the intersection
+      // matched).
+      const patterns = Array.isArray(entry) ? entry : [entry]
+      for (const p of patterns) {
+        if (!globToFiles.has(p))
+          globToFiles.set(p, new Set())
+        globToFiles.get(p)!.add(file.filepath)
+        if (!fileToGlobs.has(file.filepath))
+          fileToGlobs.set(file.filepath, new Set())
+        fileToGlobs.get(file.filepath)!.add(p)
+      }
     }
     for (const configIndex of file.configs) {
       if (!configToFiles.has(configIndex))
@@ -182,12 +198,20 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
         id: groupId,
         files: [],
         configs: specialConfigs.map(i => payload.configs[i]!),
-        globs: new Set<string>(),
+        globs: [],
       })
+      groupGlobKeys.set(groupId, new Set())
     }
     const group = filesGroupMap.get(groupId)!
+    const seenKeys = groupGlobKeys.get(groupId)!
     group.files.push(file.filepath)
-    file.globs.forEach(i => group.globs.add(i))
+    for (const entry of file.globs) {
+      const k = globEntryKey(entry)
+      if (!seenKeys.has(k)) {
+        seenKeys.add(k)
+        group.globs.push(entry)
+      }
+    }
   }
 
   const groups = Array.from(filesGroupMap.values())

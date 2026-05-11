@@ -71,7 +71,7 @@ function goto() {
             Applies to files matching
           </div>
           <div flex="~ gap-2 items-center wrap">
-            <GlobItem v-for="glob, idx of config.files?.flat()" :key="idx" :glob="glob" />
+            <GlobItem v-for="entry, idx of config.files" :key="idx" :glob="entry" />
           </div>
         </div>
       </template>

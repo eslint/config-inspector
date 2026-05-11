@@ -17,9 +17,35 @@ function minimatch(file: string, pattern: string) {
   return m.match(file)
 }
 
-export function getMatchedGlobs(file: string, glob: (string | string[])[]) {
-  const globs = (Array.isArray(glob) ? glob : [glob]).flat()
-  return globs.filter(glob => minimatch(file, glob)).flat()
+/**
+ * Returns the entries from `globs` that match `file`.
+ *
+ * An entry is either a string pattern (matches when the file matches that pattern)
+ * or an array of string patterns representing an intersection — i.e. the file
+ * must match every pattern in the inner array. This mirrors ESLint's flat-config
+ * semantics in `@eslint/config-array`'s `pathMatches`.
+ */
+export function getMatchedGlobs(file: string, globs: (string | string[])[]): (string | string[])[] {
+  return globs.filter(g =>
+    Array.isArray(g)
+      ? g.every(p => minimatch(file, p))
+      : minimatch(file, g),
+  )
+}
+
+/**
+ * Structural equality for a single glob entry (string or `string[]`).
+ */
+export function isSameGlobEntry(a: string | string[], b: string | string[]): boolean {
+  if (Array.isArray(a) !== Array.isArray(b))
+    return false
+  if (Array.isArray(a))
+    return a.length === (b as string[]).length && a.every((x, i) => x === (b as string[])[i])
+  return a === b
+}
+
+function globEntryKey(g: string | string[]): string {
+  return Array.isArray(g) ? `[${g.join('\x00')}]` : g
 }
 
 const META_KEYS = new Set(['name', 'index'])
@@ -67,7 +93,14 @@ export function matchFile(
     result.globs.push(...negative)
   })
 
-  result.globs = [...new Set(result.globs)]
+  const seen = new Set<string>()
+  result.globs = result.globs.filter((g) => {
+    const k = globEntryKey(g)
+    if (seen.has(k))
+      return false
+    seen.add(k)
+    return true
+  })
 
   return result
 }

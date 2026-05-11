@@ -2,9 +2,13 @@ import process from 'node:process'
 import { defineConfig } from '@playwright/test'
 
 const FIXTURE = 'tests/e2e/fixtures/basic'
+const EXTENDS_FIXTURE = 'tests/e2e/fixtures/extends'
 const DEV_PORT = 17780
+const EXTENDS_DEV_PORT = 17781
 const BUILD_PORT = 17790
 const BUILD_OUT = 'tests/e2e/.output/build'
+
+export const EXTENDS_BASE_URL = `http://127.0.0.1:${EXTENDS_DEV_PORT}`
 
 /**
  * Build-mode tests are opt-in via `E2E_INCLUDE_BUILD=1`. `devframe@0.1.22`'s
@@ -42,6 +46,14 @@ export default defineConfig({
     {
       command: `node bin.mjs --config ${FIXTURE}/eslint.config.js --basePath ${FIXTURE} --no-open --port ${DEV_PORT}`,
       url: `http://127.0.0.1:${DEV_PORT}`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 120_000,
+      stdout: 'pipe',
+      stderr: 'pipe',
+    },
+    {
+      command: `node bin.mjs --config ${EXTENDS_FIXTURE}/eslint.config.js --basePath ${EXTENDS_FIXTURE} --no-open --port ${EXTENDS_DEV_PORT}`,
+      url: `http://127.0.0.1:${EXTENDS_DEV_PORT}`,
       reuseExistingServer: !process.env.CI,
       timeout: 120_000,
       stdout: 'pipe',
