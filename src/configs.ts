@@ -1,11 +1,13 @@
 import type { ConfigArray } from '@eslint/config-array'
 import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
+import { statSync } from 'node:fs'
 import process from 'node:process'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import fswalk from '@nodelib/fs.walk'
 import c from 'ansis'
-import { bundleRequire } from 'bundle-require'
 import { findUp } from 'find-up'
+import { createJiti } from 'jiti'
 import { resolve as resolveModule } from 'mlly'
 import { basename, dirname, normalize, relative, resolve } from 'pathe'
 import { buildConfigArray, matchFile } from '../shared/configs'
@@ -104,8 +106,9 @@ export interface ESLintConfig {
  *
  * Accept an options object to specify the working directory path and overrides.
  *
- * It uses `bundle-requires` load the config file and find it's dependencies.
- * It always get the latest version of the config file (no ESM cache).
+ * It uses `jiti` to load the config file (the same loader ESLint itself uses).
+ * Each call creates a fresh jiti instance and busts the ESM cache via an
+ * `mtime` URL query param, so the latest version of the config is always read.
  */
 export async function readConfig(
   options: ReadConfigOptions,
@@ -122,17 +125,21 @@ export async function readConfig(
     process.chdir(basePath)
 
   console.log(MARK_INFO, `Reading ESLint config from`, c.blue(configPath))
-  const { mod, dependencies } = await bundleRequire({
-    filepath: configPath,
-    cwd: basePath,
-    tsconfig: false,
-  })
+  const jiti = createJiti(import.meta.url, { moduleCache: false })
+  const fileURL = pathToFileURL(configPath)
+  fileURL.searchParams.set('mtime', String(statSync(configPath).mtimeMs))
+  const mod = await jiti.import(fileURL.href)
 
-  let rawConfigs = await (mod.default ?? mod) as FlatConfigItem[]
+  const dependencies = collectJitiDependencies(jiti, configPath)
 
-  // A single flat config object is also valid
-  if (!Array.isArray(rawConfigs))
-    rawConfigs = [rawConfigs]
+  const exported = ((mod as any)?.default ?? mod) as FlatConfigItem | FlatConfigItem[]
+
+  // A single flat config object is also valid. Always clone into a fresh
+  // array so the ESLint defaults `unshift`ed below don't mutate the user's
+  // exported array — Node's ESM loader caches modules by URL, so a second
+  // load of an unchanged config would otherwise return the same reference
+  // and accumulate defaults on each call.
+  const rawConfigs: FlatConfigItem[] = Array.isArray(exported) ? [...exported] : [exported]
 
   // ESLint applies these default configs to all files
   // https://github.com/eslint/eslint/blob/21d3766c3f4efd981d3cc294c2c82c8014815e6e/lib/config/default-config.js#L66-L69
@@ -244,6 +251,30 @@ export async function readConfig(
     dependencies,
     payload,
   }
+}
+
+/**
+ * Best-effort dependency collection from a `jiti` instance's internal module
+ * cache, used by the dev-mode watcher to reload when imported files change.
+ *
+ * jiti 2.x has no public dep-tracking API; we read the `cache` property if it
+ * is present and walk its keys. If the shape ever changes, we fall back to
+ * watching just the config file, which matches ESLint's own behavior.
+ */
+function collectJitiDependencies(jiti: unknown, configPath: string): string[] {
+  const deps = new Set<string>([configPath])
+  const cache = (jiti as { cache?: unknown }).cache
+  let keys: string[] = []
+  if (cache instanceof Map)
+    keys = [...cache.keys()].filter((k): k is string => typeof k === 'string')
+  else if (cache && typeof cache === 'object')
+    keys = Object.keys(cache as Record<string, unknown>)
+  for (const key of keys) {
+    const path = key.startsWith('file://') ? fileURLToPath(key) : key
+    if (path && !path.includes('/node_modules/'))
+      deps.add(path)
+  }
+  return [...deps]
 }
 
 export async function globMatchedFiles(
