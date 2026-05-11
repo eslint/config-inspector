@@ -33,6 +33,9 @@
     "prepack": "pnpm build",
     "lint": "nuxt prepare && eslint .",
     "test": "vitest",
+    "pretest:e2e": "node -e \"process.exit(require('node:fs').existsSync('dist/cli.mjs')?0:1)\" || pnpm build",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "typecheck": "nuxt typecheck"
   },
   "peerDependencies": {
@@ -60,6 +63,7 @@
     "@iconify-json/vscode-icons": "catalog:",
     "@nodelib/fs.walk": "catalog:",
     "@nuxt/eslint": "catalog:",
+    "@playwright/test": "catalog:",
     "@shikijs/langs-precompiled": "catalog:",
     "@shikijs/transformers": "catalog:",
     "@typescript-eslint/utils": "catalog:",

@@ -7,6 +7,12 @@ dist
 .idea/
 .DS_Store
 public/fonts
+
+# Playwright e2e
+tests/e2e/.output
+playwright-report
+test-results
+.playwright
 *.code-workspace
 
 # Automatically generated files by GitHub Actions workflow

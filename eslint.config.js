@@ -22,3 +22,11 @@ export default await nuxt()
       'no-console': 'off',
     },
   })
+  .append({
+    ignores: [
+      'tests/e2e/fixtures/**',
+      'tests/e2e/.output/**',
+      'playwright-report/**',
+      'test-results/**',
+    ],
+  })
