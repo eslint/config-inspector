@@ -1,12 +1,11 @@
 import type { FSWatcher } from 'chokidar'
-import type { DevtoolDefinition } from 'devframe'
 import type { ErrorInfo, Payload } from '../shared/types'
 import type { ReadConfigOptions } from './configs'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import chokidar from 'chokidar'
 import { defineRpcFunction } from 'devframe'
-import { defineDevtool } from 'devframe/types'
+import { defineDevframe } from 'devframe/types'
 import { readConfig, resolveConfigPath } from './configs'
 import { MARK_CHECK } from './constants'
 import { ConfigInspectorError } from './errors'
@@ -22,7 +21,7 @@ let buildPayload: Payload | ErrorInfo | undefined
 /**
  * Pre-load the build-time payload before calling createBuild —
  * createBuild does not forward CLI flags to setup(), so the build
- * wrapper stashes the result here and the devtool's setup reads it.
+ * wrapper stashes the result here and the inspector's setup reads it.
  */
 export function setBuildPayload(payload: Payload | ErrorInfo): void {
   buildPayload = payload
@@ -34,7 +33,7 @@ export interface DevtoolFlags {
   basePath?: string
 }
 
-const devtool: DevtoolDefinition = defineDevtool({
+const devframe = defineDevframe({
   id: 'eslint-config-inspector',
   name: 'ESLint Config Inspector',
   icon: 'logos:eslint',
@@ -125,4 +124,4 @@ const devtool: DevtoolDefinition = defineDevtool({
   },
 })
 
-export default devtool
+export default devframe

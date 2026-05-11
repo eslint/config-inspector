@@ -6,7 +6,7 @@ import { relative, resolve } from 'pathe'
 import { glob } from 'tinyglobby'
 import { readConfig } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'
-import devtool, { setBuildPayload } from './devtool'
+import devframe, { setBuildPayload } from './devframe'
 import { ConfigInspectorError } from './errors'
 
 export interface BuildOptions {
@@ -53,7 +53,7 @@ export async function runBuild(options: BuildOptions): Promise<void> {
     baseURL = `/${baseURL}`
   baseURL = baseURL.replace(/\/+/g, '/')
 
-  await createBuild(devtool, { outDir, base: baseURL })
+  await createBuild(devframe, { outDir, base: baseURL })
 
   if (baseURL !== '/') {
     const htmlFiles = await glob('**/*.html', {

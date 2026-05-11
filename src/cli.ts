@@ -4,7 +4,7 @@ import cac from 'cac'
 import { createDevServer, resolveDevServerPort } from 'devframe/adapters/dev'
 import { runBuild } from './build-wrapper'
 import { MARK_INFO } from './constants'
-import devtool from './devtool'
+import devframe from './devframe'
 
 const cli = cac('eslint-config-inspector')
 
@@ -32,7 +32,7 @@ cli
   .command('mcp', 'Start an MCP server exposing the inspector to coding agents (stdio) [experimental]')
   .action(async () => {
     const { createMcpServer } = await import('devframe/adapters/mcp')
-    await createMcpServer(devtool, {
+    await createMcpServer(devframe, {
       transport: 'stdio',
       onReady: ({ transport }) => {
         console.error(`[eslint-config-inspector] MCP server ready (${transport})`)
@@ -60,12 +60,12 @@ cli
     }
 
     const host = options.host
-    const port = await resolveDevServerPort(devtool, {
+    const port = await resolveDevServerPort(devframe, {
       host,
       defaultPort: Number(options.port),
     })
 
-    await createDevServer(devtool, {
+    await createDevServer(devframe, {
       host,
       port,
       flags,

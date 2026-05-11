@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import type { ErrorInfo, FilesGroup, FlatConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
 import { defineRpcFunction } from 'devframe'
-import { connectDevtool } from 'devframe/client'
+import { connectDevframe } from 'devframe/client'
 import { computed, ref } from 'vue'
 import { isGeneralConfig, isIgnoreOnlyConfig } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
@@ -32,7 +32,7 @@ function isErrorInfo(payload: Payload | ErrorInfo): payload is ErrorInfo {
   return 'error' in payload
 }
 
-let _rpc: Awaited<ReturnType<typeof connectDevtool>> | undefined
+let _rpc: Awaited<ReturnType<typeof connectDevframe>> | undefined
 
 async function get() {
   isFetching.value = true
@@ -57,7 +57,7 @@ export function init(baseURL: string) {
   if (_promise)
     return
   _promise = (async () => {
-    _rpc = await connectDevtool({ baseURL })
+    _rpc = await connectDevframe({ baseURL })
     _rpc.client.register(defineRpcFunction({
       name: 'eslint-config-inspector:invalidate',
       type: 'event',

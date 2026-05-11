@@ -1,8 +1,8 @@
 import type { Plugin } from 'vite'
-import type { DevtoolFlags } from './devtool'
+import type { DevtoolFlags } from './devframe'
 import process from 'node:process'
 import { createDevServer, resolveDevServerPort } from 'devframe/adapters/dev'
-import devtool from './devtool'
+import devframe from './devframe'
 
 export function devframePlugin(flags?: DevtoolFlags): Plugin {
   let started: Awaited<ReturnType<typeof createDevServer>> | undefined
@@ -19,9 +19,9 @@ export function devframePlugin(flags?: DevtoolFlags): Plugin {
         ...flags,
       }
 
-      const port = await resolveDevServerPort(devtool, { defaultPort: 7777 })
+      const port = await resolveDevServerPort(devframe, { defaultPort: 7777 })
 
-      started = await createDevServer(devtool, {
+      started = await createDevServer(devframe, {
         port,
         flags: resolvedFlags as Record<string, unknown>,
         openBrowser: false,
