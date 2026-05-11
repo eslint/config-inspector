@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import type { FilesGroup } from '~~/shared/types'
+import type { FilesGroup, GlobEntry } from '~~/shared/types'
 import { computed, ref, watchEffect } from 'vue'
+import { isSameGlobEntry } from '~~/shared/configs'
 import { useRouter } from '#app/composables/router'
 
 const props = defineProps<{
   index: number
   group: FilesGroup
 }>()
+
+function isEntryInGroup(entry: GlobEntry): boolean {
+  return props.group.globs.some(g => isSameGlobEntry(g, entry))
+}
 
 const open = defineModel('open', {
   default: true,
@@ -29,10 +34,10 @@ const groupName = computed(() => {
       config: props.group.configs[0]!,
     } as const
   }
-  if (props.group.globs.size <= 2) {
+  if (props.group.globs.length <= 2) {
     return {
       type: 'glob',
-      globs: [...props.group.globs.values()],
+      globs: props.group.globs,
     } as const
   }
   return undefined
@@ -138,10 +143,10 @@ function goToConfig(idx: number) {
                       </div>
                       <div flex="~ gap-2 items-center wrap">
                         <GlobItem
-                          v-for="glob, idx2 of config.files?.flat()"
+                          v-for="entry, idx2 of config.files"
                           :key="idx2"
-                          :glob="glob"
-                          :active="group.globs.has(glob)"
+                          :glob="entry"
+                          :active="isEntryInGroup(entry)"
                         />
                       </div>
                     </div>

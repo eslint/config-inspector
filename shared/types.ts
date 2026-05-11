@@ -5,6 +5,8 @@ export interface FlatConfigItem extends Linter.Config {
   index: number
 }
 
+export type GlobEntry = string | string[]
+
 export type RuleLevel = 'off' | 'warn' | 'error'
 
 export interface Payload {
@@ -41,9 +43,12 @@ export interface MatchedFile {
    */
   filepath: string
   /**
-   * Matched globs, includes both positive and negative globs
+   * Matched globs, includes both positive and negative globs.
+   *
+   * A string entry is a single pattern; an array entry is an intersection
+   * (all inner patterns must match), matching ESLint's flat-config semantics.
    */
-  globs: string[]
+  globs: GlobEntry[]
   /**
    * Matched configs indexes
    */
@@ -59,7 +64,11 @@ export interface FilesGroup {
   id: string
   files: string[]
   configs: FlatConfigItem[]
-  globs: Set<string>
+  /**
+   * Deduplicated list of glob entries that matched any file in this group.
+   * A `string[]` entry represents an intersection (AND).
+   */
+  globs: GlobEntry[]
 }
 
 export interface PayloadMeta {

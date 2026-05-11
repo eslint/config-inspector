@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { FiltersConfigsPage, FlatConfigItem } from '~~/shared/types'
+import type { FiltersConfigsPage, FlatConfigItem, GlobEntry } from '~~/shared/types'
 import { computed, ref, watchEffect } from 'vue'
+import { isSameGlobEntry } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
 import { useRouter } from '#app/composables/router'
 import { filtersRules, isGridView } from '~/composables/state'
@@ -11,12 +12,16 @@ const props = defineProps<{
   index: number
   filters?: FiltersConfigsPage
   active?: boolean
-  matchedGlobs?: string[]
+  matchedGlobs?: GlobEntry[]
 }>()
 
 const emit = defineEmits<{
   badgeClick: [string]
 }>()
+
+function isGlobActive(entry: GlobEntry): boolean {
+  return !!props.matchedGlobs?.some(g => isSameGlobEntry(g, entry))
+}
 
 /**
  * Fields that are considered metadata and not part of the config object.
@@ -129,9 +134,9 @@ const extraConfigs = computed(() => {
           <div>Applies to files matching</div>
           <div flex="~ gap-2 items-center wrap">
             <GlobItem
-              v-for="glob, idx of config.files?.flat()"
-              :key="idx" :glob="glob" popup="files"
-              :active="matchedGlobs?.includes(glob)"
+              v-for="entry, idx of config.files"
+              :key="idx" :glob="entry" popup="files"
+              :active="isGlobActive(entry)"
             />
           </div>
         </div>
@@ -168,9 +173,9 @@ const extraConfigs = computed(() => {
           </div>
           <div flex="~ gap-2 items-center wrap">
             <GlobItem
-              v-for="glob, idx of config.ignores"
-              :key="idx" :glob="glob"
-              :active="matchedGlobs?.includes(glob)"
+              v-for="entry, idx of config.ignores"
+              :key="idx" :glob="entry"
+              :active="isGlobActive(entry)"
             />
           </div>
         </div>
