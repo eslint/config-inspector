@@ -24,13 +24,13 @@
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build && tsdown",
     "dev": "nuxt dev",
-    "cli:build": "tsdown",
-    "cli:dev": "pnpm build && pnpm cli:build && node bin.mjs",
+    "cli:build": "node bin.mjs build",
+    "cli:dev": "pnpm build && node bin.mjs",
     "prepare": "nuxt prepare && npx simple-git-hooks && skills-npm",
     "start": "node bin.mjs",
-    "prepack": "pnpm build && pnpm cli:build",
+    "prepack": "pnpm build",
     "lint": "nuxt prepare && eslint .",
     "test": "vitest",
     "typecheck": "nuxt typecheck"

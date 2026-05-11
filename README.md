@@ -63,7 +63,7 @@ To start the development server:
 
 To test the production build:
 
-- Run `pnpm build` to build the inspector tool, and `pnpm cli:build` to build the CLI
+- Run `pnpm build` to build the inspector tool and the CLI
 - Run `pnpm start` to start the production server at http://localhost:7777
 
 ## License
