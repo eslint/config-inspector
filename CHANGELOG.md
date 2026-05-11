@@ -1,5 +1,28 @@
 # Changelog
 
+## [3.0.0](https://github.com/eslint/config-inspector/compare/v2.0.1...v3.0.0) (2026-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* change default `--outDir` to `dist/__eslint-config-inspector` ([#242](https://github.com/eslint/config-inspector/issues/242))
+* migrate dev server and static build to devframe ([#239](https://github.com/eslint/config-inspector/issues/239))
+
+### Features
+
+* change default `--outDir` to `dist/__eslint-config-inspector` ([#242](https://github.com/eslint/config-inspector/issues/242)) ([a672654](https://github.com/eslint/config-inspector/commit/a6726544b35dd0c8dfc59276680a39ac1a4c387f))
+* use jiti to load config files, align with ESLint CLI ([#243](https://github.com/eslint/config-inspector/issues/243)) ([d37616f](https://github.com/eslint/config-inspector/commit/d37616f06babe2d9cb5480ff8225585b5d44d56e))
+
+
+### Bug Fixes
+
+* render compound (AND) globs as a single badge ([#190](https://github.com/eslint/config-inspector/issues/190)) ([#245](https://github.com/eslint/config-inspector/issues/245)) ([6b732c9](https://github.com/eslint/config-inspector/commit/6b732c9f88677d6e2f4d2a5d690e1013aca63639))
+
+
+### Code Refactoring
+
+* migrate dev server and static build to devframe ([#239](https://github.com/eslint/config-inspector/issues/239)) ([f81a4a2](https://github.com/eslint/config-inspector/commit/f81a4a2654eb8fb711fa0229968e07b4cfd0dc30))
+
 ## [2.0.1](https://github.com/eslint/config-inspector/compare/v2.0.0...v2.0.1) (2026-05-07)
 
 
