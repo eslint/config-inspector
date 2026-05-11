@@ -1,6 +1,6 @@
 import type { FSWatcher } from 'chokidar'
 import type { DevtoolDefinition } from 'devframe'
-import type { ErrorInfo, Payload } from '~~/shared/types'
+import type { ErrorInfo, Payload } from '../shared/types'
 import type { ReadConfigOptions } from './configs'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'

@@ -23,7 +23,7 @@ export function devframePlugin(flags?: DevtoolFlags): Plugin {
 
       started = await createDevServer(devtool, {
         port,
-        flags: resolvedFlags,
+        flags: resolvedFlags as Record<string, unknown>,
         openBrowser: false,
         onReady: ({ port: p }) => {
           server.config.logger.info(
