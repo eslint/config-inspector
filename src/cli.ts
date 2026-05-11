@@ -14,7 +14,7 @@ cli
   .option('--files', 'Include matched file paths in payload', { default: true })
   .option('--basePath <basePath>', 'Base directory for globs to resolve. Default to directory of config file if not provided')
   .option('--base <baseURL>', 'Base URL for deployment', { default: '/' })
-  .option('--outDir <dir>', 'Output directory', { default: '.eslint-config-inspector' })
+  .option('--outDir <dir>', 'Output directory', { default: 'dist/__eslint-config-inspector' })
   .action(async (options) => {
     if (process.env.ESLINT_CONFIG)
       options.config ||= process.env.ESLINT_CONFIG

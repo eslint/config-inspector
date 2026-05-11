@@ -66,6 +66,7 @@ const extraConfigs = computed(() => {
     :open="open"
     border="~ rounded-lg" relative
     :class="active ? 'border-yellow:70' : 'border-base'"
+    data-testid="config-item"
     @toggle="open = ($event.target as any).open"
   >
     <summary block>

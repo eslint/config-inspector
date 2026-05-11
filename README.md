@@ -36,7 +36,7 @@ It is also possible to build a static web app for your ESLint config:
 npx @eslint/config-inspector build
 ```
 
-This will generate a Single-Page Application (SPA) under `.eslint-config-inspector`, with the snapshot of the current ESLint config. You can deploy it somewhere, or use it for comparison etc.
+This will generate a Single-Page Application (SPA) under `dist/__eslint-config-inspector`, with the snapshot of the current ESLint config. You can deploy it somewhere, or use it for comparison etc.
 
 Run `npx @eslint/config-inspector build --help` to see all the CLI options available.
 
