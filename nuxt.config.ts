@@ -1,3 +1,5 @@
+import { devframePlugin } from './src/devframe-vite-plugin'
+
 export default defineNuxtConfig({
   ssr: false,
 
@@ -62,6 +64,26 @@ export default defineNuxtConfig({
 
   vite: {
     base: './',
+    plugins: [devframePlugin()],
+    optimizeDeps: {
+      // @keep-sorted
+      // @keep-unique
+      include: [
+        '@eslint/config-array',
+        '@shikijs/engine-javascript',
+        '@shikijs/langs-precompiled/javascript',
+        '@shikijs/langs-precompiled/typescript',
+        '@shikijs/themes/vitesse-dark',
+        '@shikijs/themes/vitesse-light',
+        '@shikijs/transformers',
+        'devframe',
+        'devframe/client',
+        'floating-vue',
+        'fuse.js',
+        'minimatch',
+        'shiki/core',
+      ],
+    },
   },
 
   devtools: {

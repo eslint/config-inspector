@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import type { ErrorInfo, FilesGroup, FlatConfigItem, Payload, ResolvedPayload, RuleConfigStates, RuleInfo } from '~~/shared/types'
-import { $fetch } from 'ofetch'
+import { defineRpcFunction } from 'devframe'
+import { connectDevframe } from 'devframe/client'
 import { computed, ref } from 'vue'
 import { isGeneralConfig, isIgnoreOnlyConfig } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
@@ -31,9 +32,11 @@ function isErrorInfo(payload: Payload | ErrorInfo): payload is ErrorInfo {
   return 'error' in payload
 }
 
-async function get(baseURL: string) {
+let _rpc: Awaited<ReturnType<typeof connectDevframe>> | undefined
+
+async function get() {
   isFetching.value = true
-  const payload = await $fetch<Payload | ErrorInfo>('/api/payload.json', { baseURL })
+  const payload = await (_rpc!.call as any)('eslint-config-inspector:get-payload') as Payload | ErrorInfo
   if (isErrorInfo(payload)) {
     errorInfo.value = payload
     isLoading.value = false
@@ -53,33 +56,18 @@ let _promise: Promise<Payload | undefined> | undefined
 export function init(baseURL: string) {
   if (_promise)
     return
-  _promise = get(baseURL)
-    .then((payload) => {
-      if (!payload)
-        return
-
-      if (typeof payload.meta.wsPort === 'number') {
-      // Connect to WebSocket, listen for config changes
-        const ws = new WebSocket(`ws://${location.hostname}:${payload.meta.wsPort}`)
-        ws.addEventListener('message', async (event) => {
-          console.log(LOG_NAME, 'WebSocket message', event.data)
-          const payload = JSON.parse(event.data)
-          if (payload.type === 'config-change')
-            get(baseURL)
-        })
-        ws.addEventListener('open', () => {
-          console.log(LOG_NAME, 'WebSocket connected')
-        })
-        ws.addEventListener('close', () => {
-          console.log(LOG_NAME, 'WebSocket closed')
-        })
-        ws.addEventListener('error', (error) => {
-          console.error(LOG_NAME, 'WebSocket error', error)
-        })
-      }
-
-      return payload
-    })
+  _promise = (async () => {
+    _rpc = await connectDevframe({ baseURL })
+    _rpc.client.register(defineRpcFunction({
+      name: 'eslint-config-inspector:invalidate',
+      type: 'event',
+      handler: (path?: string) => {
+        console.log(LOG_NAME, 'Config change detected', path)
+        void get()
+      },
+    }) as any)
+    return get()
+  })()
 }
 
 export function ensureDataFetch() {

@@ -63,7 +63,6 @@ export interface FilesGroup {
 }
 
 export interface PayloadMeta {
-  wsPort?: number
   lastUpdate: number
   basePath: string
   configPath: string

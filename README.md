@@ -50,7 +50,7 @@ This project uses the following stack:
 
 - [pnpm](https://pnpm.io/) for package management
 - [Nuxt](https://nuxt.com/) & [Vue](https://vuejs.org) for the app
-  - APIs are served under `server/api` powered by [Nitro](https://nitro.unjs.io/)
+- [devframe](https://devfra.me) for the dev server, RPC transport, and static build
 - [UnoCSS](https://unocss.dev/) for styling
   - With [attributify mode](https://unocss.dev/presets/attributify) enabled
 - Use [ESLint](https://eslint.org/) for linting and formatting
@@ -58,11 +58,12 @@ This project uses the following stack:
 To start the development server:
 
 - Install dependencies via `pnpm install` (we highly recommend you to [enable `corepack enable`](https://nodejs.org/api/corepack.html) first)
-- Run `pnpm dev` to start the development server at http://localhost:3000
+- Run `pnpm cli:dev` to build the SPA once and start the inspector at http://localhost:7777
+- Run `pnpm dev` to iterate on Vue components with HMR (the payload fetch will fail without the inspector running)
 
 To test the production build:
 
-- Run `pnpm build` to build the app
+- Run `pnpm build` to build the inspector tool and the CLI
 - Run `pnpm start` to start the production server at http://localhost:7777
 
 ## License
