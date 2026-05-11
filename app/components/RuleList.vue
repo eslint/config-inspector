@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Linter } from 'eslint'
 import type { RuleInfo } from '~~/shared/types'
-import { computed, defineComponent, Fragment, h } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import { getRuleFromName, payload } from '~/composables/payload'
 import { isGridView } from '../composables/state'
 
@@ -38,8 +38,8 @@ const containerClass = computed(() => {
 const Wrapper = defineComponent({
   setup(_, { slots }) {
     return () => isGridView.value
-      ? h('div', { class: 'relative border border-base max-w-full rounded-lg p4 py3 flex flex-col gap-2 of-hidden justify-start' }, slots.default?.())
-      : h(Fragment, slots.default?.())
+      ? h('div', { 'class': 'relative border border-base max-w-full rounded-lg p4 py3 flex flex-col gap-2 of-hidden justify-start', 'data-testid': 'rule-item' }, slots.default?.())
+      : h('div', { 'class': 'contents', 'data-testid': 'rule-item' }, slots.default?.())
   },
 })
 </script>
