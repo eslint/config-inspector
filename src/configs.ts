@@ -132,11 +132,14 @@ export async function readConfig(
 
   const dependencies = collectJitiDependencies(jiti, configPath)
 
-  let rawConfigs = ((mod as any)?.default ?? mod) as FlatConfigItem[]
+  const exported = ((mod as any)?.default ?? mod) as FlatConfigItem | FlatConfigItem[]
 
-  // A single flat config object is also valid
-  if (!Array.isArray(rawConfigs))
-    rawConfigs = [rawConfigs]
+  // A single flat config object is also valid. Always clone into a fresh
+  // array so the ESLint defaults `unshift`ed below don't mutate the user's
+  // exported array — Node's ESM loader caches modules by URL, so a second
+  // load of an unchanged config would otherwise return the same reference
+  // and accumulate defaults on each call.
+  const rawConfigs: FlatConfigItem[] = Array.isArray(exported) ? [...exported] : [exported]
 
   // ESLint applies these default configs to all files
   // https://github.com/eslint/eslint/blob/21d3766c3f4efd981d3cc294c2c82c8014815e6e/lib/config/default-config.js#L66-L69
