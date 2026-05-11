@@ -6,7 +6,6 @@ dist
 .env
 .idea/
 .DS_Store
-.eslint-config-inspector
 public/fonts
 *.code-workspace
 
