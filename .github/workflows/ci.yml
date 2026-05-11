@@ -62,7 +62,7 @@ jobs:
         run: nci
 
       - name: Build
-        run: nr build
+        run: nr build && nr cli:build
 
       - name: Test
         run: nr test

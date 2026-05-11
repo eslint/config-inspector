@@ -122,7 +122,7 @@ export default defineConfig({
       },
       processors: createLocalFontProcessor({
         fontAssetsDir: './public/fonts',
-        fontServeBaseUrl: './fonts',
+        fontServeBaseUrl: '/fonts',
       }),
     }),
   ],

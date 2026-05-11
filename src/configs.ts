@@ -207,20 +207,21 @@ export async function readConfig(
 
   const rules = Object.fromEntries(rulesMap.entries())
   const configs = rawConfigs.map((c, idx): FlatConfigItem => {
-    return {
-      ...c,
-      index: idx,
-      plugins: c.plugins
-        ? Object.fromEntries(Object.entries(c.plugins ?? {}).map(([prefix]) => [prefix, {}]).filter(i => i[0]))
-        : undefined,
-      languageOptions: c.languageOptions
-        ? {
-            ...c.languageOptions,
-            parser: (c.languageOptions.parser as any)?.meta?.name as any,
-          }
-        : undefined,
-      processor: (c.processor as any)?.meta?.name,
-    }
+    const out: FlatConfigItem = { ...c, index: idx }
+    if (c.plugins)
+      out.plugins = Object.fromEntries(Object.entries(c.plugins).map(([prefix]) => [prefix, {}]).filter(i => i[0]))
+    else
+      delete out.plugins
+    if (c.languageOptions)
+      out.languageOptions = { ...c.languageOptions, parser: (c.languageOptions.parser as any)?.meta?.name as any }
+    else
+      delete out.languageOptions
+    const processorName = (c.processor as any)?.meta?.name
+    if (processorName)
+      out.processor = processorName
+    else
+      delete out.processor
+    return out
   })
 
   console.log(MARK_CHECK, 'Loaded with', configs.length, 'config items and', Object.keys(rules).length, 'rules')
