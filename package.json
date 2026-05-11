@@ -40,11 +40,10 @@
   },
   "dependencies": {
     "ansis": "catalog:",
-    "bundle-require": "catalog:",
     "cac": "catalog:",
     "chokidar": "catalog:",
     "devframe": "catalog:",
-    "esbuild": "catalog:",
+    "jiti": "catalog:",
     "tinyglobby": "catalog:"
   },
   "devDependencies": {
