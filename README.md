@@ -18,6 +18,13 @@ Go to the project root that contains `eslint.config.js` and run:
 npx @eslint/config-inspector@latest
 ```
 
+If you are using [Yarn](https://yarnpkg.com/) with Plug'n'Play, `npx` may not resolve packages correctly. Instead, install it as a dev dependency and run:
+
+```bash
+yarn add -D @eslint/config-inspector
+yarn run config-inspector
+```
+
 Visit http://localhost:7777/ to view and play with your ESLint config. Changes to the config file will be updated automatically.
 
 Run `npx @eslint/config-inspector --help` to see all the CLI options available.
