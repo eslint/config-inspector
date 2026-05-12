@@ -10,7 +10,7 @@ catalogs:
       specifier: ^8.2.0
       version: 8.2.0
     '@axe-core/playwright':
-      specifier: ^4.10.2
+      specifier: ^4.11.3
       version: 4.11.3
     '@eslint/config-array':
       specifier: ^0.23.5
