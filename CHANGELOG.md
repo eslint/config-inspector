@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.1](https://github.com/eslint/config-inspector/compare/v3.0.0...v3.0.1) (2026-05-12)
+
+
+### Bug Fixes
+
+* add Playwright contrast tests and improve light/dark contrast ([#250](https://github.com/eslint/config-inspector/issues/250)) ([a443954](https://github.com/eslint/config-inspector/commit/a4439546154171406032b5ae9193947fe735a553))
+* await Promise-like default exports ([#248](https://github.com/eslint/config-inspector/issues/248)) ([186b2f5](https://github.com/eslint/config-inspector/commit/186b2f5eb48a989b824721c48b7cfb90756cac81))
+
 ## [3.0.0](https://github.com/eslint/config-inspector/compare/v2.0.1...v3.0.0) (2026-05-11)
 
 
