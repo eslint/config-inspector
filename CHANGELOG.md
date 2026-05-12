@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.2](https://github.com/eslint/config-inspector/compare/v3.0.1...v3.0.2) (2026-05-12)
+
+
+### Bug Fixes
+
+* update deps ([9be674b](https://github.com/eslint/config-inspector/commit/9be674bc197cfa7b2419c7a166a1198740c035b7))
+
 ## [3.0.1](https://github.com/eslint/config-inspector/compare/v3.0.0...v3.0.1) (2026-05-12)
 
 
