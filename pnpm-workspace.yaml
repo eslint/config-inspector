@@ -29,7 +29,7 @@ catalog:
   ansis: ^4.2.0
   cac: ^7.0.0
   chokidar: ^5.0.0
-  devframe: ^0.1.22
+  devframe: ^0.2.0
   esbuild: ^0.28.0
   eslint: ^10.3.0
   find-up: ^8.0.0

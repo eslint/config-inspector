@@ -73,8 +73,8 @@ catalogs:
       specifier: ^7.0.0
       version: 7.0.0
     devframe:
-      specifier: ^0.1.22
-      version: 0.1.22
+      specifier: ^0.2.0
+      version: 0.2.0
     eslint:
       specifier: ^10.3.0
       version: 10.3.0
@@ -165,7 +165,7 @@ importers:
         version: 5.0.0
       devframe:
         specifier: 'catalog:'
-        version: 0.1.22(typescript@6.0.3)
+        version: 0.2.0(typescript@6.0.3)
       jiti:
         specifier: 'catalog:'
         version: 2.6.1
@@ -3359,8 +3359,8 @@ packages:
   devalue@5.8.0:
     resolution: {integrity: sha512-2zA9pFEsnp7vWBZbXF5JAgAq0fsUIt/1XPbRiAmRV3lp/2C3upzH+sADiyy66aFCihoLEsrQHxNM5w1gIDfsBg==}
 
-  devframe@0.1.22:
-    resolution: {integrity: sha512-2/dyUB8U/hg5BOk5cdrAWpesQIAx6P33GOjmVBdWOnTdZGHgZisN1y6lu2NAZYXTSgEYE3Sxyt59lN1I6/NSCQ==}
+  devframe@0.2.0:
+    resolution: {integrity: sha512-/9JadzWK75tNL7IWNA7vwGy5OblyDOOThHFZbpIgFLo2HW+qosCtGQR7GtCDSx9oQtRONifmXazk7tOyKkSLmg==}
     peerDependencies:
       '@modelcontextprotocol/sdk': ^1.0.0
     peerDependenciesMeta:
@@ -4044,6 +4044,16 @@ packages:
 
   h3@1.15.11:
     resolution: {integrity: sha512-L3THSe2MPeBwgIZVSH5zLdBBU90TOxarvhK9d04IDY2AmVS8j2Jz2LIWtwsGOU3lu2I5jCN7FNvVfY2+XyF+mg==}
+
+  h3@2.0.1-rc.22:
+    resolution: {integrity: sha512-Esv0DMIuPkCTSWCA0vO73vcTqwzH1wjSrAO1TXNu/K3up1sZHa9EKMapbmxCDYBeymC3fVTk4qxp7ogQWQ+KgA==}
+    engines: {node: '>=20.11.1'}
+    hasBin: true
+    peerDependencies:
+      crossws: ^0.4.1
+    peerDependenciesMeta:
+      crossws:
+        optional: true
 
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
@@ -9556,12 +9566,12 @@ snapshots:
 
   devalue@5.8.0: {}
 
-  devframe@0.1.22(typescript@6.0.3):
+  devframe@0.2.0(typescript@6.0.3):
     dependencies:
       '@valibot/to-json-schema': 1.7.0(valibot@1.4.0(typescript@6.0.3))
       birpc: 4.0.0
       cac: 7.0.0
-      h3: 1.15.11
+      h3: 2.0.1-rc.22
       logs-sdk: 0.0.6
       mrmime: 2.0.1
       pathe: 2.0.3
@@ -9569,6 +9579,7 @@ snapshots:
       ws: 8.20.0
     transitivePeerDependencies:
       - bufferutil
+      - crossws
       - typescript
       - utf-8-validate
 
@@ -10344,6 +10355,11 @@ snapshots:
       radix3: 1.1.2
       ufo: 1.6.4
       uncrypto: 0.1.3
+
+  h3@2.0.1-rc.22:
+    dependencies:
+      rou3: 0.8.1
+      srvx: 0.11.15
 
   has-flag@4.0.0: {}
 
