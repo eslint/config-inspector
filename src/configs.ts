@@ -132,7 +132,12 @@ export async function readConfig(
 
   const dependencies = collectJitiDependencies(jiti, configPath)
 
-  const exported = ((mod as any)?.default ?? mod) as FlatConfigItem | FlatConfigItem[]
+  // `await` is required for Promise-like default exports such as
+  // `eslint-flat-config-utils`' `FlatConfigComposer` (used by `@antfu/eslint-config`
+  // and others), which extends `Promise` and only yields the real config array
+  // once awaited. Awaiting a non-thenable resolves to the value itself, so plain
+  // array/object exports are unaffected.
+  const exported = await ((mod as any)?.default ?? mod) as FlatConfigItem | FlatConfigItem[]
 
   // A single flat config object is also valid. Always clone into a fresh
   // array so the ESLint defaults `unshift`ed below don't mutate the user's
