@@ -53,8 +53,8 @@ const parsed = computed(() => {
     ]"
   >
     <span v-if="parsed.scope" :style="{ color: getPluginColor(parsed.scope) }">{{ parsed.scope }}</span>
-    <span v-if="parsed.scope" op30>/</span>
+    <span v-if="parsed.scope" color-faint>/</span>
     <br v-if="parsed.scope && props.break">
-    <span op75>{{ parsed.name }}</span>
+    <span color-base>{{ parsed.name }}</span>
   </component>
 </template>

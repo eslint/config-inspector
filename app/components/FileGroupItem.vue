@@ -58,15 +58,15 @@ function goToConfig(idx: number) {
     @toggle="open = $event.target.open"
   >
     <summary block>
-      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right font-mono op35 lt-lg:hidden>
+      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right color-muted font-mono lt-lg:hidden>
         #{{ index + 1 }}
       </div>
       <div flex="~ gap-2 items-start wrap items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
-        <div class="[details[open]_&]:rotate-90" i-ph-caret-right op50 transition />
+        <div class="[details[open]_&]:rotate-90" i-ph-caret-right color-muted transition />
         <div flex flex-auto flex-col gap-3 md:flex-row>
           <span flex-auto flex="~ gap-2 items-center">
             <template v-if="groupName?.type === 'config'">
-              <span op75>Config</span>
+              <span color-muted>Config</span>
               <ColorizedConfigName
                 badge
                 :name="groupName.config.name"
@@ -74,14 +74,14 @@ function goToConfig(idx: number) {
               />
             </template>
             <template v-else-if="groupName?.type === 'glob'">
-              <span op75>Globs</span>
+              <span color-muted>Globs</span>
               <GlobItem
                 v-for="glob, idx of groupName.globs"
                 :key="idx"
                 :glob="glob"
               />
             </template>
-            <span v-else op50>
+            <span v-else color-muted>
               Files group #{{ index + 1 }}
             </span>
           </span>
@@ -105,7 +105,10 @@ function goToConfig(idx: number) {
       </div>
     </summary>
 
-    <div pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5>
+    <div
+      aria-hidden="true" data-a11y-skip
+      pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5
+    >
       #{{ index + 1 }}
     </div>
 
@@ -136,9 +139,9 @@ function goToConfig(idx: number) {
                 </div>
                 <div p3 border="t base">
                   <div flex="~ gap-2 items-start">
-                    <div i-ph-file-magnifying-glass-duotone my1 flex-none op75 />
+                    <div i-ph-file-magnifying-glass-duotone my1 flex-none color-muted />
                     <div flex="~ col gap-2">
-                      <div op50>
+                      <div color-muted>
                         Applies to files matching
                       </div>
                       <div flex="~ gap-2 items-center wrap">

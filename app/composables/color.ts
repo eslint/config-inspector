@@ -50,8 +50,8 @@ export function getHsla(
   hue: number,
   opacity: number | string = 1,
 ) {
-  const saturation = isDark.value ? 50 : 65
-  const lightness = isDark.value ? 60 : 40
+  const saturation = isDark.value ? 55 : 70
+  const lightness = isDark.value ? 72 : 28
   return `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`
 }
 

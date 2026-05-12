@@ -125,8 +125,8 @@ function capitalize(str?: string) {
     <div
       :class="[
         rule.deprecated ? 'line-through' : '',
-        rule.invalid ? 'text-red' : '',
-        gridView ? 'op50 text-sm' : 'op75 ws-nowrap of-hidden text-ellipsis line-clamp-1',
+        rule.invalid ? 'text-red-700 dark:text-red-300' : '',
+        gridView ? 'color-muted text-sm' : 'color-muted ws-nowrap of-hidden text-ellipsis line-clamp-1',
       ]"
     >
       {{ rule.invalid ? 'Invalid rule has no description' : capitalize(rule.docs?.description) }}

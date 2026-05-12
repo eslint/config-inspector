@@ -79,17 +79,18 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
   <component :is="showsPopup ? VDropdown : Noop">
     <component
       :is="showsPopup ? 'button' : 'div'"
-      text-gray font-mono
+      data-a11y-skip
+      font-mono
       :class="active === true ? 'badge-active' : active === false ? 'badge op50' : 'badge'"
     >
       <template v-for="html, i of highlightedPatterns" :key="i">
-        <span v-if="i > 0" mx1 op50>&amp;</span>
+        <span v-if="i > 0" mx1 color-muted>&amp;</span>
         <span class="filter-hue-rotate-180" v-html="html" />
       </template>
     </component>
     <template #popper="{ shown, hide }">
       <div v-if="shown && popup === 'files'" max-h="30vh" min-w-80 of-auto p3>
-        <div v-if="isCompound" mb2 text-xs op60>
+        <div v-if="isCompound" mb2 text-xs color-muted>
           Compound glob (intersection of {{ patterns.length }} patterns)
         </div>
         <div v-if="files?.size" flex="~ col gap-1">
@@ -101,13 +102,13 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
             @click="hide()"
           />
         </div>
-        <div v-else text-center italic op50>
+        <div v-else text-center color-muted italic>
           No files matched this glob.
         </div>
       </div>
 
       <div v-if="shown && popup === 'configs'" max-h="30vh" min-w-80 of-auto p3>
-        <div v-if="isCompound" mb2 text-xs op60>
+        <div v-if="isCompound" mb2 text-xs color-muted>
           Compound glob (intersection of {{ patterns.length }} patterns)
         </div>
         <div v-if="configs?.length" flex="~ col gap-1">
@@ -121,7 +122,7 @@ const Noop = defineComponent({ setup: (_, { slots }) => () => slots.default?.() 
             </button>
           </div>
         </div>
-        <div v-else text-center italic op50>
+        <div v-else text-center color-muted italic>
           No configs matched this glob.
         </div>
       </div>

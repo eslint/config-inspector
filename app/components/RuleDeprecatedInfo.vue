@@ -38,7 +38,7 @@ const versionInfo = computed(() => {
 
 function getLinkClass(url: string | undefined) {
   return [
-    'text-blue5 dark:text-blue4',
+    'text-blue-700 dark:text-blue-300',
     url ? 'underline' : '',
   ]
 }
@@ -50,17 +50,17 @@ function getLinkClass(url: string | undefined) {
     :disabled="!deprecatedInfo"
   >
     <div
-      border="~ red/25 rounded"
-      select-none bg-red:5 px1 text-xs text-red
+      border="~ rose-700/30 dark:rose-300/30 rounded"
+      select-none bg-rose-50 px1 text-xs text-rose-700 dark:bg-rose-900:20 dark:text-rose-300
     >
       {{ invalid ? 'INVALID' : 'DEPRECATED' }}
     </div>
     <template #popper="{ shown }">
       <div
         v-if="shown && deprecatedInfo"
-        p-2 text-sm op75
+        p-2 text-sm color-base
       >
-        <p v-if="deprecatedInfo.message" mb1 flex="~ gap-1" text-red>
+        <p v-if="deprecatedInfo.message" mb1 flex="~ gap-1" text-rose-700 dark:text-rose-300>
           <span i-ph-warning-duotone inline-block />{{ deprecatedInfo.message }}
         </p>
         <p v-if="versionInfo">
@@ -92,7 +92,7 @@ function getLinkClass(url: string | undefined) {
           </template>
         </p>
         <p mt2>
-          <a text-red underline target="_blank" :href="deprecatedInfo.url">Learn more</a>
+          <a text-rose-700 underline dark:text-rose-300 target="_blank" :href="deprecatedInfo.url">Learn more</a>
         </p>
       </div>
     </template>

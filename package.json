@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
+    "@axe-core/playwright": "catalog:",
     "@eslint/config-array": "catalog:",
     "@iconify-json/carbon": "catalog:",
     "@iconify-json/file-icons": "catalog:",

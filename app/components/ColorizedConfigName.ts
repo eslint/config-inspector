@@ -20,7 +20,7 @@ export default defineComponent({
         groups.value.forEach((parts, gi) => {
           if (gi > 0) {
             children.push(h('span', {
-              class: 'i-ph-caret-right inline-block op35',
+              class: 'i-ph-caret-right inline-block color-faint',
               style: { margin: '0 0.25em', verticalAlign: '-0.1em' },
             }))
           }
@@ -28,7 +28,7 @@ export default defineComponent({
             children.push(h(
               'span',
               [':', '/'].includes(part)
-                ? { style: { opacity: 0.35, margin: '0 1px' } }
+                ? { class: 'color-faint', style: { margin: '0 1px' } }
                 : i !== parts.length - 1
                   ? { style: { color: getPluginColor(part) } }
                   : null,
@@ -40,9 +40,9 @@ export default defineComponent({
       }
       else {
         return h('span', [
-          h('span', { class: 'op50 italic' }, 'anonymous'),
+          h('span', { class: 'color-muted italic' }, 'anonymous'),
           props.index != null
-            ? h('span', { class: 'op50 text-sm' }, ` #${props.index + 1}`)
+            ? h('span', { class: 'color-muted text-sm' }, ` #${props.index + 1}`)
             : null,
         ])
       }

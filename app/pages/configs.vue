@@ -157,12 +157,12 @@ const HighlightMatch = defineComponent({
 
       for (const [from, to] of match.indices) {
         if (start < from)
-          array.push(h('span', { class: 'op50' }, content.slice(start, from)))
-        array.push(h('span', { class: 'text-purple font-bold' }, content.slice(from, to + 1)))
+          array.push(h('span', { class: 'color-muted' }, content.slice(start, from)))
+        array.push(h('span', { class: 'text-purple-700 dark:text-purple-300 font-bold' }, content.slice(from, to + 1)))
         start = to + 1
       }
       if (start < content.length)
-        array.push(h('span', { class: 'op50' }, content.slice(start)))
+        array.push(h('span', { class: 'color-muted' }, content.slice(start)))
       return array
     })
   },
@@ -217,7 +217,7 @@ onMounted(async () => {
           @keydown.up.prevent="autoCompleteMove(-1)"
           @keydown.enter.prevent="autoCompleteConfirm()"
         >
-        <div absolute bottom-0 left-0 top-0 flex="~ items-center justify-center" p4 op50>
+        <div absolute bottom-0 left-0 top-0 flex="~ items-center justify-center" p4 color-muted>
           <div i-ph-magnifying-glass-duotone />
         </div>
         <div
@@ -246,30 +246,31 @@ onMounted(async () => {
         <div v-if="filters.filepath">
           <div
             flex="~ gap-2 items-center wrap"
-            border="~ purple/20 rounded-full" bg-purple:10 px3 py1
+            border="~ purple-700/30 dark:purple-300/30 rounded-full"
+            bg-purple-50 px3 py1 dark:bg-purple-900:20
             :class="{ 'saturate-0': !filteredConfigs.length }"
           >
-            <div i-ph-file-dotted-duotone text-purple />
-            <span op50>Filepath</span>
+            <div i-ph-file-dotted-duotone text-purple-700 dark:text-purple-300 />
+            <span color-muted>Filepath</span>
             <code>{{ filters.filepath }}</code>
 
             <template v-if="!filteredConfigs.length">
-              <span op50>is not included or has been ignored</span>
+              <span color-muted>is not included or has been ignored</span>
             </template>
             <template v-else-if="stateStorage.viewFileMatchType === 'configs'">
-              <span op50>matched with</span>
+              <span color-muted>matched with</span>
               <span>{{ filteredConfigs.length }} / {{ payload.configs.length }}</span>
-              <span op50>config items</span>
+              <span color-muted>config items</span>
             </template>
             <template v-else>
-              <span op50>matched with total </span>
+              <span color-muted>matched with total </span>
               <span>{{ Object.keys(mergedRules.all).length }}</span>
-              <span op50>rules, </span>
+              <span color-muted>rules, </span>
               <span>{{ Object.keys(mergedRules.specific).length }}</span>
-              <span op50>of them are specific to the file</span>
+              <span color-muted>of them are specific to the file</span>
             </template>
             <button
-              i-ph-x text-sm op25 hover:op100
+              i-ph-x text-sm color-muted hover:color-base
               @click="filters.filepath = ''; input = ''"
             />
           </div>
@@ -277,14 +278,15 @@ onMounted(async () => {
         <div v-if="filters.rule">
           <div
             flex="~ gap-2 items-center"
-            border="~ blue/20 rounded-full" bg-blue:10 px3 py1
+            border="~ blue-700/30 dark:blue-300/30 rounded-full"
+            bg-blue-50 px3 py1 dark:bg-blue-900:20
           >
             <div i-ph-funnel-duotone />
-            <span op50>Filtered by</span>
+            <span color-muted>Filtered by</span>
             <ColorizedRuleName :name="filters.rule" />
-            <span op50>rule</span>
+            <span color-muted>rule</span>
             <button
-              i-ph-x text-sm op25 hover:op100
+              i-ph-x text-sm color-muted hover:color-base
               @click="filters.rule = ''"
             />
           </div>
@@ -294,7 +296,7 @@ onMounted(async () => {
         <template v-if="filters.filepath">
           <div border="~ base rounded" flex>
             <button
-              :class="stateStorage.viewFileMatchType === 'configs' ? 'btn-action-active' : 'op50'"
+              :class="stateStorage.viewFileMatchType === 'configs' ? 'btn-action-active' : ''"
               btn-action border-none
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
@@ -303,7 +305,7 @@ onMounted(async () => {
             </button>
             <div border="l base" />
             <button
-              :class="stateStorage.viewFileMatchType !== 'configs' ? 'btn-action-active' : 'op50'"
+              :class="stateStorage.viewFileMatchType !== 'configs' ? 'btn-action-active' : ''"
               btn-action border-none
               @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
             >
@@ -322,7 +324,7 @@ onMounted(async () => {
             type="checkbox"
             @change="stateStorage.showSpecificOnly = !!($event.target as any).checked"
           >
-          <span op50>Show Specific Rules Only</span>
+          <span color-muted>Show Specific Rules Only</span>
         </label>
         <div flex-auto />
         <button
@@ -340,7 +342,7 @@ onMounted(async () => {
       </div>
 
       <template v-if="!filteredConfigs.length">
-        <div mt5 italic op50>
+        <div mt5 color-muted italic>
           No matched config items.
         </div>
         <template v-if="fileMatchResult?.globs.length">
@@ -360,7 +362,7 @@ onMounted(async () => {
         <template v-if="filters.filepath && stateStorage.viewFileMatchType === 'merged'">
           <details class="flat-config-item" border="~ base rounded-lg" relative>
             <summary block>
-              <div flex="~ gap-2 items-start" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono op75>
+              <div flex="~ gap-2 items-start" cursor-pointer select-none bg-hover px2 py2 text-sm color-base font-mono>
                 <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition />
                 Merged Rules: Common to every file ({{ Object.keys(mergedRules.common).length }} rules)
               </div>
@@ -372,7 +374,7 @@ onMounted(async () => {
           </details>
           <details class="flat-config-item" border="~ base rounded-lg" open relative>
             <summary block>
-              <div flex="~ gap-2 items-start" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono op75>
+              <div flex="~ gap-2 items-start" cursor-pointer select-none bg-hover px2 py2 text-sm color-base font-mono>
                 <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition />
                 Merged Rules: Specific to matched file ({{ Object.keys(mergedRules.specific).length }} rules)
               </div>
@@ -383,7 +385,7 @@ onMounted(async () => {
               </div>
               <RuleList
                 m4
-                :get-bind="(name: string) => ({ class: 'op50' })"
+                :get-bind="(name: string) => ({ class: 'color-muted' })"
                 :rules="mergedRules.specificDisabled"
               />
             </template>

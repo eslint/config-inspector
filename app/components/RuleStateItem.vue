@@ -13,9 +13,9 @@ const props = defineProps<{
 }>()
 
 const colors = {
-  error: 'text-red',
-  warn: 'text-amber',
-  off: 'text-gray',
+  error: 'text-rose-700 dark:text-rose-300',
+  warn: 'text-warning-700 dark:text-warning-300',
+  off: 'color-muted',
 }
 
 const config = computed(() => payload.value.configs[props.state.configIndex]!)
@@ -44,22 +44,22 @@ function goto() {
         :level="state.level"
         :config-index="state.configIndex"
       />
-      <span v-if="state.level === 'off'" ml1 op50>Turned </span>
-      <span v-else ml1 op50>Set to </span>
+      <span v-if="state.level === 'off'" ml1 color-muted>Turned </span>
+      <span v-else ml1 color-muted>Set to </span>
       <span font-mono :class="colors[state.level]">{{ state.level }}</span>
       <template v-if="!isLocal">
-        <span op50>in</span>
-        <button hover="!color-base" text-gray @click="goto()">
+        <span color-muted>in</span>
+        <button hover="!color-base" color-muted @click="goto()">
           <ColorizedConfigName
             v-if="config.name" :name="config.name"
             px2 font-mono border="~ base rounded"
           />
-          <span op50> the </span>
+          <span color-muted> the </span>
           {{ nth(state.configIndex + 1) }}
-          <span op50> config item </span>
+          <span color-muted> config item </span>
         </button>
       </template>
-      <div v-else op50>
+      <div v-else color-muted>
         in this config
       </div>
     </div>
@@ -67,7 +67,7 @@ function goto() {
       <template v-if="config.files">
         <div i-ph-file-magnifying-glass-duotone my1 flex-none op75 />
         <div flex="~ col gap-2">
-          <div op50>
+          <div color-muted>
             Applies to files matching
           </div>
           <div flex="~ gap-2 items-center wrap">
@@ -77,14 +77,14 @@ function goto() {
       </template>
       <template v-else-if="config.rules">
         <div i-ph-files-duotone my1 flex-none op75 />
-        <div op50>
+        <div color-muted>
           Applied generally for all files
         </div>
       </template>
     </div>
     <template v-if="state.options?.length || defaultOptions?.length">
       <div items-center justify-between md:flex>
-        <div flex="~ gap-1" op50>
+        <div flex="~ gap-1" color-muted>
           <button
             v-if="state.options?.length"
             btn-action
@@ -125,7 +125,7 @@ function goto() {
       </template>
     </template>
     <template v-if="ruleOptions.viewType === 'state' && comparedOptions.hasRedundantOptions">
-      <div op50>
+      <div color-muted>
         Options <span italic op75>italicized</span> match the default for the rule
       </div>
     </template>

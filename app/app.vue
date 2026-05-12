@@ -14,15 +14,15 @@ init(config.app.baseURL)
   <div v-if="errorInfo" grid h-full w-full place-content-center whitespace-pre-line p4>
     <ConfigInspectorBadge mb6 text-xl font-200 />
 
-    <div text-2xl text-red5 font-bold>
-      Failed to load <span rounded bg-red:5 px2>eslint.config.js</span><br>
+    <div text-2xl text-rose-700 font-bold dark:text-rose-300>
+      Failed to load <span rounded bg-rose-50 px2 dark:bg-rose-900:20>eslint.config.js</span><br>
     </div>
 
-    <div text-lg text-red font-mono>
+    <div text-lg text-rose-700 font-mono dark:text-rose-300>
       {{ errorInfo.error }}
     </div>
 
-    <div mt6 op50>
+    <div mt6 color-muted>
       Note that
       <a href="https://github.com/eslint/config-inspector" target="_blank" hover:underline>config inspector</a>
       only works with the <a href="https://eslint.org/docs/latest/use/configure/configuration-files-new" target="_blank" font-bold hover:underline>flat config format</a>.

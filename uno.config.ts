@@ -13,6 +13,8 @@ import {
 export default defineConfig({
   shortcuts: {
     'color-base': 'color-neutral-800 dark:color-neutral-300',
+    'color-muted': 'color-neutral-600 dark:color-neutral-400',
+    'color-faint': 'color-neutral-500 dark:color-neutral-500',
     'bg-base': 'bg-white dark:bg-neutral-900',
     'border-base': 'border-#aaa3',
 
@@ -21,16 +23,17 @@ export default defineConfig({
     'bg-code': 'bg-gray5:5',
     'bg-hover': 'bg-primary-400:5',
 
-    'color-active': 'color-primary-600 dark:color-primary-400',
-    'border-active': 'border-primary-600/25 dark:border-primary-400/25',
+    'color-active': 'color-primary-700 dark:color-primary-400',
+    'border-active': 'border-primary-700/30 dark:border-primary-400/25',
     'bg-active': 'bg-primary-400:10',
 
-    'btn-action': 'border border-base rounded flex gap-2 items-center px2 py1 op75 hover:op100 hover:bg-hover',
+    'btn-action': 'border border-base rounded flex gap-2 items-center px2 py1 color-muted hover:color-base hover:bg-hover',
     'btn-action-sm': 'btn-action text-sm',
-    'btn-action-active': 'color-active border-active! bg-active op100!',
+    'btn-action-active': 'color-active border-active! bg-active',
 
     'badge': 'border border-base rounded flex items-center px2',
-    'badge-active': 'badge border-amber:50 text-amber bg-amber:5',
+    'badge-active': 'badge border-amber-700:50 text-amber-700 bg-amber-50 dark:border-amber-300:50 dark:text-amber-300 dark:bg-amber-900:20',
+    'badge-muted': 'badge color-muted',
     'btn-badge': 'badge hover:bg-active',
   },
   theme: {

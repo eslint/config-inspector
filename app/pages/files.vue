@@ -13,14 +13,14 @@ function collapseAll() {
 
 <template>
   <div v-if="payload.filesResolved" flex="~ col gap-4" my4>
-    <div text-gray:75>
+    <div color-muted>
       This tab shows the preview for files match from the workspace.
-      This feature is <span text-amber>experimental</span> and may not be 100% accurate.
+      This feature is <span text-warning-700 dark:text-warning-300>experimental</span> and may not be 100% accurate.
     </div>
     <div flex="~ gap-2 items-center">
       <div border="~ base rounded" flex="~ inline">
         <button
-          :class="stateStorage.viewFilesTab === 'list' ? 'btn-action-active' : 'op50'"
+          :class="stateStorage.viewFilesTab === 'list' ? 'btn-action-active' : ''"
           btn-action border-none
           @click="stateStorage.viewFilesTab = 'list'"
         >
@@ -29,7 +29,7 @@ function collapseAll() {
         </button>
         <div border="l base" />
         <button
-          :class="stateStorage.viewFilesTab === 'group' ? 'btn-action-active' : 'op50'"
+          :class="stateStorage.viewFilesTab === 'group' ? 'btn-action-active' : ''"
           btn-action border-none
           @click="stateStorage.viewFilesTab = 'group' "
         >
@@ -74,7 +74,7 @@ function collapseAll() {
     </div>
   </div>
   <div v-else>
-    <div p3 italic op50>
+    <div p3 color-muted italic>
       No matched files found in the workspace.
     </div>
   </div>

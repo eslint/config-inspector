@@ -105,12 +105,12 @@ function resetFilters() {
           border="~ base rounded-full"
           w-full bg-transparent px3 py2 pl10 outline-none
         >
-        <div absolute bottom-0 left-0 top-0 flex="~ items-center justify-center" p4 op50>
+        <div absolute bottom-0 left-0 top-0 flex="~ items-center justify-center" p4 color-muted>
           <div i-ph-magnifying-glass-duotone />
         </div>
       </div>
       <div grid="~ cols-[max-content_1fr] gap-2" my2 items-center>
-        <div text-right text-sm op50>
+        <div text-right text-sm color-muted>
           Plugins
         </div>
         <OptionSelectGroup
@@ -125,7 +125,7 @@ function resetFilters() {
             } : {},
           }))]"
         />
-        <div text-right text-sm op50>
+        <div text-right text-sm color-muted>
           Usage
         </div>
         <OptionSelectGroup
@@ -144,7 +144,7 @@ function resetFilters() {
             </div>
           </template>
         </OptionSelectGroup>
-        <div text-right text-sm op50>
+        <div text-right text-sm color-muted>
           State
         </div>
         <OptionSelectGroup
@@ -154,9 +154,9 @@ function resetFilters() {
         >
           <template #default="{ value, title }">
             <div flex items-center gap-1>
-              <div v-if="value === 'recommended'" i-ph-check-square-duotone ml--0.5 text-green />
-              <div v-if="value === 'fixable'" i-ph-wrench-duotone ml--0.5 text-amber />
-              <div v-if="value === 'deprecated'" i-ph-prohibit-inset-duotone ml--1 text-gray />
+              <div v-if="value === 'recommended'" i-ph-check-square-duotone ml--0.5 text-green-700 dark:text-green-300 />
+              <div v-if="value === 'fixable'" i-ph-wrench-duotone ml--0.5 text-amber-700 dark:text-amber-300 />
+              <div v-if="value === 'deprecated'" i-ph-prohibit-inset-duotone ml--1 color-muted />
               {{ title || value }}
             </div>
           </template>
@@ -168,23 +168,24 @@ function resetFilters() {
       <div flex="~ gap-2" lt-sm:flex-col>
         <div
           flex="~ inline gap-2 items-center"
-          border="~ gray/20 rounded-full" bg-gray:10 px3 py1
+          border="~ gray/30 rounded-full" bg-gray:10 px3 py1
         >
           <div i-ph-list-checks-duotone />
           <span>{{ filtered.length }}</span>
-          <span op75>rules {{ isDefaultFilters ? 'enabled' : 'filtered' }}</span>
-          <span text-sm op50>out of {{ rules.length }} rules</span>
+          <span color-base>rules {{ isDefaultFilters ? 'enabled' : 'filtered' }}</span>
+          <span text-sm color-muted>out of {{ rules.length }} rules</span>
         </div>
         <button
           v-if="!isDefaultFilters"
           flex="~ inline gap-2 items-center self-start"
-          border="~ purple/20 rounded-full" bg-purple:10 px3 py1
+          border="~ purple-700/30 dark:purple-300/30 rounded-full"
+          bg-purple-50 px3 py1 dark:bg-purple-900:20
           @click="resetFilters()"
         >
-          <div i-ph-funnel-duotone text-purple />
-          <span op50>Clear Filter</span>
+          <div i-ph-funnel-duotone text-purple-700 dark:text-purple-300 />
+          <span color-muted>Clear Filter</span>
           <div
-            i-ph-x ml--1 text-sm op25 hover:op100
+            i-ph-x ml--1 text-sm color-muted hover:color-base
           />
         </button>
       </div>
@@ -211,7 +212,7 @@ function resetFilters() {
     <RuleList
       my4
       :rules="filtered"
-      :get-bind="(name: string) => ({ class: (payload.ruleToState.get(name)?.length || filters.state === 'unused') ? '' : 'op40' })"
+      :get-bind="(name: string) => ({ class: (payload.ruleToState.get(name)?.length || filters.state === 'unused') ? '' : 'color-muted' })"
     />
   </div>
 </template>
