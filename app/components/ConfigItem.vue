@@ -75,13 +75,13 @@ const extraConfigs = computed(() => {
     @toggle="open = ($event.target as any).open"
   >
     <summary block>
-      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right font-mono op35 lt-lg:hidden>
+      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right color-muted font-mono lt-lg:hidden>
         #{{ index + 1 }}
       </div>
       <div flex="~ gap-2 items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
-        <div class="[details[open]_&]:rotate-90" i-ph-caret-right flex-none op50 transition />
+        <div class="[details[open]_&]:rotate-90" i-ph-caret-right flex-none color-muted transition />
         <div flex flex-auto flex-col flex-wrap gap-3 md:flex-row md:justify-end>
-          <span :class="config.name ? '' : 'op50 italic'" flex-1>
+          <span :class="config.name ? '' : 'color-muted italic'" flex-1>
             <ColorizedConfigName v-if="config.name" :name="config.name" />
             <span v-else>anonymous #{{ index + 1 }}</span>
           </span>
@@ -123,7 +123,10 @@ const extraConfigs = computed(() => {
       </div>
     </summary>
 
-    <div pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5>
+    <div
+      aria-hidden="true" data-a11y-skip
+      pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5
+    >
       #{{ index + 1 }}
     </div>
 
@@ -190,7 +193,7 @@ const extraConfigs = computed(() => {
           :class="isGridView ? 'pl6' : ''"
           :rules="config.rules"
           :filter="name => !filters?.rule || filters.rule === name"
-          :get-bind="(name: string) => ({ class: getRuleLevel(config.rules?.[name]) === 'off' ? 'op50' : '' })"
+          :get-bind="(name: string) => ({ class: getRuleLevel(config.rules?.[name]) === 'off' ? 'color-muted' : '' })"
         >
           <template #popup="{ ruleName, value }">
             <RuleStateItem
@@ -216,7 +219,7 @@ const extraConfigs = computed(() => {
           </template>
         </RuleList>
         <div>
-          <button v-if="filters?.rule" ml8 op50 @click="emit('badgeClick', '')">
+          <button v-if="filters?.rule" ml8 color-muted @click="emit('badgeClick', '')">
             ...{{ Object.keys(config.rules).filter(r => r !== filters?.rule).length }} others rules are hidden
           </button>
         </div>
@@ -230,7 +233,7 @@ const extraConfigs = computed(() => {
           </div>
           <template v-for="v, k in extraConfigs" :key="k">
             <div border="~ base rounded-lg">
-              <div of-auto p2 px3 op50>
+              <div of-auto p2 px3 color-muted>
                 {{ k }}
               </div>
               <Shiki

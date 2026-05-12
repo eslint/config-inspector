@@ -7,6 +7,7 @@ patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
   '@antfu/eslint-config': ^8.2.0
+  '@axe-core/playwright': ^4.10.2
   '@eslint/config-array': ^0.23.5
   '@iconify-json/carbon': ^1.2.21
   '@iconify-json/file-icons': ^1.2.2
