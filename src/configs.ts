@@ -314,7 +314,10 @@ async function collectStaticDependencies(
       }
       if (!resolved)
         continue
-      const resolvedPath = resolved.startsWith('file://') ? fileURLToPath(resolved) : resolved
+      // Normalize to forward slashes so paths match the watcher's expectations
+      // and the configPath we seeded above (both `pathe.normalize`d). On Windows,
+      // `fileURLToPath` and jiti's resolver return backslash paths.
+      const resolvedPath = normalize(resolved.startsWith('file://') ? fileURLToPath(resolved) : resolved)
       if (resolvedPath.includes('/node_modules/'))
         continue
       if (visited.has(resolvedPath))
