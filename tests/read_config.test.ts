@@ -21,4 +21,21 @@ describe('readConfig', () => {
     for (const config of result.configs)
       expect(Object.keys(config)).not.toContain('_operations')
   })
+
+  it('tracks imported files as dependencies for the watcher (#265)', async () => {
+    const cwd = resolve(fixturesDir, 'imports')
+
+    const result = await readConfig({
+      cwd,
+      userConfigPath: 'eslint.config.js',
+      chdir: false,
+    })
+
+    const configPath = resolve(cwd, 'eslint.config.js')
+    const sharedPath = resolve(cwd, 'shared.js')
+
+    expect(result.dependencies).toContain(configPath)
+    expect(result.dependencies).toContain(sharedPath)
+    expect(result.dependencies.every(d => !d.includes('/node_modules/'))).toBe(true)
+  })
 })

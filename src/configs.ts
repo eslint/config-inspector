@@ -2,13 +2,14 @@ import type { ConfigArray } from '@eslint/config-array'
 import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
 import { statSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import fswalk from '@nodelib/fs.walk'
 import c from 'ansis'
 import { findUp } from 'find-up'
 import { createJiti } from 'jiti'
-import { resolve as resolveModule } from 'mlly'
+import { findStaticImports, resolve as resolveModule } from 'mlly'
 import { basename, dirname, normalize, relative, resolve } from 'pathe'
 import { buildConfigArray, matchFile } from '../shared/configs'
 import { configFilenames, legacyConfigFilenames, MARK_CHECK, MARK_INFO } from './constants'
@@ -130,7 +131,7 @@ export async function readConfig(
   fileURL.searchParams.set('mtime', String(statSync(configPath).mtimeMs))
   const mod = await jiti.import(fileURL.href)
 
-  const dependencies = collectJitiDependencies(jiti, configPath)
+  const dependencies = await collectStaticDependencies(jiti, configPath)
 
   // `await` is required for Promise-like default exports such as
   // `eslint-flat-config-utils`' `FlatConfigComposer` (used by `@antfu/eslint-config`
@@ -259,27 +260,75 @@ export async function readConfig(
 }
 
 /**
- * Best-effort dependency collection from a `jiti` instance's internal module
- * cache, used by the dev-mode watcher to reload when imported files change.
- *
- * jiti 2.x has no public dep-tracking API; we read the `cache` property if it
- * is present and walk its keys. If the shape ever changes, we fall back to
- * watching just the config file, which matches ESLint's own behavior.
+ * Walk the static import graph from the config file to collect every local
+ * file the watcher should follow. jiti uses native dynamic `import()` for ESM,
+ * which doesn't populate jiti's runtime cache, so we recover the dependency
+ * list by parsing static imports with `mlly` and resolving each specifier
+ * through jiti (so resolution semantics — TS paths, conditions, aliases —
+ * match what was actually loaded). Best-effort: any parse or resolution
+ * failure is swallowed so a broken transitive import never crashes the dev
+ * server; we just watch what we managed to discover.
  */
-function collectJitiDependencies(jiti: unknown, configPath: string): string[] {
-  const deps = new Set<string>([configPath])
-  const cache = (jiti as { cache?: unknown }).cache
-  let keys: string[] = []
-  if (cache instanceof Map)
-    keys = [...cache.keys()].filter((k): k is string => typeof k === 'string')
-  else if (cache && typeof cache === 'object')
-    keys = Object.keys(cache as Record<string, unknown>)
-  for (const key of keys) {
-    const path = key.startsWith('file://') ? fileURLToPath(key) : key
-    if (path && !path.includes('/node_modules/'))
-      deps.add(path)
+async function collectStaticDependencies(
+  jiti: ReturnType<typeof createJiti>,
+  configPath: string,
+): Promise<string[]> {
+  const visited = new Set<string>([configPath])
+  const queue: string[] = [configPath]
+
+  while (queue.length) {
+    const file = queue.shift()!
+    let source: string
+    try {
+      source = await readFile(file, 'utf8')
+    }
+    catch {
+      continue
+    }
+
+    let imports: ReturnType<typeof findStaticImports>
+    try {
+      imports = findStaticImports(source)
+    }
+    catch {
+      continue
+    }
+
+    const parentURL = pathToFileURL(file).href
+    for (const imp of imports) {
+      const spec = imp.specifier
+      if (!spec)
+        continue
+      // Only follow local imports — bare specifiers (eslint, @antfu/eslint-config, …)
+      // resolve into node_modules, which the inspector intentionally doesn't watch.
+      const isLocal = spec.startsWith('.') || spec.startsWith('/') || spec.startsWith('file:')
+      if (!isLocal)
+        continue
+
+      let resolved: string | undefined
+      try {
+        resolved = jiti.esmResolve(spec, parentURL)
+      }
+      catch {
+        continue
+      }
+      if (!resolved)
+        continue
+      // Normalize to forward slashes so paths match the watcher's expectations
+      // and the configPath we seeded above (both `pathe.normalize`d). On Windows,
+      // `fileURLToPath` and jiti's resolver return backslash paths.
+      const resolvedPath = normalize(resolved.startsWith('file://') ? fileURLToPath(resolved) : resolved)
+      if (resolvedPath.includes('/node_modules/'))
+        continue
+      if (visited.has(resolvedPath))
+        continue
+
+      visited.add(resolvedPath)
+      queue.push(resolvedPath)
+    }
   }
-  return [...deps]
+
+  return [...visited]
 }
 
 export async function globMatchedFiles(
