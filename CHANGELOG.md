@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.3](https://github.com/eslint/config-inspector/compare/v3.0.2...v3.0.3) (2026-05-25)
+
+
+### Bug Fixes
+
+* watch imported config files for hot-reload ([#265](https://github.com/eslint/config-inspector/issues/265)) ([#266](https://github.com/eslint/config-inspector/issues/266)) ([cf71ac5](https://github.com/eslint/config-inspector/commit/cf71ac5691d0d31b543df0029622e901fdbe3b5f))
+
 ## [3.0.2](https://github.com/eslint/config-inspector/compare/v3.0.1...v3.0.2) (2026-05-12)
 
 
