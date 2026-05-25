@@ -3,62 +3,65 @@ shellEmulator: true
 trustPolicy: no-downgrade
 strictPeerDependencies: false
 
+trustPolicyExclude:
+  - chokidar@4.0.3
+  - semver@6.3.1
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
   '@antfu/eslint-config': ^9.0.0
   '@axe-core/playwright': ^4.11.3
   '@eslint/config-array': ^0.23.5
-  '@iconify-json/carbon': ^1.2.21
+  '@iconify-json/carbon': ^1.2.22
   '@iconify-json/file-icons': ^1.2.2
   '@iconify-json/logos': ^1.2.11
   '@iconify-json/ph': ^1.2.2
-  '@iconify-json/simple-icons': ^1.2.82
+  '@iconify-json/simple-icons': ^1.2.83
   '@iconify-json/svg-spinners': ^1.2.4
   '@iconify-json/twemoji': ^1.2.5
-  '@iconify-json/vscode-icons': ^1.2.49
+  '@iconify-json/vscode-icons': ^1.2.50
   '@nodelib/fs.walk': ^3.0.1
   '@nuxt/eslint': ^1.15.2
   '@playwright/test': ^1.60.0
-  '@shikijs/langs-precompiled': ^4.0.2
-  '@shikijs/transformers': ^4.0.2
-  '@typescript-eslint/utils': ^8.59.3
-  '@unocss/eslint-config': ^66.6.8
-  '@unocss/nuxt': ^66.6.8
+  '@shikijs/langs-precompiled': ^4.1.0
+  '@shikijs/transformers': ^4.1.0
+  '@typescript-eslint/utils': ^8.59.4
+  '@unocss/eslint-config': ^66.7.0
+  '@unocss/nuxt': ^66.7.0
   '@vueuse/nuxt': ^14.3.0
   ansis: ^4.3.0
   cac: ^7.0.0
   chokidar: ^5.0.0
-  devframe: ^0.2.0
+  devframe: ^0.4.1
   esbuild: ^0.28.0
   eslint: ^10.4.0
   find-up: ^8.0.0
   floating-vue: ^5.2.2
   fuse.js: ^7.3.0
   jiti: ^2.7.0
-  lint-staged: ^17.0.4
+  lint-staged: ^17.0.5
   minimatch: ^10.2.5
   mlly: ^1.8.2
   nitropack: ^2.13.4
   nuxt: 4.4.2
-  nuxt-eslint-auto-explicit-import: ^0.1.1
+  nuxt-eslint-auto-explicit-import: ^0.2.0
   pathe: ^2.0.3
-  rolldown: ^1.0.0
-  rollup: ^4.60.3
-  semver: ^7.8.0
-  shiki: ^4.0.2
+  rolldown: ^1.0.2
+  rollup: ^4.60.4
+  semver: ^7.8.1
+  shiki: ^4.1.0
   simple-git-hooks: ^2.13.1
   skills-npm: ^1.1.1
   textmate-grammar-glob: ^0.0.1
   tinyglobby: ^0.2.16
   tsdown: ^0.22.0
   typescript: ^6.0.3
-  vite: ^8.0.12
-  vitest: ^4.1.6
-  vue-tsc: ^3.2.8
+  vite: ^8.0.14
+  vitest: ^4.1.7
+  vue-tsc: ^3.3.1
 
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
-  - simple-git-hooks
-  - unrs-resolver
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  simple-git-hooks: true
+  unrs-resolver: true

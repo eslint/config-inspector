@@ -117,7 +117,6 @@ const devframe = defineDevframe({
     ctx.rpc.register(defineRpcFunction({
       name: 'eslint-config-inspector:get-payload',
       type: 'query',
-      jsonSerializable: true,
       snapshot: true,
       handler: async (): Promise<Payload | ErrorInfo> => payload ?? await load(),
     }))
