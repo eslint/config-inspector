@@ -3,17 +3,16 @@ import type { Linter } from 'eslint'
 import type { FuseResultMatch } from 'fuse.js'
 import type { ComponentPublicInstance, PropType, VNode } from 'vue'
 import type { FlatConfigItem, MatchedFile } from '~~/shared/types'
-import { debouncedWatch } from '@vueuse/core'
+import { watchDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { computed, defineComponent, h, nextTick, onMounted, ref, shallowRef, watch, watchEffect } from 'vue'
 import { isIgnoreOnlyConfig, matchFile } from '~~/shared/configs'
 import { getRuleLevel } from '~~/shared/rules'
+import { definePageMeta } from '#app/composables/pages'
 import { useRoute } from '#app/composables/router'
 import { payload } from '~/composables/payload'
 import { configsOpenState, filtersConfigs as filters, stateStorage } from '~/composables/state'
 
-// TODO: fix the lint
-// eslint-disable-next-line unimport/auto-insert
 definePageMeta({
   scrollToTop(to) {
     return !('index' in to.query)
@@ -168,7 +167,7 @@ const HighlightMatch = defineComponent({
   },
 })
 
-debouncedWatch(
+watchDebounced(
   () => input.value,
   () => {
     filters.filepath = input.value

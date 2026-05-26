@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { debouncedWatch } from '@vueuse/core'
+import { watchDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { computed, ref } from 'vue'
 import { payload } from '~/composables/payload'
@@ -75,7 +75,7 @@ const fuse = computed(() => new Fuse(conditionalFiltered.value, {
 
 const filtered = ref(conditionalFiltered.value)
 
-debouncedWatch(
+watchDebounced(
   () => [filters.search, conditionalFiltered.value],
   () => {
     if (!filters.search)
