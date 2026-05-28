@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import FileGroupItem from '~/components/FileGroupItem.vue'
+import FileItem from '~/components/FileItem.vue'
 import { payload } from '~/composables/payload'
 import { fileGroupsOpenState, stateStorage } from '../composables/state'
 

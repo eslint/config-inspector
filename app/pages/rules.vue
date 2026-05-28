@@ -2,6 +2,10 @@
 import { watchDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { computed, ref } from 'vue'
+import OptionSelectGroup from '~/components/OptionSelectGroup.vue'
+import RuleLevelIcon from '~/components/RuleLevelIcon.vue'
+import RuleList from '~/components/RuleList.vue'
+import { getPluginColor } from '~/composables/color'
 import { payload } from '~/composables/payload'
 import { bpSm, filtersRules as filters, stateStorage } from '~/composables/state'
 

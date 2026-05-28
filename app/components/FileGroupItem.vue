@@ -3,6 +3,10 @@ import type { FilesGroup, GlobEntry } from '~~/shared/types'
 import { computed, ref, watchEffect } from 'vue'
 import { isSameGlobEntry } from '~~/shared/configs'
 import { useRouter } from '#app/composables/router'
+import ColorizedConfigName from '~/components/ColorizedConfigName'
+import FileItem from '~/components/FileItem.vue'
+import GlobItem from '~/components/GlobItem.vue'
+import SummarizeItem from '~/components/SummarizeItem.vue'
 
 const props = defineProps<{
   index: number

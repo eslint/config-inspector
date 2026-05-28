@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#app/nuxt'
+import { NuxtPage } from '#components'
+import ConfigInspectorBadge from '~/components/ConfigInspectorBadge.vue'
+import NavBar from '~/components/NavBar.vue'
 import { errorInfo, init, isLoading } from '~/composables/payload'
 
 import 'floating-vue/dist/style.css'

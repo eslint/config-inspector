@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { getPluginColor } from '~/composables/color'
 
 const props = defineProps<{
   name: string

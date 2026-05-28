@@ -2,6 +2,7 @@
 import type { RuleInfo } from '~~/shared/types'
 import { Dropdown as VDropdown } from 'floating-vue'
 import { computed } from 'vue'
+import { NuxtLink } from '#components'
 
 const {
   deprecated,

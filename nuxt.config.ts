@@ -7,8 +7,15 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxt/eslint',
-    'nuxt-eslint-auto-explicit-import',
   ],
+
+  imports: {
+    autoImport: false,
+  },
+
+  components: {
+    dirs: [],
+  },
 
   eslint: {
     config: {
