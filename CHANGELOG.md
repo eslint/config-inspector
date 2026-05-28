@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.4](https://github.com/eslint/config-inspector/compare/v3.0.3...v3.0.4) (2026-05-28)
+
+
+### Bug Fixes
+
+* bust ESM cache for transitively-imported config files ([#265](https://github.com/eslint/config-inspector/issues/265)) ([#272](https://github.com/eslint/config-inspector/issues/272)) ([2134389](https://github.com/eslint/config-inspector/commit/21343895b177858f3d60d2b472dc4bb23098e8d6))
+
 ## [3.0.3](https://github.com/eslint/config-inspector/compare/v3.0.2...v3.0.3) (2026-05-25)
 
 
