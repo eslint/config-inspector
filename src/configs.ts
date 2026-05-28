@@ -1,8 +1,10 @@
 import type { ConfigArray } from '@eslint/config-array'
 import type { Linter } from 'eslint'
 import type { FlatConfigItem, MatchedFile, Payload, RuleInfo } from '../shared/types'
-import { statSync } from 'node:fs'
+import { AsyncLocalStorage } from 'node:async_hooks'
+import { realpathSync, statSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
+import nodeModule from 'node:module'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import fswalk from '@nodelib/fs.walk'
@@ -102,14 +104,92 @@ export interface ESLintConfig {
   dependencies: string[]
 }
 
+interface DepsScope {
+  /** Logical project root — what we report back to the watcher. */
+  basePath: string
+  /**
+   * Real-path-resolved project root for prefix matching. Node's loader returns
+   * canonicalized paths (e.g. macOS `/var/folders/...` → `/private/var/...`),
+   * so the user-facing `basePath` often won't be a prefix of resolved URLs.
+   */
+  realBasePath: string
+  deps: Set<string>
+}
+
+const depsStorage = new AsyncLocalStorage<DepsScope>()
+let loadGen = 0
+let hookInstalled = false
+let hookSupported: boolean | undefined
+let fallbackWarned = false
+
+/**
+ * Node's ESM loader caches imported modules by URL. The root config URL is
+ * cache-busted by appending `?mtime=...` in `readConfig`, but transitive
+ * imports (e.g. `./shared.js` from `eslint.config.js`) resolve to plain
+ * `file://` URLs that stay cached forever — so editing a shared file never
+ * appears on reload (#265).
+ *
+ * This hook intercepts every resolve, and for files inside the user's
+ * project (not `node_modules`) appends `?gen=<counter>&mtime=<mtime>` so each
+ * `readConfig` call produces a fresh URL for every transitively-imported
+ * file. As a side effect it collects the resolved paths for the watcher.
+ *
+ * Requires Node ≥ 22.15 (`module.registerHooks` is synchronous, runs in the
+ * current thread). On older Node the caller falls back to the static-import
+ * walker; the dependency list remains accurate but the cache-busting does
+ * not happen.
+ */
+function installResolveHook(): void {
+  if (hookInstalled)
+    return
+  if (typeof nodeModule.registerHooks !== 'function')
+    return
+
+  nodeModule.registerHooks({
+    resolve(specifier, context, nextResolve) {
+      const result = nextResolve(specifier, context)
+      if (!result.url.startsWith('file://'))
+        return result
+      if (result.url.includes('/node_modules/'))
+        return result
+      const store = depsStorage.getStore()
+      if (!store)
+        return result
+      const path = normalize(fileURLToPath(result.url))
+      if (!path.startsWith(store.realBasePath))
+        return result
+
+      store.deps.add(path)
+
+      let mtimeMs: number
+      try {
+        mtimeMs = statSync(path).mtimeMs
+      }
+      catch {
+        return result
+      }
+
+      const url = new URL(result.url)
+      url.searchParams.set('gen', String(loadGen))
+      url.searchParams.set('mtime', String(mtimeMs))
+      return { ...result, url: url.href, shortCircuit: true }
+    },
+  })
+  hookInstalled = true
+}
+
 /**
  * Search and read the ESLint config file, processed into inspector payload with module dependencies
  *
  * Accept an options object to specify the working directory path and overrides.
  *
  * It uses `jiti` to load the config file (the same loader ESLint itself uses).
- * Each call creates a fresh jiti instance and busts the ESM cache via an
- * `mtime` URL query param, so the latest version of the config is always read.
+ * Each call creates a fresh jiti instance and busts Node's ESM cache for the
+ * root config via an `mtime` URL query param. A `module.registerHooks` resolve
+ * hook propagates the cache-busting to every transitively-imported project
+ * file (#265) — on older Node where the hook API is unavailable, dependencies
+ * are still collected via a static-import walker but cache-busting is limited
+ * to the root file.
  */
 export async function readConfig(
   options: ReadConfigOptions,
@@ -129,9 +209,33 @@ export async function readConfig(
   const jiti = createJiti(import.meta.url, { moduleCache: false })
   const fileURL = pathToFileURL(configPath)
   fileURL.searchParams.set('mtime', String(statSync(configPath).mtimeMs))
-  const mod = await jiti.import(fileURL.href)
 
-  const dependencies = await collectStaticDependencies(jiti, configPath)
+  hookSupported ??= typeof nodeModule.registerHooks === 'function'
+  loadGen++
+
+  let mod: unknown
+  let dependencies: string[]
+  if (hookSupported) {
+    installResolveHook()
+    let realBasePath: string
+    try {
+      realBasePath = normalize(realpathSync(basePath))
+    }
+    catch {
+      realBasePath = basePath
+    }
+    const scope: DepsScope = { basePath, realBasePath, deps: new Set([configPath]) }
+    mod = await depsStorage.run(scope, () => jiti.import(fileURL.href))
+    dependencies = [...scope.deps]
+  }
+  else {
+    if (!fallbackWarned) {
+      console.log(MARK_INFO, 'Hot-reload of imported config files requires Node ≥ 22.15. Falling back to static-import dependency walker — changes to imported files may not be picked up.')
+      fallbackWarned = true
+    }
+    mod = await jiti.import(fileURL.href)
+    dependencies = await collectStaticDependencies(jiti, configPath)
+  }
 
   // `await` is required for Promise-like default exports such as
   // `eslint-flat-config-utils`' `FlatConfigComposer` (used by `@antfu/eslint-config`
@@ -260,14 +364,13 @@ export async function readConfig(
 }
 
 /**
- * Walk the static import graph from the config file to collect every local
- * file the watcher should follow. jiti uses native dynamic `import()` for ESM,
- * which doesn't populate jiti's runtime cache, so we recover the dependency
- * list by parsing static imports with `mlly` and resolving each specifier
- * through jiti (so resolution semantics — TS paths, conditions, aliases —
- * match what was actually loaded). Best-effort: any parse or resolution
- * failure is swallowed so a broken transitive import never crashes the dev
- * server; we just watch what we managed to discover.
+ * Fallback dependency walker for Node versions without `module.registerHooks`
+ * (< 22.15). Parses static imports with `mlly` and resolves each local
+ * specifier through jiti (so resolution semantics — TS paths, conditions,
+ * aliases — match what was actually loaded). Best-effort: any parse or
+ * resolution failure is swallowed so a broken transitive import never
+ * crashes the dev server; we just watch what we managed to discover. Dynamic
+ * imports are not seen here — the hook-based path covers them on newer Node.
  */
 async function collectStaticDependencies(
   jiti: ReturnType<typeof createJiti>,
