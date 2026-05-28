@@ -43,7 +43,7 @@ catalog:
   minimatch: ^10.2.5
   mlly: ^1.8.2
   nitropack: ^2.13.4
-  nuxt: 4.4.6
+  nuxt: ^4.4.6
   pathe: ^2.0.3
   rolldown: ^1.0.2
   rollup: ^4.60.4
