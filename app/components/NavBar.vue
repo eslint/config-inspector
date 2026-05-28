@@ -2,6 +2,8 @@
 import { useTimeAgo } from '@vueuse/core'
 import { computed } from 'vue'
 import { useRouter } from '#app/composables/router'
+import { NuxtLink } from '#components'
+import ConfigInspectorBadge from '~/components/ConfigInspectorBadge.vue'
 import { toggleDark } from '~/composables/dark'
 import { isFetching, payload } from '~/composables/payload'
 import { filtersRules as filters } from '~/composables/state'

@@ -2,6 +2,8 @@
 import type { Linter } from 'eslint'
 import type { RuleInfo } from '~~/shared/types'
 import { computed, defineComponent, h } from 'vue'
+import RuleItem from '~/components/RuleItem.vue'
+import RuleStateItem from '~/components/RuleStateItem.vue'
 import { getRuleFromName, payload } from '~/composables/payload'
 import { isGridView } from '../composables/state'
 
