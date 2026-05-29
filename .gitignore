@@ -7,6 +7,7 @@ dist
 .idea/
 .DS_Store
 public/fonts
+.ghfs
 
 # Playwright e2e
 tests/e2e/.output
