@@ -54,7 +54,7 @@ catalog:
   simple-git-hooks: ^2.13.1
   skills-npm: ^1.1.1
   textmate-grammar-glob: ^0.0.1
-  tinyglobby: ^0.2.16
+  tinyglobby: ^0.2.17
   tsdown: ^0.22.0
   typescript: ^6.0.3
   vite: ^8.0.14

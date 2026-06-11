@@ -130,8 +130,8 @@ catalogs:
       specifier: ^0.0.1
       version: 0.0.1
     tinyglobby:
-      specifier: ^0.2.16
-      version: 0.2.16
+      specifier: ^0.2.17
+      version: 0.2.17
     tsdown:
       specifier: ^0.22.0
       version: 0.22.0
@@ -169,7 +169,7 @@ importers:
         version: 2.7.0
       tinyglobby:
         specifier: 'catalog:'
-        version: 0.2.16
+        version: 0.2.17
     devDependencies:
       '@antfu/eslint-config':
         specifier: 'catalog:'
@@ -5666,6 +5666,10 @@ packages:
 
   tinyglobby@0.2.16:
     resolution: {integrity: sha512-pn99VhoACYR8nFHhxqix+uvsbXineAasWm5ojXoN8xEwK5Kd3/TrhNn1wByuD52UxWRLy8pu+kRMniEi6Eq9Zg==}
+    engines: {node: '>=12.0.0'}
+
+  tinyglobby@0.2.17:
+    resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
 
   tinyrainbow@3.1.0:
@@ -12200,6 +12204,11 @@ snapshots:
   tinyexec@1.1.2: {}
 
   tinyglobby@0.2.16:
+    dependencies:
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
+
+  tinyglobby@0.2.17:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
