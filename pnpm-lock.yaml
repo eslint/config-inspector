@@ -88,8 +88,8 @@ catalogs:
       specifier: ^5.2.2
       version: 5.2.2
     fuse.js:
-      specifier: ^7.3.0
-      version: 7.3.0
+      specifier: ^7.4.2
+      version: 7.4.2
     jiti:
       specifier: ^2.7.0
       version: 2.7.0
@@ -242,7 +242,7 @@ importers:
         version: 5.2.2(@nuxt/kit@4.4.6(magicast@0.5.2))(vue@3.5.34(typescript@6.0.3))
       fuse.js:
         specifier: 'catalog:'
-        version: 7.3.0
+        version: 7.4.2
       lint-staged:
         specifier: 'catalog:'
         version: 17.0.5
@@ -3909,6 +3909,10 @@ packages:
 
   fuse.js@7.3.0:
     resolution: {integrity: sha512-plz8RVjfcDedTGfVngWH1jmJvBvAwi1v2jecfDerbEnMcmOYUEEwKFTHbNoCiYyzaK2Ws8lABkTCcRSqCY1q4w==}
+    engines: {node: '>=10'}
+
+  fuse.js@7.4.2:
+    resolution: {integrity: sha512-LVbzjD4WA6UP5B1UnP8wuaXJiLnqMdM/E4fiJXTJ5haJ5b/MBNsK29h2fm6swEoQaVQjvYFWKLE2RanyZIoRVQ==}
     engines: {node: '>=10'}
 
   fzf@0.5.2:
@@ -10040,6 +10044,8 @@ snapshots:
   function-bind@1.1.2: {}
 
   fuse.js@7.3.0: {}
+
+  fuse.js@7.4.2: {}
 
   fzf@0.5.2: {}
 
