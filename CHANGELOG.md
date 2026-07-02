@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/eslint/config-inspector/compare/v3.0.4...v3.1.0) (2026-07-02)
+
+
+### Features
+
+* add Storybook with component stories and CI tests ([#292](https://github.com/eslint/config-inspector/issues/292)) ([5d9488a](https://github.com/eslint/config-inspector/commit/5d9488afe940cb47b271d8e7eab16faf862f2197))
+
 ## [3.0.4](https://github.com/eslint/config-inspector/compare/v3.0.3...v3.0.4) (2026-05-28)
 
 
