@@ -26,7 +26,3 @@ export const isDark = computed<boolean>({
     ensureDark().value = value
   },
 })
-
-export function toggleDark() {
-  isDark.value = !isDark.value
-}

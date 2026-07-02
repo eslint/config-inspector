@@ -3,6 +3,11 @@ import type { Linter } from 'eslint'
 import type { FuseResultMatch } from 'fuse.js'
 import type { ComponentPublicInstance, PropType, VNode } from 'vue'
 import type { FlatConfigItem, MatchedFile } from '~~/shared/types'
+import ActionButton from '@antfu/design/components/Action/ActionButton.vue'
+import ActionToggleGroup from '@antfu/design/components/Action/ActionToggleGroup.vue'
+import FeedbackEmptyState from '@antfu/design/components/Feedback/FeedbackEmptyState.vue'
+import FormCheckbox from '@antfu/design/components/Form/FormCheckbox.vue'
+import FormSearchField from '@antfu/design/components/Form/FormSearchField.vue'
 import { watchDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { computed, defineComponent, h, nextTick, onMounted, ref, shallowRef, watch, watchEffect } from 'vue'
@@ -104,6 +109,15 @@ function autoCompleteMove(delta: number) {
     autoCompleteIndex.value -= autoCompleteFiles.value.length
 }
 
+const viewFileMatchType = computed<string | string[] | undefined>({
+  get: () => stateStorage.value.viewFileMatchType,
+  set: (value) => {
+    // Ignore deselection so one view always stays active.
+    if (value === 'configs' || value === 'merged')
+      stateStorage.value.viewFileMatchType = value
+  },
+})
+
 const mergedRules = computed(() => {
   if (!filters.filepath || stateStorage.value.viewFileMatchType !== 'merged') {
     return {
@@ -204,36 +218,29 @@ onMounted(async () => {
 
 <template>
   <div>
-    <div flex="~ col gap-3" py4>
-      <div relative flex>
-        <input
+    <div class="py4 flex flex-col gap-3">
+      <div class="flex relative">
+        <FormSearchField
           v-model="input"
           placeholder="Test matching with filepath..."
-          border="~ base rounded-full"
           :class="input ? 'font-mono' : ''"
-          w-full bg-transparent px3 py2 pl10 outline-none
-          @focus="autoCompleteOpen = true"
-          @click="autoCompleteOpen = true"
-          @blur="autoCompleteBlur"
+          class="w-full"
+          @focusin="autoCompleteOpen = true"
+          @focusout="autoCompleteBlur"
           @keydown.esc="autoCompleteOpen = false"
           @keydown.down.prevent="autoCompleteMove(1)"
           @keydown.up.prevent="autoCompleteMove(-1)"
           @keydown.enter.prevent="autoCompleteConfirm()"
-        >
-        <div absolute bottom-0 left-0 top-0 flex="~ items-center justify-center" p4 color-muted>
-          <div i-ph-magnifying-glass-duotone />
-        </div>
+        />
         <div
           v-show="autoCompleteOpen && autoCompleteFiles.length"
-          pos="absolute left-8 right-8 top-1/1"
-          border="~ base rounded"
-          flex="~ col" z-1 mt--1 max-h-80 of-auto bg-glass py1 shadow
+          class="mt1 py1 border border-base rounded-lg bg-glass:75 flex flex-col max-h-80 shadow-lg left-8 right-8 top-1/1 absolute z-dropdown of-auto"
         >
           <button
             v-for="file, idx of autoCompleteFiles"
             :key="file.item"
             :class="idx === autoCompleteIndex ? 'bg-active' : ''"
-            px3 py0.5 text-left font-mono hover:bg-active
+            class="font-mono px3 py0.5 text-left hover:bg-active"
             @click="autoCompleteConfirm(idx)"
           >
             <template v-if="file.matches">
@@ -245,112 +252,87 @@ onMounted(async () => {
           </button>
         </div>
       </div>
-      <div v-if="filters.filepath || filters.rule" flex="~ gap-2 items-center wrap" mb2>
+      <div v-if="filters.filepath || filters.rule" class="mb2 flex flex-wrap gap-2 items-center">
         <div v-if="filters.filepath">
           <div
-            flex="~ gap-2 items-center wrap"
-            border="~ purple-700/30 dark:purple-300/30 rounded-full"
-            bg-purple-50 px3 py1 dark:bg-purple-900:20
+            class="text-sm badge-color-purple px3 py1 rounded-full flex flex-wrap gap-2 items-center"
             :class="{ 'saturate-0': !filteredConfigs.length }"
           >
-            <div i-ph-file-dotted-duotone text-purple-700 dark:text-purple-300 />
-            <span color-muted>Filepath</span>
+            <div class="i-ph-file-dotted-duotone" />
+            <span class="op75">Filepath</span>
             <code>{{ filters.filepath }}</code>
 
             <template v-if="!filteredConfigs.length">
-              <span color-muted>is not included or has been ignored</span>
+              <span class="op75">is not included or has been ignored</span>
             </template>
             <template v-else-if="stateStorage.viewFileMatchType === 'configs'">
-              <span color-muted>matched with</span>
-              <span>{{ filteredConfigs.length }} / {{ payload.configs.length }}</span>
-              <span color-muted>config items</span>
+              <span class="op75">matched with</span>
+              <span class="font-mono tabular-nums">{{ filteredConfigs.length }} / {{ payload.configs.length }}</span>
+              <span class="op75">config items</span>
             </template>
             <template v-else>
-              <span color-muted>matched with total </span>
-              <span>{{ Object.keys(mergedRules.all).length }}</span>
-              <span color-muted>rules, </span>
-              <span>{{ Object.keys(mergedRules.specific).length }}</span>
-              <span color-muted>of them are specific to the file</span>
+              <span class="op75">matched with total </span>
+              <span class="font-mono tabular-nums">{{ Object.keys(mergedRules.all).length }}</span>
+              <span class="op75">rules, </span>
+              <span class="font-mono tabular-nums">{{ Object.keys(mergedRules.specific).length }}</span>
+              <span class="op75">of them are specific to the file</span>
             </template>
             <button
-              i-ph-x text-sm color-muted hover:color-base
+              class="i-ph-x text-sm op75 hover:op100"
+              aria-label="Clear filepath filter"
               @click="filters.filepath = ''; input = ''"
             />
           </div>
         </div>
         <div v-if="filters.rule">
-          <div
-            flex="~ gap-2 items-center"
-            border="~ blue-700/30 dark:blue-300/30 rounded-full"
-            bg-blue-50 px3 py1 dark:bg-blue-900:20
-          >
-            <div i-ph-funnel-duotone />
-            <span color-muted>Filtered by</span>
+          <div class="text-sm badge-color-blue px3 py1 rounded-full flex gap-2 items-center">
+            <div class="i-ph-funnel-duotone" />
+            <span class="op75">Filtered by</span>
             <ColorizedRuleName :name="filters.rule" />
-            <span color-muted>rule</span>
+            <span class="op75">rule</span>
             <button
-              i-ph-x text-sm color-muted hover:color-base
+              class="i-ph-x text-sm op75 hover:op100"
+              aria-label="Clear rule filter"
               @click="filters.rule = ''"
             />
           </div>
         </div>
       </div>
-      <div flex="~ gap-2 items-center wrap">
-        <template v-if="filters.filepath">
-          <div border="~ base rounded" flex>
-            <button
-              :class="stateStorage.viewFileMatchType === 'configs' ? 'btn-action-active' : ''"
-              btn-action border-none
-              @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
-            >
-              <div i-ph-stack-duotone />
-              <span>Matched Config Items</span>
-            </button>
-            <div border="l base" />
-            <button
-              :class="stateStorage.viewFileMatchType !== 'configs' ? 'btn-action-active' : ''"
-              btn-action border-none
-              @click="stateStorage.viewFileMatchType = stateStorage.viewFileMatchType === 'configs' ? 'merged' : 'configs'"
-            >
-              <div i-ph-film-script-duotone />
-              <span>Merged Rules</span>
-            </button>
-          </div>
-        </template>
+      <div class="flex flex-wrap gap-2 items-center">
+        <ActionToggleGroup
+          v-if="filters.filepath"
+          v-model="viewFileMatchType"
+          :options="[
+            { value: 'configs', label: 'Matched Config Items', icon: 'i-ph-stack-duotone' },
+            { value: 'merged', label: 'Merged Rules', icon: 'i-ph-film-script-duotone' },
+          ]"
+        />
 
-        <label
+        <FormCheckbox
           v-if="filters.filepath && stateStorage.viewFileMatchType === 'configs'"
-          flex="~ gap-2 items-center" ml2 select-none
+          :model-value="stateStorage.showSpecificOnly"
+          class="ml2"
+          @update:model-value="stateStorage.showSpecificOnly = $event"
         >
-          <input
-            :checked="stateStorage.showSpecificOnly"
-            type="checkbox"
-            @change="stateStorage.showSpecificOnly = !!($event.target as any).checked"
-          >
-          <span color-muted>Show Specific Rules Only</span>
-        </label>
-        <div flex-auto />
-        <button
-          btn-action px3
-          @click="expandAll"
-        >
+          <span class="color-muted">Show Specific Rules Only</span>
+        </FormCheckbox>
+        <div class="flex-auto" />
+        <ActionButton class="px3" @click="expandAll">
           Expand All
-        </button>
-        <button
-          btn-action px3
-          @click="collapseAll"
-        >
+        </ActionButton>
+        <ActionButton class="px3" @click="collapseAll">
           Collapse All
-        </button>
+        </ActionButton>
       </div>
 
       <template v-if="!filteredConfigs.length">
-        <div mt5 color-muted italic>
-          No matched config items.
-        </div>
+        <FeedbackEmptyState
+          icon="i-ph-stack-duotone"
+          title="No matched config items."
+        />
         <template v-if="fileMatchResult?.globs.length">
           <div>Ignored by globs:</div>
-          <div flex="~ gap-2 items-center wrap">
+          <div class="flex flex-wrap gap-2 items-center">
             <GlobItem
               v-for="glob, idx of fileMatchResult.globs"
               :key="idx"
@@ -363,41 +345,41 @@ onMounted(async () => {
       <template v-else>
         <!-- Merged Rules -->
         <template v-if="filters.filepath && stateStorage.viewFileMatchType === 'merged'">
-          <details class="flat-config-item" border="~ base rounded-lg" relative>
-            <summary block>
-              <div flex="~ gap-2 items-start" cursor-pointer select-none bg-hover px2 py2 text-sm color-base font-mono>
-                <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition />
+          <details class="flat-config-item border border-base rounded-lg relative">
+            <summary class="block">
+              <div class="text-sm color-base font-mono px2 py2 bg-hover flex gap-2 cursor-pointer select-none items-start">
+                <div class="i-ph-caret-right transition [details[open]_&]:rotate-90" />
                 Merged Rules: Common to every file ({{ Object.keys(mergedRules.common).length }} rules)
               </div>
             </summary>
             <RuleList
-              m4
+              class="m4"
               :rules="mergedRules.common"
             />
           </details>
-          <details class="flat-config-item" border="~ base rounded-lg" open relative>
-            <summary block>
-              <div flex="~ gap-2 items-start" cursor-pointer select-none bg-hover px2 py2 text-sm color-base font-mono>
-                <div i-ph-caret-right class="[details[open]_&]:rotate-90" transition />
+          <details class="flat-config-item border border-base rounded-lg relative" open>
+            <summary class="block">
+              <div class="text-sm color-base font-mono px2 py2 bg-hover flex gap-2 cursor-pointer select-none items-start">
+                <div class="i-ph-caret-right transition [details[open]_&]:rotate-90" />
                 Merged Rules: Specific to matched file ({{ Object.keys(mergedRules.specific).length }} rules)
               </div>
             </summary>
             <template v-if="Object.keys(mergedRules.specificDisabled).length">
-              <div px4 pt4>
+              <div class="px4 pt4">
                 Disables ({{ Object.keys(mergedRules.specificDisabled).length }})
               </div>
               <RuleList
-                m4
+                class="m4"
                 :get-bind="(name: string) => ({ class: 'color-muted' })"
                 :rules="mergedRules.specificDisabled"
               />
             </template>
             <template v-if="Object.keys(mergedRules.specificEnabled).length">
-              <div px4 pt4>
+              <div class="px4 pt4">
                 Enables ({{ Object.keys(mergedRules.specificEnabled).length }})
               </div>
               <RuleList
-                m4
+                class="m4"
                 :rules="mergedRules.specificEnabled"
               />
             </template>

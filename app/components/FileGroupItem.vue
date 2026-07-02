@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { FilesGroup, GlobEntry } from '~~/shared/types'
+import OverlayDropdown from '@antfu/design/components/Overlay/OverlayDropdown.vue'
+import OverlayDropdownItem from '@antfu/design/components/Overlay/OverlayDropdownItem.vue'
+import OverlayDropdownSeparator from '@antfu/design/components/Overlay/OverlayDropdownSeparator.vue'
 import { computed, ref, watchEffect } from 'vue'
 import { isSameGlobEntry } from '~~/shared/configs'
 import { useRouter } from '#app/composables/router'
@@ -56,53 +59,52 @@ function goToConfig(idx: number) {
 <template>
   <!-- @vue-ignore -->
   <details
-    class="flat-config-item"
+    class="flat-config-item border border-base rounded-lg relative"
     :open="open"
-    border="~ base rounded-lg" relative
     @toggle="open = $event.target.open"
   >
-    <summary block>
-      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right color-muted font-mono lt-lg:hidden>
+    <summary class="block">
+      <div class="color-muted font-mono text-right right-[calc(100%+10px)] top-1.5 absolute lt-lg:hidden">
         #{{ index + 1 }}
       </div>
-      <div flex="~ gap-2 items-start wrap items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
-        <div class="[details[open]_&]:rotate-90" i-ph-caret-right color-muted transition />
-        <div flex flex-auto flex-col gap-3 md:flex-row>
-          <span flex-auto flex="~ gap-2 items-center">
+      <div class="text-sm font-mono px2 py2 bg-hover flex flex-wrap gap-2 cursor-pointer select-none items-center">
+        <div class="i-ph-caret-right color-muted transition [details[open]_&]:rotate-90" />
+        <div class="flex flex-auto flex-col gap-3 md:flex-row">
+          <span class="flex flex-auto gap-2 items-center">
             <template v-if="groupName?.type === 'config'">
-              <span color-muted>Config</span>
+              <span class="color-muted">Config</span>
               <ColorizedConfigName
-                badge
+                class="badge"
                 :name="groupName.config.name"
                 :index="groupName.config.index"
               />
             </template>
             <template v-else-if="groupName?.type === 'glob'">
-              <span color-muted>Globs</span>
+              <span class="color-muted">Globs</span>
               <GlobItem
                 v-for="glob, idx of groupName.globs"
                 :key="idx"
                 :glob="glob"
               />
             </template>
-            <span v-else color-muted>
+            <span v-else class="color-muted">
               Files group #{{ index + 1 }}
             </span>
           </span>
 
-          <div flex="~ gap-2 items-start wrap">
+          <div class="flex flex-wrap gap-2 items-start">
             <SummarizeItem
               icon="i-ph-files-duotone"
               :number="group.files?.length || 0"
-              color="text-yellow5"
+              color="yellow"
               title="Files"
             />
             <SummarizeItem
               icon="i-ph-stack-duotone"
               :number="group.configs.length"
-              color="text-blue5 dark:text-blue4"
+              color="blue"
               title="Configs"
-              mr-2
+              class="mr-2"
             />
           </div>
         </div>
@@ -111,76 +113,71 @@ function goToConfig(idx: number) {
 
     <div
       aria-hidden="true" data-a11y-skip
-      pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5
+      class="text-5em font-mono text-right op5 pointer-events-none right-2 top-2 absolute"
     >
       #{{ index + 1 }}
     </div>
 
-    <div v-if="hasShown" flex="~ col gap-4" of-auto px4 py4>
-      <div flex="~ gap-2 items-center">
-        <div i-ph-stack-duotone flex-none />
+    <div v-if="hasShown" class="px4 py4 flex flex-col gap-4 of-auto">
+      <div class="flex gap-2 items-center">
+        <div class="i-ph-stack-duotone flex-none" />
         <div>Configs Specific to the Files ({{ group.configs.length }})</div>
       </div>
 
-      <div flex="~ col gap-1" ml6 mt--2>
-        <div v-for="config, idx of group.configs" :key="idx" font-mono flex="~ gap-2">
-          <VDropdown>
-            <button badge text-start>
-              <ColorizedConfigName :name="config.name" :index="idx" />
-            </button>
-            <template #popper="{ shown }">
-              <div v-if="shown" max-h="50vh" min-w-100>
-                <div flex="~ items-center gap-2" p3>
-                  <button
-                    btn-action-sm
-                    title="Copy"
-                    @click="goToConfig(config.index)"
-                  >
-                    <div i-ph-stack-duotone />
-                    Go to this config
-                  </button>
-                  <slot name="popup-actions" />
-                </div>
-                <div p3 border="t base">
-                  <div flex="~ gap-2 items-start">
-                    <div i-ph-file-magnifying-glass-duotone my1 flex-none color-muted />
-                    <div flex="~ col gap-2">
-                      <div color-muted>
-                        Applies to files matching
-                      </div>
-                      <div flex="~ gap-2 items-center wrap">
-                        <GlobItem
-                          v-for="entry, idx2 of config.files"
-                          :key="idx2"
-                          :glob="entry"
-                          :active="isEntryInGroup(entry)"
-                        />
-                      </div>
-                    </div>
+      <div class="ml6 mt--2 flex flex-col gap-1">
+        <div v-for="config, idx of group.configs" :key="idx" class="font-mono flex gap-2">
+          <OverlayDropdown align="start">
+            <template #trigger>
+              <button class="badge text-start">
+                <ColorizedConfigName :name="config.name" :index="idx" />
+              </button>
+            </template>
+            <OverlayDropdownItem
+              icon="i-ph-stack-duotone"
+              @select="goToConfig(config.index)"
+            >
+              Go to this config
+            </OverlayDropdownItem>
+            <slot name="popup-actions" />
+            <OverlayDropdownSeparator />
+            <div class="p2 max-w-2xl">
+              <div class="flex gap-2 items-start">
+                <div class="i-ph-file-magnifying-glass-duotone color-muted my1 flex-none" />
+                <div class="flex flex-col gap-2">
+                  <div class="color-muted">
+                    Applies to files matching
+                  </div>
+                  <div class="flex flex-wrap gap-2 items-center">
+                    <GlobItem
+                      v-for="entry, idx2 of config.files"
+                      :key="idx2"
+                      :glob="entry"
+                      :active="isEntryInGroup(entry)"
+                    />
                   </div>
                 </div>
               </div>
-            </template>
-          </VDropdown>
+            </div>
+          </OverlayDropdown>
         </div>
       </div>
 
-      <div flex="~ gap-2 items-center">
-        <div i-ph-file-magnifying-glass-duotone flex-none />
+      <div class="flex gap-2 items-center">
+        <div class="i-ph-file-magnifying-glass-duotone flex-none" />
         <div>Matched Globs</div>
       </div>
 
-      <div flex="~ gap-1 wrap" ml6 mt--2>
+      <div class="ml6 mt--2 flex flex-wrap gap-1">
         <GlobItem v-for="glob, idx2 of group.globs" :key="idx2" :glob="glob" />
       </div>
 
-      <div flex="~ gap-2 items-center">
-        <div i-ph-files-duotone flex-none />
+      <div class="flex gap-2 items-center">
+        <div class="i-ph-files-duotone flex-none" />
         <div>Matched Local Files ({{ group.files.length }})</div>
       </div>
 
-      <div flex="~ col gap-1" ml7 mt--2>
-        <FileItem v-for="file of group.files" :key="file" font-mono :filepath="file" />
+      <div class="ml7 mt--2 flex flex-col gap-1">
+        <FileItem v-for="file of group.files" :key="file" class="font-mono" :filepath="file" />
       </div>
     </div>
   </details>

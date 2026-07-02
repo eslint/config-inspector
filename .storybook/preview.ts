@@ -1,10 +1,10 @@
 import type { Preview } from '@storybook/vue3-vite'
 import type { Payload } from '../shared/types'
+import { provideColorScheme } from '@antfu/design/composables/colorScheme'
 import { setup } from '@storybook/vue3-vite'
-import FloatingVue from 'floating-vue'
 import { GLOBALS_UPDATED } from 'storybook/internal/core-events'
 import { addons } from 'storybook/preview-api'
-import { h } from 'vue'
+import { defineComponent, h } from 'vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import { demoPayload } from '../app/components/fixtures'
 import { isDark } from '../app/composables/dark'
@@ -14,6 +14,11 @@ import { initShiki } from '../app/composables/shiki'
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
 import 'floating-vue/dist/style.css'
+import '@antfu/design/styles/base.css'
+import '@antfu/design/styles/scrollbar.css'
+import '@antfu/design/styles/animations.css'
+import '@antfu/design/styles/reka-ui.css'
+import '@antfu/design/styles/floating-vue.css'
 import '../app/styles/global.css'
 import './docs-dark.css'
 
@@ -26,7 +31,6 @@ const router = createRouter({
 })
 
 setup((app) => {
-  app.use(FloatingVue, { overflowPadding: 20 })
   app.use(router)
 })
 
@@ -41,8 +45,20 @@ catch {
   // No channel in portable stories (vitest); the decorator covers it there.
 }
 
+// Mirrors the app root: provides the color scheme context that scheme-aware
+// design components (badges, labels) fall back to.
+const SchemeProvider = defineComponent({
+  setup(_, { slots }) {
+    provideColorScheme(() => isDark.value ? 'dark' : 'light')
+    return () => h('div', { class: 'p-8 bg-base color-base font-sans' }, slots.default?.())
+  },
+})
+
 const preview: Preview = {
   parameters: {
+    controls: {
+      expanded: true,
+    },
     options: {
       storySort: {
         order: ['Overview', '*'],
@@ -80,7 +96,7 @@ const preview: Preview = {
       // `parameters.payload`.
       setPayload((ctx.parameters.payload as Payload | undefined) ?? demoPayload)
       isFetching.value = false
-      return () => h('div', { class: 'p-8 bg-base color-base font-sans' }, [h(story())])
+      return () => h(SchemeProvider, () => [h(story())])
     },
   ],
 }

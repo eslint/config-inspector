@@ -18,9 +18,9 @@ const title = computed(() => {
 })
 
 const color = computed(() => ({
-  error: 'text-red op80',
-  warn: 'text-yellow5 op80 dark:text-yellow4',
-  off: 'text-gray op50',
+  error: 'color-scale-critical op80',
+  warn: 'color-scale-medium op80',
+  off: 'color-scale-neutral op50',
 }[props.level]))
 
 const icon = computed(() => ({
@@ -31,8 +31,8 @@ const icon = computed(() => ({
 </script>
 
 <template>
-  <div relative :class="[color, props.class]" :title="title">
+  <div class="relative" :class="[color, props.class]" :title="title">
     <div :class="icon" />
-    <div v-if="hasOptions" absolute right--2px top--2px h-6px w-6px rounded-full bg-current op75 :class="hasRedundantOptions ? 'text-blue5' : ''" />
+    <div v-if="hasOptions" class="rounded-full bg-current op75 h-6px w-6px right--2px top--2px absolute" :class="hasRedundantOptions ? 'text-blue-500' : ''" />
   </div>
 </template>

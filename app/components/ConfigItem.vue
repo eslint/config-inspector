@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FiltersConfigsPage, FlatConfigItem, GlobEntry } from '~~/shared/types'
+import OverlayDropdownItem from '@antfu/design/components/Overlay/OverlayDropdownItem.vue'
 import { computed, ref, watchEffect } from 'vue'
 import { isSameGlobEntry } from '~~/shared/configs'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
@@ -74,56 +75,55 @@ const extraConfigs = computed(() => {
 
 <template>
   <details
-    class="flat-config-item"
+    class="flat-config-item border rounded-lg relative"
     :open="open"
-    border="~ rounded-lg" relative
     :class="active ? 'border-yellow:70' : 'border-base'"
     data-testid="config-item"
     @toggle="open = ($event.target as any).open"
   >
-    <summary block>
-      <div class="absolute right-[calc(100%+10px)] top-1.5" text-right color-muted font-mono lt-lg:hidden>
+    <summary class="block">
+      <div class="color-muted font-mono text-right right-[calc(100%+10px)] top-1.5 absolute lt-lg:hidden">
         #{{ index + 1 }}
       </div>
-      <div flex="~ gap-2 items-center" cursor-pointer select-none bg-hover px2 py2 text-sm font-mono>
-        <div class="[details[open]_&]:rotate-90" i-ph-caret-right flex-none color-muted transition />
-        <div flex flex-auto flex-col flex-wrap gap-3 md:flex-row md:justify-end>
-          <span :class="config.name ? '' : 'color-muted italic'" flex-1>
+      <div class="text-sm font-mono px2 py2 bg-hover flex gap-2 cursor-pointer select-none items-center">
+        <div class="i-ph-caret-right color-muted flex-none transition [details[open]_&]:rotate-90" />
+        <div class="flex flex-auto flex-col flex-wrap gap-3 md:flex-row md:justify-end">
+          <span :class="config.name ? '' : 'color-muted italic'" class="flex-1">
             <ColorizedConfigName v-if="config.name" :name="config.name" />
             <span v-else>anonymous #{{ index + 1 }}</span>
           </span>
 
-          <div flex="~ gap-2 items-start">
+          <div class="flex gap-2 items-start">
             <SummarizeItem
               icon="i-ph-file-magnifying-glass-duotone"
               :number="config.files?.length || 0"
-              color="text-yellow5"
+              color="yellow"
               title="Files"
             />
             <SummarizeItem
               icon="i-ph-eye-closed-duotone"
               :number="config.ignores?.length || 0"
-              color="text-purple5 dark:text-purple4"
+              color="purple"
               title="Ignores"
             />
             <SummarizeItem
               icon="i-ph-sliders-duotone"
               :number="Object.keys(extraConfigs).length"
-              color="text-green5"
+              color="green"
               title="Options"
             />
             <SummarizeItem
               icon="i-ph-plug-duotone"
               :number="Object.keys(config.plugins || {}).length"
-              color="text-teal5"
+              color="teal"
               title="Plugins"
             />
             <SummarizeItem
               icon="i-ph-list-dashes-duotone"
               :number="Object.keys(config.rules || {}).length"
-              color="text-blue5 dark:text-blue4"
+              color="blue"
               title="Rules"
-              mr-2
+              class="mr-2"
             />
           </div>
         </div>
@@ -132,17 +132,17 @@ const extraConfigs = computed(() => {
 
     <div
       aria-hidden="true" data-a11y-skip
-      pointer-events-none absolute right-2 top-2 text-right text-5em font-mono op5
+      class="text-5em font-mono text-right op5 pointer-events-none right-2 top-2 absolute"
     >
       #{{ index + 1 }}
     </div>
 
-    <div v-if="hasShown" flex="~ col gap-4" of-auto px4 py3>
-      <div v-if="config.files" flex="~ gap-2 items-start">
-        <div i-ph-file-magnifying-glass-duotone my1 flex-none />
-        <div flex="~ col gap-2">
+    <div v-if="hasShown" class="px4 py3 flex flex-col gap-4 of-auto">
+      <div v-if="config.files" class="flex gap-2 items-start">
+        <div class="i-ph-file-magnifying-glass-duotone my1 flex-none" />
+        <div class="flex flex-col gap-2">
           <div>Applies to files matching</div>
-          <div flex="~ gap-2 items-center wrap">
+          <div class="flex flex-wrap gap-2 items-center">
             <GlobItem
               v-for="entry, idx of config.files"
               :key="idx" :glob="entry" popup="files"
@@ -151,20 +151,20 @@ const extraConfigs = computed(() => {
           </div>
         </div>
       </div>
-      <div v-else-if="config.rules || Object.keys(extraConfigs).length" flex="~ gap-2 items-center">
-        <div i-ph-files-duotone flex-none />
+      <div v-else-if="config.rules || Object.keys(extraConfigs).length" class="flex gap-2 items-center">
+        <div class="i-ph-files-duotone flex-none" />
         <div>Generally applies to all files</div>
       </div>
-      <div v-if="config.plugins" flex="~ gap-2 items-start">
-        <div i-ph-plug-duotone my1 flex-none />
-        <div flex="~ col gap-2">
+      <div v-if="config.plugins" class="flex gap-2 items-start">
+        <div class="i-ph-plug-duotone my1 flex-none" />
+        <div class="flex flex-col gap-2">
           <div>Plugins ({{ Object.keys(config.plugins).length }})</div>
-          <div flex="~ gap-2 items-center wrap">
+          <div class="flex flex-wrap gap-2 items-center">
             <button
               v-for="name, idx of Object.keys(config.plugins)"
-              :key="idx" border="~ base rounded-full" px3
+              :key="idx"
+              class="badge font-mono"
               :style="{ color: getPluginColor(name), backgroundColor: getPluginColor(name, 0.1) }"
-              font-mono
               @click="gotoPlugin(name)"
             >
               {{ name }}
@@ -172,16 +172,16 @@ const extraConfigs = computed(() => {
           </div>
         </div>
       </div>
-      <div v-if="config.ignores" flex="~ gap-2 items-start">
-        <div i-ph-eye-closed-duotone my1 flex-none />
-        <div flex="~ col gap-2">
+      <div v-if="config.ignores" class="flex gap-2 items-start">
+        <div class="i-ph-eye-closed-duotone my1 flex-none" />
+        <div class="flex flex-col gap-2">
           <div v-if="Object.keys(config).some(key => key !== 'ignores' && !CONFIG_INSPECTOR_FIELDS.has(key) && !META_FIELDS.has(key)) === false">
             Ignore files globally
           </div>
           <div v-else>
             Ignore
           </div>
-          <div flex="~ gap-2 items-center wrap">
+          <div class="flex flex-wrap gap-2 items-center">
             <GlobItem
               v-for="entry, idx of config.ignores"
               :key="idx" :glob="entry"
@@ -191,12 +191,12 @@ const extraConfigs = computed(() => {
         </div>
       </div>
       <div v-if="config.rules && Object.keys(config.rules).length">
-        <div flex="~ gap-2 items-center">
-          <div i-ph-list-dashes-duotone my1 flex-none />
+        <div class="flex gap-2 items-center">
+          <div class="i-ph-list-dashes-duotone my1 flex-none" />
           <div>Rules ({{ Object.keys(config.rules).length }})</div>
         </div>
         <RuleList
-          py2
+          class="py2"
           :class="isGridView ? 'pl6' : ''"
           :rules="config.rules"
           :filter="name => !filters?.rule || filters.rule === name"
@@ -204,7 +204,7 @@ const extraConfigs = computed(() => {
         >
           <template #popup="{ ruleName, value }">
             <RuleStateItem
-              border="t base"
+              class="border-t border-base"
               :is-local="true"
               :state="{
                 name: ruleName,
@@ -215,38 +215,36 @@ const extraConfigs = computed(() => {
             />
           </template>
           <template #popup-actions="{ ruleName }">
-            <button
-              v-close-popper
-              btn-action-sm
-              @click="emit('badgeClick', ruleName)"
+            <OverlayDropdownItem
+              icon="i-ph-funnel-duotone"
+              @select="emit('badgeClick', ruleName)"
             >
-              <div i-ph-funnel-duotone />
               Filter by this rule
-            </button>
+            </OverlayDropdownItem>
           </template>
         </RuleList>
         <div>
-          <button v-if="filters?.rule" ml8 color-muted @click="emit('badgeClick', '')">
+          <button v-if="filters?.rule" class="color-muted ml8" @click="emit('badgeClick', '')">
             ...{{ Object.keys(config.rules).filter(r => r !== filters?.rule).length }} others rules are hidden
           </button>
         </div>
       </div>
 
-      <div v-if="Object.keys(extraConfigs).length" flex="~ gap-2">
-        <div i-ph-sliders-duotone my1 flex-none />
-        <div flex="~ col gap-2" w-full>
+      <div v-if="Object.keys(extraConfigs).length" class="flex gap-2">
+        <div class="i-ph-sliders-duotone my1 flex-none" />
+        <div class="flex flex-col gap-2 w-full">
           <div>
             Additional configurations
           </div>
           <template v-for="v, k in extraConfigs" :key="k">
-            <div border="~ base rounded-lg">
-              <div of-auto p2 px3 color-muted>
+            <div class="border border-base rounded-lg">
+              <div class="color-muted p2 px3 of-auto">
                 {{ k }}
               </div>
               <Shiki
                 lang="ts"
                 :code="stringifyUnquoted(v)"
-                max-h-100 max-w-full w-full of-scroll rounded bg-code p2 text-sm
+                class="text-sm p2 rounded bg-code max-h-100 max-w-full w-full of-scroll"
               />
             </div>
           </template>

@@ -73,6 +73,9 @@ export default defineNuxtConfig({
     base: './',
     plugins: [devframePlugin()],
     optimizeDeps: {
+      // `@antfu/design` ships raw `.ts`/`.vue` source — let plugin-vue compile
+      // it instead of esbuild dep pre-bundling.
+      exclude: ['@antfu/design'],
       // @keep-sorted
       // @keep-unique
       include: [
@@ -83,11 +86,13 @@ export default defineNuxtConfig({
         '@shikijs/themes/vitesse-dark',
         '@shikijs/themes/vitesse-light',
         '@shikijs/transformers',
+        'colorjs.io',
         'devframe',
         'devframe/client',
         'floating-vue',
         'fuse.js',
         'minimatch',
+        'reka-ui',
         'shiki/core',
       ],
     },

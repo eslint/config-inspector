@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { RuleInfo } from '~~/shared/types'
-import { Dropdown as VDropdown } from 'floating-vue'
+import DisplayBadge from '@antfu/design/components/Display/DisplayBadge.vue'
+import OverlayHoverCard from '@antfu/design/components/Overlay/OverlayHoverCard.vue'
 import { computed } from 'vue'
 import { NuxtLink } from '#components'
 
@@ -46,56 +47,50 @@ function getLinkClass(url: string | undefined) {
 </script>
 
 <template>
-  <VDropdown
-    inline-block
-    :disabled="!deprecatedInfo"
-  >
-    <div
-      border="~ rose-700/30 dark:rose-300/30 rounded"
-      select-none bg-rose-50 px1 text-xs text-rose-700 dark:bg-rose-900:20 dark:text-rose-300
-    >
-      {{ invalid ? 'INVALID' : 'DEPRECATED' }}
-    </div>
-    <template #popper="{ shown }">
-      <div
-        v-if="shown && deprecatedInfo"
-        p-2 text-sm color-base
-      >
-        <p v-if="deprecatedInfo.message" mb1 flex="~ gap-1" text-rose-700 dark:text-rose-300>
-          <span i-ph-warning-duotone inline-block />{{ deprecatedInfo.message }}
-        </p>
-        <p v-if="versionInfo">
-          {{ versionInfo }}
-        </p>
-        <p v-if="deprecatedInfo.replacedBy?.length">
-          Please use the
-          <template v-for="({ rule, plugin }, i) in deprecatedInfo.replacedBy">
+  <OverlayHoverCard v-if="deprecatedInfo" placement="bottom" align="start">
+    <template #trigger>
+      <DisplayBadge color="red" class="select-none">
+        {{ invalid ? 'INVALID' : 'DEPRECATED' }}
+      </DisplayBadge>
+    </template>
+    <div class="text-sm color-base">
+      <p v-if="deprecatedInfo.message" class="color-scale-critical mb1 flex gap-1">
+        <span class="i-ph-warning-duotone inline-block" />{{ deprecatedInfo.message }}
+      </p>
+      <p v-if="versionInfo">
+        {{ versionInfo }}
+      </p>
+      <p v-if="deprecatedInfo.replacedBy?.length">
+        Please use the
+        <template v-for="({ rule, plugin }, i) in deprecatedInfo.replacedBy">
+          <NuxtLink
+            v-if="rule"
+            :key="rule.name"
+            :class="getLinkClass(rule.url)"
+            :href="rule.url"
+            target="_blank"
+          >
+            {{ rule.name ?? rule.url }}
+          </NuxtLink>
+          <template v-if="plugin">
+            in
             <NuxtLink
-              v-if="rule"
-              :key="rule.name"
-              :class="getLinkClass(rule.url)"
-              :href="rule.url"
+              :key="plugin.name"
+              :class="getLinkClass(plugin.url)"
+              :href="plugin.url"
               target="_blank"
             >
-              {{ rule.name ?? rule.url }}
+              {{ plugin.name ?? plugin.url }}
             </NuxtLink>
-            <template v-if="plugin">
-              in
-              <NuxtLink
-                :key="plugin.name"
-                :class="getLinkClass(plugin.url)"
-                :href="plugin.url"
-                target="_blank"
-              >
-                {{ plugin.name ?? plugin.url }}
-              </NuxtLink>
-            </template>{{ i === deprecatedInfo.replacedBy.length - 1 ? '.' : i === 0 ? '' : ', ' }}
-          </template>
-        </p>
-        <p mt2>
-          <a text-rose-700 underline dark:text-rose-300 target="_blank" :href="deprecatedInfo.url">Learn more</a>
-        </p>
-      </div>
-    </template>
-  </VDropdown>
+          </template>{{ i === deprecatedInfo.replacedBy.length - 1 ? '.' : i === 0 ? '' : ', ' }}
+        </template>
+      </p>
+      <p class="mt2">
+        <a class="color-scale-critical underline" target="_blank" :href="deprecatedInfo.url">Learn more</a>
+      </p>
+    </div>
+  </OverlayHoverCard>
+  <DisplayBadge v-else color="red" class="select-none">
+    {{ invalid ? 'INVALID' : 'DEPRECATED' }}
+  </DisplayBadge>
 </template>

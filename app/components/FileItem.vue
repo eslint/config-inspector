@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import type { FileIconRule } from '@antfu/design/utils/icon'
+import DisplayFileIcon from '@antfu/design/components/Display/DisplayFileIcon.vue'
+import { defaultFileIconRules } from '@antfu/design/utils/icon'
 import { useRouter } from '#app/composables/router'
-import { filepathIconsMap } from '~/composables/icons'
 import { filtersConfigs } from '~/composables/state'
 
 const props = defineProps<{
   filepath: string
 }>()
 
-const icon = computed(() => {
-  for (const rule of filepathIconsMap) {
-    if (rule.match.test(props.filepath))
-      return rule.icon
-  }
-  return 'i-ph-file-duotone'
-})
+// @unocss-include
+const fileIconRules: FileIconRule[] = [
+  { match: /eslint\.config\.\w+$/, name: 'eslint', icon: 'i-catppuccin:eslint' },
+  { match: /\.svelte$/, name: 'svelte', icon: 'i-catppuccin:svelte' },
+  ...defaultFileIconRules,
+]
 
 const router = useRouter()
 function searchFile() {
@@ -25,9 +25,9 @@ function searchFile() {
 </script>
 
 <template>
-  <div flex="~ gap-2 items-center" data-testid="file-item">
-    <div :class="icon" flex-none h="1em" translate-y-1px />
-    <button color-muted hover="color-base underline" @click="searchFile">
+  <div class="flex gap-2 items-center" data-testid="file-item">
+    <DisplayFileIcon :path="filepath" :rules="fileIconRules" class="flex-none h-1em translate-y-1px" />
+    <button class="color-muted hover:color-base hover:underline" @click="searchFile">
       {{ filepath }}
     </button>
   </div>

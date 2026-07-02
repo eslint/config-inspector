@@ -55,6 +55,12 @@ const config: StorybookConfig = {
       Unocss({ configFile: resolve(root, 'uno.config.ts') }),
       publicAssetUrls(),
     ],
+    optimizeDeps: {
+      // `@antfu/design` ships raw `.ts`/`.vue` source — let plugin-vue compile
+      // it instead of esbuild dep pre-bundling.
+      exclude: ['@antfu/design'],
+      include: ['reka-ui', 'colorjs.io'],
+    },
     resolve: {
       // Standalone replacements for the Nuxt-provided aliases and modules, so
       // components can be mounted without booting Nuxt.

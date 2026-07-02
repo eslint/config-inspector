@@ -47,15 +47,15 @@ const parsed = computed(() => {
 <template>
   <component
     :is="as || 'div'"
-    of-hidden text-ellipsis ws-nowrap font-mono
+    class="font-mono ws-nowrap text-ellipsis of-hidden"
     :class="[
       deprecated ? 'line-through' : '',
       borderless ? '' : 'badge',
     ]"
   >
     <span v-if="parsed.scope" :style="{ color: getPluginColor(parsed.scope) }">{{ parsed.scope }}</span>
-    <span v-if="parsed.scope" color-faint>/</span>
+    <span v-if="parsed.scope" class="color-faint">/</span>
     <br v-if="parsed.scope && props.break">
-    <span color-base>{{ parsed.name }}</span>
+    <span class="color-base">{{ parsed.name }}</span>
   </component>
 </template>
