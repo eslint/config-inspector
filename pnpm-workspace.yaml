@@ -27,9 +27,14 @@ catalog:
   '@playwright/test': ^1.60.0
   '@shikijs/langs-precompiled': ^4.1.0
   '@shikijs/transformers': ^4.1.0
+  '@storybook/addon-docs': ^10.4.6
+  '@storybook/addon-vitest': ^10.4.6
+  '@storybook/vue3-vite': ^10.4.6
   '@typescript-eslint/utils': ^8.59.4
   '@unocss/eslint-config': ^66.7.0
   '@unocss/nuxt': ^66.7.0
+  '@vitejs/plugin-vue': ^6.0.7
+  '@vitest/browser-playwright': ^4.1.9
   '@vueuse/nuxt': ^14.3.0
   ansis: ^4.3.0
   cac: ^7.0.0
@@ -53,12 +58,14 @@ catalog:
   shiki: ^4.1.0
   simple-git-hooks: ^2.13.1
   skills-npm: ^1.1.1
+  storybook: ^10.4.6
   textmate-grammar-glob: ^0.0.1
   tinyglobby: ^0.2.16
   tsdown: ^0.22.0
   typescript: ^6.0.3
+  unocss: ^66.7.0
   vite: ^8.0.16
-  vitest: ^4.1.7
+  vitest: ^4.1.9
   vue-tsc: ^3.3.1
 
 allowBuilds:

@@ -3,13 +3,16 @@ import { useRuntimeConfig } from '#app/nuxt'
 import { NuxtPage } from '#components'
 import ConfigInspectorBadge from '~/components/ConfigInspectorBadge.vue'
 import NavBar from '~/components/NavBar.vue'
+import { initDark } from '~/composables/dark'
 import { errorInfo, init, isLoading } from '~/composables/payload'
+import { initShiki } from '~/composables/shiki'
 
 import 'floating-vue/dist/style.css'
 import './styles/global.css'
-import './composables/dark'
 
 const config = useRuntimeConfig()
+initDark()
+initShiki()
 init(config.app.baseURL)
 </script>
 

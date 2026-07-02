@@ -1,0 +1,83 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks'
+import * as ColorizedConfigName from './ColorizedConfigName.stories'
+import * as ColorizedRuleName from './ColorizedRuleName.stories'
+import * as ConfigInspectorBadge from './ConfigInspectorBadge.stories'
+import * as ConfigItem from './ConfigItem.stories'
+import * as FileGroupItem from './FileGroupItem.stories'
+import * as FileItem from './FileItem.stories'
+import * as GlobItem from './GlobItem.stories'
+import * as NavBar from './NavBar.stories'
+import * as OptionSelectGroup from './OptionSelectGroup.stories'
+import * as RuleDeprecatedInfo from './RuleDeprecatedInfo.stories'
+import * as RuleItem from './RuleItem.stories'
+import * as RuleLevelIcon from './RuleLevelIcon.stories'
+import * as RuleList from './RuleList.stories'
+import * as RuleStateItem from './RuleStateItem.stories'
+import * as Shiki from './Shiki.stories'
+import * as SummarizeItem from './SummarizeItem.stories'
+
+<Meta title="Overview" />
+
+# ESLint Config Inspector components
+
+The UI building blocks of the config inspector, rendered against a small demo
+payload (see `app/components/fixtures.ts`). Each section links to the full
+docs page of the component.
+
+## Chrome
+
+### [NavBar](/?path=/docs/components-navbar--docs)
+<Canvas of={NavBar.Default} />
+
+### [ConfigInspectorBadge](/?path=/docs/components-configinspectorbadge--docs)
+<Canvas of={ConfigInspectorBadge.Default} />
+
+## Configs
+
+### [ConfigItem](/?path=/docs/components-configitem--docs)
+<Canvas of={ConfigItem.ScopedToFiles} />
+
+### [ColorizedConfigName](/?path=/docs/components-colorizedconfigname--docs)
+<Canvas of={ColorizedConfigName.Named} />
+
+### [SummarizeItem](/?path=/docs/components-summarizeitem--docs)
+<Canvas of={SummarizeItem.Rules} />
+
+### [GlobItem](/?path=/docs/components-globitem--docs)
+<Canvas of={GlobItem.Compound} />
+
+## Rules
+
+### [RuleList](/?path=/docs/components-rulelist--docs)
+<Canvas of={RuleList.AllRules} />
+
+### [RuleItem](/?path=/docs/components-ruleitem--docs)
+<Canvas of={RuleItem.ListView} />
+
+### [RuleStateItem](/?path=/docs/components-rulestateitem--docs)
+<Canvas of={RuleStateItem.WithOptions} />
+
+### [ColorizedRuleName](/?path=/docs/components-colorizedrulename--docs)
+<Canvas of={ColorizedRuleName.PluginRule} />
+
+### [RuleLevelIcon](/?path=/docs/components-rulelevelicon--docs)
+<Canvas of={RuleLevelIcon.ErrorLevel} />
+
+### [RuleDeprecatedInfo](/?path=/docs/components-ruledeprecatedinfo--docs)
+<Canvas of={RuleDeprecatedInfo.Deprecated} />
+
+## Files
+
+### [FileGroupItem](/?path=/docs/components-filegroupitem--docs)
+<Canvas of={FileGroupItem.VueFiles} />
+
+### [FileItem](/?path=/docs/components-fileitem--docs)
+<Canvas of={FileItem.VueFile} />
+
+## Primitives
+
+### [OptionSelectGroup](/?path=/docs/components-optionselectgroup--docs)
+<Canvas of={OptionSelectGroup.Basic} />
+
+### [Shiki](/?path=/docs/components-shiki--docs)
+<Canvas of={Shiki.TypeScript} />
