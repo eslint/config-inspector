@@ -6,20 +6,33 @@ import { isDark } from './dark'
 
 export const shiki = shallowRef<HighlighterCore>()
 
-createHighlighterCore({
-  themes: [
-    import('@shikijs/themes/vitesse-light'),
-    import('@shikijs/themes/vitesse-dark'),
-  ],
-  langs: [
-    import('@shikijs/langs-precompiled/javascript'),
-    import('@shikijs/langs-precompiled/typescript'),
-    import('textmate-grammar-glob/grammars/glob.json') as any,
-  ],
-  engine: createJavaScriptRegexEngine(),
-}).then((highlighter) => {
-  shiki.value = highlighter
-})
+let _promise: Promise<HighlighterCore> | undefined
+
+/**
+ * Create the shared highlighter and populate the `shiki` ref.
+ *
+ * Kept as an explicit init step (instead of a top-level side effect) so that
+ * importing this module stays side-effect free. Called once from `app.vue`,
+ * and from the Storybook preview.
+ */
+export function initShiki(): Promise<HighlighterCore> {
+  _promise ??= createHighlighterCore({
+    themes: [
+      import('@shikijs/themes/vitesse-light'),
+      import('@shikijs/themes/vitesse-dark'),
+    ],
+    langs: [
+      import('@shikijs/langs-precompiled/javascript'),
+      import('@shikijs/langs-precompiled/typescript'),
+      import('textmate-grammar-glob/grammars/glob.json') as any,
+    ],
+    engine: createJavaScriptRegexEngine(),
+  }).then((highlighter) => {
+    shiki.value = highlighter
+    return highlighter
+  })
+  return _promise
+}
 
 export function useHighlightedGlob(code: () => string) {
   return computed(() => {

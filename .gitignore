@@ -16,6 +16,9 @@ test-results
 .playwright
 *.code-workspace
 
+# Storybook
+storybook-static
+
 # Automatically generated files by GitHub Actions workflow
 /.shared-workflows
 

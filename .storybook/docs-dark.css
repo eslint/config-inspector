@@ -1,0 +1,20 @@
+/* Autodocs surfaces are static-light, recolor them under `.dark`. */
+.dark .sbdocs-wrapper,
+.dark .sbdocs.sbdocs-content {
+  background: #101828;
+}
+
+.dark .sbdocs-preview,
+.dark .docs-story {
+  background: #101828;
+  border-color: #aaaaaa33;
+}
+
+.dark .sbdocs h1,
+.dark .sbdocs h2,
+.dark .sbdocs h3,
+.dark .sbdocs p,
+.dark .sbdocs li,
+.dark .sbdocs a {
+  color: #d0d5dd;
+}

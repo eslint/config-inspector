@@ -44,11 +44,27 @@ async function get() {
     return
   }
   errorInfo.value = undefined
-  data.value = payload
+  setPayload(payload)
   isLoading.value = false
   isFetching.value = false
   console.log(LOG_NAME, 'Config payload', payload)
   return payload
+}
+
+/**
+ * Replace the current payload and reset the derived UI open states.
+ *
+ * Used by the RPC fetch path, and directly by Storybook / tests to seed the
+ * inspector with a static payload without any network connection.
+ */
+export function setPayload(payload: Payload) {
+  data.value = payload
+  const resolved = resolvePayload(payload)
+  configsOpenState.value = resolved.configs.length >= 10
+    // collapse all if there are too many items
+    ? resolved.configs.map(() => false)
+    : resolved.configs.map(() => true)
+  fileGroupsOpenState.value = resolved.filesResolved?.groups.map(() => true) ?? []
 }
 
 let _promise: Promise<Payload | undefined> | undefined
@@ -91,6 +107,12 @@ export function getRuleStates(name: string): RuleConfigStates | undefined {
   return payload.value.ruleToState.get(name)
 }
 
+/**
+ * Derive lookup maps and file groupings from a raw payload.
+ *
+ * Pure function: it does not touch any shared UI state (see `setPayload` for
+ * the stateful entry point).
+ */
 export function resolvePayload(payload: Payload): ResolvedPayload {
   const ruleToState = new Map<string, RuleConfigStates>()
   const globToConfigs = new Map<string, FlatConfigItem[]>()
@@ -129,11 +151,6 @@ export function resolvePayload(payload: Payload): ResolvedPayload {
       globToConfigs.get(glob)!.push(config)
     }
   })
-
-  configsOpenState.value = payload.configs.length >= 10
-    // collapse all if there are too many items
-    ? payload.configs.map(() => false)
-    : payload.configs.map(() => true)
 
   return {
     ...payload,
@@ -214,15 +231,12 @@ function resolveFiles(payload: Payload): ResolvedPayload['filesResolved'] {
     }
   }
 
-  const groups = Array.from(filesGroupMap.values())
-  fileGroupsOpenState.value = groups.map(() => true)
-
   return {
     list: files,
     globToFiles,
     fileToGlobs,
     fileToConfigs: new Map(Array.from(fileToConfigs.entries()).map(([file, configs]) => [file, Array.from(configs).sort((a, b) => a - b).map(i => payload.configs[i]!)])),
     configToFiles,
-    groups,
+    groups: Array.from(filesGroupMap.values()),
   }
 }
