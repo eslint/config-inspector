@@ -37,8 +37,8 @@ catalogs:
       specifier: ^1.2.5
       version: 1.2.5
     '@iconify-json/vscode-icons':
-      specifier: ^1.2.50
-      version: 1.2.50
+      specifier: ^1.2.61
+      version: 1.2.63
     '@nodelib/fs.walk':
       specifier: ^3.0.1
       version: 3.0.1
@@ -203,7 +203,7 @@ importers:
         version: 1.2.5
       '@iconify-json/vscode-icons':
         specifier: 'catalog:'
-        version: 1.2.50
+        version: 1.2.63
       '@nodelib/fs.walk':
         specifier: 'catalog:'
         version: 3.0.1
@@ -1020,8 +1020,8 @@ packages:
   '@iconify-json/twemoji@1.2.5':
     resolution: {integrity: sha512-uKpuIEV0v6K5BW3Mjdyl+XKFVAbbcPxAgifKvEMtZoUZB5+YiY5zaMm2uNNCxyXzAWU9yNLlj41WU6/mvgALsw==}
 
-  '@iconify-json/vscode-icons@1.2.50':
-    resolution: {integrity: sha512-XqG9nO1m+IiY8/RvT5BJjM/eG3CDRXBGRRPqR/MAcVi734yZ0Pa+jqObshZfnpUeIsuDKNn9C/7ZW00ART6kog==}
+  '@iconify-json/vscode-icons@1.2.63':
+    resolution: {integrity: sha512-6f0hkFfnMV6L2ICcWknUVu3sTUbvrHHuucKmZp3es3V8mOtGEGBSYsDkUK3ITsPFl1AsNZXNjCR7HzmIhDKaUw==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -7131,7 +7131,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/vscode-icons@1.2.50':
+  '@iconify-json/vscode-icons@1.2.63':
     dependencies:
       '@iconify/types': 2.0.0
 

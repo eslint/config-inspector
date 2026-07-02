@@ -21,7 +21,7 @@ catalog:
   '@iconify-json/simple-icons': ^1.2.83
   '@iconify-json/svg-spinners': ^1.2.4
   '@iconify-json/twemoji': ^1.2.5
-  '@iconify-json/vscode-icons': ^1.2.50
+  '@iconify-json/vscode-icons': ^1.2.61
   '@nodelib/fs.walk': ^3.0.1
   '@nuxt/eslint': ^1.15.2
   '@playwright/test': ^1.60.0
