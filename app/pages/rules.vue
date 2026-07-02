@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import ActionButton from '@antfu/design/components/Action/ActionButton.vue'
+import ActionToggleGroup from '@antfu/design/components/Action/ActionToggleGroup.vue'
+import FormSearchField from '@antfu/design/components/Form/FormSearchField.vue'
 import { watchDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { computed, ref } from 'vue'
@@ -90,6 +93,15 @@ watchDebounced(
 )
 const isDefaultFilters = computed(() => !(filters.search || filters.plugin || filters.state !== 'using' || filters.status !== 'active'))
 
+const viewType = computed<string | string[] | undefined>({
+  get: () => stateStorage.value.viewType,
+  set: (value) => {
+    // Ignore deselection so one view always stays active.
+    if (value === 'list' || value === 'grid')
+      stateStorage.value.viewType = value
+  },
+})
+
 function resetFilters() {
   filters.search = ''
   filters.plugin = ''
@@ -100,21 +112,15 @@ function resetFilters() {
 
 <template>
   <div>
-    <div py4 flex="~ col gap-2">
-      <div relative flex>
-        <input
-          v-model="filters.search"
-          :class="filters.search ? 'font-mono' : ''"
-          placeholder="Search rules..."
-          border="~ base rounded-full"
-          w-full bg-transparent px3 py2 pl10 outline-none
-        >
-        <div absolute bottom-0 left-0 top-0 flex="~ items-center justify-center" p4 color-muted>
-          <div i-ph-magnifying-glass-duotone />
-        </div>
-      </div>
-      <div grid="~ cols-[max-content_1fr] gap-2" my2 items-center>
-        <div text-right text-sm color-muted>
+    <div class="py4 flex flex-col gap-2">
+      <FormSearchField
+        v-model="filters.search"
+        placeholder="Search rules..."
+        :class="filters.search ? 'font-mono' : ''"
+        class="w-full"
+      />
+      <div class="my2 gap-2 grid grid-cols-[max-content_1fr] items-center">
+        <div class="text-sm color-muted text-right">
           Plugins
         </div>
         <OptionSelectGroup
@@ -129,7 +135,7 @@ function resetFilters() {
             } : {},
           }))]"
         />
-        <div text-right text-sm color-muted>
+        <div class="text-sm color-muted text-right">
           Usage
         </div>
         <OptionSelectGroup
@@ -139,7 +145,7 @@ function resetFilters() {
         >
           <template #default="{ value, title }">
             <div class="flex items-center">
-              <div ml--1 mr-1 flex items-center>
+              <div class="ml--1 mr-1 flex items-center">
                 <RuleLevelIcon v-if="value === 'error' || value === 'overloads'" level="error" />
                 <RuleLevelIcon v-if="value === 'warn' || value === 'overloads'" level="warn" />
                 <RuleLevelIcon v-if="value === 'off' || value === 'off-only' || value === 'overloads'" level="off" />
@@ -148,7 +154,7 @@ function resetFilters() {
             </div>
           </template>
         </OptionSelectGroup>
-        <div text-right text-sm color-muted>
+        <div class="text-sm color-muted text-right">
           State
         </div>
         <OptionSelectGroup
@@ -157,10 +163,10 @@ function resetFilters() {
           :titles="['All', 'Active', 'Recommended', 'Fixable', 'Deprecated']"
         >
           <template #default="{ value, title }">
-            <div flex items-center gap-1>
-              <div v-if="value === 'recommended'" i-ph-check-square-duotone ml--0.5 text-green-700 dark:text-green-300 />
-              <div v-if="value === 'fixable'" i-ph-wrench-duotone ml--0.5 text-amber-700 dark:text-amber-300 />
-              <div v-if="value === 'deprecated'" i-ph-prohibit-inset-duotone ml--1 color-muted />
+            <div class="flex gap-1 items-center">
+              <div v-if="value === 'recommended'" class="i-ph-check-square-duotone text-success-700 ml--0.5 dark:text-success-300" />
+              <div v-if="value === 'fixable'" class="i-ph-wrench-duotone color-scale-medium ml--0.5" />
+              <div v-if="value === 'deprecated'" class="i-ph-prohibit-inset-duotone color-muted ml--1" />
               {{ title || value }}
             </div>
           </template>
@@ -168,53 +174,36 @@ function resetFilters() {
       </div>
     </div>
 
-    <div items-center justify-between gap-2 md:flex>
-      <div flex="~ gap-2" lt-sm:flex-col>
-        <div
-          flex="~ inline gap-2 items-center"
-          border="~ gray/30 rounded-full" bg-gray:10 px3 py1
-        >
-          <div i-ph-list-checks-duotone />
-          <span>{{ filtered.length }}</span>
-          <span color-base>rules {{ isDefaultFilters ? 'enabled' : 'filtered' }}</span>
-          <span text-sm color-muted>out of {{ rules.length }} rules</span>
+    <div class="gap-2 items-center justify-between md:flex">
+      <div class="flex gap-2 lt-sm:flex-col">
+        <div class="badge-muted text-sm px3 py1 inline-flex gap-2 items-center">
+          <div class="i-ph-list-checks-duotone" />
+          <span class="font-mono tabular-nums">{{ filtered.length }}</span>
+          <span class="color-base">rules {{ isDefaultFilters ? 'enabled' : 'filtered' }}</span>
+          <span class="color-muted">out of {{ rules.length }} rules</span>
         </div>
-        <button
+        <ActionButton
           v-if="!isDefaultFilters"
-          flex="~ inline gap-2 items-center self-start"
-          border="~ purple-700/30 dark:purple-300/30 rounded-full"
-          bg-purple-50 px3 py1 dark:bg-purple-900:20
+          icon="i-ph-funnel-duotone"
+          class="self-start rounded-full!"
           @click="resetFilters()"
         >
-          <div i-ph-funnel-duotone text-purple-700 dark:text-purple-300 />
-          <span color-muted>Clear Filter</span>
-          <div
-            i-ph-x ml--1 text-sm color-muted hover:color-base
-          />
-        </button>
+          Clear Filter
+          <div class="i-ph-x text-sm color-muted ml--1" />
+        </ActionButton>
       </div>
 
-      <div v-if="!bpSm" flex="~ gap-1">
-        <button
-          btn-action
-          :class="{ 'btn-action-active': stateStorage.viewType === 'list' }"
-          @click="stateStorage.viewType = 'list'"
-        >
-          <div i-ph-list-duotone />
-          List
-        </button>
-        <button
-          btn-action
-          :class="{ 'btn-action-active': stateStorage.viewType === 'grid' }"
-          @click="stateStorage.viewType = 'grid'"
-        >
-          <div i-ph-grid-four-duotone />
-          Grid
-        </button>
-      </div>
+      <ActionToggleGroup
+        v-if="!bpSm"
+        v-model="viewType"
+        :options="[
+          { value: 'list', label: 'List', icon: 'i-ph-list-duotone' },
+          { value: 'grid', label: 'Grid', icon: 'i-ph-grid-four-duotone' },
+        ]"
+      />
     </div>
     <RuleList
-      my4
+      class="my4"
       :rules="filtered"
       :get-bind="(name: string) => ({ class: (payload.ruleToState.get(name)?.length || filters.state === 'unused') ? '' : 'color-muted' })"
     />

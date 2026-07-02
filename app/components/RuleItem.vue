@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import type { RuleConfigStates, RuleInfo, RuleLevel } from '~~/shared/types'
+import OverlayDropdown from '@antfu/design/components/Overlay/OverlayDropdown.vue'
+import OverlayDropdownItem from '@antfu/design/components/Overlay/OverlayDropdownItem.vue'
+import OverlayDropdownSeparator from '@antfu/design/components/Overlay/OverlayDropdownSeparator.vue'
+import OverlayHoverCard from '@antfu/design/components/Overlay/OverlayHoverCard.vue'
+import OverlayTooltip from '@antfu/design/components/Overlay/OverlayTooltip.vue'
 import { useClipboard } from '@vueuse/core'
-import { vTooltip } from 'floating-vue'
 import { getRuleLevel, getRuleOptions } from '~~/shared/rules'
-import { NuxtLink } from '#components'
 import ColorizedRuleName from '~/components/ColorizedRuleName.vue'
 import RuleDeprecatedInfo from '~/components/RuleDeprecatedInfo.vue'
 import RuleLevelIcon from '~/components/RuleLevelIcon.vue'
@@ -31,6 +34,11 @@ function redundantOptions(options: any) {
 
 const { copy } = useClipboard()
 
+function openDocs() {
+  if (props.rule.docs?.url)
+    window.open(props.rule.docs.url, '_blank', 'noopener,noreferrer')
+}
+
 function capitalize(str?: string) {
   if (!str)
     return str
@@ -41,21 +49,21 @@ function capitalize(str?: string) {
 <template>
   <div
     v-if="ruleStates"
-    flex="~ items-center gap-0.5 justify-end" text-lg
+    class="text-lg flex gap-0.5 items-center justify-end"
     :class="gridView ? 'absolute top-2 right-2 flex-col' : ''"
   >
     <template v-for="s, idx of ruleStates" :key="idx">
-      <VDropdown>
-        <RuleLevelIcon
-          :level="s.level"
-          :config-index="s.configIndex"
-          :has-options="!!s.options?.length"
-          :has-redundant-options="redundantOptions(s.options)"
-        />
-        <template #popper="{ shown }">
-          <RuleStateItem v-if="shown" :state="s" />
+      <OverlayHoverCard placement="bottom">
+        <template #trigger>
+          <RuleLevelIcon
+            :level="s.level"
+            :config-index="s.configIndex"
+            :has-options="!!s.options?.length"
+            :has-redundant-options="redundantOptions(s.options)"
+          />
         </template>
-      </VDropdown>
+        <RuleStateItem :state="s" />
+      </OverlayHoverCard>
     </template>
   </div>
 
@@ -71,66 +79,57 @@ function capitalize(str?: string) {
   </div>
 
   <div :class="props.class">
-    <VDropdown inline-block>
-      <ColorizedRuleName
-        :name="rule.name"
-        :prefix="rule.plugin"
-        :deprecated="rule.deprecated"
-        :borderless="gridView"
-        :break="gridView"
-        text-start
-        as="button"
-        @click="(e: MouseEvent) => emit('badgeClick', e)"
-      />
-      <template #popper="{ shown }">
-        <div v-if="shown" max-h="50vh">
-          <div flex="~ items-center gap-2" p3>
-            <NuxtLink
-              v-if="!rule.invalid"
-              btn-action-sm
-              :to="rule.docs?.url" target="_blank" rel="noopener noreferrer"
-              title="Docs"
-            >
-              <div i-ph-book-duotone />
-              Docs
-            </NuxtLink>
-            <button
-              btn-action-sm
-              title="Copy"
-              @click="copy(rule.name)"
-            >
-              <div i-ph-copy-duotone />
-              Copy name
-            </button>
-            <slot name="popup-actions" />
-          </div>
-          <slot name="popup" />
-        </div>
+    <OverlayDropdown align="start">
+      <template #trigger>
+        <ColorizedRuleName
+          :name="rule.name"
+          :prefix="rule.plugin"
+          :deprecated="rule.deprecated"
+          :borderless="gridView"
+          :break="gridView"
+          class="text-start"
+          as="button"
+          @click="(e: MouseEvent) => emit('badgeClick', e)"
+        />
       </template>
-    </VDropdown>
+      <OverlayDropdownItem
+        v-if="!rule.invalid && rule.docs?.url"
+        icon="i-ph-book-duotone"
+        @select="openDocs"
+      >
+        Docs
+      </OverlayDropdownItem>
+      <OverlayDropdownItem
+        icon="i-ph-copy-duotone"
+        @select="copy(rule.name)"
+      >
+        Copy name
+      </OverlayDropdownItem>
+      <slot name="popup-actions" />
+      <OverlayDropdownSeparator />
+      <div class="max-h-50vh max-w-2xl of-auto">
+        <slot name="popup" />
+      </div>
+    </OverlayDropdown>
   </div>
 
-  <div v-if="!gridView" grid="~ cols-2 items-center gap1" mx2>
-    <div
-      v-if="rule.docs?.recommended"
-      v-tooltip="'✅ Recommended'"
-      i-ph-check-square-duotone op50
-    />
+  <div v-if="!gridView" class="mx2 gap1 grid grid-cols-2 items-center">
+    <OverlayTooltip v-if="rule.docs?.recommended" content="✅ Recommended">
+      <div class="i-ph-check-square-duotone op50" />
+    </OverlayTooltip>
     <div v-else />
 
-    <div
-      v-if="rule.fixable"
-      v-tooltip="'🔧 Fixable'"
-      i-ph-wrench-duotone op50
-    />
+    <OverlayTooltip v-if="rule.fixable" content="🔧 Fixable">
+      <div class="i-ph-wrench-duotone op50" />
+    </OverlayTooltip>
     <div v-else />
   </div>
 
-  <div :class="props.class" flex="~ gap-2 items-center" of-hidden>
+  <div :class="props.class" class="flex gap-2 items-center of-hidden">
     <div
       :class="[
         rule.deprecated ? 'line-through' : '',
-        rule.invalid ? 'text-red-700 dark:text-red-300' : '',
+        rule.invalid ? 'color-scale-critical' : '',
         gridView ? 'color-muted text-sm' : 'color-muted ws-nowrap of-hidden text-ellipsis line-clamp-1',
       ]"
     >
@@ -145,24 +144,20 @@ function capitalize(str?: string) {
 
   <div
     v-if="gridView && (rule.invalid || rule.deprecated || rule.fixable || rule.docs?.recommended)"
-    flex flex-auto flex-col items-start justify-end
+    class="flex flex-auto flex-col items-start justify-end"
   >
-    <div flex="~ gap-2" mt1>
+    <div class="mt1 flex gap-2">
       <RuleDeprecatedInfo
         v-if="rule.invalid || rule.deprecated"
         :deprecated="rule.deprecated"
         :invalid="rule.invalid"
       />
-      <div
-        v-if="rule.docs?.recommended"
-        v-tooltip="'✅ Recommended'"
-        i-ph-check-square-duotone op50
-      />
-      <div
-        v-if="rule.fixable"
-        v-tooltip="'🔧 Fixable'"
-        i-ph-wrench-duotone op50
-      />
+      <OverlayTooltip v-if="rule.docs?.recommended" content="✅ Recommended">
+        <div class="i-ph-check-square-duotone op50" />
+      </OverlayTooltip>
+      <OverlayTooltip v-if="rule.fixable" content="🔧 Fixable">
+        <div class="i-ph-wrench-duotone op50" />
+      </OverlayTooltip>
     </div>
   </div>
 </template>

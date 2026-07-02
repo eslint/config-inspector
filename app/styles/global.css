@@ -8,12 +8,26 @@ summary::-webkit-details-marker {
   display: none;
 }
 
+/* The design search field renders its own clear button. */
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 body {
-  --at-apply: bg-base color-base font-sans;
+  --at-apply: color-base font-sans;
+}
+
+/* Body is height-capped at 100vh, so long pages scroll past its painted
+   background — the surface must live on `html`. The design base.css applies
+   `bg-base` there, but the shortcut's dark: variant expands to `.dark html`,
+   which can never match the class carrier itself; scheme-explicit rules do. */
+html {
+  --at-apply: bg-white;
 }
 
 html.dark {
-  color-scheme: dark;
+  --at-apply: bg-neutral-900;
 }
 
 .shiki {
@@ -25,29 +39,6 @@ html.dark {
   opacity: 75%;
 }
 
-.font-mono, [font-mono=""] {
+.font-mono {
   font-variant-ligatures: none;
-}
-
-/* Overrides Floating Vue */
-.v-popper--theme-dropdown .v-popper__inner,
-.v-popper--theme-tooltip .v-popper__inner {
-  --at-apply: bg-tooltip color-base font-sans rounded border border-base shadow dark:shadow-2xl;
-  box-shadow: 0 6px 30px #0000001a;
-}
-
-.v-popper--theme-tooltip .v-popper__arrow-inner,
-.v-popper--theme-dropdown .v-popper__arrow-inner {
-  visibility: visible;
-  --at-apply: border-white dark:border-neutral-900;
-}
-
-.v-popper--theme-tooltip .v-popper__arrow-outer,
-.v-popper--theme-dropdown .v-popper__arrow-outer {
-  --at-apply: border-base;
-}
-
-.v-popper--theme-tooltip.v-popper--shown,
-.v-popper--theme-tooltip.v-popper--shown * {
-  transition: none !important;
 }

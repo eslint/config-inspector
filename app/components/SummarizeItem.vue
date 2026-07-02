@@ -1,19 +1,25 @@
 <script setup lang="ts">
+import DisplayBadge from '@antfu/design/components/Display/DisplayBadge.vue'
+import OverlayTooltip from '@antfu/design/components/Overlay/OverlayTooltip.vue'
+
 const props = defineProps<{
   icon: string
   number: number
+  /** A palette color name, e.g. `yellow`, `teal`. */
   color: string
   title: string
 }>()
 </script>
 
 <template>
-  <div
-    v-tooltip="`${props.number} ${props.title}`"
-    flex="~ gap-2"
-    :class="props.number ? props.color : 'op25'"
-  >
-    <div :class="props.icon" />
-    <span min-w-6 :class="`text-${props.color}`">{{ props.number || '' }}</span>
-  </div>
+  <OverlayTooltip :content="`${props.number} ${props.title}`">
+    <DisplayBadge
+      :color="props.number ? props.color : false"
+      :icon="props.icon"
+      :class="props.number ? '' : 'op-mute'"
+      class="font-mono min-w-11 tabular-nums"
+    >
+      {{ props.number || '' }}
+    </DisplayBadge>
+  </OverlayTooltip>
 </template>

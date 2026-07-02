@@ -15,13 +15,13 @@ withDefaults(
   <div>
     <a
       href="https://github.com/eslint/config-inspector" target="_blank"
-      flex="inline gap-2 items-center" mr1
+      class="mr1 inline-flex gap-2 items-center"
     >
-      <img src="/favicon.svg" inline-block h-1em> ESLint Config Inspector
+      <img src="/favicon.svg" alt="" class="h-1em inline-block"> ESLint Config Inspector
     </a>
     <a
       v-if="showVersion"
-      ml1 inline-block translate-y--5 text-0.6em color-muted font-200 font-mono
+      class="text-0.6em color-muted font-200 font-mono ml1 inline-block translate-y--5"
       :href="`https://github.com/eslint/config-inspector/releases/tag/v${version}`" target="_blank"
     >
       v{{ version }}

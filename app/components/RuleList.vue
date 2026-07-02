@@ -65,7 +65,7 @@ const Wrapper = defineComponent({
               <RuleStateItem
                 v-for="state, idx of payload.ruleToState.get(name) || []"
                 :key="idx"
-                border="t base"
+                class="border-t border-base"
                 :state="state"
               />
             </slot>

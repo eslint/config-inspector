@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import ActionButton from '@antfu/design/components/Action/ActionButton.vue'
+import ActionDarkToggle from '@antfu/design/components/Action/ActionDarkToggle.vue'
+import FeedbackSpinner from '@antfu/design/components/Feedback/FeedbackSpinner.vue'
 import { useTimeAgo } from '@vueuse/core'
 import { computed } from 'vue'
 import { useRouter } from '#app/composables/router'
 import { NuxtLink } from '#components'
 import ConfigInspectorBadge from '~/components/ConfigInspectorBadge.vue'
-import { toggleDark } from '~/composables/dark'
+import { isDark } from '~/composables/dark'
 import { isFetching, payload } from '~/composables/payload'
 import { filtersRules as filters } from '~/composables/state'
 
@@ -27,71 +30,77 @@ function showDeprecated() {
 </script>
 
 <template>
-  <ConfigInspectorBadge text-3xl font-200 />
-  <div v-if="payload.meta.configPath" flex="~ gap-1 items-center" my1 text-sm>
-    <span color-muted font-mono>{{ payload.meta.configPath }}</span>
+  <ConfigInspectorBadge class="text-3xl font-200" />
+  <div v-if="payload.meta.configPath" class="text-sm my1 flex gap-1 items-center">
+    <span class="color-muted font-mono">{{ payload.meta.configPath }}</span>
   </div>
-  <div flex="~ gap-1 items-center wrap" text-sm>
-    <span color-muted>Composed with</span>
-    <span font-bold>{{ payload.configs.length }}</span>
-    <span color-muted>config items, updated</span>
-    <span color-muted>{{ lastUpdate }}</span>
+  <div class="text-sm flex flex-wrap gap-1 items-center">
+    <span class="color-muted">Composed with</span>
+    <span class="font-bold">{{ payload.configs.length }}</span>
+    <span class="color-muted">config items, updated</span>
+    <span class="color-muted">{{ lastUpdate }}</span>
     <div
       v-if="isFetching"
-      flex="~ gap-2 items-center"
-      ml2 animate-pulse text-success-700 dark:text-success-300
+      class="text-success-700 ml2 flex gap-2 items-center animate-pulse dark:text-success-300"
     >
-      <div i-svg-spinners-90-ring-with-bg flex-none text-sm />
+      <FeedbackSpinner class="text-sm flex-none" />
       Fetching updates...
     </div>
   </div>
-  <div flex="~ gap-3 items-center wrap" py4>
+  <div class="py4 flex flex-wrap gap-3 items-center">
     <NuxtLink
       to="/configs"
-      btn-action px3 py1 text-base
+      class="text-base btn-action px3 py1"
       active-class="btn-action-active"
     >
-      <div i-ph-stack-duotone flex-none />
+      <div class="i-ph-stack-duotone flex-none" />
       Configs
     </NuxtLink>
     <NuxtLink
       to="/rules"
-      btn-action px3 py1 text-base
+      class="text-base btn-action px3 py1"
       active-class="btn-action-active"
     >
-      <div i-ph-list-dashes-duotone flex-none />
+      <div class="i-ph-list-dashes-duotone flex-none" />
       Rules
     </NuxtLink>
     <NuxtLink
       v-if="payload.filesResolved"
       to="/files"
-      btn-action px3 py1 text-base
+      class="text-base btn-action px3 py1"
       active-class="btn-action-active"
     >
-      <div i-ph-files-duotone flex-none />
+      <div class="i-ph-files-duotone flex-none" />
       Files
     </NuxtLink>
-    <button
-      title="Toggle Dark Mode"
-      i-ph-sun-dim-duotone dark:i-ph-moon-stars-duotone ml1 text-xl color-muted hover:color-base
-      @click="toggleDark()"
-    />
+    <ActionDarkToggle
+      :color-scheme="isDark ? 'dark' : 'light'"
+      @update:color-scheme="isDark = $event === 'dark'"
+    >
+      <template #default="{ toggle }">
+        <button
+          type="button"
+          title="Toggle Dark Mode"
+          aria-label="Toggle Dark Mode"
+          class="i-ph-sun-dim-duotone dark:i-ph-moon-stars-duotone text-xl color-muted ml1 hover:color-base"
+          @click="toggle"
+        />
+      </template>
+    </ActionDarkToggle>
     <NuxtLink
       href="https://github.com/eslint/config-inspector" target="_blank"
-      i-carbon-logo-github text-lg color-muted hover:color-base
+      aria-label="GitHub repository"
+      class="i-carbon-logo-github text-lg color-muted hover:color-base"
     />
     <template v-if="deprecatedUsing.length">
-      <div border="l base" ml3 mr2 h-5 w-1px />
-      <button
-        to="/configs"
-        border="~ warning-700/30 dark:warning-300/30 rounded-full"
-        flex="~ gap-2 items-center"
-        bg-warning-50 px3 py1 text-sm text-warning-700 dark:bg-warning-900:20 hover:bg-warning-100 dark:text-warning-300 dark:hover:bg-warning-900:30
+      <div class="ml3 mr2 border-l border-base h-5 w-1px" />
+      <ActionButton
+        icon="i-ph-warning-duotone"
+        class="text-warning-700 border-warning-700/30 bg-warning-400/10 dark:text-warning-300 dark:border-warning-300/30 rounded-full! hover:bg-warning-400/20"
         @click="showDeprecated"
       >
-        <div i-ph-warning-duotone flex-none />
         Using {{ deprecatedUsing.length }} deprecated rules
-      </button>
+      </ActionButton>
     </template>
   </div>
 </template>

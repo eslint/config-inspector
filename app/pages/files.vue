@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import ActionButton from '@antfu/design/components/Action/ActionButton.vue'
+import ActionToggleGroup from '@antfu/design/components/Action/ActionToggleGroup.vue'
+import FeedbackEmptyState from '@antfu/design/components/Feedback/FeedbackEmptyState.vue'
+import { computed } from 'vue'
 import FileGroupItem from '~/components/FileGroupItem.vue'
 import FileItem from '~/components/FileItem.vue'
 import { payload } from '~/composables/payload'
 import { fileGroupsOpenState, stateStorage } from '../composables/state'
+
+const viewFilesTab = computed<string | string[] | undefined>({
+  get: () => stateStorage.value.viewFilesTab,
+  set: (value) => {
+    // Ignore deselection so one tab always stays active.
+    if (value === 'list' || value === 'group')
+      stateStorage.value.viewFilesTab = value
+  },
+})
 
 function expandAll() {
   fileGroupsOpenState.value = fileGroupsOpenState.value.map(() => true)
@@ -14,49 +27,31 @@ function collapseAll() {
 </script>
 
 <template>
-  <div v-if="payload.filesResolved" flex="~ col gap-4" my4>
-    <div color-muted>
+  <div v-if="payload.filesResolved" class="my4 flex flex-col gap-4">
+    <div class="color-muted">
       This tab shows the preview for files match from the workspace.
-      This feature is <span text-warning-700 dark:text-warning-300>experimental</span> and may not be 100% accurate.
+      This feature is <span class="text-warning-700 dark:text-warning-300">experimental</span> and may not be 100% accurate.
     </div>
-    <div flex="~ gap-2 items-center">
-      <div border="~ base rounded" flex="~ inline">
-        <button
-          :class="stateStorage.viewFilesTab === 'list' ? 'btn-action-active' : ''"
-          btn-action border-none
-          @click="stateStorage.viewFilesTab = 'list'"
-        >
-          <div i-ph-files-duotone />
-          <span>List</span>
-        </button>
-        <div border="l base" />
-        <button
-          :class="stateStorage.viewFilesTab === 'group' ? 'btn-action-active' : ''"
-          btn-action border-none
-          @click="stateStorage.viewFilesTab = 'group' "
-        >
-          <div i-ph-rows-duotone />
-          <span>File Groups</span>
-        </button>
-      </div>
-      <div flex-auto />
+    <div class="flex gap-2 items-center">
+      <ActionToggleGroup
+        v-model="viewFilesTab"
+        :options="[
+          { value: 'list', label: 'List', icon: 'i-ph-files-duotone' },
+          { value: 'group', label: 'File Groups', icon: 'i-ph-rows-duotone' },
+        ]"
+      />
+      <div class="flex-auto" />
       <template v-if="stateStorage.viewFilesTab === 'group'">
-        <button
-          btn-action px3
-          @click="expandAll"
-        >
+        <ActionButton class="px3" @click="expandAll">
           Expand All
-        </button>
-        <button
-          btn-action px3
-          @click="collapseAll"
-        >
+        </ActionButton>
+        <ActionButton class="px3" @click="collapseAll">
           Collapse All
-        </button>
+        </ActionButton>
       </template>
     </div>
 
-    <div v-if="stateStorage.viewFilesTab === 'group'" flex="~ gap-2 col">
+    <div v-if="stateStorage.viewFilesTab === 'group'" class="flex flex-col gap-2">
       <FileGroupItem
         v-for="group, idx of payload.filesResolved.groups"
         :key="group.id"
@@ -66,18 +61,18 @@ function collapseAll() {
       />
     </div>
     <div v-else>
-      <div flex="~ gap-2 items-center">
-        <div i-ph-files-duotone flex-none />
+      <div class="flex gap-2 items-center">
+        <div class="i-ph-files-duotone flex-none" />
         <div>Matched Local Files ({{ payload.filesResolved.list.length }})</div>
       </div>
-      <div flex="~ col gap-1" py4 font-mono>
+      <div class="font-mono py4 flex flex-col gap-1">
         <FileItem v-for="file of payload.filesResolved.list" :key="file" :filepath="file" />
       </div>
     </div>
   </div>
-  <div v-else>
-    <div p3 color-muted italic>
-      No matched files found in the workspace.
-    </div>
-  </div>
+  <FeedbackEmptyState
+    v-else
+    icon="i-ph-files-duotone"
+    title="No matched files found in the workspace."
+  />
 </template>
