@@ -30,7 +30,7 @@ catalog:
   '@storybook/addon-docs': ^10.4.6
   '@storybook/addon-vitest': ^10.4.6
   '@storybook/vue3-vite': ^10.4.6
-  '@typescript-eslint/utils': ^8.59.4
+  '@typescript-eslint/utils': ^8.62.0
   '@unocss/eslint-config': ^66.7.0
   '@unocss/nuxt': ^66.7.0
   '@vitejs/plugin-vue': ^6.0.7
