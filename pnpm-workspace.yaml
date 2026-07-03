@@ -72,4 +72,4 @@ allowBuilds:
   esbuild: true
   simple-git-hooks: true
   unrs-resolver: true
-  vue-demi: set this to true or false
+  vue-demi: true
