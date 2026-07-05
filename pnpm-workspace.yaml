@@ -36,7 +36,7 @@ catalog:
   '@vitejs/plugin-vue': ^6.0.7
   '@vitest/browser-playwright': ^4.1.9
   '@vueuse/nuxt': ^14.3.0
-  ansis: ^4.3.0
+  ansis: ^4.3.1
   cac: ^7.0.0
   chokidar: ^5.0.0
   devframe: ^0.5.2
