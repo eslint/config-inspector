@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 import chokidar from 'chokidar'
 import { defineRpcFunction } from 'devframe'
 import { defineDevframe } from 'devframe/types'
+import { version } from '../package.json' with { type: 'json' }
 import { readConfig, resolveConfigPath } from './configs'
 import { MARK_CHECK } from './constants'
 import { ConfigInspectorError } from './errors'
@@ -36,6 +37,10 @@ export interface DevtoolFlags {
 const devframe = defineDevframe({
   id: 'eslint-config-inspector',
   name: 'ESLint Config Inspector',
+  version,
+  packageName: '@eslint/config-inspector',
+  homepage: 'https://github.com/eslint/config-inspector#readme',
+  description: 'A visual tool for inspecting and understanding your ESLint flat configs',
   icon: 'logos:eslint',
   cli: {
     command: 'eslint-config-inspector',
