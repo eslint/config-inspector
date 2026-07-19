@@ -16,8 +16,8 @@ catalogs:
       specifier: ^0.23.5
       version: 0.23.5
     '@iconify-json/carbon':
-      specifier: ^1.2.22
-      version: 1.2.22
+      specifier: ^1.2.24
+      version: 1.2.24
     '@iconify-json/file-icons':
       specifier: ^1.2.2
       version: 1.2.2
@@ -203,7 +203,7 @@ importers:
         version: 0.23.5(patch_hash=9c56839266cb75a04e2a96a342456c69afd7549bf6c13a9ade49cc6d42de892a)
       '@iconify-json/carbon':
         specifier: 'catalog:'
-        version: 1.2.22
+        version: 1.2.24
       '@iconify-json/file-icons':
         specifier: 'catalog:'
         version: 1.2.2
@@ -1065,8 +1065,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify-json/carbon@1.2.22':
-    resolution: {integrity: sha512-x/L1tVgBp6ailSU0b8QDlxM3MLLbrmzefoqOt1gpBbywTF3xNSKDcL/PrOoLGZHwoFsNXujg2xrCvYsAWpykgA==}
+  '@iconify-json/carbon@1.2.24':
+    resolution: {integrity: sha512-b7u/eTWE3xFa7UXlRJBSEm6At1y6+F0P3imBEip5/8QeRzouxVjBf80Y2xnu1GYsFo9MYlHA0bZfxxMd5givfw==}
 
   '@iconify-json/file-icons@1.2.2':
     resolution: {integrity: sha512-ajk44wYGTiu79EAyrfNHNaxZ1/2Z1xuSOAvYUT/pAPWHc+P6n9TUZP/ccnPG18kx0WMBxmkHHQ9/zkm6ENhk+Q==}
@@ -7833,7 +7833,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify-json/carbon@1.2.22':
+  '@iconify-json/carbon@1.2.24':
     dependencies:
       '@iconify/types': 2.0.0
 
