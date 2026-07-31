@@ -11,62 +11,62 @@ trustPolicyExclude:
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
 catalog:
-  '@antfu/eslint-config': ^9.0.0
-  '@axe-core/playwright': ^4.11.3
+  '@antfu/eslint-config': ^9.2.0
+  '@axe-core/playwright': ^4.12.1
   '@eslint/config-array': ^0.23.5
-  '@iconify-json/carbon': ^1.2.22
+  '@iconify-json/carbon': ^1.2.24
   '@iconify-json/file-icons': ^1.2.2
   '@iconify-json/logos': ^1.2.11
   '@iconify-json/ph': ^1.2.2
-  '@iconify-json/simple-icons': ^1.2.83
+  '@iconify-json/simple-icons': ^1.2.92
   '@iconify-json/svg-spinners': ^1.2.4
   '@iconify-json/twemoji': ^1.2.5
-  '@iconify-json/vscode-icons': ^1.2.50
+  '@iconify-json/vscode-icons': ^1.2.67
   '@nodelib/fs.walk': ^3.0.1
-  '@nuxt/eslint': ^1.15.2
-  '@playwright/test': ^1.60.0
-  '@shikijs/langs-precompiled': ^4.1.0
-  '@shikijs/transformers': ^4.1.0
-  '@storybook/addon-docs': ^10.4.6
-  '@storybook/addon-vitest': ^10.4.6
-  '@storybook/vue3-vite': ^10.4.6
-  '@typescript-eslint/utils': ^8.59.4
-  '@unocss/eslint-config': ^66.7.0
-  '@unocss/nuxt': ^66.7.0
-  '@vitejs/plugin-vue': ^6.0.7
-  '@vitest/browser-playwright': ^4.1.9
-  '@vueuse/nuxt': ^14.3.0
+  '@nuxt/eslint': ^1.16.0
+  '@playwright/test': ^1.62.0
+  '@shikijs/langs-precompiled': ^4.3.1
+  '@shikijs/transformers': ^4.3.1
+  '@storybook/addon-docs': ^10.5.5
+  '@storybook/addon-vitest': ^10.5.5
+  '@storybook/vue3-vite': ^10.5.5
+  '@typescript-eslint/utils': ^8.65.0
+  '@unocss/eslint-config': ^66.7.5
+  '@unocss/nuxt': ^66.7.5
+  '@vitejs/plugin-vue': ^6.0.8
+  '@vitest/browser-playwright': ^4.1.10
+  '@vueuse/nuxt': ^14.4.0
   ansis: ^4.3.1
   cac: ^7.0.0
   chokidar: ^5.0.0
-  devframe: ^0.6.0
-  esbuild: ^0.28.0
-  eslint: ^10.4.1
+  devframe: ^0.7.15
+  esbuild: ^0.28.1
+  eslint: ^10.8.0
   find-up: ^8.0.0
   floating-vue: ^5.2.2
-  fuse.js: ^7.3.0
+  fuse.js: ^7.5.0
   jiti: ^2.7.0
-  lint-staged: ^17.0.8
-  minimatch: ^10.2.5
+  lint-staged: ^17.2.0
+  minimatch: ^10.2.6
   mlly: ^1.8.2
   nitropack: ^2.13.4
-  nuxt: ^4.4.6
+  nuxt: ^4.5.1
   pathe: ^2.0.3
-  rolldown: ^1.1.2
-  rollup: ^4.60.4
+  rolldown: ^1.2.1
+  rollup: ^4.62.3
   semver: ^7.8.5
-  shiki: ^4.1.0
+  shiki: ^4.3.1
   simple-git-hooks: ^2.13.1
-  skills-npm: ^1.1.1
-  storybook: ^10.4.6
+  skills-npm: ^1.2.0
+  storybook: ^10.5.5
   textmate-grammar-glob: ^0.0.1
-  tinyglobby: ^0.2.16
-  tsdown: ^0.22.0
+  tinyglobby: ^0.2.17
+  tsdown: ^0.22.14
   typescript: ^6.0.3
-  unocss: ^66.7.0
-  vite: ^8.0.16
-  vitest: ^4.1.9
-  vue-tsc: ^3.3.1
+  unocss: ^66.7.5
+  vite: ^8.1.5
+  vitest: ^4.1.10
+  vue-tsc: ^3.3.8
 
 allowBuilds:
   '@parcel/watcher': true
