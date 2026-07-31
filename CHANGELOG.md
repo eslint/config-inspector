@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/eslint/config-inspector/compare/v3.1.0...v3.1.1) (2026-07-31)
+
+
+### Miscellaneous Chores
+
+* force release ([790cf95](https://github.com/eslint/config-inspector/commit/790cf95906da85dec0b0493728481bc035c68668))
+
 ## [3.1.0](https://github.com/eslint/config-inspector/compare/v3.0.4...v3.1.0) (2026-07-14)
 
 
