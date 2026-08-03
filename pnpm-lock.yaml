@@ -91,8 +91,8 @@ catalogs:
       specifier: ^5.0.0
       version: 5.0.0
     devframe:
-      specifier: ^0.7.15
-      version: 0.7.15
+      specifier: ^0.8.0
+      version: 0.8.0
     eslint:
       specifier: ^10.8.0
       version: 10.8.0
@@ -184,7 +184,7 @@ importers:
         version: 5.0.0
       devframe:
         specifier: 'catalog:'
-        version: 0.7.15(cac@7.0.0)(srvx@0.11.22)(typescript@6.0.3)
+        version: 0.8.0(cac@7.0.0)(srvx@0.11.22)
       jiti:
         specifier: 'catalog:'
         version: 2.7.0
@@ -3784,6 +3784,21 @@ packages:
       cac: ^7.0.0
     peerDependenciesMeta:
       '@modelcontextprotocol/sdk':
+        optional: true
+      cac:
+        optional: true
+
+  devframe@0.8.0:
+    resolution: {integrity: sha512-kUK/JIYlfb3A4nbIY+cJ/zljyfpCdBzwsR3uY2Y6Tbm6jnNY0w5yLpuDX524XQD7D1Vnmvs8kpC+ILOkCRk5OA==}
+    hasBin: true
+    peerDependencies:
+      '@modelcontextprotocol/client': ^2.0.0
+      '@modelcontextprotocol/server': ^2.0.0
+      cac: ^7.0.0
+    peerDependenciesMeta:
+      '@modelcontextprotocol/client':
+        optional: true
+      '@modelcontextprotocol/server':
         optional: true
       cac:
         optional: true
@@ -10607,6 +10622,22 @@ snapshots:
     transitivePeerDependencies:
       - srvx
       - typescript
+
+  devframe@0.8.0(cac@7.0.0)(srvx@0.11.22):
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      birpc: 4.0.0
+      crossws: 0.4.10(srvx@0.11.22)
+      destr: 2.0.5
+      h3: 2.0.1-rc.26(crossws@0.4.10(srvx@0.11.22))
+      mrmime: 2.0.1
+      nostics: 1.2.0
+      pathe: 2.0.3
+      ufo: 1.6.4
+    optionalDependencies:
+      cac: 7.0.0
+    transitivePeerDependencies:
+      - srvx
 
   devlop@1.1.0:
     dependencies:
