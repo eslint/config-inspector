@@ -1,5 +1,5 @@
 minimumReleaseAgeExclude:
-  - devframe@0.6.0
+  - devframe@0.6.0 || 0.8.0
 shamefullyHoist: true
 shellEmulator: true
 trustPolicy: no-downgrade
@@ -39,7 +39,7 @@ catalog:
   ansis: ^4.3.1
   cac: ^7.0.0
   chokidar: ^5.0.0
-  devframe: ^0.7.15
+  devframe: ^0.8.0
   esbuild: ^0.28.1
   eslint: ^10.8.0
   find-up: ^8.0.0
