@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/eslint/config-inspector/compare/v3.1.1...v3.2.0) (2026-08-03)
+
+
+### Features
+
+* migrate devframe to v0.8.0 ([#303](https://github.com/eslint/config-inspector/issues/303)) ([102b253](https://github.com/eslint/config-inspector/commit/102b25327f87eb430796d29082d9b7c37f1d2019))
+
 ## [3.1.1](https://github.com/eslint/config-inspector/compare/v3.1.0...v3.1.1) (2026-07-31)
 
 
