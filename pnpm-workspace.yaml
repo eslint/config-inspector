@@ -24,7 +24,7 @@ catalog:
   '@iconify-json/vscode-icons': ^1.2.67
   '@nodelib/fs.walk': ^3.0.1
   '@nuxt/eslint': ^1.16.0
-  '@playwright/test': ^1.62.0
+  '@playwright/test': ^1.62.1
   '@shikijs/langs-precompiled': ^4.3.1
   '@shikijs/transformers': ^4.3.1
   '@storybook/addon-docs': ^10.5.5
