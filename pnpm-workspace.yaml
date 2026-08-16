@@ -16,7 +16,7 @@ catalog:
   '@eslint/config-array': ^0.23.5
   '@iconify-json/carbon': ^1.2.24
   '@iconify-json/file-icons': ^1.2.2
-  '@iconify-json/logos': ^1.2.11
+  '@iconify-json/logos': ^1.2.12
   '@iconify-json/ph': ^1.2.2
   '@iconify-json/simple-icons': ^1.2.92
   '@iconify-json/svg-spinners': ^1.2.4

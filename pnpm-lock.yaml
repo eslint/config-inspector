@@ -22,8 +22,8 @@ catalogs:
       specifier: ^1.2.2
       version: 1.2.2
     '@iconify-json/logos':
-      specifier: ^1.2.11
-      version: 1.2.11
+      specifier: ^1.2.12
+      version: 1.2.12
     '@iconify-json/ph':
       specifier: ^1.2.2
       version: 1.2.2
@@ -209,7 +209,7 @@ importers:
         version: 1.2.2
       '@iconify-json/logos':
         specifier: 'catalog:'
-        version: 1.2.11
+        version: 1.2.12
       '@iconify-json/ph':
         specifier: 'catalog:'
         version: 1.2.2
@@ -1080,8 +1080,8 @@ packages:
   '@iconify-json/file-icons@1.2.2':
     resolution: {integrity: sha512-ajk44wYGTiu79EAyrfNHNaxZ1/2Z1xuSOAvYUT/pAPWHc+P6n9TUZP/ccnPG18kx0WMBxmkHHQ9/zkm6ENhk+Q==}
 
-  '@iconify-json/logos@1.2.11':
-    resolution: {integrity: sha512-fOo4pGEatuyuCFNL+cwquYMa2Im0oJHRHV7lt/Qqs5Ode/lPImHCQcfTtPzZj7qYMPb/h8YHN3TG54uEowrjNQ==}
+  '@iconify-json/logos@1.2.12':
+    resolution: {integrity: sha512-zUi/AoezU2F3L65nPVd2smiU6Y+ZI7RjdVPlGfeAeYbPbZ9kWn7Ucxj+KshmyQRBYwLtKoqAlUyoGgMqWG1T8g==}
 
   '@iconify-json/ph@1.2.2':
     resolution: {integrity: sha512-PgkEZNtqa8hBGjHXQa4pMwZa93hmfu8FUSjs/nv4oUU6yLsgv+gh9nu28Kqi8Fz9CCVu4hj1MZs9/60J57IzFw==}
@@ -7768,7 +7768,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/logos@1.2.11':
+  '@iconify-json/logos@1.2.12':
     dependencies:
       '@iconify/types': 2.0.0
 
