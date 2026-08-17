@@ -91,8 +91,8 @@ catalogs:
       specifier: ^5.0.0
       version: 5.0.0
     devframe:
-      specifier: ^0.8.0
-      version: 0.8.0
+      specifier: ^0.8.2
+      version: 0.8.2
     eslint:
       specifier: ^10.8.1
       version: 10.8.1
@@ -184,7 +184,7 @@ importers:
         version: 5.0.0
       devframe:
         specifier: 'catalog:'
-        version: 0.8.0(cac@7.0.0)(srvx@0.11.22)
+        version: 0.8.2(cac@7.0.0)(srvx@0.11.22)
       jiti:
         specifier: 'catalog:'
         version: 2.7.0
@@ -3775,8 +3775,8 @@ packages:
       cac:
         optional: true
 
-  devframe@0.8.0:
-    resolution: {integrity: sha512-kUK/JIYlfb3A4nbIY+cJ/zljyfpCdBzwsR3uY2Y6Tbm6jnNY0w5yLpuDX524XQD7D1Vnmvs8kpC+ILOkCRk5OA==}
+  devframe@0.8.2:
+    resolution: {integrity: sha512-oodQXEQnrvufA1so/E058Z3SG3bk9AlUE5+NIAsyx5ZJH9P/oX6WMxjC0bs5PPwtKbS7pBHjxja2AD8EwGE8/Q==}
     hasBin: true
     peerDependencies:
       '@modelcontextprotocol/client': ^2.0.0
@@ -10580,7 +10580,7 @@ snapshots:
       - srvx
       - typescript
 
-  devframe@0.8.0(cac@7.0.0)(srvx@0.11.22):
+  devframe@0.8.2(cac@7.0.0)(srvx@0.11.22):
     dependencies:
       '@standard-schema/spec': 1.1.0
       birpc: 4.0.0
