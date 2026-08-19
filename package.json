@@ -2,7 +2,7 @@
   "name": "@eslint/config-inspector",
   "type": "module",
   "version": "3.2.0",
-  "packageManager": "pnpm@11.18.0",
+  "packageManager": "pnpm@11.22.0",
   "description": "A visual tool for inspecting and understanding your ESLint flat configs",
   "license": "Apache-2.0",
   "funding": "https://opencollective.com/eslint",
@@ -28,7 +28,7 @@
     "dev": "nuxt dev",
     "cli:build": "node bin.mjs build",
     "cli:dev": "pnpm build && node bin.mjs",
-    "prepare": "nuxt prepare && npx simple-git-hooks && skills-npm",
+    "prepare": "nuxt prepare && pnpm simple-git-hooks && skills-npm",
     "start": "node bin.mjs",
     "prepack": "pnpm build",
     "lint": "nuxt prepare && eslint .",
@@ -111,7 +111,7 @@
     "vite": "catalog:"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
     "*": "eslint --fix"
