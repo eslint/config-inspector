@@ -53,7 +53,7 @@ export async function runBuild(options: BuildOptions): Promise<void> {
     baseURL = `/${baseURL}`
   baseURL = baseURL.replace(/\/+/g, '/')
 
-  await createBuild(devframe, { outDir, base: baseURL })
+  await createBuild(devframe, { outDir })
 
   if (baseURL !== '/') {
     const htmlFiles = await glob('**/*.html', {

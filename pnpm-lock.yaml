@@ -91,8 +91,8 @@ catalogs:
       specifier: ^5.0.0
       version: 5.0.0
     devframe:
-      specifier: ^0.8.0
-      version: 0.8.0
+      specifier: ^0.9.2
+      version: 0.9.2
     eslint:
       specifier: ^10.8.1
       version: 10.8.1
@@ -184,7 +184,7 @@ importers:
         version: 5.0.0
       devframe:
         specifier: 'catalog:'
-        version: 0.8.0(cac@7.0.0)(srvx@0.11.22)
+        version: 0.9.2(cac@7.0.0)(srvx@0.11.22)
       jiti:
         specifier: 'catalog:'
         version: 2.7.0
@@ -3397,6 +3397,9 @@ packages:
   birpc@4.0.0:
     resolution: {integrity: sha512-LShSxJP0KTmd101b6DRyGBj57LZxSDYWKitQNW/mi8GRMvZb078Uf9+pveax1DrVL89vm7mWe+TovdI/UDOuPw==}
 
+  birpc@4.1.0:
+    resolution: {integrity: sha512-O8L9vALWGqdEe0cG4HJckauw3WeJETlJnDRPUYpgwB7wrU43b/5NGMdVjdVcRo+4ROgd3ih2wha1glDe4HRVgw==}
+
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
@@ -3775,8 +3778,8 @@ packages:
       cac:
         optional: true
 
-  devframe@0.8.0:
-    resolution: {integrity: sha512-kUK/JIYlfb3A4nbIY+cJ/zljyfpCdBzwsR3uY2Y6Tbm6jnNY0w5yLpuDX524XQD7D1Vnmvs8kpC+ILOkCRk5OA==}
+  devframe@0.9.2:
+    resolution: {integrity: sha512-UOUtoI+x9R9MmaX19hTOqQ46MzGDbrG8y6oZHp3z32uuapLm86VcdeLLo3sQC1f8HZaqyIwEdYLtFfqON0qOoA==}
     hasBin: true
     peerDependencies:
       '@modelcontextprotocol/client': ^2.0.0
@@ -10226,6 +10229,8 @@ snapshots:
 
   birpc@4.0.0: {}
 
+  birpc@4.1.0: {}
+
   boolbase@1.0.0: {}
 
   brace-expansion@2.0.2:
@@ -10580,12 +10585,11 @@ snapshots:
       - srvx
       - typescript
 
-  devframe@0.8.0(cac@7.0.0)(srvx@0.11.22):
+  devframe@0.9.2(cac@7.0.0)(srvx@0.11.22):
     dependencies:
       '@standard-schema/spec': 1.1.0
-      birpc: 4.0.0
+      birpc: 4.1.0
       crossws: 0.4.10(srvx@0.11.22)
-      destr: 2.0.5
       h3: 2.0.1-rc.26(crossws@0.4.10(srvx@0.11.22))
       mrmime: 2.0.1
       nostics: 1.2.0
