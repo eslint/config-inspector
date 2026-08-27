@@ -64,7 +64,7 @@ catalog:
   tsdown: ^0.22.14
   typescript: ^6.0.3
   unocss: ^66.7.5
-  vite: ^8.2.1
+  vite: ^8.2.2
   vitest: ^4.1.10
   vue-tsc: ^3.3.10
 
