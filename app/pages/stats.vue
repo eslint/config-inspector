@@ -113,7 +113,7 @@ const breakdownSegments = computed(() => {
       </div>
     </div>
 
-    <div v-else-if="!statsReport && isStaticConnection" p3 color-muted italic>
+    <div v-else-if="!statsReport && isStaticConnection" border="~ amber-700/30 rounded" bg-amber-50 p3 text-amber-700 dark:bg-amber-900:20 dark:text-amber-300>
       Stats are not available in this static build.
       Inspect with live mode, or run
       <code rounded bg-code px1>pnpx @eslint/config-inspector build --stats</code>
@@ -122,7 +122,7 @@ const breakdownSegments = computed(() => {
 
     <div v-else-if="!statsReport">
       <button btn-action px3 py1 text-base @click="runStatsAnalysis()">
-        <div i-ph-gauge-duotone flex-none />
+        <div i-ph-play-duotone flex-none />
         Run Stats Analysis
       </button>
     </div>
