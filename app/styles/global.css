@@ -4,6 +4,32 @@ html, body , #__nuxt{
   padding: 0;
 }
 
+/* Keep layout stable when the vertical scrollbar appears/disappears */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Consistent thin scrollbars across the app */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8885 transparent;
+}
+
+/* Safari, which supports neither `scrollbar-width` nor `scrollbar-color` */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: #8885;
+}
+
 summary::-webkit-details-marker {
   display: none;
 }
