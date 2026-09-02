@@ -18,27 +18,18 @@ catalogs:
     '@iconify-json/carbon':
       specifier: ^1.2.26
       version: 1.2.26
-    '@iconify-json/file-icons':
-      specifier: ^1.2.2
-      version: 1.2.2
-    '@iconify-json/logos':
-      specifier: ^1.2.13
-      version: 1.2.13
+    '@iconify-json/catppuccin':
+      specifier: ^1.2.17
+      version: 1.2.17
     '@iconify-json/ph':
       specifier: ^1.2.2
       version: 1.2.2
-    '@iconify-json/simple-icons':
-      specifier: ^1.2.94
-      version: 1.2.94
     '@iconify-json/svg-spinners':
       specifier: ^1.2.4
       version: 1.2.4
     '@iconify-json/twemoji':
       specifier: ^1.2.5
       version: 1.2.5
-    '@iconify-json/vscode-icons':
-      specifier: ^1.2.76
-      version: 1.2.76
     '@nodelib/fs.walk':
       specifier: ^3.0.1
       version: 3.0.1
@@ -204,27 +195,18 @@ importers:
       '@iconify-json/carbon':
         specifier: 'catalog:'
         version: 1.2.26
-      '@iconify-json/file-icons':
+      '@iconify-json/catppuccin':
         specifier: 'catalog:'
-        version: 1.2.2
-      '@iconify-json/logos':
-        specifier: 'catalog:'
-        version: 1.2.13
+        version: 1.2.17
       '@iconify-json/ph':
         specifier: 'catalog:'
         version: 1.2.2
-      '@iconify-json/simple-icons':
-        specifier: 'catalog:'
-        version: 1.2.94
       '@iconify-json/svg-spinners':
         specifier: 'catalog:'
         version: 1.2.4
       '@iconify-json/twemoji':
         specifier: 'catalog:'
         version: 1.2.5
-      '@iconify-json/vscode-icons':
-        specifier: 'catalog:'
-        version: 1.2.76
       '@nodelib/fs.walk':
         specifier: 'catalog:'
         version: 3.0.1
@@ -937,26 +919,17 @@ packages:
   '@iconify-json/carbon@1.2.26':
     resolution: {integrity: sha512-UVzlnCAzSkrNydW3GYESeggndriR1JSgU5M8DNz9S0Fu10I3NpJUYPWar+WYjMAQUIm9B7mljPpc30oal3PRSQ==}
 
-  '@iconify-json/file-icons@1.2.2':
-    resolution: {integrity: sha512-ajk44wYGTiu79EAyrfNHNaxZ1/2Z1xuSOAvYUT/pAPWHc+P6n9TUZP/ccnPG18kx0WMBxmkHHQ9/zkm6ENhk+Q==}
-
-  '@iconify-json/logos@1.2.13':
-    resolution: {integrity: sha512-Up54ZnIuiuBgGAsuzhR1nvKqwq8VE6YM3XLwVB6IgY+7NAasz6WKu9Ay5hGfAkfuOKowodfwDC8ozReEBYrWRg==}
+  '@iconify-json/catppuccin@1.2.17':
+    resolution: {integrity: sha512-l1pFOADEUlw+j7V+yfFzBowdE4deeMuI4amqfKaN+7uTI9B0Ho24C86DitQk5zb62NkEM9poOyfuG7WS2bw6jg==}
 
   '@iconify-json/ph@1.2.2':
     resolution: {integrity: sha512-PgkEZNtqa8hBGjHXQa4pMwZa93hmfu8FUSjs/nv4oUU6yLsgv+gh9nu28Kqi8Fz9CCVu4hj1MZs9/60J57IzFw==}
-
-  '@iconify-json/simple-icons@1.2.94':
-    resolution: {integrity: sha512-l8UWzVxKaqZd9ABsE/M/9p6NyGkQnmCnOoZyhQmjlXCtY5PuL2rcWxOFk2l9pk7ux3ERMPkTLE4jl6kQpTkwxA==}
 
   '@iconify-json/svg-spinners@1.2.4':
     resolution: {integrity: sha512-ayn0pogFPwJA1WFZpDnoq9/hjDxN+keeCMyThaX4d3gSJ3y0mdKUxIA/b1YXWGtY9wVtZmxwcvOIeEieG4+JNg==}
 
   '@iconify-json/twemoji@1.2.5':
     resolution: {integrity: sha512-uKpuIEV0v6K5BW3Mjdyl+XKFVAbbcPxAgifKvEMtZoUZB5+YiY5zaMm2uNNCxyXzAWU9yNLlj41WU6/mvgALsw==}
-
-  '@iconify-json/vscode-icons@1.2.76':
-    resolution: {integrity: sha512-gSu20bZiegbMFLSPHHtmliUJoOPhovTT77RNkMfr6u9ns5uC2bVZ4K5T7wUlywRAzQk4qgG7t4AULaucSsta4w==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -7454,19 +7427,11 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/file-icons@1.2.2':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/logos@1.2.13':
+  '@iconify-json/catppuccin@1.2.17':
     dependencies:
       '@iconify/types': 2.0.0
 
   '@iconify-json/ph@1.2.2':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/simple-icons@1.2.94':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -7475,10 +7440,6 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/twemoji@1.2.5':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/vscode-icons@1.2.76':
     dependencies:
       '@iconify/types': 2.0.0
 

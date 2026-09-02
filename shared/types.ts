@@ -106,9 +106,11 @@ export interface StatsReport {
     other: number
   }
   /** Per-rule total time across all files, sorted descending */
-  rules: RuleTimeStat[]
+  rules: RuleTimeBreakdown[]
   /** Per-file timing breakdown, sorted by total descending */
   files: FileTimeStat[]
+  /** Slowest individual rule-on-file tasks, sorted descending (capped) */
+  tasks: TaskTimeStat[]
   errorCount: number
   warningCount: number
   meta: {
@@ -120,6 +122,18 @@ export interface StatsReport {
 
 export interface RuleTimeStat {
   name: string
+  time: number
+}
+
+export interface RuleTimeBreakdown extends RuleTimeStat {
+  /** Slowest files for this rule, sorted descending */
+  topFiles: RuleTimeStat[]
+}
+
+export interface TaskTimeStat {
+  rule: string
+  /** Relative to the base path */
+  filepath: string
   time: number
 }
 

@@ -4,11 +4,13 @@ import process from 'node:process'
 import { createBuild } from 'devframe/adapters/build'
 import { relative, resolve } from 'pathe'
 import { glob } from 'tinyglobby'
-import { readConfig } from './configs'
+import { readConfig, resolveConfigPath } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'
 import devframe from './devframe'
 import { ConfigInspectorError } from './errors'
 import { setBuildPayload } from './rpc/get-payload'
+import { setBuildStats } from './rpc/get-stats'
+import { runStatsAnalysis } from './rpc/run-stats'
 
 export interface BuildOptions {
   config?: string
@@ -16,6 +18,7 @@ export interface BuildOptions {
   basePath?: string
   base: string
   outDir: string
+  stats?: boolean
 }
 
 export async function runBuild(options: BuildOptions): Promise<void> {
@@ -46,6 +49,23 @@ export async function runBuild(options: BuildOptions): Promise<void> {
   configs.payload.meta.basePath = ''
   configs.payload.meta.configPath = ''
   setBuildPayload(configs.payload)
+
+  if (options.stats) {
+    try {
+      const { basePath, configPath } = await resolveConfigPath(readOptions)
+      console.log(MARK_INFO, 'Running ESLint with stats enabled')
+      const report = await runStatsAnalysis(basePath, configPath)
+      console.log(MARK_CHECK, 'Stats analysis finished in', Math.round(report.meta.durationMs), 'ms')
+      setBuildStats(report)
+    }
+    catch (error) {
+      if (error instanceof ConfigInspectorError) {
+        error.prettyPrint()
+        process.exit(1)
+      }
+      throw error
+    }
+  }
 
   let baseURL = options.base
   if (!baseURL.endsWith('/'))

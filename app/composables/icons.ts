@@ -1,43 +1,53 @@
 // @unocss-include
+// Catppuccin file icons — dark-tuned, rendered with the `icon-catppuccin`
+// shortcut so they stay legible on light surfaces (see uno.config.ts)
 export const filepathIconsMap = [
   {
     match: /package\.json$/,
-    icon: 'i-file-icons-npm text-red scale-110',
+    icon: 'i-catppuccin-package-json',
   },
   {
     match: /eslint\.config\.\w+$/,
-    icon: 'i-file-icons-eslint text-primary',
+    icon: 'i-catppuccin-eslint',
   },
   {
-    match: /\.[mc]?jsx?$/,
-    icon: 'i-vscode-icons-file-type-js-official',
+    match: /\.[mc]?jsx$/,
+    icon: 'i-catppuccin-javascript-react',
   },
   {
-    match: /\.[mc]?tsx?$/,
-    icon: 'i-file-icons-typescript-alt text-blue3',
+    match: /\.[mc]?js$/,
+    icon: 'i-catppuccin-javascript',
+  },
+  {
+    match: /\.[mc]?tsx$/,
+    icon: 'i-catppuccin-typescript-react',
+  },
+  {
+    match: /\.[mc]?ts$/,
+    icon: 'i-catppuccin-typescript',
   },
   {
     match: /\.vue$/,
-    icon: 'i-logos-vue',
+    icon: 'i-catppuccin-vue',
   },
   {
     match: /\.svelte$/,
-    icon: 'i-logos-svelte-icon',
+    icon: 'i-catppuccin-svelte',
   },
   {
     match: /\.html?$/,
-    icon: 'i-devicon-html5',
+    icon: 'i-catppuccin-html',
   },
   {
     match: /\.md$/,
-    icon: 'i-simple-icons-markdown text-gray',
+    icon: 'i-catppuccin-markdown',
   },
   {
     match: /\.json[c5]?$/,
-    icon: 'i-simple-icons-json text-gray',
+    icon: 'i-catppuccin-json',
   },
   {
     match: /\.css$/,
-    icon: 'i-vscode-icons-file-type-css',
+    icon: 'i-catppuccin-css',
   },
 ]

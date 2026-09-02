@@ -13,7 +13,7 @@ const icon = computed(() => {
     if (rule.match.test(props.filepath))
       return rule.icon
   }
-  return 'i-ph-file-duotone'
+  return 'i-catppuccin-file'
 })
 
 const router = useRouter()
@@ -26,7 +26,7 @@ function searchFile() {
 
 <template>
   <div flex="~ gap-2 items-center" data-testid="file-item">
-    <div :class="icon" flex-none h="1em" translate-y-1px />
+    <div :class="icon" h="1em" flex-none translate-y-1px icon-catppuccin />
     <button color-muted hover="color-base underline" @click="searchFile">
       {{ filepath }}
     </button>

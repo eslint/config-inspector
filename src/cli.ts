@@ -15,6 +15,7 @@ cli
   .option('--basePath <basePath>', 'Base directory for globs to resolve. Default to directory of config file if not provided')
   .option('--base <baseURL>', 'Base URL for deployment', { default: '/' })
   .option('--outDir <dir>', 'Output directory', { default: 'dist/__eslint-config-inspector' })
+  .option('--stats', 'Run the stats analysis and include the results in the static build', { default: false })
   .action(async (options) => {
     await runBuild({
       config: options.config,
@@ -22,6 +23,7 @@ cli
       basePath: options.basePath,
       base: options.base,
       outDir: options.outDir,
+      stats: options.stats,
     })
   })
 
@@ -46,11 +48,13 @@ cli
   .option('--port <port>', 'Port', { default: Number(process.env.PORT) || 7777 })
   .option('--open', 'Open browser', { default: true })
   .option('--no-open', 'Do not open browser')
+  .option('--stats', 'Run the stats analysis on startup and open the stats page', { default: false })
   .action(async (options) => {
     const flags = {
       config: options.config,
       files: options.files,
       basePath: options.basePath,
+      stats: options.stats,
     }
 
     const host = options.host
@@ -63,7 +67,8 @@ cli
       host,
       port,
       flags,
-      openBrowser: options.open,
+      // With --stats, land directly on the stats page
+      openBrowser: options.open && options.stats ? '/stats' : options.open,
       onReady: ({ origin }) => {
         console.log(MARK_INFO, 'ESLint config inspector at', c.green(origin), '\n')
       },

@@ -23,6 +23,11 @@ export default defineConfig({
     'bg-code': 'bg-gray5:5',
     'bg-hover': 'bg-primary-400:5',
 
+    // Keeps the dark-tuned catppuccin icons legible on light surfaces:
+    // invert/rehue/dim under the light scheme, native color under `.dark`
+    // https://github.com/antfu/design — core-tokens `icon-catppuccin`
+    'icon-catppuccin': 'invert-100 hue-rotate-180 brightness-80 dark:invert-0 dark:hue-rotate-0 dark:brightness-100',
+
     'color-active': 'color-primary-700 dark:color-primary-400',
     'border-active': 'border-primary-700/30 dark:border-primary-400/25',
     'bg-active': 'bg-primary-400:10',

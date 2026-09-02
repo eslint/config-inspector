@@ -49,8 +49,25 @@ describe('aggregateStats', () => {
     expect(report.totals.other).toBe(4)
 
     expect(report.rules).toEqual([
-      { name: 'no-undef', time: 7 },
-      { name: 'vue/attributes-order', time: 1 },
+      {
+        name: 'no-undef',
+        time: 7,
+        topFiles: [
+          { name: 'src/a.ts', time: 4 },
+          { name: 'src/b.ts', time: 3 },
+        ],
+      },
+      {
+        name: 'vue/attributes-order',
+        time: 1,
+        topFiles: [{ name: 'src/a.ts', time: 1 }],
+      },
+    ])
+
+    expect(report.tasks).toEqual([
+      { rule: 'no-undef', filepath: 'src/a.ts', time: 4 },
+      { rule: 'no-undef', filepath: 'src/b.ts', time: 3 },
+      { rule: 'vue/attributes-order', filepath: 'src/a.ts', time: 1 },
     ])
 
     expect(report.files.map(f => f.filepath)).toEqual(['src/a.ts', 'src/b.ts'])
@@ -72,5 +89,6 @@ describe('aggregateStats', () => {
     expect(report.totals).toEqual({ total: 0, parse: 0, rules: 0, fix: 0, other: 0 })
     expect(report.rules).toEqual([])
     expect(report.files).toEqual([])
+    expect(report.tasks).toEqual([])
   })
 })

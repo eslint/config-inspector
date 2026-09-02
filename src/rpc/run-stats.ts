@@ -1,5 +1,5 @@
 import type { DevframeScopedNodeContext } from 'devframe'
-import type { ErrorInfo, FileTimeStat, RuleTimeStat, StatsReport } from '../../shared/types'
+import type { ErrorInfo, FileTimeStat, RuleTimeStat, StatsReport, TaskTimeStat } from '../../shared/types'
 import type { ResolveConfigPathOptions } from '../configs'
 import { spawn } from 'node:child_process'
 import process from 'node:process'
@@ -33,10 +33,24 @@ interface StatsLintResult {
 }
 
 const TOP_RULES_PER_FILE = 10
+const TOP_FILES_PER_RULE = 10
+const TOP_TASKS = 300
+
+let lastRun: Promise<StatsReport | ErrorInfo> | undefined
+
+/**
+ * Latest triggered run (in-flight or settled) — `get-stats` reads it so a
+ * run started eagerly by the `--stats` CLI flag reaches the client without
+ * the client spawning another one.
+ */
+export function getLastStatsRun(): Promise<StatsReport | ErrorInfo> | undefined {
+  return lastRun
+}
 
 export function registerRunStats(
   ctx: DevframeScopedNodeContext<'eslint-config-inspector'>,
   readOptions: ResolveConfigPathOptions,
+  options: { eager?: boolean } = {},
 ): void {
   let running: Promise<StatsReport | ErrorInfo> | undefined
 
@@ -57,17 +71,23 @@ export function registerRunStats(
     }
   }
 
+  function trigger(): Promise<StatsReport | ErrorInfo> {
+    // Deduplicate concurrent runs — a second call awaits the in-flight one
+    running ??= run().finally(() => {
+      running = undefined
+    })
+    lastRun = running
+    return lastRun
+  }
+
   ctx.rpc.register(defineRpcFunction({
     name: 'run-stats',
     type: 'action',
-    handler: async (): Promise<StatsReport | ErrorInfo> => {
-      // Deduplicate concurrent runs — a second call awaits the in-flight one
-      running ??= run().finally(() => {
-        running = undefined
-      })
-      return running
-    },
+    handler: async (): Promise<StatsReport | ErrorInfo> => trigger(),
   }))
+
+  if (options.eager)
+    void trigger()
 }
 
 /**
@@ -133,6 +153,8 @@ export function aggregateStats(
   durationMs: number,
 ): StatsReport {
   const ruleTimes = new Map<string, number>()
+  const ruleFiles = new Map<string, RuleTimeStat[]>()
+  const tasks: TaskTimeStat[] = []
   const files: FileTimeStat[] = []
   const totals = { total: 0, parse: 0, rules: 0, fix: 0, other: 0 }
   let errorCount = 0
@@ -165,6 +187,13 @@ export function aggregateStats(
       }
     }
 
+    for (const [name, time] of fileRuleTimes) {
+      if (!ruleFiles.has(name))
+        ruleFiles.set(name, [])
+      ruleFiles.get(name)!.push({ name: file.filepath, time })
+      tasks.push({ rule: name, filepath: file.filepath, time })
+    }
+
     file.topRules = sortTimes(fileRuleTimes).slice(0, TOP_RULES_PER_FILE)
     files.push(file)
     totals.total += file.total
@@ -175,11 +204,18 @@ export function aggregateStats(
 
   totals.other = Math.max(0, totals.total - totals.parse - totals.rules - totals.fix)
   files.sort((a, b) => b.total - a.total)
+  tasks.sort((a, b) => b.time - a.time)
 
   return {
     totals,
-    rules: sortTimes(ruleTimes),
+    rules: sortTimes(ruleTimes).map(rule => ({
+      ...rule,
+      topFiles: ruleFiles.get(rule.name)!
+        .sort((a, b) => b.time - a.time)
+        .slice(0, TOP_FILES_PER_RULE),
+    })),
     files,
+    tasks: tasks.slice(0, TOP_TASKS),
     errorCount,
     warningCount,
     meta: {

@@ -8,9 +8,15 @@ export interface StatsBreakdownSegment {
   color: string
 }
 
-const props = defineProps<{
-  segments: StatsBreakdownSegment[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    segments: StatsBreakdownSegment[]
+    showLegend?: boolean
+  }>(),
+  {
+    showLegend: true,
+  },
+)
 
 const total = computed(() => props.segments.reduce((sum, s) => sum + s.time, 0))
 const visible = computed(() => props.segments.filter(s => s.time > 0))
@@ -18,7 +24,7 @@ const visible = computed(() => props.segments.filter(s => s.time > 0))
 
 <template>
   <div flex="~ col gap-2">
-    <div flex="~" h-4 of-hidden rounded border="~ base">
+    <div flex="~ gap-1px" h-4 of-hidden rounded border="~ base">
       <div
         v-for="segment of visible"
         :key="segment.label"
@@ -27,7 +33,7 @@ const visible = computed(() => props.segments.filter(s => s.time > 0))
         h-full
       />
     </div>
-    <div flex="~ gap-4 items-center wrap" text-sm>
+    <div v-if="showLegend" flex="~ gap-x-4 gap-y-1 items-center wrap" text-sm>
       <div v-for="segment of visible" :key="segment.label" flex="~ gap-1.5 items-center">
         <div h-2.5 w-2.5 rounded-sm :style="{ backgroundColor: segment.color }" />
         <span color-muted>{{ segment.label }}</span>

@@ -36,7 +36,8 @@ let _rpc: Awaited<ReturnType<typeof connectDevframe>> | undefined
 
 /**
  * True when connected to a static build snapshot instead of a live dev
- * server — on-demand RPC actions (like the stats analysis) are unavailable.
+ * server — on-demand RPC actions (like running the stats analysis) are
+ * unavailable; only baked snapshots (`build --stats`) can be read.
  */
 export const isStaticConnection = ref(false)
 
