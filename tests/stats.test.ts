@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { aggregateStats } from '../src/stats'
+import { aggregateStats } from '../src/rpc/run-stats'
 
 function pass(times: { parse?: number, rules?: Record<string, number>, fix?: number, total: number }) {
   return {

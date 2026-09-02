@@ -1,10 +1,15 @@
-import type { FileTimeStat, RuleTimeStat, StatsReport } from '../shared/types'
+import type { DevframeScopedNodeContext } from 'devframe'
+import type { ErrorInfo, FileTimeStat, RuleTimeStat, StatsReport } from '../../shared/types'
+import type { ResolveConfigPathOptions } from '../configs'
 import { spawn } from 'node:child_process'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
+import { defineRpcFunction } from 'devframe'
 import { resolve as resolveModule } from 'mlly'
 import { dirname, join, relative } from 'pathe'
-import { ConfigInspectorError } from './errors'
+import { resolveConfigPath } from '../configs'
+import { MARK_CHECK, MARK_INFO } from '../constants'
+import { ConfigInspectorError } from '../errors'
 
 /**
  * Subset of a lint result from ESLint's `json` formatter when run with
@@ -28,6 +33,42 @@ interface StatsLintResult {
 }
 
 const TOP_RULES_PER_FILE = 10
+
+export function registerRunStats(
+  ctx: DevframeScopedNodeContext<'eslint-config-inspector'>,
+  readOptions: ResolveConfigPathOptions,
+): void {
+  let running: Promise<StatsReport | ErrorInfo> | undefined
+
+  async function run(): Promise<StatsReport | ErrorInfo> {
+    try {
+      const { basePath, configPath } = await resolveConfigPath(readOptions)
+      console.log(MARK_INFO, 'Running ESLint with stats enabled')
+      const report = await runStatsAnalysis(basePath, configPath)
+      console.log(MARK_CHECK, 'Stats analysis finished in', Math.round(report.meta.durationMs), 'ms')
+      return report
+    }
+    catch (e) {
+      if (e instanceof ConfigInspectorError)
+        e.prettyPrint()
+      else
+        console.error(e)
+      return { message: 'Failed to run ESLint stats analysis', error: String(e) }
+    }
+  }
+
+  ctx.rpc.register(defineRpcFunction({
+    name: 'run-stats',
+    type: 'action',
+    handler: async (): Promise<StatsReport | ErrorInfo> => {
+      // Deduplicate concurrent runs — a second call awaits the in-flight one
+      running ??= run().finally(() => {
+        running = undefined
+      })
+      return running
+    },
+  }))
+}
 
 /**
  * Run the project's own `eslint` binary with `--stats -f json` and aggregate

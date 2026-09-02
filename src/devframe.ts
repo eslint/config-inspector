@@ -1,32 +1,14 @@
-import type { FSWatcher } from 'chokidar'
-import type { ErrorInfo, Payload, StatsReport } from '../shared/types'
 import type { ReadConfigOptions } from './configs'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
-import chokidar from 'chokidar'
-import { defineDevframe, defineRpcFunction } from 'devframe'
+import { defineDevframe } from 'devframe'
 import { version } from '../package.json' with { type: 'json' }
-import { readConfig, resolveConfigPath } from './configs'
-import { MARK_CHECK, MARK_INFO } from './constants'
+import { resolveConfigPath } from './configs'
 import { ConfigInspectorError } from './errors'
-import { runStatsAnalysis } from './stats'
+import { registerGetPayload } from './rpc/get-payload'
+import { registerRunStats } from './rpc/run-stats'
 
 const distDir = fileURLToPath(new URL('../dist/public', import.meta.url))
-
-const readErrorWarning = `Failed to load \`eslint.config.js\`.
-Note that \`@eslint/config-inspector\` only works with the flat config format:
-https://eslint.org/docs/latest/use/configure/configuration-files-new`
-
-let buildPayload: Payload | ErrorInfo | undefined
-
-/**
- * Pre-load the build-time payload before calling createBuild —
- * createBuild does not forward CLI flags to setup(), so the build
- * wrapper stashes the result here and the inspector's setup reads it.
- */
-export function setBuildPayload(payload: Payload | ErrorInfo): void {
-  buildPayload = payload
-}
 
 export interface DevtoolFlags {
   config?: string
@@ -50,12 +32,13 @@ const devframe = defineDevframe({
     host: '127.0.0.1',
     auth: false,
   },
-  async setup(ctx, info) {
+  async setup(baseCtx, info) {
+    const ctx = baseCtx.scope('eslint-config-inspector')
     const flags = (info?.flags ?? {}) as DevtoolFlags
 
     const readOptions: ReadConfigOptions = {
       cwd: process.cwd(),
-      userConfigPath: flags.config,
+      userConfigPath: flags.config || process.env.ESLINT_CONFIG,
       userBasePath: flags.basePath,
       globMatchedFiles: flags.files ?? true,
     }
@@ -73,89 +56,8 @@ const devframe = defineDevframe({
       }
     }
 
-    let payload: Payload | ErrorInfo | undefined
-    let watcher: FSWatcher | undefined
-
-    async function load(): Promise<Payload | ErrorInfo> {
-      if (ctx.mode === 'build') {
-        if (buildPayload !== undefined)
-          return buildPayload
-      }
-
-      try {
-        const res = await readConfig(readOptions)
-        const { basePath } = await resolveConfigPath(readOptions)
-
-        if (ctx.mode === 'dev') {
-          if (!watcher) {
-            watcher = chokidar.watch([], {
-              ignoreInitial: true,
-              cwd: basePath,
-            })
-            watcher.on('change', (path) => {
-              payload = undefined
-              console.log()
-              console.log(MARK_CHECK, 'Config change detected', path)
-              ctx.rpc.broadcast({
-                method: 'eslint-config-inspector:invalidate' as never,
-                args: [path] as never,
-              })
-            })
-          }
-          watcher.add(res.dependencies)
-        }
-
-        payload = res.payload
-        return payload
-      }
-      catch (e) {
-        console.error(readErrorWarning)
-        if (e instanceof ConfigInspectorError)
-          e.prettyPrint()
-        else
-          console.error(e)
-        payload = { message: readErrorWarning, error: String(e) }
-        return payload
-      }
-    }
-
-    ctx.rpc.register(defineRpcFunction({
-      name: 'eslint-config-inspector:get-payload',
-      type: 'query',
-      snapshot: true,
-      handler: async (): Promise<Payload | ErrorInfo> => payload ?? await load(),
-    }))
-
-    let statsPromise: Promise<StatsReport | ErrorInfo> | undefined
-
-    async function runStats(): Promise<StatsReport | ErrorInfo> {
-      try {
-        const { basePath, configPath } = await resolveConfigPath(readOptions)
-        console.log(MARK_INFO, 'Running ESLint with stats enabled')
-        const report = await runStatsAnalysis(basePath, configPath)
-        console.log(MARK_CHECK, 'Stats analysis finished in', Math.round(report.meta.durationMs), 'ms')
-        return report
-      }
-      catch (e) {
-        if (e instanceof ConfigInspectorError)
-          e.prettyPrint()
-        else
-          console.error(e)
-        return { message: 'Failed to run ESLint stats analysis', error: String(e) }
-      }
-    }
-
-    ctx.rpc.register(defineRpcFunction({
-      name: 'eslint-config-inspector:run-stats',
-      type: 'action',
-      handler: async (): Promise<StatsReport | ErrorInfo> => {
-        // Deduplicate concurrent runs — a second call awaits the in-flight one
-        statsPromise ??= runStats().finally(() => {
-          statsPromise = undefined
-        })
-        return statsPromise
-      },
-    }))
+    registerGetPayload(ctx, readOptions)
+    registerRunStats(ctx, readOptions)
   },
 })
 

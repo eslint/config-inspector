@@ -16,9 +16,6 @@ cli
   .option('--base <baseURL>', 'Base URL for deployment', { default: '/' })
   .option('--outDir <dir>', 'Output directory', { default: 'dist/__eslint-config-inspector' })
   .action(async (options) => {
-    if (process.env.ESLINT_CONFIG)
-      options.config ||= process.env.ESLINT_CONFIG
-
     await runBuild({
       config: options.config,
       files: options.files,
@@ -50,9 +47,6 @@ cli
   .option('--open', 'Open browser', { default: true })
   .option('--no-open', 'Do not open browser')
   .action(async (options) => {
-    if (process.env.ESLINT_CONFIG)
-      options.config ||= process.env.ESLINT_CONFIG
-
     const flags = {
       config: options.config,
       files: options.files,
