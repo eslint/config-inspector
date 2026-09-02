@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.4.0](https://github.com/eslint/config-inspector/compare/v3.3.0...v3.4.0) (2026-09-02)
+
+
+### Features
+
+* add --stats flag to the dev and build commands ([#332](https://github.com/eslint/config-inspector/issues/332)) ([f5e983c](https://github.com/eslint/config-inspector/commit/f5e983c467ef34952c11fba24f8b4d77c434e142))
+* add stats panel for on-demand ESLint timing analysis ([#329](https://github.com/eslint/config-inspector/issues/329)) ([a006be1](https://github.com/eslint/config-inspector/commit/a006be16f52a5202d726110f543b4962febb4bbf))
+
 ## [3.3.0](https://github.com/eslint/config-inspector/compare/v3.2.0...v3.3.0) (2026-08-19)
 
 
