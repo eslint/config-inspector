@@ -91,6 +91,49 @@ export interface FiltersConfigsPage {
   filepath?: string
 }
 
+/**
+ * Aggregated result of an on-demand `eslint --stats` run.
+ * All times are milliseconds.
+ */
+export interface StatsReport {
+  totals: {
+    /** Sum of per-file lint totals */
+    total: number
+    parse: number
+    rules: number
+    fix: number
+    /** Remainder of `total` not attributed to parse/rules/fix */
+    other: number
+  }
+  /** Per-rule total time across all files, sorted descending */
+  rules: RuleTimeStat[]
+  /** Per-file timing breakdown, sorted by total descending */
+  files: FileTimeStat[]
+  errorCount: number
+  warningCount: number
+  meta: {
+    timestamp: number
+    /** Wall-clock duration of the whole eslint run */
+    durationMs: number
+  }
+}
+
+export interface RuleTimeStat {
+  name: string
+  time: number
+}
+
+export interface FileTimeStat {
+  /** Relative to the base path */
+  filepath: string
+  total: number
+  parse: number
+  rules: number
+  fix: number
+  /** Slowest rules for this file, sorted descending */
+  topRules: RuleTimeStat[]
+}
+
 export interface RuleConfigState {
   name: string
   configIndex: number

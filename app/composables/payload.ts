@@ -34,6 +34,12 @@ function isErrorInfo(payload: Payload | ErrorInfo): payload is ErrorInfo {
 
 let _rpc: Awaited<ReturnType<typeof connectDevframe>> | undefined
 
+/**
+ * True when connected to a static build snapshot instead of a live dev
+ * server — on-demand RPC actions (like the stats analysis) are unavailable.
+ */
+export const isStaticConnection = ref(false)
+
 async function get() {
   isFetching.value = true
   const payload = await (_rpc!.call as any)('eslint-config-inspector:get-payload') as Payload | ErrorInfo
@@ -69,11 +75,17 @@ export function setPayload(payload: Payload) {
 
 let _promise: Promise<Payload | undefined> | undefined
 
+export async function rpcCall<T>(name: string, ...args: unknown[]): Promise<T> {
+  await _promise
+  return await (_rpc!.call as any)(name, ...args) as T
+}
+
 export function init(baseURL: string) {
   if (_promise)
     return
   _promise = (async () => {
     _rpc = await connectDevframe({ baseURL })
+    isStaticConnection.value = _rpc.transport === 'static'
     _rpc.client.register(defineRpcFunction({
       name: 'eslint-config-inspector:invalidate',
       type: 'event',
