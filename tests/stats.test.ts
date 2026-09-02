@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { aggregateStats } from '../src/stats'
+import { aggregateStats } from '../src/rpc/run-stats'
 
 function pass(times: { parse?: number, rules?: Record<string, number>, fix?: number, total: number }) {
   return {
@@ -20,7 +20,6 @@ describe('aggregateStats', () => {
         errorCount: 1,
         warningCount: 2,
         stats: {
-          fixPasses: 0,
           times: { passes: [pass({ parse: 2, rules: { 'no-undef': 4, 'vue/attributes-order': 1 }, fix: 0.5, total: 10 })] },
         },
       },
@@ -29,7 +28,6 @@ describe('aggregateStats', () => {
         errorCount: 0,
         warningCount: 0,
         stats: {
-          fixPasses: 0,
           times: {
             passes: [
               pass({ parse: 1, rules: { 'no-undef': 2 }, total: 4 }),

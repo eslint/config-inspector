@@ -6,8 +6,9 @@ import { relative, resolve } from 'pathe'
 import { glob } from 'tinyglobby'
 import { readConfig } from './configs'
 import { MARK_CHECK, MARK_INFO } from './constants'
-import devframe, { setBuildPayload } from './devframe'
+import devframe from './devframe'
 import { ConfigInspectorError } from './errors'
+import { setBuildPayload } from './rpc/get-payload'
 
 export interface BuildOptions {
   config?: string
@@ -25,7 +26,7 @@ export async function runBuild(options: BuildOptions): Promise<void> {
 
   const readOptions: ReadConfigOptions = {
     cwd,
-    userConfigPath: options.config,
+    userConfigPath: options.config || process.env.ESLINT_CONFIG,
     userBasePath: options.basePath,
     globMatchedFiles: options.files ?? true,
   }

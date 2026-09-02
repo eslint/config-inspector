@@ -1,6 +1,5 @@
 import type { Plugin } from 'vite'
 import type { DevtoolFlags } from './devframe'
-import process from 'node:process'
 import { createDevServer, resolveDevServerPort } from 'devframe/adapters/dev'
 import devframe from './devframe'
 
@@ -14,16 +13,11 @@ export function devframePlugin(flags?: DevtoolFlags): Plugin {
     async configureServer(server) {
       await started?.close().catch(() => {})
 
-      const resolvedFlags: DevtoolFlags = {
-        config: process.env.ESLINT_CONFIG,
-        ...flags,
-      }
-
       const port = await resolveDevServerPort(devframe, { defaultPort: 7777 })
 
       started = await createDevServer(devframe, {
         port,
-        flags: resolvedFlags as Record<string, unknown>,
+        flags: { ...flags } as Record<string, unknown>,
         openBrowser: false,
         onReady: ({ port: p }) => {
           server.config.logger.info(

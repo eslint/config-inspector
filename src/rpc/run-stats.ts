@@ -1,10 +1,17 @@
-import type { FileTimeStat, RuleTimeStat, StatsReport } from '../shared/types'
-import { spawn } from 'node:child_process'
+import type { DevframeScopedNodeContext } from 'devframe'
+import type { ErrorInfo, FileTimeStat, RuleTimeStat, StatsReport } from '../../shared/types'
+import type { ResolveConfigPathOptions } from '../configs'
+import type { ExecFileException } from 'node:child_process'
+import { execFile } from 'node:child_process'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
+import { defineRpcFunction } from 'devframe'
 import { resolve as resolveModule } from 'mlly'
 import { dirname, join, relative } from 'pathe'
-import { ConfigInspectorError } from './errors'
+import { resolveConfigPath } from '../configs'
+import { MARK_CHECK, MARK_INFO } from '../constants'
+import { ConfigInspectorError } from '../errors'
 
 /**
  * Subset of a lint result from ESLint's `json` formatter when run with
@@ -15,7 +22,6 @@ interface StatsLintResult {
   errorCount: number
   warningCount: number
   stats?: {
-    fixPasses: number
     times: {
       passes: {
         parse: { total: number }
@@ -29,6 +35,42 @@ interface StatsLintResult {
 
 const TOP_RULES_PER_FILE = 10
 
+export function registerRunStats(
+  ctx: DevframeScopedNodeContext<'eslint-config-inspector'>,
+  readOptions: ResolveConfigPathOptions,
+): void {
+  let running: Promise<StatsReport | ErrorInfo> | undefined
+
+  async function run(): Promise<StatsReport | ErrorInfo> {
+    try {
+      const { basePath, configPath } = await resolveConfigPath(readOptions)
+      console.log(MARK_INFO, 'Running ESLint with stats enabled')
+      const report = await runStatsAnalysis(basePath, configPath)
+      console.log(MARK_CHECK, 'Stats analysis finished in', Math.round(report.meta.durationMs), 'ms')
+      return report
+    }
+    catch (e) {
+      if (e instanceof ConfigInspectorError)
+        e.prettyPrint()
+      else
+        console.error(e)
+      return { message: 'Failed to run ESLint stats analysis', error: String(e) }
+    }
+  }
+
+  ctx.rpc.register(defineRpcFunction({
+    name: 'run-stats',
+    type: 'action',
+    handler: async (): Promise<StatsReport | ErrorInfo> => {
+      // Deduplicate concurrent runs — a second call awaits the in-flight one
+      running ??= run().finally(() => {
+        running = undefined
+      })
+      return running
+    },
+  }))
+}
+
 /**
  * Run the project's own `eslint` binary with `--stats -f json` and aggregate
  * the timing data. Spawned as a child process so a long lint run never blocks
@@ -38,9 +80,24 @@ export async function runStatsAnalysis(
   basePath: string,
   configPath: string,
 ): Promise<StatsReport> {
-  const eslintBin = await resolveEslintBin(basePath)
+  // Resolve `eslint` from the user's project, like `readConfig` does
+  const pkgPath = await resolveModule('eslint/package.json', { url: basePath })
+    .catch(() => {
+      throw new ConfigInspectorError('Failed to resolve the `eslint` package from your project. Make sure ESLint is installed.')
+    })
+  const eslintBin = join(dirname(fileURLToPath(pkgPath)), 'bin/eslint.js')
+
   const started = Date.now()
-  const stdout = await execEslint(eslintBin, basePath, configPath)
+  const { stdout } = await promisify(execFile)(
+    process.execPath,
+    [eslintBin, '--config', configPath, '--stats', '--format', 'json', '.'],
+    { cwd: basePath, maxBuffer: Number.MAX_SAFE_INTEGER },
+  ).catch((e: ExecFileException & { stdout?: string, stderr?: string }) => {
+    // Exit code 1 just means lint problems were found — stats are still there
+    if (e.code === 1 && e.stdout)
+      return { stdout: e.stdout }
+    throw new ConfigInspectorError(`ESLint exited with code ${e.code}:\n${e.stderr?.trim() ?? e.message}`)
+  })
 
   let results: StatsLintResult[]
   try {
@@ -51,39 +108,6 @@ export async function runStatsAnalysis(
   }
 
   return aggregateStats(results, basePath, Date.now() - started)
-}
-
-async function resolveEslintBin(basePath: string): Promise<string> {
-  // Resolve `eslint` from the user's project, like `readConfig` does
-  const pkgPath = await resolveModule('eslint/package.json', { url: basePath })
-    .catch(() => null)
-  if (!pkgPath)
-    throw new ConfigInspectorError('Failed to resolve the `eslint` package from your project. Make sure ESLint is installed.')
-  return join(dirname(fileURLToPath(pkgPath)), 'bin/eslint.js')
-}
-
-function execEslint(eslintBin: string, basePath: string, configPath: string): Promise<string> {
-  return new Promise<string>((resolvePromise, rejectPromise) => {
-    const child = spawn(
-      process.execPath,
-      [eslintBin, '--config', configPath, '--stats', '--format', 'json', '.'],
-      { cwd: basePath, stdio: ['ignore', 'pipe', 'pipe'] },
-    )
-    const stdout: string[] = []
-    const stderr: string[] = []
-    child.stdout.setEncoding('utf8')
-    child.stderr.setEncoding('utf8')
-    child.stdout.on('data', chunk => stdout.push(chunk))
-    child.stderr.on('data', chunk => stderr.push(chunk))
-    child.on('error', rejectPromise)
-    child.on('close', (code) => {
-      // Exit code 1 just means lint problems were found — stats are still there
-      if (code === 0 || code === 1)
-        resolvePromise(stdout.join(''))
-      else
-        rejectPromise(new ConfigInspectorError(`ESLint exited with code ${code}:\n${stderr.join('').trim()}`))
-    })
-  })
 }
 
 export function aggregateStats(
@@ -141,10 +165,7 @@ export function aggregateStats(
     files,
     errorCount,
     warningCount,
-    meta: {
-      timestamp: Date.now(),
-      durationMs,
-    },
+    meta: { durationMs },
   }
 }
 
