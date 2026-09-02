@@ -112,6 +112,7 @@ export interface StatsReport {
   errorCount: number
   warningCount: number
   meta: {
+    timestamp: number
     /** Wall-clock duration of the whole eslint run */
     durationMs: number
   }
