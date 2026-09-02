@@ -120,7 +120,7 @@ function topSegments(list: RuleTimeStat[], colorOf: (name: string) => string): S
   return segments
 }
 
-const ruleSegments = computed(() => topSegments(statsReport.value?.rules ?? [], name => getPluginColor(pluginName(name))))
+// const ruleSegments = computed(() => topSegments(statsReport.value?.rules ?? [], name => getPluginColor(pluginName(name))))
 const pluginSegments = computed(() => topSegments(plugins.value, name => getPluginColor(name)))
 </script>
 
@@ -187,7 +187,7 @@ const pluginSegments = computed(() => topSegments(plugins.value, name => getPlug
 
       <StatsBreakdownBar :segments="breakdownSegments" />
 
-      <div border="~ base rounded" flex="~ inline" self-start>
+      <div border="~ base rounded" flex="~ inline" mt-5 self-start>
         <button
           :class="stateStorage.viewStatsTab === 'rules' ? 'btn-action-active' : ''"
           btn-action border-none
@@ -225,8 +225,8 @@ const pluginSegments = computed(() => topSegments(plugins.value, name => getPlug
         </button>
       </div>
 
-      <StatsBreakdownBar v-if="stateStorage.viewStatsTab === 'rules'" :segments="ruleSegments" />
-      <StatsBreakdownBar v-else-if="stateStorage.viewStatsTab === 'plugins'" :segments="pluginSegments" />
+      <!-- <StatsBreakdownBar v-if="stateStorage.viewStatsTab === 'rules'" :segments="ruleSegments" /> -->
+      <StatsBreakdownBar v-if="stateStorage.viewStatsTab === 'plugins'" :segments="pluginSegments" />
 
       <div flex="~ col gap-1">
         <template v-if="stateStorage.viewStatsTab === 'files'">
