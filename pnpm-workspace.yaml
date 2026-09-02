@@ -1,72 +1,24 @@
+minimumReleaseAgeExcludePrune: true
 minimumReleaseAgeExclude:
-  - devframe@0.6.0 || 0.9.2
-shamefullyHoist: true
-shellEmulator: true
-trustPolicy: no-downgrade
-strictPeerDependencies: false
+  - '@antfu/eslint-config@9.4.1'
+  - eslint-plugin-pnpm@1.9.1
+  - pnpm-workspace-yaml@1.9.1
 
+trustPolicy: no-downgrade
 trustPolicyExclude:
   - chokidar@4.0.3
   - semver@6.3.1
+
+update:
+  ignoreDeps:
+    - typescript@7
+
+strictPeerDependencies: false
+shamefullyHoist: true
+shellEmulator: true
+
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
-catalog:
-  '@antfu/eslint-config': ^9.3.0
-  '@axe-core/playwright': ^4.13.0
-  '@eslint/config-array': ^0.23.5
-  '@iconify-json/carbon': ^1.2.25
-  '@iconify-json/file-icons': ^1.2.2
-  '@iconify-json/logos': ^1.2.13
-  '@iconify-json/ph': ^1.2.2
-  '@iconify-json/simple-icons': ^1.2.93
-  '@iconify-json/svg-spinners': ^1.2.4
-  '@iconify-json/twemoji': ^1.2.5
-  '@iconify-json/vscode-icons': ^1.2.73
-  '@nodelib/fs.walk': ^3.0.1
-  '@nuxt/eslint': ^1.17.0
-  '@playwright/test': ^1.62.1
-  '@shikijs/langs-precompiled': ^4.4.3
-  '@shikijs/transformers': ^4.4.3
-  '@storybook/addon-docs': ^10.5.8
-  '@storybook/addon-vitest': ^10.5.8
-  '@storybook/vue3-vite': ^10.5.8
-  '@typescript-eslint/utils': ^8.67.0
-  '@unocss/eslint-config': ^66.7.5
-  '@unocss/nuxt': ^66.7.5
-  '@vitejs/plugin-vue': ^6.0.8
-  '@vitest/browser-playwright': ^4.1.10
-  '@vueuse/nuxt': ^14.4.0
-  ansis: ^4.3.1
-  cac: ^7.0.0
-  chokidar: ^5.0.0
-  devframe: ^0.9.2
-  esbuild: ^0.28.2
-  eslint: ^10.8.1
-  find-up: ^8.0.0
-  floating-vue: ^5.2.2
-  fuse.js: ^7.5.0
-  jiti: ^2.7.0
-  lint-staged: ^17.3.0
-  minimatch: ^10.2.6
-  mlly: ^1.8.2
-  nitropack: ^2.13.4
-  nuxt: ^4.5.2
-  pathe: ^2.0.3
-  rolldown: ^1.2.4
-  rollup: ^4.62.4
-  semver: ^7.8.5
-  shiki: ^4.4.3
-  simple-git-hooks: ^2.13.1
-  skills-npm: ^1.2.0
-  storybook: ^10.5.8
-  textmate-grammar-glob: ^0.0.1
-  tinyglobby: ^0.2.17
-  tsdown: ^0.22.14
-  typescript: ^6.0.3
-  unocss: ^66.7.5
-  vite: ^8.2.1
-  vitest: ^4.1.10
-  vue-tsc: ^3.3.10
 
 allowBuilds:
   '@parcel/watcher': true
@@ -74,6 +26,60 @@ allowBuilds:
   simple-git-hooks: true
   unrs-resolver: true
 
-update:
-  ignoreDeps:
-    - typescript@7
+catalog:
+  '@antfu/eslint-config': ^9.4.1
+  '@axe-core/playwright': ^4.13.0
+  '@eslint/config-array': ^0.23.5
+  '@iconify-json/carbon': ^1.2.26
+  '@iconify-json/file-icons': ^1.2.2
+  '@iconify-json/logos': ^1.2.13
+  '@iconify-json/ph': ^1.2.2
+  '@iconify-json/simple-icons': ^1.2.94
+  '@iconify-json/svg-spinners': ^1.2.4
+  '@iconify-json/twemoji': ^1.2.5
+  '@iconify-json/vscode-icons': ^1.2.76
+  '@nodelib/fs.walk': ^3.0.1
+  '@nuxt/eslint': ^1.17.0
+  '@playwright/test': ^1.62.1
+  '@shikijs/langs-precompiled': ^4.4.3
+  '@shikijs/transformers': ^4.4.3
+  '@storybook/addon-docs': ^10.5.10
+  '@storybook/addon-vitest': ^10.5.10
+  '@storybook/vue3-vite': ^10.5.10
+  '@typescript-eslint/utils': ^8.69.0
+  '@unocss/eslint-config': ^66.9.1
+  '@unocss/nuxt': ^66.9.1
+  '@vitejs/plugin-vue': ^6.0.8
+  '@vitest/browser-playwright': ^4.1.11
+  '@vueuse/nuxt': ^14.4.0
+  ansis: ^4.3.1
+  cac: ^7.0.0
+  chokidar: ^5.0.0
+  devframe: ^0.9.8
+  esbuild: ^0.28.2
+  eslint: ^10.9.1
+  find-up: ^8.0.0
+  floating-vue: ^5.2.2
+  fuse.js: ^7.5.0
+  jiti: ^2.7.0
+  lint-staged: ^17.4.1
+  minimatch: ^10.2.6
+  mlly: ^1.8.2
+  nitropack: ^2.13.4
+  nuxt: ^4.5.2
+  pathe: ^2.0.3
+  rolldown: ^1.2.6
+  rollup: ^4.63.1
+  semver: ^7.8.5
+  shiki: ^4.4.3
+  simple-git-hooks: ^2.14.0
+  skills-npm: ^1.2.0
+  storybook: ^10.5.10
+  textmate-grammar-glob: ^0.0.1
+  tinyglobby: ^0.2.17
+  tsdown: ^0.22.14
+  typescript: ^6.0.3
+  unocss: ^66.9.1
+  vite: ^8.2.2
+  vitest: ^4.1.11
+  vue-tsc: ^3.3.11
