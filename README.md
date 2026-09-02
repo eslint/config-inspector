@@ -15,12 +15,12 @@ A visual tool for inspecting and understanding your [ESLint flat configs](https:
 Go to the project root that contains `eslint.config.js` and run:
 
 ```bash
-npx @eslint/config-inspector@latest
+pnpx @eslint/config-inspector
 ```
 
 Visit http://localhost:7777/ to view and play with your ESLint config. Changes to the config file will be updated automatically.
 
-Run `npx @eslint/config-inspector --help` to see all the CLI options available.
+Run `pnpx @eslint/config-inspector --help` to see all the CLI options available.
 
 ### Online Preview
 
@@ -33,12 +33,12 @@ Or play it right in your browser now:
 It is also possible to build a static web app for your ESLint config:
 
 ```bash
-npx @eslint/config-inspector build
+pnpx @eslint/config-inspector build
 ```
 
 This will generate a Single-Page Application (SPA) under `dist/__eslint-config-inspector`, with the snapshot of the current ESLint config. You can deploy it somewhere, or use it for comparison etc.
 
-Run `npx @eslint/config-inspector build --help` to see all the CLI options available.
+Run `pnpx @eslint/config-inspector build --help` to see all the CLI options available.
 
 ## Contributing
 
