@@ -1,5 +1,5 @@
 import type { FSWatcher } from 'chokidar'
-import type { ErrorInfo, Payload } from '../shared/types'
+import type { ErrorInfo, Payload, StatsReport } from '../shared/types'
 import type { ReadConfigOptions } from './configs'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
@@ -7,8 +7,9 @@ import chokidar from 'chokidar'
 import { defineDevframe, defineRpcFunction } from 'devframe'
 import { version } from '../package.json' with { type: 'json' }
 import { readConfig, resolveConfigPath } from './configs'
-import { MARK_CHECK } from './constants'
+import { MARK_CHECK, MARK_INFO } from './constants'
 import { ConfigInspectorError } from './errors'
+import { runStatsAnalysis } from './stats'
 
 const distDir = fileURLToPath(new URL('../dist/public', import.meta.url))
 
@@ -123,6 +124,37 @@ const devframe = defineDevframe({
       type: 'query',
       snapshot: true,
       handler: async (): Promise<Payload | ErrorInfo> => payload ?? await load(),
+    }))
+
+    let statsPromise: Promise<StatsReport | ErrorInfo> | undefined
+
+    async function runStats(): Promise<StatsReport | ErrorInfo> {
+      try {
+        const { basePath, configPath } = await resolveConfigPath(readOptions)
+        console.log(MARK_INFO, 'Running ESLint with stats enabled')
+        const report = await runStatsAnalysis(basePath, configPath)
+        console.log(MARK_CHECK, 'Stats analysis finished in', Math.round(report.meta.durationMs), 'ms')
+        return report
+      }
+      catch (e) {
+        if (e instanceof ConfigInspectorError)
+          e.prettyPrint()
+        else
+          console.error(e)
+        return { message: 'Failed to run ESLint stats analysis', error: String(e) }
+      }
+    }
+
+    ctx.rpc.register(defineRpcFunction({
+      name: 'eslint-config-inspector:run-stats',
+      type: 'action',
+      handler: async (): Promise<StatsReport | ErrorInfo> => {
+        // Deduplicate concurrent runs — a second call awaits the in-flight one
+        statsPromise ??= runStats().finally(() => {
+          statsPromise = undefined
+        })
+        return statsPromise
+      },
     }))
   },
 })

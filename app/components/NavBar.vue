@@ -71,6 +71,14 @@ function showDeprecated() {
       <div i-ph-files-duotone flex-none />
       Files
     </NuxtLink>
+    <NuxtLink
+      to="/stats"
+      btn-action px3 py1 text-base
+      active-class="btn-action-active"
+    >
+      <div i-ph-gauge-duotone flex-none />
+      Stats
+    </NuxtLink>
     <button
       title="Toggle Dark Mode"
       i-ph-sun-dim-duotone dark:i-ph-moon-stars-duotone ml1 text-xl color-muted hover:color-base

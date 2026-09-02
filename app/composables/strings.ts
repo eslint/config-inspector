@@ -9,6 +9,14 @@ export function nth(n: number) {
   return `${n}th`
 }
 
+export function formatDuration(ms: number) {
+  if (ms < 1)
+    return `${(ms * 1000).toFixed(0)}µs`
+  if (ms < 1000)
+    return `${ms.toFixed(1)}ms`
+  return `${(ms / 1000).toFixed(2)}s`
+}
+
 export function stringifyOptions(object: any) {
   /**
    * Replaces all occurrences of the pattern:
