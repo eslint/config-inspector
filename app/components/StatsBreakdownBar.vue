@@ -18,7 +18,7 @@ const visible = computed(() => props.segments.filter(s => s.time > 0))
 
 <template>
   <div flex="~ col gap-2">
-    <div flex="~" h-4 of-hidden rounded border="~ base">
+    <div flex="~ gap-1px" h-4 of-hidden rounded border="~ base">
       <div
         v-for="segment of visible"
         :key="segment.label"
