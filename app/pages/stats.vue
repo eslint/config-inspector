@@ -94,7 +94,7 @@ function fileIcon(filepath: string) {
     if (rule.match.test(filepath))
       return rule.icon
   }
-  return 'i-ph-file-duotone'
+  return 'i-catppuccin-file'
 }
 
 const breakdownSegments = computed(() => {
@@ -233,7 +233,7 @@ const pluginSegments = computed(() => topSegments(plugins.value, name => getPlug
           <details v-for="item of shownList" :key="item.name">
             <summary cursor-pointer list-none>
               <StatsBarRow :time="item.time" :max="activeMax" :total="activeTotal">
-                <div :class="fileIcon(item.name)" flex-none h="1em" />
+                <div :class="fileIcon(item.name)" flex-none icon-catppuccin h="1em" />
                 <span of-hidden text-ellipsis ws-nowrap font-mono>{{ item.name }}</span>
               </StatsBarRow>
             </summary>
@@ -316,7 +316,7 @@ const pluginSegments = computed(() => topSegments(plugins.value, name => getPlug
                 :total="item.time"
                 :color="getPluginColor(pluginName(item.name))"
               >
-                <div :class="fileIcon(file.name)" flex-none h="1em" />
+                <div :class="fileIcon(file.name)" flex-none icon-catppuccin h="1em" />
                 <span of-hidden text-ellipsis ws-nowrap font-mono>{{ file.name }}</span>
               </StatsBarRow>
             </div>
