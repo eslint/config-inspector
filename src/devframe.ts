@@ -6,6 +6,7 @@ import { version } from '../package.json' with { type: 'json' }
 import { resolveConfigPath } from './configs'
 import { ConfigInspectorError } from './errors'
 import { registerGetPayload } from './rpc/get-payload'
+import { registerGetStats } from './rpc/get-stats'
 import { registerRunStats } from './rpc/run-stats'
 
 const distDir = fileURLToPath(new URL('../dist/public', import.meta.url))
@@ -14,6 +15,7 @@ export interface DevtoolFlags {
   config?: string
   files?: boolean
   basePath?: string
+  stats?: boolean
 }
 
 const devframe = defineDevframe({
@@ -57,7 +59,8 @@ const devframe = defineDevframe({
     }
 
     registerGetPayload(ctx, readOptions)
-    registerRunStats(ctx, readOptions)
+    registerRunStats(ctx, readOptions, { eager: ctx.mode === 'dev' && flags.stats })
+    registerGetStats(ctx)
   },
 })
 

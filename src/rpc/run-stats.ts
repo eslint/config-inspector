@@ -34,9 +34,21 @@ interface StatsLintResult {
 
 const TOP_RULES_PER_FILE = 10
 
+let lastRun: Promise<StatsReport | ErrorInfo> | undefined
+
+/**
+ * Latest triggered run (in-flight or settled) — `get-stats` reads it so a
+ * run started eagerly by the `--stats` CLI flag reaches the client without
+ * the client spawning another one.
+ */
+export function getLastStatsRun(): Promise<StatsReport | ErrorInfo> | undefined {
+  return lastRun
+}
+
 export function registerRunStats(
   ctx: DevframeScopedNodeContext<'eslint-config-inspector'>,
   readOptions: ResolveConfigPathOptions,
+  options: { eager?: boolean } = {},
 ): void {
   let running: Promise<StatsReport | ErrorInfo> | undefined
 
@@ -57,17 +69,23 @@ export function registerRunStats(
     }
   }
 
+  function trigger(): Promise<StatsReport | ErrorInfo> {
+    // Deduplicate concurrent runs — a second call awaits the in-flight one
+    running ??= run().finally(() => {
+      running = undefined
+    })
+    lastRun = running
+    return lastRun
+  }
+
   ctx.rpc.register(defineRpcFunction({
     name: 'run-stats',
     type: 'action',
-    handler: async (): Promise<StatsReport | ErrorInfo> => {
-      // Deduplicate concurrent runs — a second call awaits the in-flight one
-      running ??= run().finally(() => {
-        running = undefined
-      })
-      return running
-    },
+    handler: async (): Promise<StatsReport | ErrorInfo> => trigger(),
   }))
+
+  if (options.eager)
+    void trigger()
 }
 
 /**
