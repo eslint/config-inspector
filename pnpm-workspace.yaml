@@ -44,8 +44,8 @@ catalog:
   '@storybook/addon-vitest': ^10.5.10
   '@storybook/vue3-vite': ^10.5.10
   '@typescript-eslint/utils': ^8.69.0
-  '@unocss/eslint-config': ^66.9.1
-  '@unocss/nuxt': ^66.9.1
+  '@unocss/eslint-config': ^66.9.2
+  '@unocss/nuxt': ^66.9.2
   '@vitejs/plugin-vue': ^6.0.8
   '@vitest/browser-playwright': ^4.1.11
   '@vueuse/nuxt': ^14.4.0
@@ -76,7 +76,7 @@ catalog:
   tinyglobby: ^0.2.17
   tsdown: ^0.22.14
   typescript: ^6.0.3
-  unocss: ^66.9.1
+  unocss: ^66.9.2
   vite: ^8.2.2
   vitest: ^4.1.11
   vue-tsc: ^3.3.11
