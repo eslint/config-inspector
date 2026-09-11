@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.1](https://github.com/eslint/config-inspector/compare/v3.4.0...v3.4.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* don't crash stats when a pass has no parse timing ([#334](https://github.com/eslint/config-inspector/issues/334)) ([48de2ef](https://github.com/eslint/config-inspector/commit/48de2ef6d46629203d5f124977b5831c1ae40f2c))
+
 ## [3.4.0](https://github.com/eslint/config-inspector/compare/v3.3.0...v3.4.0) (2026-09-02)
 
 
