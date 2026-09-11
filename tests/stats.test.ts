@@ -91,4 +91,36 @@ describe('aggregateStats', () => {
     expect(report.files).toEqual([])
     expect(report.tasks).toEqual([])
   })
+
+  it('treats a pass with no parse or fix timings as zero', () => {
+    const report = aggregateStats([
+      {
+        filePath: '/repo/src/a.css',
+        errorCount: 0,
+        warningCount: 0,
+        stats: {
+          fixPasses: 0,
+          times: {
+            passes: [{
+              rules: { 'css/no-invalid-at-rules': { total: 3 } },
+              total: 5,
+            }],
+          },
+        },
+      },
+    ], '/repo', 10)
+
+    expect(report.totals.parse).toBe(0)
+    expect(report.totals.fix).toBe(0)
+    expect(report.totals.rules).toBe(3)
+    expect(report.totals.total).toBe(5)
+    expect(report.totals.other).toBe(2)
+    expect(report.files[0]).toMatchObject({
+      filepath: 'src/a.css',
+      parse: 0,
+      fix: 0,
+      rules: 3,
+      total: 5,
+    })
+  })
 })

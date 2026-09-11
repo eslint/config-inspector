@@ -23,9 +23,9 @@ interface StatsLintResult {
     fixPasses: number
     times: {
       passes: {
-        parse: { total: number }
+        parse?: { total: number }
         rules?: Record<string, { total: number }>
-        fix: { total: number }
+        fix?: { total: number }
         total: number
       }[]
     }
@@ -178,8 +178,8 @@ export function aggregateStats(
 
     for (const pass of result.stats.times.passes) {
       file.total += pass.total
-      file.parse += pass.parse.total
-      file.fix += pass.fix.total
+      file.parse += pass.parse?.total ?? 0
+      file.fix += pass.fix?.total ?? 0
       for (const [name, { total }] of Object.entries(pass.rules ?? {})) {
         file.rules += total
         fileRuleTimes.set(name, (fileRuleTimes.get(name) ?? 0) + total)
