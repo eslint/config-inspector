@@ -1,9 +1,50 @@
 minimumReleaseAgeExcludePrune: true
 minimumReleaseAgeExclude:
   - '@iconify-json/carbon@1.2.27'
-  - devframe@0.9.18
   - floating-vue@5.4.0
   - lint-staged@17.5.1
+  - '@devframes/plugin-code-server@0.9.19'
+  - '@devframes/plugin-data-inspector@0.9.19'
+  - '@devframes/vite@0.9.19'
+  - '@nuxt/devtools-kit@4.0.0-alpha.19'
+  - '@nuxt/devtools@4.0.0-alpha.19'
+  - ansis@4.4.0
+  - '@unocss/cli@66.10.4'
+  - '@unocss/config@66.10.4'
+  - '@unocss/core@66.10.4'
+  - '@unocss/eslint-config@66.10.4'
+  - '@unocss/eslint-plugin@66.10.4'
+  - '@unocss/extractor-arbitrary-variants@66.10.4'
+  - '@unocss/inspector@66.10.4'
+  - '@unocss/nuxt@66.10.4'
+  - '@unocss/preset-attributify@66.10.4'
+  - '@unocss/preset-icons@66.10.4'
+  - '@unocss/preset-mini@66.10.4'
+  - '@unocss/preset-tagify@66.10.4'
+  - '@unocss/preset-typography@66.10.4'
+  - '@unocss/preset-uno@66.10.4'
+  - '@unocss/preset-web-fonts@66.10.4'
+  - '@unocss/preset-wind3@66.10.4'
+  - '@unocss/preset-wind4@66.10.4'
+  - '@unocss/preset-wind@66.10.4'
+  - '@unocss/reset@66.10.4'
+  - '@unocss/rollup@66.10.4'
+  - '@unocss/rule-utils@66.10.4'
+  - '@unocss/transformer-attributify-jsx@66.10.4'
+  - '@unocss/transformer-compile-class@66.10.4'
+  - '@unocss/transformer-directives@66.10.4'
+  - '@unocss/transformer-variant-group@66.10.4'
+  - '@unocss/vite@66.10.4'
+  - '@unocss/webpack@66.10.4'
+  - '@vitest/browser-playwright@5.0.1'
+  - '@vitest/browser@5.0.1'
+  - '@vitest/mocker@5.0.1'
+  - '@vitest/pretty-format@5.0.1'
+  - '@vitest/spy@5.0.1'
+  - '@vitest/ui@5.0.1'
+  - '@vitest/utils@5.0.1'
+  - unocss@66.10.4
+  - vitest@5.0.1
 
 trustPolicy: no-downgrade
 trustPolicyExclude:
@@ -17,6 +58,16 @@ update:
 strictPeerDependencies: false
 shamefullyHoist: true
 shellEmulator: true
+
+overrides:
+  '@devframes/hub': &devframe ^0.9.20
+  '@nuxt/devtools': &nuxt-devtools ^4.0.0-alpha.20
+  '@nuxt/devtools-kit': *nuxt-devtools
+  '@vitejs/devtools': &vite-devtools ^0.7.4
+  '@vitejs/devtools-kit': *vite-devtools
+  '@vitejs/devtools-rolldown': *vite-devtools
+  chokidar: 5.0.0
+  devframe: *devframe
 
 patchedDependencies:
   '@eslint/config-array': patches/@eslint__config-array.patch
@@ -45,15 +96,15 @@ catalog:
   '@storybook/addon-vitest': ^10.6.0
   '@storybook/vue3-vite': ^10.6.0
   '@typescript-eslint/utils': ^8.70.0
-  '@unocss/eslint-config': ^66.10.1
-  '@unocss/nuxt': ^66.10.1
-  '@vitejs/plugin-vue': ^6.0.8
-  '@vitest/browser-playwright': ^5.0.0
+  '@unocss/eslint-config': ^66.10.4
+  '@unocss/nuxt': ^66.10.4
+  '@vitejs/plugin-vue': ^6.0.9
+  '@vitest/browser-playwright': ^5.0.1
   '@vueuse/nuxt': ^14.4.0
-  ansis: ^4.3.1
+  ansis: ^4.4.0
   cac: ^7.0.0
   chokidar: ^5.0.0
-  devframe: ^0.9.18
+  devframe: ^0.9.20
   esbuild: ^0.28.2
   eslint: ^10.10.0
   find-up: ^8.0.0
@@ -67,7 +118,7 @@ catalog:
   nuxt: ^4.5.2
   pathe: ^2.0.3
   rolldown: ^1.2.8
-  rollup: ^4.63.1
+  rollup: ^4.63.3
   semver: ^7.8.5
   shiki: ^4.4.3
   simple-git-hooks: ^2.14.0
@@ -77,7 +128,7 @@ catalog:
   tinyglobby: ^0.2.17
   tsdown: ^0.23.0
   typescript: ^6.0.3
-  unocss: ^66.10.1
+  unocss: ^66.10.4
   vite: ^8.3.0
-  vitest: ^5.0.0
+  vitest: ^5.0.1
   vue-tsc: ^3.3.11
