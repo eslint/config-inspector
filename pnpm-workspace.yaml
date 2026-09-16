@@ -3,11 +3,12 @@ minimumReleaseAgeExclude:
   - '@iconify-json/carbon@1.2.27'
   - floating-vue@5.4.0
   - lint-staged@17.5.1
-  - '@devframes/plugin-code-server@0.9.19'
-  - '@devframes/plugin-data-inspector@0.9.19'
-  - '@devframes/vite@0.9.19'
-  - '@nuxt/devtools-kit@4.0.0-alpha.19'
-  - '@nuxt/devtools@4.0.0-alpha.19'
+  - '@devframes/agentic@1.0.0'
+  - '@devframes/hub@1.0.0'
+  - '@devframes/vite@1.0.0'
+  - devframe@1.0.0
+  - '@nuxt/devtools-kit@4.0.0-alpha.20'
+  - '@nuxt/devtools@4.0.0-alpha.20'
   - ansis@4.4.0
   - '@unocss/cli@66.10.4'
   - '@unocss/config@66.10.4'
@@ -45,6 +46,15 @@ minimumReleaseAgeExclude:
   - '@vitest/utils@5.0.1'
   - unocss@66.10.4
   - vitest@5.0.1
+  - '@devframes/hub-ui@1.0.0'
+  - '@devframes/json-render-ui@1.0.0'
+  - '@devframes/json-render@1.0.0'
+  - '@devframes/plugin-inspect@1.0.0'
+  - '@devframes/plugin-messages@1.0.0'
+  - '@devframes/plugin-terminals@1.0.0'
+  - '@devframes/service-open@1.0.0'
+  - '@vitejs/devtools-kit@0.7.5'
+  - '@vitejs/devtools@0.7.5'
 
 trustPolicy: no-downgrade
 trustPolicyExclude:
@@ -60,10 +70,10 @@ shamefullyHoist: true
 shellEmulator: true
 
 overrides:
-  '@devframes/hub': &devframe ^0.9.20
+  '@devframes/hub': &devframe ^1.0.0
   '@nuxt/devtools': &nuxt-devtools ^4.0.0-alpha.20
   '@nuxt/devtools-kit': *nuxt-devtools
-  '@vitejs/devtools': &vite-devtools ^0.7.4
+  '@vitejs/devtools': &vite-devtools ^0.7.5
   '@vitejs/devtools-kit': *vite-devtools
   '@vitejs/devtools-rolldown': *vite-devtools
   chokidar: 5.0.0
@@ -81,6 +91,8 @@ allowBuilds:
 catalog:
   '@antfu/eslint-config': ^9.5.1
   '@axe-core/playwright': ^4.13.0
+  '@devframes/agentic': ^1.0.0
+  '@devframes/vite': ^1.0.0
   '@eslint/config-array': ^0.23.5
   '@iconify-json/carbon': ^1.2.27
   '@iconify-json/catppuccin': ^1.2.17
@@ -104,7 +116,7 @@ catalog:
   ansis: ^4.4.0
   cac: ^7.0.0
   chokidar: ^5.0.0
-  devframe: ^0.9.20
+  devframe: ^1.0.0
   esbuild: ^0.28.2
   eslint: ^10.10.0
   find-up: ^8.0.0

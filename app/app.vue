@@ -13,7 +13,11 @@ import './styles/global.css'
 const config = useRuntimeConfig()
 initDark()
 initShiki()
-init(config.app.baseURL)
+// `nuxt dev` bridges the devframe RPC into the Vite dev server at its own
+// `/__eslint-config-inspector/` mount point (see `devframeViteBridge` in
+// `nuxt.config.ts`), instead of at the app's own base like a standalone
+// build (CLI / `build --stats`) does.
+init(import.meta.dev ? '/__eslint-config-inspector/' : config.app.baseURL)
 </script>
 
 <template>

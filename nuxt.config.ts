@@ -1,4 +1,5 @@
-import { devframePlugin } from './src/devframe-vite-plugin'
+import { devframeViteBridge } from '@devframes/vite/single'
+import devframe from './src/devframe'
 
 export default defineNuxtConfig({
   ssr: false,
@@ -71,7 +72,7 @@ export default defineNuxtConfig({
 
   vite: {
     base: './',
-    plugins: [devframePlugin()],
+    plugins: [devframeViteBridge(devframe)],
     optimizeDeps: {
       // @keep-sorted
       // @keep-unique
