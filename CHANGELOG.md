@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/eslint/config-inspector/compare/v3.4.1...v3.5.0) (2026-09-16)
+
+
+### Features
+
+* upgrade devframe to v1.0 ([ec32c8f](https://github.com/eslint/config-inspector/commit/ec32c8f103204e7600ce0fca3be803d2f0493349))
+
 ## [3.4.1](https://github.com/eslint/config-inspector/compare/v3.4.0...v3.4.1) (2026-09-11)
 
 
