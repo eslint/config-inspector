@@ -36,21 +36,6 @@ jobs:
       - run: npm install -g npm@latest
       - run: pnpm install
       - run: pnpm publish --provenance --access public
-  notify-twitter:
-    runs-on: ubuntu-latest
-    needs:
-      - release-please
-      - publish-npm
-    if: ${{ needs.release-please.outputs.releases_created == 'true' }}
-    steps:
-      - run: 'npx @humanwhocodes/tweet "@eslint/config-inspector ${{
-          needs.release-please.outputs.tag_name }} has been released: ${{
-          needs.release-please.outputs.html_url }}"'
-        env:
-          TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
-          TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-          TWITTER_ACCESS_TOKEN_KEY: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
-          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
   notify-mastodon:
     runs-on: ubuntu-latest
     needs:
