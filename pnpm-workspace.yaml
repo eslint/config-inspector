@@ -71,7 +71,7 @@ shellEmulator: true
 
 overrides:
   '@devframes/hub': &devframe ^1.0.0
-  '@nuxt/devtools': &nuxt-devtools ^4.0.0-alpha.20
+  '@nuxt/devtools': &nuxt-devtools ^4.0.0-beta.1
   '@nuxt/devtools-kit': *nuxt-devtools
   '@vitejs/devtools': &vite-devtools ^0.7.5
   '@vitejs/devtools-kit': *vite-devtools
