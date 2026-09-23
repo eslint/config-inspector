@@ -317,8 +317,8 @@ catalogs:
 
 overrides:
   '@devframes/hub': ^1.0.0
-  '@nuxt/devtools': ^4.0.0-alpha.20
-  '@nuxt/devtools-kit': ^4.0.0-alpha.20
+  '@nuxt/devtools': ^4.0.0-beta.1
+  '@nuxt/devtools-kit': ^4.0.0-beta.1
   '@vitejs/devtools': ^0.7.5
   '@vitejs/devtools-kit': ^0.7.5
   '@vitejs/devtools-rolldown': ^0.7.5
