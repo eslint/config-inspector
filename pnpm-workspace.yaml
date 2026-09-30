@@ -107,7 +107,7 @@ catalog:
   '@storybook/addon-docs': ^10.6.0
   '@storybook/addon-vitest': ^10.6.0
   '@storybook/vue3-vite': ^10.6.0
-  '@typescript-eslint/utils': ^8.70.0
+  '@typescript-eslint/utils': ^8.70.1
   '@unocss/eslint-config': ^66.10.4
   '@unocss/nuxt': ^66.10.4
   '@vitejs/plugin-vue': ^6.0.9
