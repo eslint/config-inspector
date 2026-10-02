@@ -73,7 +73,7 @@ overrides:
   '@devframes/hub': &devframe ^1.0.0
   '@nuxt/devtools': &nuxt-devtools ^4.0.0-alpha.20
   '@nuxt/devtools-kit': *nuxt-devtools
-  '@vitejs/devtools': &vite-devtools ^0.7.5
+  '@vitejs/devtools': &vite-devtools ^0.7.6
   '@vitejs/devtools-kit': *vite-devtools
   '@vitejs/devtools-rolldown': *vite-devtools
   chokidar: 5.0.0
