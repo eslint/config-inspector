@@ -91,7 +91,7 @@ allowBuilds:
 catalog:
   '@antfu/eslint-config': ^9.5.1
   '@axe-core/playwright': ^4.13.0
-  '@devframes/agentic': ^1.0.0
+  '@devframes/agentic': ^1.1.0
   '@devframes/vite': ^1.0.0
   '@eslint/config-array': ^0.23.5
   '@iconify-json/carbon': ^1.2.27
