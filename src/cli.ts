@@ -3,7 +3,7 @@ import c from 'ansis'
 import cac from 'cac'
 import { createDevServer, resolveDevServerPort } from 'devframe/adapters/dev'
 import { runBuild } from './build-wrapper'
-import { MARK_INFO } from './constants'
+import { MARK_ERROR, MARK_INFO } from './constants'
 import devframe from './devframe'
 
 const cli = cac('eslint-config-inspector')
@@ -30,7 +30,12 @@ cli
 cli
   .command('mcp', 'Start an MCP server exposing the inspector to coding agents (stdio) [experimental]')
   .action(async () => {
-    const { createMcpServer } = await import('devframe/adapters/mcp')
+    const { createMcpServer } = await import('devframe/adapters/mcp').catch((error) => {
+      if (error?.code !== 'ERR_MODULE_NOT_FOUND')
+        throw error
+      console.error(MARK_ERROR, 'The `mcp` command needs `@devframes/agentic`. Install it next to `@eslint/config-inspector`.')
+      process.exit(1)
+    })
     await createMcpServer(devframe, {
       transport: 'stdio',
       onReady: ({ transport }) => {
