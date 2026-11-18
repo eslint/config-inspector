@@ -42,10 +42,15 @@
     "typecheck": "nuxt typecheck"
   },
   "peerDependencies": {
+    "@devframes/agentic": "catalog:",
     "eslint": "^8.50.0 || ^9.0.0 || ^10.0.0"
   },
+  "peerDependenciesMeta": {
+    "@devframes/agentic": {
+      "optional": true
+    }
+  },
   "dependencies": {
-    "@devframes/agentic": "catalog:",
     "ansis": "catalog:",
     "cac": "catalog:",
     "chokidar": "catalog:",
@@ -56,6 +61,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
     "@axe-core/playwright": "catalog:",
+    "@devframes/agentic": "catalog:",
     "@devframes/vite": "catalog:",
     "@eslint/config-array": "catalog:",
     "@iconify-json/carbon": "catalog:",

@@ -332,9 +332,6 @@ importers:
 
   .:
     dependencies:
-      '@devframes/agentic':
-        specifier: 'catalog:'
-        version: 1.0.0(crossws@0.4.12(srvx@0.11.22))(devframe@1.0.0)(ocache@0.3.0)
       ansis:
         specifier: 'catalog:'
         version: 4.4.0
@@ -360,6 +357,9 @@ importers:
       '@axe-core/playwright':
         specifier: 'catalog:'
         version: 4.13.0(playwright-core@1.63.0)
+      '@devframes/agentic':
+        specifier: 'catalog:'
+        version: 1.0.0(crossws@0.4.12(srvx@0.11.22))(devframe@1.0.0)(ocache@0.3.0)
       '@devframes/vite':
         specifier: 'catalog:'
         version: 1.0.0(@devframes/hub-ui@1.0.0(@devframes/hub@1.0.0(@devframes/agentic@1.0.0)(crossws@0.4.12(srvx@0.11.22))(devframe@1.0.0)(ocache@0.3.0))(@devframes/json-render@1.0.0(@devframes/hub@1.0.0(@devframes/agentic@1.0.0)(crossws@0.4.12(srvx@0.11.22))(devframe@1.0.0)(ocache@0.3.0))(devframe@1.0.0))(devframe@1.0.0))(@devframes/hub@1.0.0(@devframes/agentic@1.0.0)(crossws@0.4.12(srvx@0.11.22))(devframe@1.0.0)(ocache@0.3.0))(devframe@1.0.0)(vite@8.3.0)
